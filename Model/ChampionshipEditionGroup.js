@@ -18,6 +18,6 @@ class ChampionshipEditionGroup {
     }
 
     table() {
-        return this.championshipEditionClubs.orderByDescending('points', 'won', 'goalsDifference', 'goalsFor');
+        return this.championshipEditionClubs.orderBy('-points', '-won', '-goalsDifference', '-goalsFor');
     }
 }

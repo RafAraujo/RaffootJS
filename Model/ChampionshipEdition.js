@@ -23,7 +23,7 @@ class ChampionshipEdition {
             let clubCount = this.championship.clubCount;
             let start = (division - 1) * clubCount;
             
-            let clubs = clubsAbleToPlay.orderByDescending('overall').slice(start, start + clubCount);
+            let clubs = clubsAbleToPlay.orderBy('-overall').slice(start, start + clubCount);
             clubs.forEach(c => this.championshipEditionClubs.push(new ChampionshipEditionClub(this, c)));
         }
         else {
@@ -168,7 +168,7 @@ class ChampionshipEdition {
     }
 
     table() {
-        return this.championshipEditionClubs.orderByDescending('eliminationPhasesWon', 'points', 'won', 'goalsDifference', 'goalsFor');
+        return this.championshipEditionClubs.orderBy('-eliminationPhasesWon', '-points', '-won', '-goalsDifference', '-goalsFor');
     }
 
     promotionZone() {
@@ -185,14 +185,14 @@ class ChampionshipEdition {
     }
 
     topScorers() {
-        return this.championshipEditionPlayers.orderByDescending('goals', 'appearances', 'timePlayed');
+        return this.championshipEditionPlayers.orderBy('-goals', 'appearances', 'timePlayed');
     }
 
     topAssists() {
-        return this.championshipEditionPlayers.orderByDescending('assists', 'appearances', 'timePlayed');
+        return this.championshipEditionPlayers.orderBy('-assists', 'appearances', 'timePlayed');
     }
 
     bestPlayers() {
-        return this.championshipEditionPlayers.orderByDescending('averageRating', 'appearances', 'timePlayed');
+        return this.championshipEditionPlayers.orderBy('-averageRating', 'appearances', 'timePlayed');
     }
 }

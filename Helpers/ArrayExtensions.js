@@ -40,19 +40,22 @@ Array.prototype.max = function() {
 }
 
 Array.prototype.orderBy = function() {
-    return this.sort(dynamicSort(arguments, 1));
+    return this.sort(dynamicSort(arguments));
 }
 
-Array.prototype.orderByDescending = function() {
-    return this.sort(dynamicSort(arguments, -1));
-}
-
-function dynamicSort(properties, order) {
+function dynamicSort(properties) {
     return function (a, b) {
         let i = 0, result = 0;
 
         while (result === 0 && i < properties.length) {
+            let order = 1;
             let property = properties[i++];
+
+            if (property[0] === '-') {
+                order = -1;
+                property = property.substr(1);
+            }
+
             if (typeof a[property] === 'string')
                 result = a[property].localeCompare(b[property]) * order;
             else
