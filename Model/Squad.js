@@ -2,6 +2,9 @@ class Squad {
     constructor() {
         this.formation = null;
         this.squadPlayers = [];
+
+        this._freeKickTaker = null;
+        this._penaltyTaker = null;        
     }
     
     generate(club) {
@@ -25,11 +28,19 @@ class Squad {
     }
 
     set freeKickTaker(squadPlayer) {
-        this.freeKickTaker = this.findPlayer(squadPlayer);
+        this._freeKickTaker = this.findSquadPlayer(squadPlayer);
+    }
+
+    get freeKickTaker() {
+        return this._freeKickTaker;
     }
 
     set penaltyTaker(squadPlayer) {
-        this.penaltyTaker = this.findPlayer(squadPlayer);
+        this._penaltyTaker = this.findSquadPlayer(squadPlayer);
+    }
+
+    get penaltyTaker() {
+        return this._penaltyTaker;
     }
 
     findSquadPlayer(squadPlayer) {
@@ -40,11 +51,10 @@ class Squad {
 
         return found;
     }
-
+    
     get overall() {
-        let value = 0;
-        this.squadPlayers.forEach(sp => value += sp.player.overall);
-        return value / this.squadPlayers.length;
+        let sum = this.squadPlayers.map(sp => sp.player.overall).sum();
+        return sum / this.squadPlayers.length;
     }
 
     get wage() {
