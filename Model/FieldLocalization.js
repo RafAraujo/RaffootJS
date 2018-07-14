@@ -72,9 +72,9 @@ class FieldLocalization {
     }
     
     name() {
-        let side = '';
         let positions = Position.all();
-        
+        let side = '';
+
         if (positions.filter(p => ['CB', 'CDM', 'CM', 'CAM', 'ST'].some(a => a == p.abbreviation)).some(p => p == this.position))
             side = ['L', 'L', '', 'R', 'R'][this.column]
         
