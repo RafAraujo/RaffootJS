@@ -13,11 +13,13 @@ class Championship {
     }
 
     static seed() {
-        let nationalCup = ChampionshipType.find('national', 'cup');
-        let nationalLeague = ChampionshipType.find('national', 'league');
-        let continentalCup = ChampionshipType.find('continental', 'cup');
-        let continentalSuperCup = ChampionshipType.find('continental', 'superCup');
-        let worldwideSuperCup = ChampionshipType.find('worldwide', 'superCup');
+        let championshipTypes = ChampionshipType.all();
+
+        let nationalCup = championshipTypes.find(c => c.scope === 'national' && c.format === 'cup');
+        let nationalLeague = championshipTypes.find(c => c.scope === 'national' && c.format === 'league');
+        let continentalCup = championshipTypes.find(c => c.scope === 'continental' && c.format === 'cup');
+        let continentalSuperCup = championshipTypes.find(c => c.scope === 'continental' && c.format === 'superCup');
+        let worldwideSuperCup = championshipTypes.find(c => c.scope === 'worldwide' && c.format === 'superCup');
 
         let countries = Country.playable();
 

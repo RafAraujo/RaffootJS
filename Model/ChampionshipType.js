@@ -23,14 +23,6 @@ class ChampionshipType {
         return _championshipTypes;
     }
 
-    static find(scope, format) {
-        return _championshipTypes.find(ct => ct.scope === scope && ct.format === format);
-    }
-
-    static filter(scope = null, format = null) {
-        return _championshipTypes.filter(ct => (ct.scope === scope || scope == null) && (ct.format === format || format == null));
-    }
-
     addChampionship(value) {
         this.championships.push(value);
     }

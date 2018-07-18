@@ -31,10 +31,12 @@ class Season {
     }
 
     get championshipTypes() {
+        let championshipTypes = ChampionshipType.all(); 
+
         if (this === Season.firstSeason())
-            return ChampionshipType.filter('national');
+            return championshipTypes.filter(c => c.scope === 'national');
         else if (this === _seasons[1])
-            return ChampionshipType.filter('national').concat(ChampionshipType.filter('continental'));
+            return championshipType.filter(c => c.scope === 'national' || c.scope === 'continental');
         else
             return ChampionshipType.all();
     }
@@ -51,8 +53,8 @@ class Season {
     defineCalendar() {
         let championshipTypes = this.championshipTypes.slice();
 
-        let continentalSuperCup = ChampionshipType.find('continental', 'superCup');
-        let worldwideSuperCup = ChampionshipType.find('worldwide', 'superCup');
+        let continentalSuperCup = ChampionshipType.all().find(c => c.scope === 'continental' && c.format === 'superCup');
+        let worldwideSuperCup = ChampionshipType.all().find(c => c.scope === 'worldwide' && c.format === 'superCup');
 
         let date = Date.firstSunday(1, this.year);
         this.addSeasonDate(date, continentalSuperCup);
