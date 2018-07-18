@@ -62,7 +62,9 @@ class ChampionshipEdition {
 
         for (let i = 0; i < this.championship.groupCount; i++) {
             let group = new ChampionshipEditionGroup(this, i + 1);
-            group.addClub(championshipEditionClubs.remove(championshipEditionClubs.getRandomItem()));
+            for (let j = 0; j < this.championship.groupClubCoun; j++) {
+                group.addClub(championshipEditionClubs.remove(championshipEditionClubs.getRandomItem()));   
+            }
             this.groups.push(group);
         }
     }
