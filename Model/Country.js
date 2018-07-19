@@ -67,7 +67,7 @@ class Country {
 
     get cupClubCount() {
         let count = NATIONAL_CUP_MAX_CLUB_COUNT;
-        while (this.clubs.length < count)
+        while (count > this.clubs.length)
             count /= 2;
         return count;
     }
