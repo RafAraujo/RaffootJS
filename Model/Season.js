@@ -18,22 +18,22 @@ class Season {
         return _seasons;
     }
 
-    static firstSeason() {
+    static first() {
         return _seasons.first();
     }
 
-    static currentSeason() {
+    static current() {
         return _seasons.last();
     }
 
-    previousSeason() {
-        return this === Season.firstSeason() ? null : _seasons[_seasons.length - 2];
+    previous() {
+        return this === Season.first() ? null : _seasons[_seasons.length - 2];
     }
 
     get championshipTypes() {
         let championshipTypes = ChampionshipType.all(); 
 
-        if (this === Season.firstSeason())
+        if (this === Season.first())
             return championshipTypes.filter(c => c.scope === 'national');
         else if (this === _seasons[1])
             return championshipType.filter(c => c.scope === 'national' || c.scope === 'continental');
@@ -123,7 +123,7 @@ class Season {
         this.finished = this.currentSeasonDateIndex === this.seasonDates.length;
     }
 
-    matchesOf(date) {
+    getMatches(date) {
         return this.selectMany('championshipEditions.matches').filter(m => m.date === date);
     }
 }

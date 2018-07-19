@@ -17,7 +17,7 @@ class ChampionshipEdition {
     }
 
     defineClubs() {
-        if (this.year === Season.firstSeason().year) {
+        if (this.year === Season.first().year) {
             let clubsAbleToPlay = this.championship.clubsAbleToPlay;
             let division = this.championship.division || 1;
             let clubCount = this.championship.clubCount;
@@ -72,7 +72,7 @@ class ChampionshipEdition {
             this.groups.push(group);
         }
     }
-    
+
     defineEliminationPhases() {
         let clubCount = this.championship.regulation === 'groups' ?
             this.championship.groupCount * this.championship.qualifiedClubsByGroupCount :
