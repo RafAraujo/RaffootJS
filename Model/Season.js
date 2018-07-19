@@ -3,7 +3,7 @@ let _seasons = [];
 class Season {
     constructor(year) {
         this.year = year;
-        this.championshipEditions = [];
+        this._championshipEditions = [];
         this.seasonDates = [];
         this.currentSeasonDateIndex = 0;
         this.finished = false;
@@ -41,13 +41,17 @@ class Season {
             return ChampionshipType.all();
     }
 
+    get championshipEditions() {
+        return this._championshipEditions;
+    }
+
     defineChampionshipEditions() {
         let championships = Championship.all().filter(c => this.championshipTypes.includes(c.championshipType));
-        championships.forEach(c => this.championshipEditions.push(new ChampionshipEdition(c, this.year)));
+        championships.forEach(c => this._championshipEditions.push(new ChampionshipEdition(c, this.year)));
     }
 
     hasChampionship(championshipType) {
-        return this.championshipEditions.some(ce => ce.championship.championshipType === championshipType);
+        return this._championshipEditions.some(ce => ce.championship.championshipType === championshipType);
     }
 
     defineCalendar() {
@@ -73,7 +77,7 @@ class Season {
 
     totallyScheduled(championshipType) {
         let scheduledDates = this.seasonDates.filter(sd => sd.championshipType === championshipType).length;
-        let neededDates = this.championshipEditions.filter(ce => ce.championship.championshipType === championshipType).map(ce => ce.championship.dateCount).max();
+        let neededDates = this._championshipEditions.filter(ce => ce.championship.championshipType === championshipType).map(ce => ce.championship.dateCount).max();
         return scheduledDates === neededDates;
     }
 
@@ -83,8 +87,8 @@ class Season {
     }
 
     schedule() {
-        for (let i = 0; i < this.championshipEditions.length; i++) {
-            let championshipEdition = this.championshipEditions[i];
+        for (let i = 0; i < this._championshipEditions.length; i++) {
+            let championshipEdition = this._championshipEditions[i];
             championshipEdition.defineClubs();
             let dates = this.seasonDates.filter(sd => sd.championshipType === championshipEdition.championship.championshipType).map(sd => sd.date);
             championshipEdition.scheduleMatches(dates);
@@ -92,7 +96,7 @@ class Season {
     }
 
     mainContinentalCup(confederation) {
-        return this.championshipEditions.find(c => c.championship.confederation === confederation && c.championship.division === 1);
+        return this._championshipEditions.find(c => c.championship.confederation === confederation && c.championship.division === 1);
     }
 
     get currentSeasonDate() {

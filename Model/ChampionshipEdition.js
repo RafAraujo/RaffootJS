@@ -16,6 +16,24 @@ class ChampionshipEdition {
         return this.championship.name + ' ' + this.year;
     }
 
+    get groupDates() {
+        if (this.championship.regulation != 'groups')
+            return [];
+        else
+            return this.dates.slice(0, this.championship.groupDatesCount - 1);
+    }
+
+    get eliminationPhaseDates() {
+        if (this.championship.regulation === 'round-robin')
+            return [];
+        else
+            return this.dates.slice(this.championship.groupDatesCount);
+    }
+
+    get clubs() {
+        return this.championshipEditionClubs.map(cec => cec.club);
+    }
+
     defineClubs() {
         if (this.year === Season.first().year) {
             let clubsAbleToPlay = this.championship.clubsAbleToPlay;
@@ -94,20 +112,6 @@ class ChampionshipEdition {
             let fixture = new ChampionshipEditionFixture(this, i + 1);
             this.fixtures.push(fixture);
         }
-    }
-
-    get groupDates() {
-        if (this.championship.regulation != 'groups')
-            return [];
-        else
-            return this.dates.slice(0, this.championship.groupDatesCount - 1);
-    }
-
-    get eliminationPhaseDates() {
-        if (this.championship.regulation === 'round-robin')
-            return [];
-        else
-            return this.dates.slice(this.championship.groupDatesCount);
     }
 
     scheduleMatchesGroups() {

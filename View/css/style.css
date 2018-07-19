@@ -1,6 +1,6 @@
 html, body {
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-size: 2vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 3vh;
 }
 html * {
     font-size: 1em;
@@ -31,13 +31,5 @@ div {
     align-items: center;
     justify-content: center;
     min-height: 5vh;
-    width: 100vw;
-}
-.buttonContainer {
-    flex-direction: column;
-}
-.buttonContainer button {
-    font-weight: bold;
-    margin: 1vh;
-    width: 100%;
+    width: 99vw;
 }

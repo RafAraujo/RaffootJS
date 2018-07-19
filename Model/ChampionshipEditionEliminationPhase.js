@@ -21,7 +21,7 @@ class ChampionshipEditionEliminationPhase {
 
     qualify(championshipEditionClubs) {
         if (championshipEditionClubs.length !== this.clubCount)
-            throw new Error('ChampionshipEditionGroup.addClub(value)');
+            throw new Error('ChampionshipEditionGroup.addClub(championshipEditionClubs)');
 
         this.championshipEditionClubs = championshipEditionClubs;
     }

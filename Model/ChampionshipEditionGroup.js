@@ -12,7 +12,7 @@ class ChampionshipEditionGroup {
 
     addClub(championshipEditionClub) {
         if (this.championshipEditionClubs.length === GROUP_CLUB_COUNT)
-            throw new Error('ChampionshipEditionGroup.addClub(value)');
+            throw new Error('ChampionshipEditionGroup.addClub(championshipEditionClub)');
 
         this.clubs.push(championshipEditionClub);
     }

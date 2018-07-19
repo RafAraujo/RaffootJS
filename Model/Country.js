@@ -84,6 +84,16 @@ class Country {
         this.stadiums.push(value);
     }
 
+    divisionClubs(division) {
+        let season = Season.current();
+        let league = ChampionshipType.all().find(c => c.scope === 'national' && c.format === 'league');
+        let championshipEditions = season.championshipEditions;
+        let championshipEdition = championshipEditions.find(ce => ce.championship.championshipType === league &&
+            ce.championship.country === this &&
+            ce.championship.division === division);
+        return championshipEdition.clubs;
+    }
+
     populateNames() {
         if (this.abbreviation === 'ARG') {
             this.names = [
