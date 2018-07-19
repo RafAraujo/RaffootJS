@@ -13,7 +13,7 @@ class Referee {
 
         for (let i = 0; i < countries.length; i++) {
             let country = countries[i];
-            for (let j = 0; j < Club.playable().filter(c => c.country === country).length / 2; j++)
+            for (let j = 0; j < country.playableClubs.length / 2; j++)
                  _referees.push(new Referee(country));
         }
     }
