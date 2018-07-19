@@ -62,13 +62,17 @@ class ChampionshipEdition {
 
         for (let i = 0; i < this.championship.groupCount; i++) {
             let group = new ChampionshipEditionGroup(this, i + 1);
-            for (let j = 0; j < this.championship.groupClubCoun; j++) {
-                group.addClub(championshipEditionClubs.remove(championshipEditionClubs.getRandomItem()));   
+
+            for (let j = 0; j < this.championship.groupClubCount; j++) {
+                let club = championshipEditionClubs.getRandomItem();
+                group.addClub(club);
+                championshipEditionClubs.remove(club);   
             }
+
             this.groups.push(group);
         }
     }
-
+    
     defineEliminationPhases() {
         let clubCount = this.championship.regulation === 'groups' ?
             this.championship.groupCount * this.championship.qualifiedClubsByGroupCount :

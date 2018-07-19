@@ -68,6 +68,10 @@ class Championship {
         return this.regulation === 'groups' ? this.clubCount / GROUP_CLUB_COUNT : 0;
     }
 
+    get groupClubCount() {
+        return this.regulation === 'groups' ? GROUP_CLUB_COUNT : null;
+    }
+
     get qualifiedClubsByGroupCount() {
         return GROUP_QUALIFIED_CLUB_COUNT;
     }
