@@ -2168,7 +2168,17 @@ class Club {
             c.push(new Club("Zamora CF", spain));
         }
 
+        let countries = Country.playable();
+
+        for (let i = 0; i < countries.length; i++) {
+            let country = countries[i];
+            _clubs.filter(c => c.country === country).getRandomItems(country.playableClubsCount).forEach(c => c.playable = true);
+        }
+
+        _playableClubs = _clubs.filter(c => c.playable);
+
         Object.freeze(_clubs);
+        Object.freeze(_playableClubs);
     }
 
     static all() {
@@ -2176,17 +2186,6 @@ class Club {
     }
 
     static playable() {
-        if (_playableClubs.length === 0)
-        {
-            let countries = Country.all();
-
-            for (let i = 0; i < countries.length; i++) {
-                let country = countries[i];
-                _clubs.filter(c => c.country === country).getRandomItems(country.playableClubsCount).forEach(c => c.playable = true);
-            }
-
-            _playableClubs = _clubs.filter(c => c.playable);
-        }
         return _playableClubs;
     }
 

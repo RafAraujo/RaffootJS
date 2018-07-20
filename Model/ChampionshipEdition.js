@@ -54,7 +54,7 @@ class ChampionshipEdition {
         this.dates = dates;
 
         if (this.championshipEditionClubs.length === 0 || this.dates == null)
-            throw new Error('ChampionshipEdition.scheduleMatches()')
+            throw new Error('ChampionshipEdition.scheduleMatches(dates)')
 
         switch (this.championship.regulation) {
             case 'groups':
@@ -71,7 +71,7 @@ class ChampionshipEdition {
                 this.scheduleMatchesRoundRobin();
                 break;
             default:
-                throw new Error('ChampionshipEdition.scheduleMatches()');
+                throw new Error('ChampionshipEdition.scheduleMatches(dates)');
         }
     }
 

@@ -27,7 +27,7 @@ class Season {
     }
 
     previous() {
-        return this === Season.first() ? null : _seasons[_seasons.length - 2];
+        return _seasons[_seasons.length - 2] || null;
     }
 
     get championshipTypes() {
