@@ -1,9 +1,15 @@
+let _championshipEditionEliminationPhases = [];
+
 class ChampionshipEditionEliminationPhase {
     constructor(championshipEdition, clubCount) {
+        this.id = _championshipEditionEliminationPhases.length + 1;
+        
         this.championshipEdition = championshipEdition;
         this.clubCount = clubCount;
         this.championshipEditionClubs = [];
         this.matches = [];
+
+        _championshipEditionEliminationPhases.push(this);
     }
 
     get name() {

@@ -1,30 +1,23 @@
+let _squads = [];
+
 class Squad {
     constructor() {
-        this.formation = null;
+        this.id = _squads.length + 1;
+        this._formation = Formation.all().getRandomItem();
         this.squadPlayers = [];
 
         this._freeKickTaker = null;
-        this._penaltyTaker = null;        
+        this._penaltyTaker = null;
+        
+        _squads.push(this);
     }
-    
-    generate(club) {
-        this.formation = Formation.all().getRandomItem();
 
-        let fieldRegions = FieldRegion.all();
-        let date = Date.firstDayCurrentYear();
+    get formation() {
+        return this._formation;
+    }
 
-        for (let i = 0; i < fieldRegions.length; i++) {
-            let fieldRegion = fieldRegions[i];
-            let count = fieldRegion.name === 'goal' ?
-                Random.numberBetween(2, 3) :
-                Math.round(this.formation.fieldLocalizations.filter(fl => fl.position.fieldRegion === fieldRegion).length * Random.numberBetween(15, 25) / 10);
-
-            for (let j = 0; j < count; j++) {
-                let player = new Player(club.country, fieldRegion);
-                let contract = new Contract(club, player, 'definitive', 0, player.baseWage, date,date.addMonths(Random.numberBetween(6, 24)));
-                contract.sign();
-            }
-        }
+    set formation(value) {
+        this._formation = value;
     }
 
     set freeKickTaker(squadPlayer) {

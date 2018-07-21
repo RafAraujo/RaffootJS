@@ -1,5 +1,8 @@
+let _championshipEditions = [];
+
 class ChampionshipEdition {
     constructor (championship, year) {
+        this.id = _championshipEditions.length + 1;
         this.championship = championship;
         this.year = year;
 
@@ -10,6 +13,8 @@ class ChampionshipEdition {
         this.dates = [];
         this.matches = [];
         this.championshipEditionPlayers = [];
+
+        _championshipEditions.push(this);
     }
 
     get name() {

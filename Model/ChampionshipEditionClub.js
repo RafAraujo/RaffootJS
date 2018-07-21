@@ -1,5 +1,8 @@
+_championshipEditionClubs = [];
+
 class ChampionshipEditionClub {
     constructor(championshipEdition, club) {
+        this.id = _championshipEditionClubs.length + 1;
         this.championshipEdition = championshipEdition;
         this.club = club;
 
@@ -10,6 +13,8 @@ class ChampionshipEditionClub {
         this.lost = 0;
         this.goalsFor = 0;
         this.goalsAgainst = 0;
+
+        _championshipEditionClubs.push(this);
     }
 
     get points() {

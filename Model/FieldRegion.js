@@ -2,15 +2,20 @@ let _fieldRegions = [];
 
 class FieldRegion {
     constructor(name) {
+        this.id = _fieldRegions.length + 1;
         this.name = name;
         this.positions = [];
+
+        _fieldRegions.push(this);
     }
 
     static seed() {
-        _fieldRegions.push(new FieldRegion('goal'));
-        _fieldRegions.push(new FieldRegion('defense'));
-        _fieldRegions.push(new FieldRegion('midfield'));
-        _fieldRegions.push(new FieldRegion('attack'));
+        new FieldRegion('goal');
+        new FieldRegion('defense');
+        new FieldRegion('midfield');
+        new FieldRegion('attack');
+
+        Object.freeze(_fieldRegions);
     }
 
     static all() {

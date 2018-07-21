@@ -1,5 +1,8 @@
+let _matchPlayerStats = [];
+
 class MatchPlayerStats {
     constructor(matchPlayer) {
+        this.id = _matchPlayerStats.length + 1;
         this.matchPlayer = matchPlayer;
 
         //Defending scouts
@@ -23,6 +26,8 @@ class MatchPlayerStats {
         this.penaltyMissses = 0;
         this.offsides = 0;
         this.wrongPasses = 0;
+
+        _matchPlayerStats.push(this);
     }
 
     get rating() {

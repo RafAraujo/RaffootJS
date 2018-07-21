@@ -1,7 +1,10 @@
 let _championshipTypes = [];
 
+let championshipTypes = [];
+
 class ChampionshipType {
     constructor(scope, format, regulation, twoLeggedTie) {
+        this.id = championshipTypes.length + 1;
         this.scope = scope;
         this.format = format;
         this.regulation = regulation;

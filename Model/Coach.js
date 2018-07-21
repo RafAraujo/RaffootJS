@@ -2,9 +2,12 @@ let _coaches = [];
 
 class Coach {
     constructor(country) {
+        this.id = _coaches.length + 1;
         this.country = country;
         this._name = country.names.getRandomItem();
         this._surname = country.surnames.getRandomItem();
+
+        _coaches.push(this);
     }
 
     set name(value) {

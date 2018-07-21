@@ -23,7 +23,7 @@ h4 {
 h5 {
     font-size: 1.25em;
 }
-div {
+.flex {
     display: flex;
     flex-wrap: wrap;
 }

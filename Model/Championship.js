@@ -2,6 +2,7 @@ let _championships = [];
 
 class Championship {
     constructor(name, championshipType, country, confederation, division, clubCount) {
+        this.id = _championships.length + 1;
         this.name = name;
         this.championshipType = championshipType;
         this.country = country;
@@ -9,6 +10,7 @@ class Championship {
         this.division = division;
         this.clubCount = clubCount;
 
+        _championships.push(this);
         championshipType.addChampionship(this);
     }
 
@@ -26,11 +28,11 @@ class Championship {
         for (let i = 0; i < countries.length; i++) {
             let country = countries[i];
 
-            _championships.push(new Championship(country.name + ' Cup', nationalCup, country, null, null, country.cupClubCount));
+            new Championship(country.name + ' Cup', nationalCup, country, null, null, country.cupClubCount);
 
             for (let j = 0; j < country.divisionCount; j++) {
                 let division = j + 1;
-                _championships.push(new Championship(country.name + ' League ' + division, nationalLeague, country, null, division, country.leagueClubCount));
+                new Championship(country.name + ' League ' + division, nationalLeague, country, null, division, country.leagueClubCount);
             }
         }
 
@@ -41,13 +43,13 @@ class Championship {
 
             for (let j = 0; j < confederation.divisionCount; j++) {
                 let division = j + 1;
-                _championships.push(new Championship(confederation.cupName(division), continentalCup, null, confederation, division, confederation.cupClubCount));
+                new Championship(confederation.cupName(division), continentalCup, null, confederation, division, confederation.cupClubCount);
             }
                    
-            _championships.push(new Championship(confederation.name + ' Super Cup', continentalSuperCup, null, confederation, null, 2));
+            new Championship(confederation.name + ' Super Cup', continentalSuperCup, null, confederation, null, 2);
         }
 
-        _championships.push(new Championship('World Cup', worldwideSuperCup, null, null, null, 2));
+        new Championship('World Cup', worldwideSuperCup, null, null, null, 2);
 
         Object.freeze(_championships);
     }

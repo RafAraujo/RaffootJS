@@ -10,6 +10,8 @@ class FieldLocalization {
         this.column = column;
 
         this.name = this.name();
+
+        _fieldLocalizations.push(this);
     }
 
     static seed() {
@@ -32,37 +34,37 @@ class FieldLocalization {
         let st = positions.find(p => p.name === 'Striker');
         let cf = positions.find(p => p.name === 'Center Forward');
 
-        _fieldLocalizations.push(new FieldLocalization(gk, 0, 2));
+        new FieldLocalization(gk, 0, 2);
 
         for (let i = 1; i < 4; i++)
-            _fieldLocalizations.push(new FieldLocalization(cb, 2, i));
+            new FieldLocalization(cb, 2, i);
 
-        _fieldLocalizations.push(new FieldLocalization(lb, 3, 0));
-        _fieldLocalizations.push(new FieldLocalization(rb, 3, 4));
+        new FieldLocalization(lb, 3, 0);
+        new FieldLocalization(rb, 3, 4);
 
-        _fieldLocalizations.push(new FieldLocalization(lwb, 4, 0));
-        _fieldLocalizations.push(new FieldLocalization(rwb, 4, 4));
-
-        for (let i = 1; i < 4; i++)
-            _fieldLocalizations.push(new FieldLocalization(cdm, 5, i));
+        new FieldLocalization(lwb, 4, 0);
+        new FieldLocalization(rwb, 4, 4);
 
         for (let i = 1; i < 4; i++)
-            _fieldLocalizations.push(new FieldLocalization(cm, 6, i));
-
-        _fieldLocalizations.push(new FieldLocalization(lm, 7, 0));
-        _fieldLocalizations.push(new FieldLocalization(rm, 7, 4));
+            new FieldLocalization(cdm, 5, i);
 
         for (let i = 1; i < 4; i++)
-            _fieldLocalizations.push(new FieldLocalization(cam, 8, i));
+            new FieldLocalization(cm, 6, i);
 
-        _fieldLocalizations.push(new FieldLocalization(lw, 9, 0));
-        _fieldLocalizations.push(new FieldLocalization(ss, 9, 2));
-        _fieldLocalizations.push(new FieldLocalization(rw, 9, 4));
+        new FieldLocalization(lm, 7, 0);
+        new FieldLocalization(rm, 7, 4);
 
-        _fieldLocalizations.push(new FieldLocalization(st, 10, 1));
-        _fieldLocalizations.push(new FieldLocalization(st, 10, 3));
+        for (let i = 1; i < 4; i++)
+            new FieldLocalization(cam, 8, i);
 
-        _fieldLocalizations.push(new FieldLocalization(cf, 11, 2));
+        new FieldLocalization(lw, 9, 0);
+        new FieldLocalization(ss, 9, 2);
+        new FieldLocalization(rw, 9, 4);
+
+        new FieldLocalization(st, 10, 1);
+        new FieldLocalization(st, 10, 3);
+
+        new FieldLocalization(cf, 11, 2);
 
         Object.freeze(_fieldLocalizations);
     }

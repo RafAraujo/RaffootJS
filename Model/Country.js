@@ -3,6 +3,7 @@ let _playableCountries = [];
 
 class Country {
     constructor(name, abbreviation, confederation, playable) {
+        this.id = _countries.length + 1;
         this.name = name;
         this.abbreviation = abbreviation;
         this.playable = playable;
@@ -13,6 +14,7 @@ class Country {
 
         this.populateNames();
 
+        _countries.push(this);
         confederation.addCountry(this);
     }
 
@@ -22,23 +24,23 @@ class Country {
         let america = confederations.find(c => c.name === 'America');
         let europe = confederations.find(c => c.name === 'Europe');
 
-        _countries.push(new Country('Argentina', 'ARG', america, true));
-        _countries.push(new Country('Brazil', 'BRA', america, true));
-        _countries.push(new Country('Chile', 'CHI', america, true));
-        _countries.push(new Country('Colombia', 'COL', america, true));
-        _countries.push(new Country('Ecuador', 'ECU', america, true));
-        _countries.push(new Country('Mexico', 'MEX', america, true));
-        _countries.push(new Country('Paraguay', 'PAR', america, true));
-        _countries.push(new Country('Uruguay', 'URU', america, true));
+        new Country('Argentina', 'ARG', america, true);
+        new Country('Brazil', 'BRA', america, true);
+        new Country('Chile', 'CHI', america, true);
+        new Country('Colombia', 'COL', america, true);
+        new Country('Ecuador', 'ECU', america, true);
+        new Country('Mexico', 'MEX', america, true);
+        new Country('Paraguay', 'PAR', america, true);
+        new Country('Uruguay', 'URU', america, true);
 
-        _countries.push(new Country('France', 'FRA', europe, true));
-        _countries.push(new Country('England', 'ENG', europe, true));
-        _countries.push(new Country('Germany', 'GER', europe, true));
-        _countries.push(new Country('Italy', 'ITA', europe, true));
-        _countries.push(new Country('Netherlands', 'NED', europe, true));
-        _countries.push(new Country('Portugal', 'POR', europe, true));
-        _countries.push(new Country('Russia', 'RUS', europe, true));
-        _countries.push(new Country('Spain', 'ESP', europe, true));
+        new Country('France', 'FRA', europe, true);
+        new Country('England', 'ENG', europe, true);
+        new Country('Germany', 'GER', europe, true);
+        new Country('Italy', 'ITA', europe, true);
+        new Country('Netherlands', 'NED', europe, true);
+        new Country('Portugal', 'POR', europe, true);
+        new Country('Russia', 'RUS', europe, true);
+        new Country('Spain', 'ESP', europe, true);
 
         Object.freeze(_countries);
     }

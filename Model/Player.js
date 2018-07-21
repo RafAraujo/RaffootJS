@@ -2,6 +2,7 @@ let _players = [];
 
 class Player {
     constructor(country, fieldRegion) {
+        this.id = _players.length + 1;
         this.birth = generateBirthDate();
         this.country = country;
         this._name = this.country.names.getRandomItem();

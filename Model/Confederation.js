@@ -2,13 +2,16 @@ let _confederations = [];
 
 class Confederation {
     constructor(name) {
+        this.id = _confederations.length + 1;
         this.name = name;
         this.countries = [];
+
+        _confederations.push(this);
     }
 
     static seed() {
-        _confederations.push(new Confederation('America'));
-        _confederations.push(new Confederation('Europe'));
+        new Confederation('America');
+        new Confederation('Europe');
 
         Object.freeze(_confederations);
     }

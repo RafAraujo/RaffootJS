@@ -1,9 +1,14 @@
+let _championshipEditionGroups = [];
+
 class ChampionshipEditionGroup {
     constructor(championshipEdition, number) {
+        this.id = _championshipEditionGroups.length + 1;
         this.championshipEdition = championshipEdition;
         this.number = number;
         this.championshipEditionClubs = [];
         this.matches = [];
+
+        _championshipEditionGroups.push(this);
     }
 
     get name() {
@@ -14,7 +19,7 @@ class ChampionshipEditionGroup {
         if (this.championshipEditionClubs.length === GROUP_CLUB_COUNT)
             throw new Error('ChampionshipEditionGroup.addClub(championshipEditionClub)');
 
-        this.clubs.push(championshipEditionClub);
+        this.championshipEditionClubs.push(championshipEditionClub);
     }
 
     table() {

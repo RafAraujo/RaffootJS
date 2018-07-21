@@ -2,6 +2,7 @@ let _seasons = [];
 
 class Season {
     constructor(year) {
+        this.id = _seasons.length + 1;
         this.year = year;
         this._championshipEditions = [];
         this.seasonDates = [];
@@ -65,6 +66,7 @@ class Season {
 
         let championshipType = null;
         while ((championshipType = championshipTypes.find(ct => !this.totallyScheduled(ct))) != null) {
+           
             date = date.addDays(date.getDay() === 0 ? 3 : 4);
             if (date.getMonth() === 6) continue;
             this.addSeasonDate(date, championshipType);

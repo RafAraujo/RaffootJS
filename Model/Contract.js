@@ -1,5 +1,8 @@
+let _contracts = [];
+
 class Contract {
     constructor(club, player, type, fee, wage, beginDate, endDate) {
+        this.id = _contracts.length + 1;
         this.club = club;
         this.player = player;
         this.type = type;
@@ -7,6 +10,8 @@ class Contract {
         this.wage = wage;
         this.beginDate = beginDate;
         this.endDate = endDate;
+
+        _contracts.push(this);
     }
 
     sign() {

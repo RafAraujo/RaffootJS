@@ -4,7 +4,7 @@ function fillSelect(id, array) {
     select.appendChild(new Option());
     for (let i = 0; i < array.length; i++) {
         let object = array[i];
-        select.appendChild(new Option(object.name, object.name));
+        select.appendChild(new Option(object.name, object.id));
     }
 }
 
