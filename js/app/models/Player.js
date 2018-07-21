@@ -36,7 +36,7 @@ class Player {
     }
 
     get completeName() {
-        return this._name + ' ' + this._surname.toUpperCase();
+        return `${this._name} ${this._surname.toUpperCase()}`;
     }
 
     get club() {

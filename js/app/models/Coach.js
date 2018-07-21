@@ -23,6 +23,6 @@ class Coach {
     }
 
     get completeName() {
-        return this._name + ' ' + this._surname.toUpperCase();
+        return `${this._name} ${this._surname.toUpperCase()}`;
     }
 }
