@@ -78,22 +78,20 @@ class Country {
         return this.clubs.filter(c => c.playable);
     }
 
+    get leaguesCurrentSeason() {
+        let season = Season.current();
+        let league = ChampionshipType.all().find(c => c.scope === 'national' && c.format === 'league');
+        let championshipEditions = season.championshipEditions;
+        let championshipEditions = championshipEditions.filter(ce => ce.championship.championshipType === league && ce.championship.country === this);
+        return championshipEdition;
+    }
+
     addClub(value) {
         this.clubs.push(value);
     }
 
     addStadium(value) {
         this.stadiums.push(value);
-    }
-
-    divisionClubs(division) {
-        let season = Season.current();
-        let league = ChampionshipType.all().find(c => c.scope === 'national' && c.format === 'league');
-        let championshipEditions = season.championshipEditions;
-        let championshipEdition = championshipEditions.find(ce => ce.championship.championshipType === league &&
-            ce.championship.country === this &&
-            ce.championship.division === division);
-        return championshipEdition.clubs;
     }
 
     populateNames() {

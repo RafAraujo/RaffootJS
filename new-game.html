@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Raffoot</title>
+
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    </head>
+    <body>
+        <h5>Raffoot 2018</h5>
+
+        <form>
+            <fieldset>
+                <legend>Choose your club</legend>
+                
+                <label>Country</label>
+                <br>
+                <select id="ddlCountries"></select>
+                <br><br>
+
+                <label>Club</label>
+                <br>
+                <select id="ddlClubs"></select>
+                <br>
+            </fieldset>
+        </form>
+        <script src="js/app/Config/Config.js"></script>
+
+        <script src="js/app/helpers/ArrayExtensions.js"></script>
+        <script src="js/app/helpers/DateExtensions.js"></script>
+        <script src="js/app/helpers/ObjectExtensions.js"></script>
+        <script src="js/app/helpers/Random.js"></script>
+        <script src="js/app/helpers/StringExtensions.js"></script>
+
+        <script src="js/app/models/Championship.js"></script>
+        <script src="js/app/models/ChampionshipEdition.js"></script>
+        <script src="js/app/models/ChampionshipEditionClub.js"></script>
+        <script src="js/app/models/ChampionshipEditionEliminationPhase.js"></script>
+        <script src="js/app/models/ChampionshipEditionFixture.js"></script>
+        <script src="js/app/models/ChampionshipEditionGroup.js"></script>
+        <script src="js/app/models/ChampionshipEditionPlayer.js"></script>
+        <script src="js/app/models/ChampionshipType.js"></script>
+        <script src="js/app/models/Club.js"></script>
+        <script src="js/app/models/Coach.js"></script>
+        <script src="js/app/models/Confederation.js"></script>
+        <script src="js/app/models/Contract.js"></script>
+        <script src="js/app/models/Country.js"></script>
+        <script src="js/app/models/FieldLocalization.js"></script>
+        <script src="js/app/models/FieldRegion.js"></script>
+        <script src="js/app/models/Formation.js"></script>
+        <script src="js/app/models/Match.js"></script>
+        <script src="js/app/models/MatchClub.js"></script>
+        <script src="js/app/models/MatchClubStats.js"></script>
+        <script src="js/app/models/MatchPlayer.js"></script>
+        <script src="js/app/models/MatchPlayerStats.js"></script>
+        <script src="js/app/models/Player.js"></script>
+        <script src="js/app/models/Position.js"></script>
+        <script src="js/app/models/Referee.js"></script>
+        <script src="js/app/models/Season.js"></script>
+        <script src="js/app/models/SeasonDate.js"></script>
+        <script src="js/app/models/Skill.js"></script>
+        <script src="js/app/models/Squad.js"></script>
+        <script src="js/app/models/SquadPlayer.js"></script>
+        <script src="js/app/models/Stadium.js"></script>
+
+        <script src="js/app/models/Game.js"></script>
+
+        <script src="js/app/views/UI.js"></script>
+    </body>
+</html>
+<script>
+    window.onload = function() {
+        createGame();
+        fillCountries();
+    }
+
+    function createGame() {
+        var game = new Game();
+    }
+
+    function fillCountries() {
+        let countries = Country.playable().orderBy('name');
+        fillSelect('ddlCountries', countries);
+    }
+
+    ddlCountries.onchange = function()  {
+        fillDivisions();
+    }
+
+    function fillDivisions() {
+        if (ddlCountries.selectedIndex > 0) {
+            let countryId = ddlCountries.options[ddlCountries.selectedIndex].id;
+            let country = Country.all().find(c => c.id === countryId);
+            for (let i = 0; i < country.divisionCount; i++) {
+                
+            }
+        }
+    }
+
+    function fillClubs() {
+        let ddlCountries = document.getElementById('ddlCountries'); 
+        let countryName = ddlCountries.options[ddlCountries.selectedIndex].text;
+        let country = Country.all().find(c => c.name === countryName);
+        fillSelect('ddlClubs', country.clubs);
+    }
+</script>
