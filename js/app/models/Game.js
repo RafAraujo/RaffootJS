@@ -1,6 +1,8 @@
 class Game {
     constructor() {
+        this.countries = [];
         this.seed();
+        
         this.seasons = [];
         this.newSeason();
     }
@@ -11,6 +13,7 @@ class Game {
         let t1 = performance.now(); console.log("Call took " + (t1 - t0) + " milliseconds.");
 
         Country.seed();
+        this.countries = Country.all();
         t1 = performance.now(); console.log("Call took " + (t1 - t0) + " milliseconds.");
 
         FieldRegion.seed();

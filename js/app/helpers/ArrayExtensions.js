@@ -8,21 +8,17 @@ Array.prototype.first = function() {
 
 Array.prototype.firstItems = function(count) {
     if (count > this.length)
-        throw new RangeError('ArrayExtensions.getRandomItems(n)');
+        throw new RangeError('ArrayExtensions.getRandomItems(count)');
     return this.slice(0, count);
 }
 
-Array.prototype.getRandomItems = function(n) {
-    if (n > this.length)
-        throw new RangeError('ArrayExtensions.getRandomItems(n)');
+Array.prototype.getRandomItems = function(count) {
+    if (count > this.length)
+        throw new RangeError('ArrayExtensions.getRandomItems(count)');
     
-    let result = new Array(n);
-    let available = this.slice().shuffle(); 
-    
-    for (let i = 0; i < n; i++)
-        result[i] = available[i];
-
-    return result;
+    let result = this.slice();
+    result.shuffle();
+    return result.slice(0, count);
 }
 
 Array.prototype.last = function() {
@@ -31,7 +27,7 @@ Array.prototype.last = function() {
 
 Array.prototype.lastItems = function(count) {
     if (count > this.length)
-        throw new RangeError('ArrayExtensions.getRandomItems(n)');
+        throw new RangeError('ArrayExtensions.getRandomItems(count)');
     return this.slice(this.length - count);
 }
 
@@ -77,16 +73,12 @@ Array.prototype.rotate = function() {
 }
 
 Array.prototype.shuffle = function() {
-    let result = this.slice();
-
-    for (let i = result.length - 1; i > 0; i--) {
+    for (let i = this.length - 1; i > 0; i--) {
         let index = Random.number(i);
-        let aux = result[i];
-        result[i] = result[index];
-        result[index] = aux;
+        let aux = this[i];
+        this[i] = this[index];
+        this[index] = aux;
     }
-
-    return result;
 }
 
 Array.prototype.sum = function() {

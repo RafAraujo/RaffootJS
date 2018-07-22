@@ -12,22 +12,16 @@
         <form>
             <fieldset>
                 <legend>Choose your club</legend>
-                
-                <label>Country</label>
-                <br>
-                <select id="ddlCountries"></select>
-                <br><br>
 
-                <label>Club</label>
-                <br>
-                <select id="ddlClubs"></select>
-                <br>
+                <div id="new-game"></div>
             </fieldset>
         </form>
         <script src="js/app/Config/Config.js"></script>
 
         <script src="js/app/helpers/ArrayExtensions.js"></script>
+        <script src="js/app/helpers/Bind.js"></script>
         <script src="js/app/helpers/DateExtensions.js"></script>
+        <script src="js/app/helpers/HtmlHelper.js"></script>
         <script src="js/app/helpers/ObjectExtensions.js"></script>
         <script src="js/app/helpers/Random.js"></script>
         <script src="js/app/helpers/StringExtensions.js"></script>
@@ -65,42 +59,14 @@
 
         <script src="js/app/models/Game.js"></script>
 
-        <script src="js/app/views/UI.js"></script>
+        <script src="js/app/services/ProxyFactory.js"></script>
+
+        <script src="js/app/views/View.js"></script>
+        <script src="js/app/views/NewGameView.js"></script>
+
+        <script src="js/app/controllers/NewGameController.js"></script>
     </body>
 </html>
 <script>
-    window.onload = function() {
-        createGame();
-        fillCountries();
-    }
-
-    function createGame() {
-        var game = new Game();
-    }
-
-    function fillCountries() {
-        let countries = Country.playable().orderBy('name');
-        fillSelect('ddlCountries', countries);
-    }
-
-    ddlCountries.onchange = function()  {
-        fillDivisions();
-    }
-
-    function fillDivisions() {
-        if (ddlCountries.selectedIndex > 0) {
-            let countryId = ddlCountries.options[ddlCountries.selectedIndex].id;
-            let country = Country.all().find(c => c.id === countryId);
-            for (let i = 0; i < country.divisionCount; i++) {
-                
-            }
-        }
-    }
-
-    function fillClubs() {
-        let ddlCountries = document.getElementById('ddlCountries'); 
-        let countryName = ddlCountries.options[ddlCountries.selectedIndex].text;
-        let country = Country.all().find(c => c.name === countryName);
-        fillSelect('ddlClubs', country.clubs);
-    }
+    let controller = new NewGameController();
 </script>

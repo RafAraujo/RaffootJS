@@ -12,7 +12,7 @@ class Club {
         this.coach = new Coach(this.country);
 
         this.squad = null;
-        this.generateSquad();
+        this._generateSquad();
 
         this.money = this.squad.wage * Random.numberBetween(6, 12);
 
@@ -2206,7 +2206,7 @@ class Club {
         return this.league.division;
     }
 
-    generateSquad() {
+    _generateSquad() {
         this.squad = new Squad();
 
         let fieldRegions = FieldRegion.all();
