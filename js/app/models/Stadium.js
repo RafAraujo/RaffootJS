@@ -289,7 +289,6 @@ class Stadium {
             new Stadium("Estádio Distrital do Jardim Inamar", brazil);
             new Stadium("Estádio do Bambu", brazil);
             new Stadium("Estádio do Café", brazil);
-            new Stadium("Estádio do Café", brazil);
             new Stadium("Estádio Domingos Silveira Gonzáles", brazil);
             new Stadium("Estádio dos Amaros", brazil);
             new Stadium("Estádio dos Eucaliptos", brazil);
