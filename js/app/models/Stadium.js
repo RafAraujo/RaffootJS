@@ -289,7 +289,6 @@ class Stadium {
             new Stadium("Estádio Distrital do Jardim Inamar", brazil);
             new Stadium("Estádio do Bambu", brazil);
             new Stadium("Estádio do Café", brazil);
-            new Stadium("Estádio do Café", brazil);
             new Stadium("Estádio Domingos Silveira Gonzáles", brazil);
             new Stadium("Estádio dos Amaros", brazil);
             new Stadium("Estádio dos Eucaliptos", brazil);
@@ -927,7 +926,6 @@ class Stadium {
             new Stadium("The Brewery Field", england);
             new Stadium("The Camrose Stadium", england);
             new Stadium("The City Ground", england);
-            new Stadium("The City Ground", england);
             new Stadium("The Den", england);
             new Stadium("The Enclosed Ground", england);
             new Stadium("The ESS Stadium", england);
@@ -1308,7 +1306,7 @@ class Stadium {
             new Stadium("Willhelm-Langrehr-Stadion", germany);
             new Stadium("Willy-Sachs-Stadion", germany);
 
-            new Stadium("     Stadio San Filippo", italy);
+            new Stadium("Stadio San Filippo", italy);
             new Stadium("Adriatico", italy);
             new Stadium("Alberto Braglia", italy);
             new Stadium("Alberto Picco", italy);
@@ -1344,9 +1342,6 @@ class Stadium {
             new Stadium("Cino e Lillo del Duca", italy);
             new Stadium("Ciro Vigorito", italy);
             new Stadium("Civitelle", italy);
-            new Stadium("Comunale", italy);
-            new Stadium("Comunale", italy);
-            new Stadium("Comunale", italy);
             new Stadium("Comunale", italy);
             new Stadium("Comunale Augusto Bisceglia", italy);
             new Stadium("Comunale Chiavari", italy);
@@ -1392,7 +1387,7 @@ class Stadium {
             new Stadium("Grotta Polifemo", italy);
             new Stadium("Guido Angelini", italy);
             new Stadium("Guido Biondi", italy);
-            new Stadium("Guido D\'Ippolito", italy);
+            new Stadium("Guido D'Ippolito", italy);
             new Stadium("Helvia Recina", italy);
             new Stadium("Italia", italy);
             new Stadium("Juventus Stadium", italy);
@@ -1456,7 +1451,6 @@ class Stadium {
             new Stadium("Sandro Cabassi", italy);
             new Stadium("Sant'Elia", italy);
             new Stadium("Sardegna Arena", italy);
-            new Stadium("Silvio Piola", italy);
             new Stadium("Silvio Piola", italy);
             new Stadium("Simonetta Lamberti", italy);
             new Stadium("Stadio Alberto Vallefuoco", italy);
@@ -1835,7 +1829,6 @@ class Stadium {
             new Stadium("Lokomotiv Stadium Saratov", russia);
             new Stadium("Luzhniki", russia);
             new Stadium("Malaja Sportivnaja Arena", russia);
-            new Stadium("Metallurg", russia);
             new Stadium("Metallurg", russia);
             new Stadium("Metallurg Samara", russia);
             new Stadium("Metallurg Stadium", russia);
