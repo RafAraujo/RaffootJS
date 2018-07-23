@@ -4,7 +4,7 @@ class ProxyFactory {
         return new Proxy(object, {
 
             get(target, property, receiver) {        
-                if (properties.includes(prop) && ProxyFactory._isFunction(target[property])) {
+                if (properties.includes(property) && ProxyFactory._isFunction(target[property])) {
 
                     return function() {
                         console.log(`intercepting ${property}`);
@@ -14,11 +14,11 @@ class ProxyFactory {
                     }
                 }
                     
-                return Reflect.get(target, prop, receiver);
+                return Reflect.get(target, property, receiver);
             },
                 
             set(target, property, value, receiver) {
-                let result = Reflect.set(target, prop, value, receiver);
+                let result = Reflect.set(target, property, value, receiver);
                 if (properties.includes(property)) action(target);
                 return result;
             }

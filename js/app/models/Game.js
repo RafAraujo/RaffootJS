@@ -2,7 +2,7 @@ class Game {
     constructor() {
         this.countries = [];
         this.seed();
-        
+
         this.seasons = [];
         this.newSeason();
     }
@@ -13,7 +13,7 @@ class Game {
         let t1 = performance.now(); console.log("Call took " + (t1 - t0) + " milliseconds.");
 
         Country.seed();
-        this.countries = Country.all();
+        this.countries = Country.playable();
         t1 = performance.now(); console.log("Call took " + (t1 - t0) + " milliseconds.");
 
         FieldRegion.seed();
@@ -86,5 +86,9 @@ class Game {
         let season = new Season(year);
         season.schedule();
         this.seasons.push(season);
+    }
+
+    setCountry(value) {
+        this.country = value;
     }
 }

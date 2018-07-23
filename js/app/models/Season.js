@@ -35,15 +35,20 @@ class Season {
         let championshipTypes = ChampionshipType.all(); 
 
         if (this === Season.first())
-            return championshipTypes.filter(c => c.scope === 'national');
+            return championshipTypes.filter(ct => ct.scope === 'national');
         else if (this === _seasons[1])
-            return championshipType.filter(c => c.scope === 'national' || c.scope === 'continental');
+            return championshipType.filter(ct => ct.scope === 'national' || ct.scope === 'continental');
         else
             return ChampionshipType.all();
     }
 
     get championshipEditions() {
         return this._championshipEditions;
+    }
+
+    get nationalLeagues() {
+        let nationalLeague = ChampionshipType.all().find(ct => ct.scope === 'national' && ct.format === 'league');
+        return this._championshipEditions.filter(ce => ce.championship.championshipType === nationalLeague);
     }
 
     defineChampionshipEditions() {

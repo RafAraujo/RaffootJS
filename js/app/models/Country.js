@@ -80,10 +80,7 @@ class Country {
 
     get leaguesCurrentSeason() {
         let season = Season.current();
-        let league = ChampionshipType.all().find(c => c.scope === 'national' && c.format === 'league');
-        let championshipEditions = season.championshipEditions;
-        let championshipEditions = championshipEditions.filter(ce => ce.championship.championshipType === league && ce.championship.country === this);
-        return championshipEdition;
+        return season.nationalLeagues.filter(ce => ce.championship.country === this);;
     }
 
     addClub(value) {
