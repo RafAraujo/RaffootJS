@@ -12,7 +12,7 @@ class NewGameView extends View {
         if ($('#countries'))
             return;
         
-        let select = HtmlHelper.newSelect('countries', countries);
+        let select = HtmlHelper.newSelect('countries', null, countries);
         this._element.appendChild(select);
     }
 
@@ -28,7 +28,7 @@ class NewGameView extends View {
         for (let i = 0; i < country.divisionCount; i++) {
             let division = i + 1;
             let league = leagues.find(ce => ce.championship.division === division);
-            let select = HtmlHelper.newSelect(`division${division}`, league.clubs);
+            let select = HtmlHelper.newSelect(`division${division}`, 'division', league.clubs);
             this._element.appendChild(document.createElement('br'));
             this._element.appendChild(select);
         }
