@@ -1,37 +1,46 @@
 class NewGameView extends View {
-    constructor(_element) {
-        super(_element);
+    constructor(element) {
+        super(element);
+
+        this._countryId = 0;
     }
 
     update(model) {
         this._createSelectCountries(model.countries);
-        this._createSelectsDivisions(model.country);
+        this._createSelectsClubs(model.country);
+
+        this._countryId = $('#countries').value;
     }
 
     _createSelectCountries(countries) {
         if ($('#countries'))
             return;
         
-        let select = HtmlHelper.newSelect('countries', countries);
-        this._element.appendChild(select);
+        HtmlHelper.select(this._element, 'countries', countries, 'Country');
     }
 
-    _createSelectsDivisions(country) {
-        if (country == null || $('#countries').value == country.id)
+    _createSelectsClubs(country) {
+        let containerId = 'clubs-container';
+        
+        if (country == null || ($(`#${containerId}`) && this._countryId == $('#countries').value))
             return;
+        
+        HtmlHelper.remove($(`#${containerId}`));
+        let container = HtmlHelper.create('div', containerId);
+        HtmlHelper.append(this._element, container);
 
-        this._element.appendChild(document.createElement('br'));
-        this._element.appendChild(document.createElement('hr'));
+        HtmlHelper.lineBreak(container);
+        HtmlHelper.horizontalLine(container);
 
         let leagues = country.leaguesCurrentSeason;
 
         for (let i = 0; i < country.divisionCount; i++) {
             let division = i + 1;
             let league = leagues.find(ce => ce.championship.division === division);
-            let select = HtmlHelper.newSelect(`division${division}`, league.clubs);
-            select.classList.add('division');
-            this._element.appendChild(document.createElement('br'));
-            this._element.appendChild(select);
+            let id = `clubs-division${division}`;
+
+            HtmlHelper.select(container, id, league.clubs, `Division ${division}`);
+            HtmlHelper.lineBreak(container);
         }
     }
 }

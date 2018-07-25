@@ -1,9 +1,14 @@
 class Game {
     constructor() {
         this.countries = [];
-        this.seed();
+
+        this._country = null;
+        this._club = null;
+        this._coach = null;
 
         this.seasons = [];
+
+        this.seed();
         this.newSeason();
     }
 
@@ -65,6 +70,14 @@ class Game {
         this._coach = value;
     }
 
+    get country() {
+        return this._country;
+    }
+
+    set country(value) {
+        this._country = value;
+    }
+
     get club() {
         return this._club;
     }
@@ -86,9 +99,5 @@ class Game {
         let season = new Season(year);
         season.schedule();
         this.seasons.push(season);
-    }
-
-    setCountry(value) {
-        this.country = value;
     }
 }

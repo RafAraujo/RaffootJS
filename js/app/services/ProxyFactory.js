@@ -5,15 +5,13 @@ class ProxyFactory {
 
             get(target, property, receiver) {        
                 if (properties.includes(property) && ProxyFactory._isFunction(target[property])) {
-
                     return function() {
-                        console.log(`intercepting ${property}`);
                         let result = Reflect.apply(target[property], target, arguments);
                         action(target);
                         return result;
                     }
                 }
-                    
+                
                 return Reflect.get(target, property, receiver);
             },
                 

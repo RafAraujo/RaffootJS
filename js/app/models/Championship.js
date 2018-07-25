@@ -16,7 +16,7 @@ class Championship {
 
     static seed() {
         let championshipTypes = ChampionshipType.all();
-
+        
         let nationalCup = championshipTypes.find(c => c.scope === 'national' && c.format === 'cup');
         let nationalLeague = championshipTypes.find(c => c.scope === 'national' && c.format === 'league');
         let continentalCup = championshipTypes.find(c => c.scope === 'continental' && c.format === 'cup');
