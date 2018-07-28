@@ -1,6 +1,6 @@
 class NewGameView extends View {
     constructor() {
-        super(element);
+        super();
 
         this._pLoading = $('#loading');
         this._form = $('#form');
