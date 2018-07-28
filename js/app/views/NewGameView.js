@@ -30,7 +30,7 @@ class NewGameView extends View {
         if (this._selectCountries.options.length > 0)
             return;
         
-        HtmlHelper.fillSelect(this._selectCountries, countries);
+        HtmlHelper.fillSelect(this._selectCountries, countries.orderBy('name'));
     }
 
     _fillClubs(country) {

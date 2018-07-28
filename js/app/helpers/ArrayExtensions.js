@@ -8,7 +8,7 @@ Array.prototype.first = function() {
 
 Array.prototype.firstItems = function(count) {
     if (count > this.length)
-        throw new RangeError('ArrayExtensions.getRandomItems(count)');
+        throw new RangeError('ArrayExtensions.firstItems(count)');
     return this.slice(0, count);
 }
 
@@ -27,7 +27,7 @@ Array.prototype.last = function() {
 
 Array.prototype.lastItems = function(count) {
     if (count > this.length)
-        throw new RangeError('ArrayExtensions.getRandomItems(count)');
+        throw new RangeError('ArrayExtensions.lastItems(count)');
     return this.slice(this.length - count);
 }
 
