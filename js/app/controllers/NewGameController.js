@@ -2,10 +2,10 @@ class NewGameController {
     constructor() {
         this._game = new Bind(
             new Game(),
-            new NewGameView($('#new-game')),
+            new NewGameView(),
             'country');
 
-        $('#countries').addEventListener('change', this.setCountry.bind(this));
+        $('#countries').addEventListener('change', this.setCountry.bind(this), {passive: true} );
     }
 
     setCountry() {
@@ -15,6 +15,6 @@ class NewGameController {
     }
 
     setClub() {
-        
+
     }
 }

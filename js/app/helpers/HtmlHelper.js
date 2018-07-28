@@ -1,6 +1,14 @@
 let $ = document.querySelector.bind(document);
 
 class HtmlHelper {
+    static show(element) {
+        element.style.removeProperty('display');
+    }
+
+    static hide(element) {
+        element.style.display = 'none';
+    }
+
     static fillSelect(select, options) {
         HtmlHelper.clearSelect(select);
         select.appendChild(new Option());

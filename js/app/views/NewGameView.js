@@ -1,15 +1,28 @@
 class NewGameView extends View {
-    constructor(element) {
+    constructor() {
         super(element);
+
+        this._pLoading = $('#loading');
+        this._form = $('#form');
+        HtmlHelper.hide(this._form);
 
         this._selectCountries = $('#countries');
         this._selectClubs = $('#clubs');
+
+        this._imgFlag = $('#flag');
+
         this._countryId = 0;
     }
 
-    update(model) {
-        this._fillCountries(model.countries);
-        this._fillClubs(model.country);
+    update(game) {
+        if (game != null) {
+            HtmlHelper.hide(this._pLoading);
+            HtmlHelper.show(this._form);
+        }
+
+        this._fillCountries(game.countries);
+        this._fillClubs(game.country);
+        //this._showFlag(game.country);
 
         this._countryId = $('#countries').value;
     }
@@ -27,7 +40,7 @@ class NewGameView extends View {
 
         HtmlHelper.clearSelect(this._selectClubs);
         this._selectClubs.appendChild(new Option());
-        
+
         let leagues = country.leaguesCurrentSeason.orderBy('championship.division');
 
         for (let i = 0; i < leagues.length; i++) {
@@ -43,5 +56,12 @@ class NewGameView extends View {
 
             this._selectClubs.appendChild(optionGroup);
         }
+    }
+
+    _showFlag(country) {
+        if (country == null)
+            return;
+
+        this._imgFlag.src = `${window.location.href}/../res/flags/${country.name.toLowerCase()}.svg`;
     }
 }

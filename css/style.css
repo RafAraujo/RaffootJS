@@ -23,6 +23,9 @@ h4 {
 h5 {
     font-size: 1.25em;
 }
+button, input, select {
+    min-width: 50%;
+}
 .flex {
     display: flex;
     flex-wrap: wrap;
