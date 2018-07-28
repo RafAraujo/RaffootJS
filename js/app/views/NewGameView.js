@@ -4,14 +4,13 @@ class NewGameView extends View {
 
         this._pLoading = $('#loading');
         this._form = $('#form');
-        HtmlHelper.hide(this._form);
-
         this._selectCountries = $('#countries');
         this._selectClubs = $('#clubs');
-
         this._imgFlag = $('#flag');
 
         this._countryId = 0;
+
+        HtmlHelper.hide(this._form);
     }
 
     update(game) {
