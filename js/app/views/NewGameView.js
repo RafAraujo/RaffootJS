@@ -2,45 +2,46 @@ class NewGameView extends View {
     constructor(element) {
         super(element);
 
+        this._selectCountries = $('#countries');
+        this._selectClubs = $('#clubs');
         this._countryId = 0;
     }
 
     update(model) {
-        this._createSelectCountries(model.countries);
-        this._createSelectsClubs(model.country);
+        this._fillCountries(model.countries);
+        this._fillClubs(model.country);
 
         this._countryId = $('#countries').value;
     }
 
-    _createSelectCountries(countries) {
-        if ($('#countries'))
+    _fillCountries(countries) {
+        if (this._selectCountries.options.length > 0)
             return;
         
-        HtmlHelper.select(this._element, 'countries', countries, 'Country');
+        HtmlHelper.fillSelect(this._selectCountries, countries);
     }
 
-    _createSelectsClubs(country) {
-        let containerId = 'clubs-container';
-        
-        if (country == null || ($(`#${containerId}`) && this._countryId == $('#countries').value))
+    _fillClubs(country) {
+        if (country == null || this._countryId == this._selectCountries.value)
             return;
+
+        HtmlHelper.clearSelect(this._selectClubs);
+        this._selectClubs.appendChild(new Option());
         
-        HtmlHelper.remove($(`#${containerId}`));
-        let container = HtmlHelper.create('div', containerId);
-        HtmlHelper.append(this._element, container);
+        let leagues = country.leaguesCurrentSeason.orderBy('championship.division');
 
-        HtmlHelper.lineBreak(container);
-        HtmlHelper.horizontalLine(container);
+        for (let i = 0; i < leagues.length; i++) {
+            let league = leagues[i];
+            let clubs = league.clubs.orderBy('name');
+            let optionGroup = document.createElement('optgroup');
+            optionGroup.label = `Division ${league.championship.division}`;
+            
+            for (let j = 0; j < clubs.length; j++) {
+                let club = clubs[j];
+                optionGroup.appendChild(new Option(club.name, club.id));
+            }
 
-        let leagues = country.leaguesCurrentSeason;
-
-        for (let i = 0; i < country.divisionCount; i++) {
-            let division = i + 1;
-            let league = leagues.find(ce => ce.championship.division === division);
-            let id = `clubs-division${division}`;
-
-            HtmlHelper.select(container, id, league.clubs, `Division ${division}`);
-            HtmlHelper.lineBreak(container);
+            this._selectClubs.appendChild(optionGroup);
         }
     }
 }

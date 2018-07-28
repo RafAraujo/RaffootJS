@@ -56,7 +56,7 @@ class Country {
     }
 
     get playableClubsCount() {
-        return Math.max(this.cupClubCount, this.leagueClubCount * this.divisionCount);
+        return Math.max(this.leagueClubCount * this.divisionCount);
     }
 
     get divisionCount() {
@@ -69,7 +69,7 @@ class Country {
 
     get cupClubCount() {
         let count = NATIONAL_CUP_MAX_CLUB_COUNT;
-        while (count > this.clubs.length)
+        while (count > this.playableClubsCount)
             count /= 2;
         return count;
     }

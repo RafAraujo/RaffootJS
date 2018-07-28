@@ -2194,11 +2194,9 @@ class Club {
     }
 
     get league() {
-        let season = Season.currentSeason();
-        let championshipEditions = season.championshipEditions;
-        let championshipType = ChampionshipType.find('national', 'league');
-        let league = championshipEditions.find(ce => ce.championship.championshipType === championshipType
-                && ce.championshipEditionClubs.map(cec => cec.club).includes(this)).championship;
+        let season = Season.current();
+        let championshipEditions = season.nationalLeagues;
+        let league = championshipEditions.find(ce => ce.championshipEditionClubs.map(cec => cec.club).includes(this)).championship;
         return league;
     }
 
