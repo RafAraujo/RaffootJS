@@ -1,6 +1,10 @@
 let $ = document.querySelector.bind(document);
 
 class HtmlHelper {
+    constructor() {
+        throw new Error('Cannot instantiate HtmlHelper');
+    }
+
     static show(element) {
         element.style.removeProperty('display');
     }

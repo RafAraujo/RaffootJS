@@ -8,7 +8,7 @@ let Stadium = (function() {
             this.country = country;
             this.capacity = Random.numberBetween(20000, 80000);
             this.available = true;
-
+            
             _stadiums.push(this);
             country.addStadium(this);
         }
