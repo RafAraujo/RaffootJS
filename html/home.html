@@ -7,35 +7,6 @@
         <link rel="stylesheet" type="text/css" href="../css/style.css">
     </head>
     <body>
-        <h5>Raffoot 2018</h5>
-
-        <p id="loading">Creating game...</p>
-        <form id="form" action="home.html" method="GET" style="display: none">
-            <fieldset>
-                <legend>Choose your club</legend>
-                <div id="new-game">
-                    <label for="countries">Country</label>
-                    <br>
-                    <select id="countries" autocomplete="country-name"></select>
-                    <br>
-                    <hr>
-
-                    <label for="clubs">Club</label>
-                    <br>
-                    <select id="clubs" autocomplete="club"></select>
-                    <br>
-                    <hr>
-
-                    <label for="name">Name</label>
-                    <br>
-                    <input type="text"></input>
-                </div>
-            </fieldset>
-            <br>
-            <img id="flag"></span>
-            <input type="submit" value="Start Game >>">
-        </form>
-        <br>
 
         <script src="../js/app/config/Config.js"></script>
 
@@ -85,9 +56,9 @@
         <script src="../js/app/views/View.js"></script>
         <script src="../js/app/views/NewGameView.js"></script>
 
-        <script src="../js/app/controllers/NewGameController.js"></script>
+        <script src="../js/app/controllers/HomeController.js"></script>
     </body>
 </html>
 <script>
-    let controller = new NewGameController();
+    let controller = new HomeController();
 </script>

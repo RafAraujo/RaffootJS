@@ -35,7 +35,7 @@ class Player {
     }
 
     get baseWage() {
-        return this.overall * 30 * (this.star ? 2 : 1);
+        return this.overall * 115 * (this.star ? 2 : 1);
     }
 
     addContract(value) {

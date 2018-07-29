@@ -2155,8 +2155,7 @@ let Club = (function() {
                 let count = fieldRegion.randomPlayersCount(this.squad.formation);
 
                 for (let j = 0; j < count; j++) {
-                    let birthYear = year - Random.numberBetween(16, 38);
-                    let player = new Player(this.country, birthYear, fieldRegion);
+                    let player = new Player(this.country, year - Random.numberBetween(16, 38), fieldRegion);
                     let contract = new Contract(this, player, 'definitive', 0, player.baseWage, date, date.addMonths(Random.numberBetween(6, 24)));
                     contract.sign();
                 }
