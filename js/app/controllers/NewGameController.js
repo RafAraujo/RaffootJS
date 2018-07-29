@@ -1,6 +1,6 @@
 class NewGameController {
     constructor() {
-        this._game = new Bind(new Game(), new NewGameView(), 'country');
+        this._game = new Bind(new Game(), new NewGameView(), 'seed', 'country');
         this._game.seed();
 
         $('#countries').addEventListener('change', this.setCountry.bind(this), {passive: true} );

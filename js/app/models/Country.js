@@ -1,6 +1,5 @@
 let Country = (function() {
     let _countries = [];
-    let _playableCountries = [];
 
     return class Country {
         constructor(name, abbreviation, confederation, playable) {
@@ -51,9 +50,7 @@ let Country = (function() {
         }
 
         static playable() {
-            if (_playableCountries.length === 0)
-                _playableCountries = Country.all().filter(c => c.playable);
-            return _playableCountries;
+            return _countries.filter(c => c.playable);
         }
 
         get playableClubsCount() {

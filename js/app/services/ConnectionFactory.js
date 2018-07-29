@@ -1,7 +1,6 @@
 let ConnectionFactory = (function () {
     const stores = ['games'];
     const version = 2018;
-    const dbName = 'raffoot';
 
     let connection = null;
     let close = null;
@@ -11,8 +10,10 @@ let ConnectionFactory = (function () {
             throw new Error('Cannot instantiate ConnectionFactory class');
         }
 
-        static getConnection() {
+        static getConnection(dbName) {
+            
             return new Promise((resolve, reject) => {
+            
                 let openRequest = window.indexedDB.open(dbName, version);
 
                 openRequest.onupgradeneeded = e => {

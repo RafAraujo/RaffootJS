@@ -43,10 +43,6 @@ let Season = (function() {
                 return ChampionshipType.all();
         }
 
-        get championshipEditions() {
-            return this._championshipEditions;
-        }
-
         get nationalLeagues() {
             let nationalLeague = ChampionshipType.all().find(ct => ct.scope === 'national' && ct.format === 'league');
             return this._championshipEditions.filter(ce => ce.championship.championshipType === nationalLeague);

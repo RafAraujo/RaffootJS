@@ -14,10 +14,11 @@ class NewGameView extends View {
     }
 
     update(game) {
-        if (game != null) {
-            HtmlHelper.hide(this._pLoading);
-            HtmlHelper.show(this._form);
-        }
+        if (game.countries.length === 0)
+            return;
+        
+        HtmlHelper.hide(this._pLoading);
+        HtmlHelper.show(this._form);
 
         this._fillCountries(game.countries);
         this._fillClubs(game.country);
