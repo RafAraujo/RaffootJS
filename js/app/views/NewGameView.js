@@ -30,6 +30,7 @@ class NewGameView {
             return;
         
         HtmlHelper.fillSelect(this._selectCountries, countries.orderBy('name'));
+        this._selectCountries.focus();
     }
 
     _fillClubs(country) {
