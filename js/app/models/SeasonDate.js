@@ -1,12 +1,14 @@
-let _seasonDates = [];
+let SeasonDate = (function() {
+    let _seasonDates = [];
 
-class SeasonDate {
-    constructor(season, date, championshipType) {
-        this.id = _seasonDates.length + 1;
-        this.season = season;
-        this.date = date;
-        this.championshipType = championshipType;
+    return class SeasonDate {
+        constructor(season, date, championshipType) {
+            this.id = _seasonDates.length + 1;
+            this.season = season;
+            this.date = date;
+            this.championshipType = championshipType;
 
-        _seasonDates.push(this);
+            _seasonDates.push(this);
+        }
     }
-}
+})();

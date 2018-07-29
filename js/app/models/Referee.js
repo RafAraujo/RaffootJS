@@ -1,37 +1,39 @@
-let _referees = [];
+let Referee = (function() {
+    let _referees = [];
 
-class Referee {
-    constructor(country) {
-        this.id = _referees.length + 1;
-        this.country = country;
-        this._name = country.names.getRandomItem();
-        this._surname = country.surnames.getRandomItem();
-        this.rigor = Random.numberBetween(1, 3);
+    return class Referee {
+        constructor(country) {
+            this.id = _referees.length + 1;
+            this.country = country;
+            this._name = country.names.getRandomItem();
+            this._surname = country.surnames.getRandomItem();
+            this.rigor = Random.numberBetween(1, 3);
 
-        _referees.push(this);
-    }
-
-    static seed() {
-        let countries = Country.all();
-
-        for (let i = 0; i < countries.length; i++) {
-            let country = countries[i];
-            for (let j = 0; j < country.playableClubs.length / 2; j++)
-                 new Referee(country);
+            _referees.push(this);
         }
 
-        Object.freeze(_referees);
-    }
+        static seed() {
+            let countries = Country.all();
 
-    static all() {
-        return _referees;
-    }
+            for (let i = 0; i < countries.length; i++) {
+                let country = countries[i];
+                for (let j = 0; j < country.playableClubs.length / 2; j++)
+                    new Referee(country);
+            }
 
-    get name() {
-        return this._name;
-    }
+            Object.freeze(_referees);
+        }
 
-    get completeName() {
-        return `${this._name} ${this._surname.toUpperCase()}`;
+        static all() {
+            return _referees;
+        }
+
+        get name() {
+            return this._name;
+        }
+
+        get completeName() {
+            return `${this._name} ${this._surname.toUpperCase()}`;
+        }
     }
-}
+})();

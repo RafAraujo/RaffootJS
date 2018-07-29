@@ -1,15 +1,17 @@
-let _championshipEditionFixtures = [];
+let ChampionshipEditionFixture = (function() {
+    let _championshipEditionFixtures = [];
 
-class ChampionshipEditionFixture {
-    constructor(championshipEdition, number) {
-        this.id = _championshipEditionFixtures.length + 1;
-        this.championshipEdition = championshipEdition;
-        this.number = number;
+    return class ChampionshipEditionFixture {
+        constructor(championshipEdition, number) {
+            this.id = _championshipEditionFixtures.length + 1;
+            this.championshipEdition = championshipEdition;
+            this.number = number;
 
-        _championshipEditionFixtures.push(this);
+            _championshipEditionFixtures.push(this);
+        }
+
+        get name() {
+            return 'Fixture ' + number;
+        }
     }
-
-    get name() {
-        return 'Fixture ' + number;
-    }
-}
+})();
