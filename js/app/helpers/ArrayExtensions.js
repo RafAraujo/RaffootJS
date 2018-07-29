@@ -1,3 +1,7 @@
+Array.prototype.average = function() {
+    return this.sum() / this.length;
+}
+
 Array.prototype.getRandomItem = function() {
     return this[Random.number(this.length - 1)];
 }

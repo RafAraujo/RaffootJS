@@ -2,17 +2,17 @@ class Game {
     constructor() {
         this.countries = [];
 
-        this._country = null;
-        this._club = null;
+        this.name = '';
+        this.country = null;
+        this.club = null;
         this._coach = null;
 
         this.seasons = [];
 
-        this.seed();
-        this.newSeason();
+        this._seed();
     }
 
-    seed() {
+    _seed() {
         let t0 = performance.now();
         Confederation.seed();
         let t1 = performance.now(); console.log("Call took " + (t1 - t0) + " milliseconds.");
@@ -50,6 +50,8 @@ class Game {
 
         Championship.seed();
         t1 = performance.now(); console.log("Call took " + (t1 - t0) + " milliseconds.");
+
+        this.newSeason();
     }
 
     static load(name) {
@@ -60,31 +62,6 @@ class Game {
 
     get currentSeason() {
         return this.seasons.last();
-    }
-
-    get coach() {
-        return this._coach;
-    }
-
-    set coach(value) {
-        this._coach = value;
-    }
-
-    get country() {
-        return this._country;
-    }
-
-    set country(value) {
-        this._country = value;
-    }
-
-    get club() {
-        return this._club;
-    }
-
-    set club(value) {
-        this._club = value;
-        this._club.coach = this._coach;
     }
 
     advanceDate() {

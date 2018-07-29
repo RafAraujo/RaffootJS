@@ -16,6 +16,6 @@ class ChampionshipEditionPlayer {
     }
 
     get averageRating() {
-        return this.ratings.sum() / this.ratings.length;
+        return this.ratings.average();
     }
 }

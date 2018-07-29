@@ -10,6 +10,10 @@ class Coach {
         _coaches.push(this);
     }
 
+    static all() {
+        return _coaches;
+    }
+
     set name(value) {
         this._name = value;
     }
@@ -24,5 +28,9 @@ class Coach {
 
     get completeName() {
         return `${this._name} ${this._surname.toUpperCase()}`;
+    }
+
+    get club() {
+        return Club.all().find(c => c.coach === this);
     }
 }
