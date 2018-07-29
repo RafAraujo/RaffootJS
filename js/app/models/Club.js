@@ -2148,13 +2148,15 @@ let Club = (function() {
 
             let fieldRegions = FieldRegion.all();
             let date = Date.firstDayCurrentYear();
+            let year = date.getFullYear();
 
             for (let i = 0; i < fieldRegions.length; i++) {
                 let fieldRegion = fieldRegions[i];
                 let count = fieldRegion.randomPlayersCount(this.squad.formation);
 
                 for (let j = 0; j < count; j++) {
-                    let player = new Player(this.country, fieldRegion);
+                    let birthYear = year - Random.numberBetween(16, 38);
+                    let player = new Player(this.country, birthYear, fieldRegion);
                     let contract = new Contract(this, player, 'definitive', 0, player.baseWage, date, date.addMonths(Random.numberBetween(6, 24)));
                     contract.sign();
                 }

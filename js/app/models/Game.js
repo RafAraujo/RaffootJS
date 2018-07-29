@@ -7,10 +7,6 @@ class Game {
         this.coach = null;
     }
 
-    static all() {
-        return _games;
-    }
-
     seed() {
         let t0 = performance.now();
         Confederation.seed();

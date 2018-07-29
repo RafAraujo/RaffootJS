@@ -1,7 +1,7 @@
 class Player {
-    constructor(country, fieldRegion) {
-        this.age = Random.numberBetween(16, 38);
+    constructor(country, birthYear, fieldRegion) {
         this.country = country;
+        this._birthYear = birthYear;
         this._name = this.country.names.getRandomItem();
         this._surname = this.country.surnames.getRandomItem();
         this.position = fieldRegion.positions.getRandomItem();
@@ -12,6 +12,10 @@ class Player {
         this.injuryProneness = Random.numberBetween(1, 3);
         this.energy = 100;
         this.contracts = [];
+    }
+
+    get age() {
+        return Season.current().year - this._birthYear;
     }
 
     get name() {
