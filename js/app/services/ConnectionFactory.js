@@ -1,7 +1,7 @@
 let ConnectionFactory = (function () {
     const stores = ['games'];
-    const version = 1;
-    const dbName = 'aluraframe';
+    const version = 2018;
+    const dbName = 'raffoot';
 
     let connection = null;
     let close = null;
@@ -43,7 +43,6 @@ let ConnectionFactory = (function () {
                 if (connection.objectStoreNames.contains(store)) connection.deleteObjectStore(store);
                 connection.createObjectStore(store, { autoIncrement: true });
             });
-
         }
 
         static closeConnection() {
