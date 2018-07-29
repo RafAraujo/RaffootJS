@@ -1,7 +1,5 @@
-class NewGameView extends View {
+class NewGameView {
     constructor() {
-        super();
-
         this._pLoading = $('#loading');
         this._form = $('#form');
         this._selectCountries = $('#countries');
@@ -19,7 +17,7 @@ class NewGameView extends View {
         
         HtmlHelper.hide(this._pLoading);
         HtmlHelper.show(this._form);
-        
+
         this._fillCountries(game.countries);
         this._fillClubs(game.country);
         //this._showFlag(game.country);
