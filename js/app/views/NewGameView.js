@@ -8,7 +8,7 @@ class NewGameView extends View {
         this._selectClubs = $('#clubs');
         this._imgFlag = $('#flag');
 
-        this._countryId = 0;
+        this._country = null;
 
         HtmlHelper.hide(this._form);
     }
@@ -19,12 +19,12 @@ class NewGameView extends View {
         
         HtmlHelper.hide(this._pLoading);
         HtmlHelper.show(this._form);
-
+        
         this._fillCountries(game.countries);
         this._fillClubs(game.country);
         //this._showFlag(game.country);
 
-        this._countryId = $('#countries').value;
+        this._country = $('#countries').value;
     }
 
     _fillCountries(countries) {
@@ -35,7 +35,7 @@ class NewGameView extends View {
     }
 
     _fillClubs(country) {
-        if (country == null || this._countryId == this._selectCountries.value)
+        if (country == null || this._country == this._selectCountries.value)
             return;
 
         HtmlHelper.clearSelect(this._selectClubs);

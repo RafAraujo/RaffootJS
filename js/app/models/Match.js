@@ -1,12 +1,8 @@
 let Match = (function() {
-    let _matches = [];
-
-    const duration = 90;
     const pause = 15;
 
     return class Match {
         constructor (championshipEdition, date) {
-            this.id = _matches.length  + 1;
             this.championshipEdition = championshipEdition
             this.date = date;
             this._stadium = null;

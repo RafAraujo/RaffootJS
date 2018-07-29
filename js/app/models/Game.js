@@ -2,7 +2,6 @@ class Game {
     constructor() {
         this.name = '';
         
-        this.season = null;
         this.country = null;
         this.club = null;
         this.coach = null;
@@ -50,13 +49,7 @@ class Game {
         Championship.seed();
         t1 = performance.now(); console.log("Call took " + (t1 - t0) + " milliseconds.");
 
-        this.season = this.newSeason();
-    }
-
-    static load(name) {
-        let game = Database.loadGame(name);
-
-        return game;
+        this.newSeason();
     }
 
     get countries() {
@@ -68,7 +61,7 @@ class Game {
     }
 
     get currentSeason() {
-        return this.seasons.last();
+        return Season.current();
     }
 
     advanceDate() {
@@ -82,6 +75,5 @@ class Game {
         let year = this.seasons.length === 0 ? new Date().getFullYear() : this.seasons.last().year + 1;
         let season = new Season(year);
         season.schedule();
-        return season;
     }
 }

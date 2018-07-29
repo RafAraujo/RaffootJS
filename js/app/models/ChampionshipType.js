@@ -9,16 +9,14 @@ let ChampionshipType = (function() {
             this.regulation = regulation;
             this.twoLeggedTie = twoLeggedTie;
             this.championships = [];
-
-            _championshipTypes.push(this);
         }
 
         static seed() {
-            new ChampionshipType('national', 'cup', 'elimination', true);
-            new ChampionshipType('national', 'league', 'round-robin', true);
-            new ChampionshipType('continental', 'cup', 'groups', true);
-            new ChampionshipType('continental', 'superCup', 'elimination', false);
-            new ChampionshipType('worldwide', 'superCup', 'elimination', false);
+            _championshipTypes.push(new ChampionshipType('national', 'cup', 'elimination', true));
+            _championshipTypes.push(new ChampionshipType('national', 'league', 'round-robin', true));
+            _championshipTypes.push(new ChampionshipType('continental', 'cup', 'groups', true));
+            _championshipTypes.push(new ChampionshipType('continental', 'superCup', 'elimination', false));
+            _championshipTypes.push(new ChampionshipType('worldwide', 'superCup', 'elimination', false));
 
             Object.freeze(_championshipTypes);
         }

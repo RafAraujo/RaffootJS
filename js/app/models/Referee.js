@@ -3,22 +3,18 @@ let Referee = (function() {
 
     return class Referee {
         constructor(country) {
-            this.id = _referees.length + 1;
             this.country = country;
             this._name = country.names.getRandomItem();
             this._surname = country.surnames.getRandomItem();
             this.rigor = Random.numberBetween(1, 3);
-
-            _referees.push(this);
         }
 
         static seed() {
-            let countries = Country.all();
+            let clubs = Club.playable();
 
-            for (let i = 0; i < countries.length; i++) {
-                let country = countries[i];
-                for (let j = 0; j < country.playableClubs.length / 2; j++)
-                    new Referee(country);
+            for (let i = 0; i < Club.playable().length; i++) {
+                let country = clubs[i].country
+                _referees.push(new Referee(country));
             }
 
             Object.freeze(_referees);

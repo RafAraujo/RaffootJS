@@ -1,14 +1,7 @@
-let SquadPlayer = (function() {
-    let _squadPlayers = [];
-
-    return class SquadPlayer {
-        constructor(squad, player) {
-            this.id = _squadPlayers.length + 1;
-            this.squad = squad;
-            this.player = player;
-            this.fieldLocalization = null;
-
-            _squadPlayers.push(this);
-        }
+class SquadPlayer {
+    constructor(squad, player) {
+        this.squad = squad;
+        this.player = player;
+        this.fieldLocalization = null;
     }
-})();
+}

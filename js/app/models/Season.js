@@ -3,7 +3,6 @@ let Season = (function() {
 
     return class Season {
         constructor(year) {
-            this.id = _seasons.length + 1;
             this.year = year;
             this._championshipEditions = [];
             this.seasonDates = [];

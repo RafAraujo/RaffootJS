@@ -7,9 +7,7 @@ class NewGameController {
     }
 
     setCountry() {
-        let id = $('#countries').value;
-        let country = this._game.countries.find(c => c.id == id);
-        this._game.country = country;
+        this._game.country = this._game.countries.find(c => c.name == $('#countries').value);
     }
 
     setClub() {
