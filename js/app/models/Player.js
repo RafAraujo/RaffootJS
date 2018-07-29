@@ -1,6 +1,6 @@
 class Player {
     constructor(country, fieldRegion) {
-        this.birth = generateBirthDate();
+        this.age = Random.numberBetween(16, 38);
         this.country = country;
         this._name = this.country.names.getRandomItem();
         this._surname = this.country.surnames.getRandomItem();
@@ -12,14 +12,6 @@ class Player {
         this.injuryProneness = Random.numberBetween(1, 3);
         this.energy = 100;
         this.contracts = [];
-
-        function generateBirthDate() {
-            let year = new Date().getFullYear() - Random.numberBetween(16, 40);
-            let month = Random.month();
-            let day = Random.numberBetween(1, Date.daysInMonth(month, year));
-    
-            return new Date(year, month, day);
-        }
     }
 
     get name() {
@@ -40,10 +32,6 @@ class Player {
 
     get baseWage() {
         return this.overall * 30 * (this.star ? 2 : 1);
-    }
-
-    age(currentDate) {
-        return Date.calculateAge(this.birth, currentDate);
     }
 
     addContract(value) {

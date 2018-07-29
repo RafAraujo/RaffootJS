@@ -12,7 +12,7 @@ let Referee = (function() {
         static seed() {
             let clubs = Club.playable();
 
-            for (let i = 0; i < Club.playable().length; i++) {
+            for (let i = 0; i < clubs.length; i++) {
                 let country = clubs[i].country
                 _referees.push(new Referee(country));
             }

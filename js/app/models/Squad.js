@@ -1,17 +1,9 @@
 class Squad {
     constructor() {
-        this._formation = Formation.all().getRandomItem();
+        this.formation = Formation.all().getRandomItem();
         this.squadPlayers = [];
         this._freeKickTaker = null;
         this._penaltyTaker = null;
-    }
-
-    get formation() {
-        return this._formation;
-    }
-
-    set formation(value) {
-        this._formation = value;
     }
 
     set freeKickTaker(squadPlayer) {

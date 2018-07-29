@@ -2151,13 +2151,11 @@ let Club = (function() {
 
             for (let i = 0; i < fieldRegions.length; i++) {
                 let fieldRegion = fieldRegions[i];
-                let count = fieldRegion.name === 'goal' ?
-                    Random.numberBetween(2, 3) :
-                    Math.round(this.squad.formation.fieldLocalizations.filter(fl => fl.position.fieldRegion === fieldRegion).length * Random.numberBetween(15, 25) / 10);
+                let count = fieldRegion.randomPlayersCount(this.squad.formation);
 
                 for (let j = 0; j < count; j++) {
                     let player = new Player(this.country, fieldRegion);
-                    let contract = new Contract(this, player, 'definitive', 0, player.baseWage, date,date.addMonths(Random.numberBetween(6, 24)));
+                    let contract = new Contract(this, player, 'definitive', 0, player.baseWage, date, date.addMonths(Random.numberBetween(6, 24)));
                     contract.sign();
                 }
             }
