@@ -10,7 +10,7 @@
         <h5>Raffoot 2018</h5>
 
         <p id="loading">Creating game...</p>
-        <form id="form" action="home.html" method="GET" style="display: none">
+        <form id="form" action="home.html" style="display: none">
             <fieldset>
                 <legend>Choose your club</legend>
                 <div id="new-game">
@@ -28,7 +28,7 @@
 
                     <label for="name">Name</label>
                     <br>
-                    <input type="text" required></input>
+                    <input id="name" type="text" required></input>
                 </div>
             </fieldset>
             <br>
@@ -81,7 +81,10 @@
         <script src="../js/app/models/Game.js"></script>
 
         <script src="../js/app/services/ConnectionFactory.js"></script>
+        <script src="../js/app/services/GameService.js"></script>
         <script src="../js/app/services/ProxyFactory.js"></script>
+
+        <script src="../js/app/dao/GenericDAO.js"></script>
 
         <script src="../js/app/views/NewGameView.js"></script>
         <script src="../js/app/controllers/NewGameController.js"></script>

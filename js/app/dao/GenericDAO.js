@@ -1,10 +1,9 @@
 class GenericDAO {
-    constructor(connection, entity) {
+    constructor(connection) {
         this._connection = connection;
-        this._entity = entity;
     }
 
-    save(object) {
+    insert(object) {
         return new Promise((resolve, reject) => {
 
             let request = this._connection
@@ -14,14 +13,25 @@ class GenericDAO {
 
             request.onsuccess = () => resolve();
 
-            request.onerror = e => {
-                console.log(e.target.error);
-                reject('Could not save');
-            };
+            request.onerror = error => reject(error);
         });
     }
 
-    all() {
+    update(object) {
+        return new Promise((resolve, reject) => {
+
+            let request = this._connection
+                .transaction([this._entity.store], 'readwrite')
+                .objectStore(this._entity.store)
+                .put(object);
+
+            request.onsuccess = () => resolve();
+
+            request.onerror = error => reject(error);
+        });
+    }
+
+    select() {
         return new Promise((resolve, reject) => {
 
             let cursor = this._connection
@@ -45,28 +55,21 @@ class GenericDAO {
                 }
             };
 
-            cursor.onerror = e => {
-                console.log(e.target.error);
-                reject('Could not get the list');
-            };
+            cursor.onerror = error => reject(error);
         });
     }
 
-    clearAll() {
+    delete(object) {
         return new Promise((resolve, reject) => {
 
             let request = this._connection
                 .transaction([this._entity.store], 'readwrite')
                 .objectStore(this._entity.store)
-                .clear();
+                .delete(object.id);
 
             request.onsuccess = () => resolve();
 
-            request.onerror = e => {
-                console.log(e.target.error);
-                reject('Could not clear the list');
-            }; 
-
+            request.onerror = error => reject(error); 
         });
 
     }

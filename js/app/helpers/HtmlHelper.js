@@ -2,7 +2,7 @@ let $ = document.querySelector.bind(document);
 
 class HtmlHelper {
     constructor() {
-        throw new Error('Cannot instantiate HtmlHelper');
+        throw new Error('HtmlHelper.constructor');
     }
 
     static show(element) {

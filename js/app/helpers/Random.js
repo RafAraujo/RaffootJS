@@ -1,6 +1,6 @@
 class Random {
     constructor() {
-        throw new Error('Cannot instantiate Random class');
+        throw new Error('Random.constructor');
     }
 
     static month() {

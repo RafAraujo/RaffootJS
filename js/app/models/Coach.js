@@ -1,8 +1,10 @@
 class Coach {
-    constructor(country) {
-        this.country = country;
-        this._name = country.names.getRandomItem();
-        this._surname = country.surnames.getRandomItem();
+    constructor(name = null, country = null) {
+        if (!(name || country))
+            throw new Error('Coach.constructor');
+
+        this._name = name != null ? '' : country.names.getRandomItem();
+        this._surname = name != null ? name : country.surnames.getRandomItem();
     }
 
     set name(value) {
@@ -18,7 +20,7 @@ class Coach {
     }
 
     get completeName() {
-        return `${this._name} ${this._surname.toUpperCase()}`;
+        return `${this._name} ${this._surname.toUpperCase()}`.trim();
     }
 
     get club() {

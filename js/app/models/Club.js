@@ -7,7 +7,7 @@ let Club = (function() {
             this.country = country;
             this.stadium = country.stadiums.getRandomItem();
             this.playable = false;
-            this.coach = new Coach(this.country);
+            this.coach = new Coach(null, this.country);
             this._generateSquad();
             this.money = this.squad.wage * Random.numberBetween(6, 12);
             this.trophies = [];
