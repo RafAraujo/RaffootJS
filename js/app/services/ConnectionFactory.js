@@ -29,6 +29,8 @@ let ConnectionFactory = (function () {
         }
 
         static _createStores(connection) {
+            let stores = []
+
             stores.forEach(store => {
                 if (connection.objectStoreNames.contains(store))
                     connection.deleteObjectStore(store);

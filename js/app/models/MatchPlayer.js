@@ -1,6 +1,7 @@
-class MatchPlayer {
+class MatchPlayer extends Entity {
     constructor(match, squadPlayer) {
-        this.id = _matchPlayers.length + 1;
+        super();
+
         this.match = match;
         this.squadPlayer = squadPlayer;
         this.matchPlayerStats = new MatchPlayerStats(this);

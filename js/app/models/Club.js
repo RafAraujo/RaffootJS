@@ -1,8 +1,10 @@
 let Club = (function() {
     let _clubs = [];
 
-    return class Club {
+    return class Club extends Entity {
         constructor(name, country) {
+            super();
+
             this.name = name;
             this.country = country;
             this.stadium = country.stadiums.getRandomItem();

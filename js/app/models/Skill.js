@@ -1,8 +1,10 @@
 let Skill = (function() {
     let _skills = [];
 
-    return class Skill {
+    return class Skill extends Entity {
         constructor(name, abbreviation, positions) {
+            super();
+
             this.name = name;
             this.abbreviation = abbreviation;
             this.positions = positions;

@@ -1,5 +1,7 @@
-class Coach {
+class Coach extends Entity {
     constructor(name = null, country = null) {
+        super();
+
         if (!(name || country))
             throw new Error('Coach.constructor');
 

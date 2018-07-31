@@ -1,8 +1,10 @@
 let Country = (function() {
     let _countries = [];
 
-    return class Country {
+    return class Country extends Entity {
         constructor(name, abbreviation, confederation, playable) {
+            super();
+
             this.name = name;
             this.abbreviation = abbreviation;
             this.playable = playable;

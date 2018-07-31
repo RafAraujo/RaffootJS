@@ -1,7 +1,8 @@
-class Game {
+class Game extends Entity {
     constructor() {
+        super();
+
         this.name = '';
-        
         this.country = null;
         this.club = null;
         this.coach = null;

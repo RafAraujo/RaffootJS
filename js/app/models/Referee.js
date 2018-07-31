@@ -1,8 +1,10 @@
 let Referee = (function() {
     let _referees = [];
 
-    return class Referee {
+    return class Referee extends Entity {
         constructor(country) {
+            super();
+
             this.country = country;
             this._name = country.names.getRandomItem();
             this._surname = country.surnames.getRandomItem();

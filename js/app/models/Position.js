@@ -1,8 +1,10 @@
 let Position = (function() {
     let _positions = [];
 
-    return class Position {
+    return class Position extends Entity {
         constructor(name, abbreviation, fieldRegion) {
+            super();
+
             this.name = name;
             this.abbreviation = abbreviation;
             this.fieldRegion = fieldRegion;

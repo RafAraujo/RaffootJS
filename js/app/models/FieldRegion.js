@@ -1,8 +1,10 @@
 let FieldRegion = (function() {
     let _fieldRegions = [];
 
-    return class FieldRegion {
+    return class FieldRegion extends Entity {
         constructor(name) {
+            super();
+
             this.name = name;
             this.positions = [];
         }

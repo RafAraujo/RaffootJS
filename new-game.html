@@ -7,15 +7,35 @@
         <link rel="stylesheet" type="text/css" href="css/style.css">
     </head>
     <body>
-        <dialog id="saves">
-            <select>
-                <option></option>
-            </select>
-            <button>Load</button>
-        </dialog>
-        <h1>Raffoot 2018</h1>
-        <div class="flex line"><a href="html/new-game.html">NEW GAME</a>
-        <div class="flex line"></div><a href="#" onclick="controller.showDialog()">LOAD GAME</a></div>
+        <h5>Raffoot 2018</h5>
+
+        <p id="loading">Creating game...</p>
+        <form id="form" action="home.html" method="GET" style="display: none">
+            <fieldset>
+                <legend>Choose your club</legend>
+                <div id="new-game">
+                    <label for="countries">Country</label>
+                    <br>
+                    <select id="countries" autocomplete="country-name"></select>
+                    <br>
+                    <hr>
+
+                    <label for="clubs">Club</label>
+                    <br>
+                    <select id="clubs" autocomplete="club"></select>
+                    <br>
+                    <hr>
+
+                    <label for="name">Name</label>
+                    <br>
+                    <input type="text"></input>
+                </div>
+            </fieldset>
+            <br>
+            <img id="flag"></span>
+            <input type="button" value="Start Game >>">
+        </form>
+        <br>
 
         <script src="js/app/config/Config.js"></script>
 
@@ -25,9 +45,6 @@
         <script src="js/app/helpers/HtmlHelper.js"></script>
         <script src="js/app/helpers/Random.js"></script>
         <script src="js/app/helpers/StringExtensions.js"></script>
-
-        <script src="js/app/models/Entity.js"></script>
-        <script src="js/app/models/Game.js"></script>
 
         <script src="js/app/models/Championship.js"></script>
         <script src="js/app/models/ChampionshipEdition.js"></script>
@@ -60,14 +77,16 @@
         <script src="js/app/models/SquadPlayer.js"></script>
         <script src="js/app/models/Stadium.js"></script>
 
-        <script src="js/app/services/ConnectionFactory.js"></script>
-        <script src="js/app/services/GameService.js"></script>
+        <script src="js/app/models/Game.js"></script>
+
         <script src="js/app/services/ProxyFactory.js"></script>
 
-        <script src="js/app/views/IndexView.js"></script>
-        <script src="js/app/controllers/IndexController.js"></script>
+        <script src="js/app/views/View.js"></script>
+        <script src="js/app/views/NewGameView.js"></script>
+
+        <script src="js/app/controllers/NewGameController.js"></script>
     </body>
 </html>
 <script>
-    let controller = new IndexController();
+    let controller = new NewGameController();
 </script>

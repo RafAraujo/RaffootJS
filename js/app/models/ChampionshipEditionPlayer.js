@@ -1,6 +1,7 @@
-class ChampionshipEditionPlayer {
+class ChampionshipEditionPlayer extends Entity {
     constructor(championshipEdition, player) {
-        this.id = _championshipEditionPlayers.length + 1;
+        super();
+
         this.championshipEdition = championshipEdition;
         this.player = player;
 

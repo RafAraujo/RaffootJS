@@ -1,5 +1,7 @@
-class Contract {
+class Contract extends Entity {
     constructor(club, player, type, fee, wage, beginDate, endDate) {
+        super();
+
         this.club = club;
         this.player = player;
         this.type = type;

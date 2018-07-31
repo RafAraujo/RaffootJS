@@ -1,8 +1,10 @@
 let Formation = (function() {
     let _formations = [];
 
-    return class Formation {
+    return class Formation extends Entity {
         constructor(name, fieldLocalizations) {
+            super();
+
             this.name = name;
             this.fieldLocalizations = fieldLocalizations;
         }

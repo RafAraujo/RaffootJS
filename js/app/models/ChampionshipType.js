@@ -1,9 +1,10 @@
 let ChampionshipType = (function() {
     let _championshipTypes = [];
 
-    return class ChampionshipType {
+    return class ChampionshipType extends Entity {
         constructor(scope, format, regulation, twoLeggedTie) {
-            this.id = _championshipTypes.length + 1;
+            super();
+
             this.scope = scope;
             this.format = format;
             this.regulation = regulation;

@@ -1,8 +1,10 @@
 let Season = (function() {
     let _seasons = [];
 
-    return class Season {
+    return class Season extends Entity {
         constructor(year) {
+            super();
+
             this.year = year;
             this._championshipEditions = [];
             this.seasonDates = [];

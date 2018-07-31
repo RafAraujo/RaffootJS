@@ -1,5 +1,7 @@
-class Squad {
+class Squad extends Entity {
     constructor() {
+        super();
+
         this.formation = Formation.all().getRandomItem();
         this.squadPlayers = [];
         this._freeKickTaker = null;

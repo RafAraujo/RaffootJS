@@ -1,5 +1,7 @@
-class MatchPlayerStats {
+class MatchPlayerStats extends Entity {
     constructor(matchPlayer) {
+        super();
+
         this.matchPlayer = matchPlayer;
 
         //Defending scouts

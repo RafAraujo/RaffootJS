@@ -1,5 +1,7 @@
-class MatchClubStats {
+class MatchClubStats extends Entity {
     constructor(matchClub) {
+        super();
+        
         this.matchClub = matchClub;
         
         this.goals = 0;

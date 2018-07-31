@@ -1,8 +1,10 @@
-class ChampionshipEdition {
+class ChampionshipEdition extends Entity {
     constructor (championship, year) {
+        super();
+
         this.championship = championship;
         this.year = year;
-        
+
         this.championshipEditionClubs = [];
         this.groups = [];
         this.eliminationPhases = [];

@@ -1,5 +1,7 @@
-class ChampionshipEditionClub {
+class ChampionshipEditionClub extends Entity {
     constructor(championshipEdition, club) {
+        super();
+
         this.championshipEdition = championshipEdition;
         this.club = club;
 

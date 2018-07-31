@@ -1,5 +1,7 @@
-class Player {
+class Player extends Entity {
     constructor(country, birthYear, fieldRegion) {
+        super();
+
         this.country = country;
         this._birthYear = birthYear;
         this._name = this.country.names.getRandomItem();

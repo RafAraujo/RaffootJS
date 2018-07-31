@@ -1,8 +1,10 @@
 let FieldLocalization = (function() {
     let _fieldLocalizations = [];
 
-    return class FieldLocalization {
-        constructor(position, line, column) {           
+    return class FieldLocalization extends Entity {
+        constructor(position, line, column) {        
+            super();
+            
             this.position = position;
             this.line = line;
             this.column = column;

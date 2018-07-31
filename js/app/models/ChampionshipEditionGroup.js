@@ -1,5 +1,7 @@
-class ChampionshipEditionGroup {
+class ChampionshipEditionGroup extends Entity {
     constructor(championshipEdition, number) {
+        super();
+
         this.championshipEdition = championshipEdition;
         this.number = number;
         this.championshipEditionClubs = [];

@@ -1,9 +1,10 @@
 let Stadium = (function() {
     let _stadiums = [];
 
-    return class Stadium {
+    return class Stadium extends Entity {
         constructor(name, country) {
-            this.id = _stadiums.length + 1;
+            super();
+            
             this.name = name;
             this.country = country;
             this.capacity = Random.numberBetween(20000, 80000);

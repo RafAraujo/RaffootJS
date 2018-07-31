@@ -1,8 +1,10 @@
 let Championship = (function() {
     let _championships = [];
 
-    return class Championship {
+    return class Championship extends Entity {
         constructor(name, championshipType, country, confederation, division, clubCount) {
+            super();
+
             this.name = name;
             this.championshipType = championshipType;
             this.country = country;

@@ -1,8 +1,10 @@
 let Confederation = (function() {
     let _confederations = [];
 
-    return class Confederation {
+    return class Confederation extends Entity {
         constructor(name) {
+            super();
+
             this.name = name;
             this.countries = [];
         }
