@@ -9,13 +9,13 @@ let Season = (function() {
             this.currentSeasonDateIndex = 0;
             this.finished = false;
         }
-        
+
         get championshipTypes() {
             let championshipTypes = ChampionshipType.all(); 
 
-            if (this.year === firstYear)
+            if (this.year === FIRST_YEAR)
                 return championshipTypes.filter(ct => ct.scope === 'national');
-            else if (this.year === firstYear + 1)
+            else if (this.year === FIRST_YEAR + 1)
                 return championshipType.filter(ct => ct.scope === 'national' || ct.scope === 'continental');
             else
                 return ChampionshipType.all();

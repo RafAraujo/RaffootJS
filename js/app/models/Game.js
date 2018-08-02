@@ -1,4 +1,4 @@
-const firstYear = new Date().getFullYear();
+const FIRST_YEAR = new Date().getFullYear();
 
 class Game extends Entity {
     constructor() {
@@ -71,7 +71,7 @@ class Game extends Entity {
     }
 
     newSeason() {
-        let year = this.seasons.length === 0 ? firstYear : this.seasons.last().year + 1;
+        let year = this.seasons.length === 0 ? FIRST_YEAR : this.seasons.last().year + 1;
         let season = new Season(year);
         season.schedule();
         this.seasons.push(season);
