@@ -1,3 +1,5 @@
+const firstYear = new Date().getFullYear();
+
 class Game extends Entity {
     constructor() {
         super();
@@ -6,12 +8,16 @@ class Game extends Entity {
         this.country = null;
         this.club = null;
         this.coach = null;
+        this.seasons = [];
     }
 
     seed() {
         let t0 = performance.now();
         Confederation.seed();
         let t1 = performance.now(); console.log("Call took " + (t1 - t0) + " milliseconds.");
+
+        CountryLanguage.seed();
+        t1 = performance.now(); console.log("Call took " + (t1 - t0) + " milliseconds.");
 
         Country.seed();
         t1 = performance.now(); console.log("Call took " + (t1 - t0) + " milliseconds.");
@@ -53,12 +59,8 @@ class Game extends Entity {
         return Country.playable();
     }
 
-    get seasons() {
-        return Season.all();
-    }
-
     get currentSeason() {
-        return Season.current();
+        return this.seasons.last();
     }
 
     advanceDate() {
@@ -69,8 +71,9 @@ class Game extends Entity {
     }
 
     newSeason() {
-        let year = this.seasons.length === 0 ? new Date().getFullYear() : this.seasons.last().year + 1;
+        let year = this.seasons.length === 0 ? firstYear : this.seasons.last().year + 1;
         let season = new Season(year);
         season.schedule();
+        this.seasons.push(season);
     }
 }

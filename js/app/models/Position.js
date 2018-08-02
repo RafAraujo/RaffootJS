@@ -9,8 +9,6 @@ let Position = (function() {
             this.abbreviation = abbreviation;
             this.fieldRegion = fieldRegion;
             this.skills = [];
-
-            fieldRegion.addPosition(this);
         }
 
         static seed() {
@@ -39,6 +37,8 @@ let Position = (function() {
             _positions.push(new Position('Left Wing', 'LW', attack));
             _positions.push(new Position('Striker', 'ST', attack));
             _positions.push(new Position('Center Forward', 'CF', attack));
+
+            _positions.forEach(p => p.fieldRegion.addPosition(p));
 
             Object.freeze(_positions);
         }

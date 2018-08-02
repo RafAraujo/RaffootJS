@@ -37,7 +37,7 @@ class ChampionshipEdition extends Entity {
     }
 
     defineClubs() {
-        if (this.year === Season.first().year) {
+        if (this.year === firstYear) {
             let clubsAbleToPlay = this.championship.clubsAbleToPlay;
             let division = this.championship.division || 1;
             let clubCount = this.championship.clubCount;

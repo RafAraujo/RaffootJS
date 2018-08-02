@@ -8,8 +8,6 @@ let Skill = (function() {
             this.name = name;
             this.abbreviation = abbreviation;
             this.positions = positions;
-
-            positions.forEach(p => p.addSkill(this));
         }
 
         static seed() {
@@ -41,6 +39,8 @@ let Skill = (function() {
             _skills.push(new Skill('Tackling', 'TAC', outfieldPlayers));
             _skills.push(new Skill('Versatility', 'VER', outfieldPlayers));
             _skills.push(new Skill('Vision', 'VIS', outfieldPlayers));
+
+            _skills.forEach(s => s.positions.forEach(p => p.addSkill(s)));
 
             Object.freeze(_skills);
         }

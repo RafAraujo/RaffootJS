@@ -3,21 +3,16 @@ let Entity = (function(){
 
     return class Entity {
         constructor() {
-            let store = this.constructor.name;
-
-            if (!_stores.includes(store))
-                _stores.push(store);
+            if (!_stores.includes(this.store))
+                _stores.push(this.store);
         }
 
         static stores() {
             return _stores;
         }
 
-        load(save) {
-            let properties = Object.keys(this);
-
-            for (let i = 0; i < properties.length; i++)
-                alert(properties[i]);
+        get store() {
+            return this.constructor.name;
         }
 
         selectMany(array) {

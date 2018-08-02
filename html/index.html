@@ -7,6 +7,15 @@
         <link rel="stylesheet" type="text/css" href="../css/style.css">
     </head>
     <body>
+        <dialog id="saves">
+            <select>
+                <option></option>
+            </select>
+            <button>Load</button>
+        </dialog>
+        <h1>Raffoot 2018</h1>
+        <div class="flex line"><a href="new-game.html">NEW GAME</a>
+        <div class="flex line"></div><a href="#" onclick="controller.showDialog()">LOAD GAME</a></div>
 
         <script src="../js/app/config/Config.js"></script>
 
@@ -58,10 +67,11 @@
 
         <script src="../js/app/dao/GenericDAO.js"></script>
 
-        <script src="../js/app/views/HomeView.js"></script>
-        <script src="../js/app/controllers/HomeController.js"></script>
-    </body>
+        <script src="../js/app/views/NewGameView.js"></script>
+        <script src="../js/app/controllers/NewGameController.js"></script>
+
+     </body>
 </html>
 <script>
-    let controller = new HomeController();
+    let controller = new IndexController();
 </script>

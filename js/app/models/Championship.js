@@ -11,8 +11,6 @@ let Championship = (function() {
             this.confederation = confederation;
             this.division = division;
             this.clubCount = clubCount;
-            
-            championshipType.addChampionship(this);
         }
     
         static seed() {
@@ -51,7 +49,9 @@ let Championship = (function() {
             }
     
             _championships.push(new Championship('World Cup', worldwideSuperCup, null, null, null, 2));
-    
+
+            _championships.forEach(c => c.championshipType.addChampionship(c));
+            
             Object.freeze(_championships);
         }
     

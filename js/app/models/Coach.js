@@ -2,11 +2,15 @@ class Coach extends Entity {
     constructor(name = null, country = null) {
         super();
 
-        if (!(name || country))
+        if (!(name != null || country))
             throw new Error('Coach.constructor');
 
         this._name = name != null ? '' : country.names.getRandomItem();
         this._surname = name != null ? name : country.surnames.getRandomItem();
+    }
+
+    static load(save) {
+        return Object.create(new Coach(''), save);
     }
 
     set name(value) {

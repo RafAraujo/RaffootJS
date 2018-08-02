@@ -1,6 +1,4 @@
 let Season = (function() {
-    let _seasons = [];
-
     return class Season extends Entity {
         constructor(year) {
             super();
@@ -10,35 +8,14 @@ let Season = (function() {
             this.seasonDates = [];
             this.currentSeasonDateIndex = 0;
             this.finished = false;
-
-            _seasons.push(this);
-
-            this.defineChampionshipEditions();
-            this.defineCalendar();
         }
-
-        static all() {
-            return _seasons;
-        }
-
-        static first() {
-            return _seasons.first();
-        }
-
-        static current() {
-            return _seasons.last();
-        }
-
-        previous() {
-            return _seasons[_seasons.length - 2] || null;
-        }
-
+        
         get championshipTypes() {
             let championshipTypes = ChampionshipType.all(); 
 
-            if (this === Season.first())
+            if (this.year === firstYear)
                 return championshipTypes.filter(ct => ct.scope === 'national');
-            else if (this === _seasons[1])
+            else if (this.year === firstYear + 1)
                 return championshipType.filter(ct => ct.scope === 'national' || ct.scope === 'continental');
             else
                 return ChampionshipType.all();
@@ -71,7 +48,8 @@ let Season = (function() {
             while ((championshipType = championshipTypes.find(ct => !this.totallyScheduled(ct))) != null) {
             
                 date = date.addDays(date.getDay() === 0 ? 3 : 4);
-                if (date.getMonth() === 6) continue;
+                if (date.getMonth() === 6)
+                    continue;
                 this.addSeasonDate(date, championshipType);
                 championshipTypes.rotate();
             }
@@ -92,6 +70,9 @@ let Season = (function() {
         }
 
         schedule() {
+            this.defineChampionshipEditions();
+            this.defineCalendar();
+
             for (let i = 0; i < this._championshipEditions.length; i++) {
                 let championshipEdition = this._championshipEditions[i];
                 championshipEdition.defineClubs();

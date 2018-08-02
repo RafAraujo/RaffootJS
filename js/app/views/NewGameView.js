@@ -19,7 +19,7 @@ class NewGameView {
         HtmlHelper.show(this._form);
 
         this._fillCountries(game.countries);
-        this._fillClubs(game.country);
+        this._fillClubs(game.country, game.currentSeason);
         //this._showFlag(game.country);
 
         this._country = $('#countries').value;
@@ -33,14 +33,14 @@ class NewGameView {
         this._selectCountries.focus();
     }
 
-    _fillClubs(country) {
+    _fillClubs(country, season) {
         if (country == null || this._country == this._selectCountries.value)
             return;
 
         HtmlHelper.clearSelect(this._selectClubs);
         this._selectClubs.appendChild(new Option());
 
-        let leagues = country.leaguesCurrentSeason.orderBy('championship.division');
+        let leagues = season.nationalLeagues.filter(c => c.championship.country === country).orderBy('championship.division');
 
         for (let i = 0; i < leagues.length; i++) {
             let league = leagues[i];

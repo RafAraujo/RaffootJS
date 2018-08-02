@@ -10,11 +10,9 @@ let Club = (function() {
             this.stadium = country.stadiums.getRandomItem();
             this.playable = false;
             this.coach = new Coach(null, this.country);
-            this._generateSquad();
-            this.money = this.squad.wage * Random.numberBetween(6, 12);
+            this.squad = null;
+            this.money = 0;
             this.trophies = [];
-
-            country.addClub(this);
         }
 
         static seed() {
@@ -2111,6 +2109,12 @@ let Club = (function() {
                 _clubs.push(new Club("Yeclano Deportivo", spain));
                 _clubs.push(new Club("Zamora CF", spain));
             }
+
+            _clubs.forEach(c => {
+                c.country.addClub(c);
+                c._generateSquad();
+                c.money += c.squad.wage * Random.numberBetween(6, 12);
+            });
 
             let countries = Country.playable();
 

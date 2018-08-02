@@ -9,8 +9,6 @@ let Stadium = (function() {
             this.country = country;
             this.capacity = Random.numberBetween(20000, 80000);
             this.available = true;
-            
-            country.addStadium(this);
         }
 
         static seed() {
@@ -2136,6 +2134,8 @@ let Stadium = (function() {
                 _stadiums.push(new Stadium("Virgen de Las Nieves", spain));
                 _stadiums.push(new Stadium("Wanda Metropolitano", spain));
                 _stadiums.push(new Stadium("Zubieta XXI", spain));
+
+                _stadiums.forEach(s => s.country.addStadium(s));
 
                 Object.freeze(_stadiums);
             }
