@@ -27,8 +27,6 @@ let Entity = (function(){
                     convert(object, _class);
                 }
             }
-
-
         }
 
         static convert(object, type) {
