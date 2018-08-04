@@ -9,10 +9,6 @@ class Coach extends Entity {
         this._surname = name != null ? name : country.surnames.getRandomItem();
     }
 
-    static load(save) {
-        return Object.create(new Coach(''), save);
-    }
-
     set name(value) {
         this._name = value;
     }

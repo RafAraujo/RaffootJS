@@ -16,11 +16,11 @@ let Championship = (function() {
         static seed() {
             let championshipTypes = ChampionshipType.all();
     
-            let nationalCup = championshipTypes.find(c => c.scope === 'national' && c.format === 'cup');
-            let nationalLeague = championshipTypes.find(c => c.scope === 'national' && c.format === 'league');
-            let continentalCup = championshipTypes.find(c => c.scope === 'continental' && c.format === 'cup');
-            let continentalSuperCup = championshipTypes.find(c => c.scope === 'continental' && c.format === 'superCup');
-            let worldwideSuperCup = championshipTypes.find(c => c.scope === 'worldwide' && c.format === 'superCup');
+            let nationalCup = championshipTypes.find(ct => ct.scope === 'national' && ct.format === 'cup');
+            let nationalLeague = championshipTypes.find(ct => ct.scope === 'national' && ct.format === 'league');
+            let continentalCup = championshipTypes.find(ct => c.scope === 'continental' && ct.format === 'cup');
+            let continentalSuperCup = championshipTypes.find(ct => ct.scope === 'continental' && ct.format === 'superCup');
+            let worldwideSuperCup = championshipTypes.find(ct => ct.scope === 'worldwide' && ct.format === 'superCup');
     
             let countries = Country.playable();
     

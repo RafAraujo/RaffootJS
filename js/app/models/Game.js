@@ -65,9 +65,8 @@ class Game extends Entity {
 
     advanceDate() {
         this.currentSeason.advanceDate();
-        if (this.currentSeason.finished) {
+        if (this.currentSeason.finished)
             this.newSeason();
-        }
     }
 
     newSeason() {
