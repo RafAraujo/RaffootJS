@@ -1,8 +1,7 @@
 class ChampionshipEditionClub extends Entity {
-    constructor(championshipEdition, club) {
+    constructor(club) {
         super();
 
-        this.championshipEdition = championshipEdition;
         this.club = club;
 
         this.played = 0;
@@ -20,10 +19,5 @@ class ChampionshipEditionClub extends Entity {
 
     get goalsDifference() {
         return this.goalsFor - this.goalsAgainst;
-    }
-
-    get position() {
-        let table = this.championshipEdition.table();
-        return table.indexOf(this) + 1;
     }
 }

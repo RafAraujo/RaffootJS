@@ -1,8 +1,7 @@
 class ChampionshipEditionFixture extends Entity {
-    constructor(championshipEdition, number) {
+    constructor(number) {
         super();
 
-        this.championshipEdition = championshipEdition;
         this.number = number;
     }
 

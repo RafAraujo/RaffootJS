@@ -10,8 +10,13 @@ let Country = (function() {
             this.countryLanguage = countryLanguage;
             this.confederation = confederation;
             this.playable = playable;
-            this.clubs = [];
-            this.stadiums = [];
+
+            this._stadiums = [];
+            this._clubs = [];
+        }
+
+        static load(object) {
+            
         }
 
         static seed() {
@@ -39,8 +44,6 @@ let Country = (function() {
             _countries.push(new Country('Portugal', 'POR', europe, countryLanguages.find(cl => cl.name === 'portuguese'), true));
             _countries.push(new Country('Russia', 'RUS', europe, countryLanguages.find(cl => cl.name === 'russian'), true));
             _countries.push(new Country('Spain', 'ESP', europe, countryLanguages.find(cl => cl.name === 'spanish'), true));
-
-            _countries.forEach(c => c.confederation.addCountry(c));
             
             Object.freeze(_countries);
         }
@@ -80,16 +83,20 @@ let Country = (function() {
             return count;
         }
 
+        get stadiums() {
+            if (this._stadiums.length === 0)
+                this._stadiums = Stadium.all().filter(s => s.country === this);
+            return this._stadiums;
+        }
+
+        get clubs() {
+            if (this._clubs.length === 0)
+                this._clubs = Club.all().filter(c => c.country === this);
+            return this._clubs;
+        }
+
         get playableClubs() {
             return this.clubs.filter(c => c.playable);
-        }
-
-        addClub(value) {
-            this.clubs.push(value);
-        }
-
-        addStadium(value) {
-            this.stadiums.push(value);
         }
     }
 })();

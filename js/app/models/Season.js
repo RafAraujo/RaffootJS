@@ -6,8 +6,12 @@ let Season = (function() {
             this.year = year;
             this._championshipEditions = [];
             this.seasonDates = [];
-            this.currentSeasonDateIndex = 0;
+            this._currentSeasonDateIndex = 0;
             this.finished = false;
+        }
+
+        static load(object) {
+            let season = new Season(object.year);
         }
 
         get championshipTypes() {
@@ -66,7 +70,7 @@ let Season = (function() {
 
         addSeasonDate(date, championshipType) {
             if (this.hasChampionship(championshipType))
-                this.seasonDates.push(new SeasonDate(this, date, championshipType));
+                this.seasonDates.push(new SeasonDate(date, championshipType));
         }
 
         schedule() {
@@ -86,31 +90,31 @@ let Season = (function() {
         }
 
         get currentSeasonDate() {
-            return this.seasonDates[this.currentSeasonDateIndex];
+            return this.seasonDates[this._currentSeasonDateIndex];
         }
 
         get previousSeasonDate() {
-            return this.seasonDates[this.currentSeasonDateIndex - 1];
+            return this.seasonDates[this._currentSeasonDateIndex - 1];
         }
 
         get today() {
-            return this.currentSeasonDate.date;
+            return this._currentSeasonDate.date;
         }
 
         advanceDate() {
-            this.currentSeasonDateIndex++;
+            this._currentSeasonDateIndex++;
 
             let clubs = Club.playable();
             for (let i = 0; i < clubs.length; i++) {
                 let club = clubs[i];
                 
                 club.squad.rest();
-                if (this.currentSeasonDateIndex > 0 && this.currentSeasonDate.date.getMonth() > this.previousSeasonDate.date.getMonth()) {
+                if (this._currentSeasonDateIndex > 0 && this.currentSeasonDate.date.getMonth() > this.previousSeasonDate.date.getMonth()) {
                     club.payWages();
                 }
             }
 
-            this.finished = this.currentSeasonDateIndex === this.seasonDates.length;
+            this.finished = this._currentSeasonDateIndex === this.seasonDates.length;
         }
 
         getMatches(date) {

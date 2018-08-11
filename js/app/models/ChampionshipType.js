@@ -9,7 +9,12 @@ let ChampionshipType = (function() {
             this.format = format;
             this.regulation = regulation;
             this.twoLeggedTie = twoLeggedTie;
-            this.championships = [];
+        }
+
+        static load(object) {
+            let championshipType = new ChampionshipType(...Object.keys(object));
+            _championshipTypes.push(championshipType);
+            return championshipType;
         }
 
         static seed() {
@@ -24,10 +29,6 @@ let ChampionshipType = (function() {
 
         static all() {
             return _championshipTypes;
-        }
-
-        addChampionship(value) {
-            this.championships.push(value);
         }
     }
 })();

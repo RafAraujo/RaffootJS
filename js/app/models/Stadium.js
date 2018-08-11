@@ -2,13 +2,18 @@ let Stadium = (function() {
     let _stadiums = [];
 
     return class Stadium extends Entity {
-        constructor(name, country) {
+        constructor(id, name, country) {
             super();
             
+            this.id = id;
             this.name = name;
             this.country = country;
             this.capacity = Random.numberBetween(20000, 80000);
             this.available = true;
+        }
+
+        static all() {
+            return _stadiums;
         }
 
         static seed() {
@@ -2131,8 +2136,6 @@ let Stadium = (function() {
             _stadiums.push(new Stadium("Virgen de Las Nieves", spain));
             _stadiums.push(new Stadium("Wanda Metropolitano", spain));
             _stadiums.push(new Stadium("Zubieta XXI", spain));
-
-            _stadiums.forEach(s => s.country.addStadium(s));
 
             Object.freeze(_stadiums);
         }

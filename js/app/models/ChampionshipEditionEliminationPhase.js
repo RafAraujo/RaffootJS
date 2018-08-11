@@ -1,8 +1,7 @@
 class ChampionshipEditionEliminationPhase extends Entity {
-    constructor(championshipEdition, clubCount) {
+    constructor(clubCount) {
         super();
 
-        this.championshipEdition = championshipEdition;
         this.clubCount = clubCount;
         this.championshipEditionClubs = [];
         this.matches = [];

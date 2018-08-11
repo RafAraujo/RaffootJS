@@ -1,62 +1,73 @@
-class Player extends Entity {
-    constructor(country, birthYear, fieldRegion) {
-        super();
+let Player = (function() {
+    let _players = [];
 
-        this.country = country;
-        this._birthYear = birthYear;
-        this._name = this.country.names.getRandomItem();
-        this._surname = this.country.surnames.getRandomItem();
-        this.position = fieldRegion.positions.getRandomItem();
-        this.overall = Random.numberBetween(1, 99);
-        this.star = this.overall > 90 ? Random.numberBetween(1, 10) === 10 : false;
-        this.skills = this.position.skills.getRandomItems(this.star ? 3 : 2);
-        this.condition = Random.numberBetween(1, 5);
-        this.injuryProneness = Random.numberBetween(1, 3);
-        this.energy = 100;
-        this.contracts = [];
-    }
+    return class Player extends Entity {
+        constructor(country, birthYear, position) {
+            super();
 
-    get age() {
-        return Season.current().year - this._birthYear;
-    }
+            this.id = _players.length + 1;
+            this.country = country;
+            this._birthYear = birthYear;
+            this.position = position;
+            this._name = this.country.names.getRandomItem();
+            this._surname = this.country.surnames.getRandomItem();
+            this.overall = Random.numberBetween(1, 99);
+            this.star = this.overall > 90 ? Random.numberBetween(1, 10) === 10 : false;
+            this.skills = this.position.skills.getRandomItems(this.star ? 3 : 2);
+            this.condition = Random.numberBetween(1, 5);
+            this.injuryProneness = Random.numberBetween(1, 3);
+            this.energy = 100;
+            this.contracts = [];
 
-    get name() {
-        return this._name;
-    }
+            _players.push(this);
+        }
 
-    get completeName() {
-        return `${this._name} ${this._surname.toUpperCase()}`;
-    }
+        static all() {
+            return _players;
+        }
 
-    get club() {
-        return this.contracts.filter(c => c.inForce).last().destinationClub;
-    }
+        get age() {
+            return Season.current().year - this._birthYear;
+        }
 
-    get owner() {
-        return this.contracts.filter(c => c.inForce && c.type === 'definitive').destinationClub;
-    }
+        get name() {
+            return this._name;
+        }
 
-    get baseWage() {
-        return this.overall * 115 * (this.star ? 2 : 1);
-    }
+        get completeName() {
+            return `${this._name} ${this._surname.toUpperCase()}`;
+        }
 
-    addContract(value) {
-        this.contracts.push(value);
-    }
+        get club() {
+            return this.contracts.filter(c => c.inForce).last().destinationClub;
+        }
 
-    get inForceContracts() {
-        return this.contracts.filter(c => c.inForce);
-    }
+        get owner() {
+            return this.contracts.filter(c => c.inForce && c.type === 'definitive').destinationClub;
+        }
 
-    get owner() {
-        return this.inForceContracts.find(c => c.type === 'definitive');
-    }
+        get baseWage() {
+            return this.overall * 115 * (this.star ? 2 : 1);
+        }
 
-    get wage() {
-        return this.inForceContracts.last().wage;
-    }
+        addContract(value) {
+            this.contracts.push(value);
+        }
 
-    rest(time) {
-        this.energy += time > 100 ? 100 : this.energy;
+        get inForceContracts() {
+            return this.contracts.filter(c => c.inForce);
+        }
+
+        get owner() {
+            return this.inForceContracts.find(c => c.type === 'definitive');
+        }
+
+        get wage() {
+            return this.inForceContracts.last().wage;
+        }
+
+        rest(time) {
+            this.energy += time > 100 ? 100 : this.energy;
+        }
     }
-}
+})();

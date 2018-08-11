@@ -6,20 +6,32 @@ class ChampionshipEdition extends Entity {
         this.year = year;
 
         this.championshipEditionClubs = [];
-        this.groups = [];
-        this.eliminationPhases = [];
-        this.fixtures = [];
+        this.championshipEditionGroups = [];
+        this.championshipEditionEliminationPhases = [];
+        this.championshipEditionFixtures = [];
         this.dates = [];
         this.matches = [];
         this.championshipEditionPlayers = [];
     }
 
+    static load(object) {
+        object.championship = Championship.all().find(c => c.name === object.championship.name);
+
+        object.championshipEditionClubs.forEach(cec => cec = new ChampionshipEditionClub(cec.club));
+        object.championshipEditionGroups.forEach(g => g = new ChampionshipEditionGroup(g.number));
+        object.championshipEditionEliminationPhases.forEach(ep => ep = new ChampionshipEditionEliminationPhase(ep.clubCount));
+        object.championshipEditionFixtures.forEach(f => f = new ChampionshipEditionFixture(f.number));
+        object.dates.forEach(d => d = new Date(d));
+        object.matches.forEach(m => m = new Match(new Date(m.date)));
+        object.championshipEditionPlayers.forEach(cep => cep = ChampionshipEditionPlayer.load(cep));
+    }
+
     get name() {
-        return this.championship.name + ' ' + this.year;
+        return `${this.championship.name}  ${this.year}`;
     }
 
     get groupDates() {
-        if (this.championship.regulation != 'groups')
+        if (this.championship.regulation != 'championshipEditionGroups')
             return [];
         else
             return this.dates.slice(0, this.championship.groupDatesCount - 1);
@@ -44,7 +56,7 @@ class ChampionshipEdition extends Entity {
             let start = (division - 1) * clubCount;
             
             let clubs = clubsAbleToPlay.orderBy('-overall').slice(start, start + clubCount);
-            clubs.forEach(c => this.championshipEditionClubs.push(new ChampionshipEditionClub(this, c)));
+            clubs.forEach(c => this.championshipEditionClubs.push(new ChampionshipEditionClub(c)));
         }
         else {
             let previousSeason = Season.previousSeason();
@@ -59,17 +71,17 @@ class ChampionshipEdition extends Entity {
             throw new Error('ChampionshipEdition.scheduleMatches(dates)')
 
         switch (this.championship.regulation) {
-            case 'groups':
-                this.defineGroups();
-                this.defineEliminationPhases();
-                this.scheduleMatchesGroups();
+            case 'championshipEditionGroups':
+                this.definechampionshipEditionGroups();
+                this.definechampionshipEditionEliminationPhases();
+                this.scheduleMatcheschampionshipEditionGroups();
                 break;
             case 'elimination':
-                this.defineEliminationPhases();
+                this.definechampionshipEditionEliminationPhases();
                 this.scheduleMatchesElimination();
                 break;
             case 'round-robin':
-                this.defineFixtures();
+                this.definechampionshipEditionFixtures();
                 this.scheduleMatchesRoundRobin();
                 break;
             default:
@@ -77,11 +89,11 @@ class ChampionshipEdition extends Entity {
         }
     }
 
-    defineGroups() {
+    definechampionshipEditionGroups() {
         let championshipEditionClubs = this.championshipEditionClubs.slice();
 
         for (let i = 0; i < this.championship.groupCount; i++) {
-            let group = new ChampionshipEditionGroup(this, i + 1);
+            let group = new ChampionshipEditionGroup(i + 1);
 
             for (let j = 0; j < this.championship.groupClubCount; j++) {
                 let club = championshipEditionClubs.getRandomItem();
@@ -89,36 +101,36 @@ class ChampionshipEdition extends Entity {
                 championshipEditionClubs.remove(club);   
             }
 
-            this.groups.push(group);
+            this.championshipEditionGroups.push(group);
         }
     }
 
-    defineEliminationPhases() {
-        let clubCount = this.championship.regulation === 'groups' ?
+    definechampionshipEditionEliminationPhases() {
+        let clubCount = this.championship.regulation === 'championshipEditionGroups' ?
             this.championship.groupCount * this.championship.qualifiedClubsByGroupCount :
             this.championship.clubCount;
 
         while (clubCount >= 2) {
-            let eliminationPhase = new ChampionshipEditionEliminationPhase(this, clubCount);
-            this.eliminationPhases.push(eliminationPhase);
+            let eliminationPhase = new ChampionshipEditionEliminationPhase(clubCount);
+            this.championshipEditionEliminationPhases.push(eliminationPhase);
             clubCount /= 2;
         }
 
         if (this.championship.regulation === 'elimination') {
-            this.eliminationPhases.first().qualify(this.championshipEditionClubs);
+            this.championshipEditionEliminationPhases.first().qualify(this.championshipEditionClubs);
         }
     }
 
-    defineFixtures() {
+    definechampionshipEditionFixtures() {
         for (let i = 0; i < this.championship.dateCount; i++) {
-            let fixture = new ChampionshipEditionFixture(this, i + 1);
-            this.fixtures.push(fixture);
+            let fixture = new ChampionshipEditionFixture(i + 1);
+            this.championshipEditionFixtures.push(fixture);
         }
     }
 
-    scheduleMatchesGroups() {
-        for (let i = 0; i < this.groups.length; i++) {
-            let group = this.groups[i];
+    scheduleMatcheschampionshipEditionGroups() {
+        for (let i = 0; i < this.championshipEditionGroups.length; i++) {
+            let group = this.championshipEditionGroups[i];
             group.matches = ChampionshipEdition.genericRoundRobin(this.groupDates, group.clubs, this.championship.twoLeggedTie);
             this.matches = this.matches.concat(group.matches);
         }
@@ -127,8 +139,8 @@ class ChampionshipEdition extends Entity {
     }
 
     scheduleMatchesElimination() {
-        for (let i = 0; i < this.eliminationPhases.length; i++) {
-            let eliminationPhase = this.eliminationPhases[i];
+        for (let i = 0; i < this.championshipEditionEliminationPhases.length; i++) {
+            let eliminationPhase = this.championshipEditionEliminationPhases[i];
             let clubs = eliminationPhase.championshipEditionClubs.map(cec => cec.club);
 
             for (let j = 0; j < clubs.length; j = j + 2) {
@@ -158,7 +170,7 @@ class ChampionshipEdition extends Entity {
         for (let i = 0; i < rounds; i++) {
             let date = dates[i];
             for (let j = 0; j < clubs.length / 2; j++) {
-                let match  = new Match(championshipEdition, date);
+                let match  = new Match(date);
 
                 match.addClub(clubs[j], i % 2 === 0 ? 'home' : 'away');
                 match.addClub(clubs[clubs.length - 1 - j], i % 2 === 0 ? 'away' : 'home');
@@ -180,7 +192,7 @@ class ChampionshipEdition extends Entity {
     }
 
     table() {
-        return this.championshipEditionClubs.orderBy('-eliminationPhasesWon', '-points', '-won', '-goalsDifference', '-goalsFor');
+        return this.championshipEditionClubs.orderBy('-championshipEditionEliminationPhasesWon', '-points', '-won', '-goalsDifference', '-goalsFor');
     }
 
     promotionZone() {

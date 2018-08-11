@@ -6,7 +6,6 @@ let Confederation = (function() {
             super();
 
             this.name = name;
-            this.countries = [];
         }
 
         static seed() {
@@ -20,10 +19,6 @@ let Confederation = (function() {
             return _confederations;
         }
 
-        get clubs() {
-            return this.selectMany('countries.clubs');
-        }
-
         get playableClubs() {
             return this.clubs.filter(c => c.playable);
         }
@@ -34,10 +29,6 @@ let Confederation = (function() {
 
         get cupClubCount() {
             return CONTINENTAL_CUP_CLUB_COUNT;
-        }
-
-        addCountry(value) {
-            this.countries.push(value);
         }
 
         cupName(division) {

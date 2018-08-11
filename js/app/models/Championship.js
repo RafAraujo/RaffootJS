@@ -12,6 +12,16 @@ let Championship = (function() {
             this.division = division;
             this.clubCount = clubCount;
         }
+
+        static load(object) {
+            object.championshipType = ChampionshipType.all().find(ct => ct.scope === object.championshipType.scope && ct.format === object.championshipType.format);
+            object.country = Country().find(c => c.name === object.country.name);
+            object.confederation = Confederation.all().find(c => c.name === object.confederation.name);
+
+            let championship = new Championship(...Object.values(object));
+            _championships.push(championship);
+            return championship;
+        }
     
         static seed() {
             let championshipTypes = ChampionshipType.all();
@@ -49,8 +59,6 @@ let Championship = (function() {
             }
     
             _championships.push(new Championship('World Cup', worldwideSuperCup, null, null, null, 2));
-
-            _championships.forEach(c => c.championshipType.addChampionship(c));
             
             Object.freeze(_championships);
         }

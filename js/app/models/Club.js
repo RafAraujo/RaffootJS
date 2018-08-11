@@ -15,6 +15,15 @@ let Club = (function() {
             this.trophies = [];
         }
 
+        static load(object) {
+            let country = Country.all().find(c => c.id === object.country.id);
+            let stadium = Stadium.all().find(s => s.id === object.stadium.id);
+
+            let club = new Club(object.name, country);
+
+            club.
+        }
+
         static seed() {
             let countries = Country.all();
 
@@ -2107,7 +2116,6 @@ let Club = (function() {
             _clubs.push(new Club("Zamora CF", spain));
 
             _clubs.forEach(c => {
-                c.country.addClub(c);
                 c._generateSquad();
                 c.money += c.squad.wage * Random.numberBetween(6, 12);
             });
@@ -2157,7 +2165,7 @@ let Club = (function() {
                 let count = fieldRegion.randomPlayersCount(this.squad.formation);
 
                 for (let j = 0; j < count; j++) {
-                    let player = new Player(this.country, year - Random.numberBetween(16, 38), fieldRegion);
+                    let player = new Player(this.country, year - Random.numberBetween(16, 38), fieldRegion.positions.getRandomItem());
                     let contract = new Contract(this, player, 'definitive', 0, player.baseWage, date, date.addMonths(Random.numberBetween(6, 24)));
                     contract.sign();
                 }

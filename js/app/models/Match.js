@@ -2,10 +2,9 @@ let Match = (function() {
     const pause = 15;
 
     return class Match extends Entity {
-        constructor (championshipEdition, date) {
+        constructor (date) {
             super();
 
-            this.championshipEdition = championshipEdition
             this.date = date;
             this._stadium = null;
             this.matchClubs = [];
