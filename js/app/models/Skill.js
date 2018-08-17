@@ -2,51 +2,68 @@ let Skill = (function() {
     let _skills = [];
 
     return class Skill extends Entity {
-        constructor(name, abbreviation, positions) {
+        constructor(name, abbreviation, positionIds) {
             super();
 
             this.name = name;
             this.abbreviation = abbreviation;
-            this.positions = positions;
+
+            this._positionIds = positionIds;
+        }
+
+        static create(name, abbreviation, positions) {
+            let skill = new Skill(name, abbreviation, positions.map(p => p.id));
+            skill.id = _skills.push(skill);
+            return skill;
+        }
+
+        static load(object) {
+            let skill = new Skill();
+            _skills.push(Object.assign(object, skill));
+            return skill;
+        }
+
+        static all() {
+            return _skills;
         }
 
         static seed() {
             let positions = Position.all();
 
             let goalkeeper = [positions.find(p => p.isGoalkeeper)];
-            _skills.push(new Skill('Throwing', 'THR', goalkeeper));
-            _skills.push(new Skill('Penalty Saves', 'PEN', goalkeeper));
-            _skills.push(new Skill('Positioning', 'POS', goalkeeper));
-            _skills.push(new Skill('Reflexes', 'REF', goalkeeper));
-            _skills.push(new Skill('Rushing Out', 'RUS', goalkeeper));
+            Skill.create('Throwing', 'THR', goalkeeper);
+            Skill.create('Penalty Saves', 'PEN', goalkeeper);
+            Skill.create('Positioning', 'POS', goalkeeper);
+            Skill.create('Reflexes', 'REF', goalkeeper);
+            Skill.create('Rushing Out', 'RUS', goalkeeper);
 
             let outfieldPlayers = positions.filter(p => !p.isGoalkeeper);
-            _skills.push(new Skill('Adaptability', 'ADA', outfieldPlayers));
-            _skills.push(new Skill('Ambidextrous', 'AMB', outfieldPlayers));
-            _skills.push(new Skill('Ball Control', 'BAC', outfieldPlayers));
-            _skills.push(new Skill('Crossing', 'CRO', outfieldPlayers));
-            _skills.push(new Skill('Dead Ball', 'DBA', outfieldPlayers));        
-            _skills.push(new Skill('Dribbling', 'DRI', outfieldPlayers));        
-            _skills.push(new Skill('Finishing', 'FIN', outfieldPlayers));
-            _skills.push(new Skill('Heading', 'HEA', outfieldPlayers));
-            _skills.push(new Skill('Marking', 'MAR', outfieldPlayers));
-            _skills.push(new Skill('Passing', 'PAS', outfieldPlayers));
-            _skills.push(new Skill('Physical', 'PAS', outfieldPlayers));
-            _skills.push(new Skill('Speed', 'SPD', outfieldPlayers));
-            _skills.push(new Skill('Stamina', 'STA', outfieldPlayers));
-            _skills.push(new Skill('Technique', 'TEC', outfieldPlayers));
-            _skills.push(new Skill('Teamwork', 'TWK', outfieldPlayers));
-            _skills.push(new Skill('Tackling', 'TAC', outfieldPlayers));
-            _skills.push(new Skill('Versatility', 'VER', outfieldPlayers));
-            _skills.push(new Skill('Vision', 'VIS', outfieldPlayers));
+            Skill.create('Adaptability', 'ADA', outfieldPlayers);
+            Skill.create('Ambidextrous', 'AMB', outfieldPlayers);
+            Skill.create('Ball Control', 'BAC', outfieldPlayers);
+            Skill.create('Crossing', 'CRO', outfieldPlayers);
+            Skill.create('Dead Ball', 'DBA', outfieldPlayers);        
+            Skill.create('Dribbling', 'DRI', outfieldPlayers);        
+            Skill.create('Finishing', 'FIN', outfieldPlayers);
+            Skill.create('Heading', 'HEA', outfieldPlayers);
+            Skill.create('Marking', 'MAR', outfieldPlayers);
+            Skill.create('Passing', 'PAS', outfieldPlayers);
+            Skill.create('Physical', 'PAS', outfieldPlayers);
+            Skill.create('Speed', 'SPD', outfieldPlayers);
+            Skill.create('Stamina', 'STA', outfieldPlayers);
+            Skill.create('Technique', 'TEC', outfieldPlayers);
+            Skill.create('Teamwork', 'TWK', outfieldPlayers);
+            Skill.create('Tackling', 'TAC', outfieldPlayers);
+            Skill.create('Versatility', 'VER', outfieldPlayers);
+            Skill.create('Vision', 'VIS', outfieldPlayers);
 
             _skills.forEach(s => s.positions.forEach(p => p.addSkill(s)));
 
             Object.freeze(_skills);
         }
 
-        static all() {
-            return _skills;
+        get positions() {
+            return Position.all().filter(p => this._positionIds.includes(p.id));
         }
     }
 })();

@@ -1,17 +1,33 @@
 let Season = (function() {
+    let _seasons = [];
+
     return class Season extends Entity {
         constructor(year) {
             super();
 
             this.year = year;
-            this._championshipEditions = [];
-            this.seasonDates = [];
+            
+            this._championshipEditionIds = [];
+            this._seasonDateIds = [];
             this._currentSeasonDateIndex = 0;
+            
             this.finished = false;
         }
 
+        static create(year) {
+            let season = new Season(year);
+            season.id = _seasons.push(season);
+            return season;
+        }
+
         static load(object) {
-            let season = new Season(object.year);
+            let season = new Season();
+            _seasons.push(Object.assign(object, season));
+            return season;
+        }
+
+        static all() {
+            return _seasons;
         }
 
         get championshipTypes() {
@@ -25,18 +41,26 @@ let Season = (function() {
                 return ChampionshipType.all();
         }
 
+        get championshipEditions() {
+            return ChampionshipEdition.all().filter(ce => this._championshipEditionIds.includes(ce.id));
+        }
+
+        get seasonDates() {
+            return SeasonDate.all().filter(sd => this._seasonDateIds.includes(sd.id));
+        }
+
         get nationalLeagues() {
             let nationalLeague = ChampionshipType.all().find(ct => ct.scope === 'national' && ct.format === 'league');
-            return this._championshipEditions.filter(ce => ce.championship.championshipType === nationalLeague);
+            return this.championshipEditions.filter(ce => ce.championship.championshipType === nationalLeague);
         }
 
         defineChampionshipEditions() {
             let championships = Championship.all().filter(c => this.championshipTypes.includes(c.championshipType));
-            championships.forEach(c => this._championshipEditions.push(new ChampionshipEdition(c, this.year)));
+            championships.forEach(c => this._championshipEditionIds.push(ChampionshipEdition.create(c, this.year).id));
         }
 
         hasChampionship(championshipType) {
-            return this._championshipEditions.some(ce => ce.championship.championshipType === championshipType);
+            return this._championshipEditionIds.includes(championshipType.id);
         }
 
         defineCalendar() {
@@ -64,21 +88,21 @@ let Season = (function() {
 
         totallyScheduled(championshipType) {
             let scheduledDates = this.seasonDates.filter(sd => sd.championshipType === championshipType).length;
-            let neededDates = this._championshipEditions.filter(ce => ce.championship.championshipType === championshipType).map(ce => ce.championship.dateCount).max();
+            let neededDates = this.championshipEditions.filter(ce => ce.championship.championshipType === championshipType).map(ce => ce.championship.dateCount).max();
             return scheduledDates === neededDates;
         }
 
         addSeasonDate(date, championshipType) {
             if (this.hasChampionship(championshipType))
-                this.seasonDates.push(new SeasonDate(date, championshipType));
+                this._seasonDateIds.push(SeasonDate.create(date, championshipType).id);
         }
 
         schedule() {
             this.defineChampionshipEditions();
             this.defineCalendar();
 
-            for (let i = 0; i < this._championshipEditions.length; i++) {
-                let championshipEdition = this._championshipEditions[i];
+            for (let i = 0; i < this._championshipEditionIds.length; i++) {
+                let championshipEdition = ChampionshipEdition.all()[this._championshipEditionIds[i] - 1];
                 championshipEdition.defineClubs();
                 let dates = this.seasonDates.filter(sd => sd.championshipType === championshipEdition.championship.championshipType).map(sd => sd.date);
                 championshipEdition.scheduleMatches(dates);

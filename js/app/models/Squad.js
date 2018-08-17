@@ -1,57 +1,89 @@
-class Squad extends Entity {
-    constructor() {
-        super();
+let Squad = (function() {
+    let _squads = [];
 
-        this.formation = Formation.all().getRandomItem();
-        this.squadPlayers = [];
-        this._freeKickTaker = null;
-        this._penaltyTaker = null;
-    }
+    return class Squad extends Entity {
+        constructor(formationId) {
+            super();
 
-    set freeKickTaker(squadPlayer) {
-        this._freeKickTaker = this.findSquadPlayer(squadPlayer);
-    }
+            this._formationId = formationId;
+            
+            this._squadPlayerIds = [];
 
-    get freeKickTaker() {
-        return this._freeKickTaker;
-    }
+            this._freeKickTaker = null;
+            this._penaltyTaker = null;
+        }
 
-    set penaltyTaker(squadPlayer) {
-        this._penaltyTaker = this.findSquadPlayer(squadPlayer);
-    }
+        static create(formation) {
+            let squad = new Squad(formation.id);
+            squad.id = _squads.push(squad);
+            return squad;
+        }
 
-    get penaltyTaker() {
-        return this._penaltyTaker;
-    }
+        static load(object) {
+            let squad = new Squad();
+            _squads.push(Object.assign(object, squad));
+            return squad;
+        }
 
-    findSquadPlayer(squadPlayer) {
-        let found = this.squadPlayers.find(p => p.squadPlayer === squadPlayer);
+        static all() {
+            return _squads;
+        }
+
+        get formation() {
+            return Formation.all()[this._formationId - 1];
+        }
+
+        get squadPlayers() {
+            return SquadPlayer.all().filter(sp => this._squadPlayerIds.includes(sp.id));;
+        }
+
+        set freeKickTaker(squadPlayer) {
+            this._freeKickTaker = this.findSquadPlayer(squadPlayer);
+        }
+
+        get freeKickTaker() {
+            return this._freeKickTaker;
+        }
+
+        set penaltyTaker(squadPlayer) {
+            this._penaltyTaker = this.findSquadPlayer(squadPlayer);
+        }
+
+        get penaltyTaker() {
+            return this._penaltyTaker;
+        }
+
+        findSquadPlayer(squadPlayer) {
+            let found = this.squadPlayers.find(p => p.squadPlayer === squadPlayer);
+            
+            if (found == null)
+                throw new ReferenceError('Squad.findSquadPlayer(squadPlayer)');
+
+            return found;
+        }
         
-        if (found == null)
-            throw new ReferenceError('Squad.findSquadPlayer(squadPlayer)');
+        get overall() {
+            let sum = this.squadPlayers.map(sp => sp.player.overall).sum();
+            return sum / this.squadPlayers.length;
+        }
 
-        return found;
-    }
-    
-    get overall() {
-        let sum = this.squadPlayers.map(sp => sp.player.overall).sum();
-        return sum / this.squadPlayers.length;
-    }
+        get wage() {
+            return this.squadPlayers.map(sp => sp.player).map(p => p.wage).sum();
+        }
 
-    get wage() {
-        return this.squadPlayers.map(sp => sp.player).map(p => p.wage).sum();
-    }
+        add(player) {
+            let squadPlayer = SquadPlayer.create(this, player);
+            this._squadPlayerIds.push(squadPlayer.id);
+        }
 
-    add(player) {
-        let squadPlayer = new SquadPlayer(this, player);
-        this.squadPlayers.push(squadPlayer);
-    }
+        remove(player) {
+            let squadPlyaerId = this.squadPlayers.find(sp => sp.player.id === player.id);
+            this._squadPlayerIds.remove(spId => spId === squadPlyaerId);
+            this._updateSquad();
+        }
 
-    remove(player) {
-        this.squadPlayers.remove(player);
+        rest(time) {
+            this.squadPlayers.map(sp => sp.player).forEach(p => p.rest(time));
+        }
     }
-
-    rest(time) {
-        this.squadPlayers.map(sp => sp.player).forEach(p => p.rest(time));
-    }
-}
+})();

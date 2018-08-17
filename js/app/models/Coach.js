@@ -1,31 +1,27 @@
-class Coach extends Entity {
-    constructor(name = null, country = null) {
-        super();
+let Coach = (function() {
+    let _coaches = [];
 
-        if (!(name != null || country))
-            throw new Error('Coach.constructor');
+    return class Coach extends Entity {
+        constructor(name) {
+            super();
 
-        this._name = name != null ? '' : country.names.getRandomItem();
-        this._surname = name != null ? name : country.surnames.getRandomItem();
-    }
+            this.name = name;
+        }
 
-    set name(value) {
-        this._name = value;
-    }
-    
-    set surname(value) {
-        this._surname = value;
-    }
-    
-    get name() {
-        return this._name;
-    }
+        static create(country) {
+            let coach = new Coach(country.names.getRandomItem());
+            coach.id = _coaches.push(coach);
+            return coach;
+        }
 
-    get completeName() {
-        return `${this._name} ${this._surname.toUpperCase()}`.trim();
-    }
+        static load(object) {
+            let coach = new Coach();
+            _coaches.push(Object.assign(object, coach));
+            return coach;
+        }
 
-    get club() {
-        return Club.all().find(c => c.coach === this);
+        get club() {
+            return Club.all().find(c => c.coach.id === this.id);
+        }
     }
-}
+})();

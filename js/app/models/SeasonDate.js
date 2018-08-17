@@ -1,8 +1,33 @@
-class SeasonDate extends Entity {
-    constructor(date, championshipType) {
-        super();
+let SeasonDate = (function() {
+    let _seasonDates = [];
 
-        this.date = date;
-        this.championshipType = championshipType;
+    return class SeasonDate extends Entity {
+        constructor(date, championshipTypeId) {
+            super();
+
+            this.date = date;
+            this._championshipTypeId = championshipTypeId;
+        }
+
+        static create(date, championshipType) {
+            let seasonDate = new SeasonDate(date, championshipType.id);
+            seasonDate.id = _seasonDates.push(seasonDate);
+            return seasonDate;
+        }
+
+        static load(object) {
+            let seasonDate = new SeasonDate();
+            _seasonDates.push(Object.assign(object, seasonDate));
+            seasonDate.date = new Date(seasonDate.date);
+            return seasonDate;
+        }
+
+        static all() {
+            return _seasonDates;
+        }
+
+        get championshipType() {
+            return ChampionshipType.all()[this._championshipTypeId - 1];
+        }
     }
-}
+})();

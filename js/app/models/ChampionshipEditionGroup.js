@@ -1,24 +1,50 @@
-class ChampionshipEditionGroup extends Entity {
-    constructor(number) {
-        super();
 
-        this.number = number;
-        this.championshipEditionClubs = [];
-        this.matches = [];
+let ChampionshipEditionGroup = (function() {
+    let _championshipEditionGroups = [];
+
+    return class ChampionshipEditionGroup extends Entity {
+        constructor(championshipEditionId, number) {
+            super();
+
+            this._championshipEditionId = championshipEditionId;
+            this.number = number;
+            this._championshipEditionClubIds = [];
+            this._matchIds = [];
+        }
+
+        static create(championshipEdition, number) {
+            let championshipEditionGroup = new ChampionshipEditionGroup(championshipEdition.id, number);
+            championshipEditionGroup.id = _championshipEditionGroups.push(championshipEditionGroup);
+            return championshipEditionGroup;
+        }
+
+        static load() {
+            let championshipEditionGroup = new ChampionshipEditionGroup();
+            _championshipEditionGroups.push(Object.assign(object, championshipEditionGroup));
+            return championshipEditionGroup;
+        }
+
+        static all() {
+            return _championshipEditionGroups;
+        }
+
+        get championshipEdition() {
+            return ChampionshipEdition.all()[this._championshipEditionId - 1];
+        }
+
+        get name() {
+            return 'Group ' + 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[this.number - 1];
+        }
+
+        addClub(championshipEditionClub) {
+            if (this.championshipEditionClubs.length === GROUP_CLUB_COUNT)
+                throw new Error('ChampionshipEditionGroup.addClub(championshipEditionClub)');
+
+            this.championshipEditionClubs.push(championshipEditionClub);
+        }
+
+        table() {
+            return this.championshipEditionClubs.orderBy('-points', '-won', '-goalsDifference', '-goalsFor');
+        }
     }
-
-    get name() {
-        return 'Group ' + 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[this.number - 1];
-    }
-
-    addClub(championshipEditionClub) {
-        if (this.championshipEditionClubs.length === GROUP_CLUB_COUNT)
-            throw new Error('ChampionshipEditionGroup.addClub(championshipEditionClub)');
-
-        this.championshipEditionClubs.push(championshipEditionClub);
-    }
-
-    table() {
-        return this.championshipEditionClubs.orderBy('-points', '-won', '-goalsDifference', '-goalsFor');
-    }
-}
+})();

@@ -2,28 +2,58 @@ let Player = (function() {
     let _players = [];
 
     return class Player extends Entity {
-        constructor(country, birthYear, position) {
+        constructor(name, surname, countryId, birthYear, positionId, overall, star, skillIds, condition, injuryProneness) {
             super();
 
-            this.id = _players.length + 1;
-            this.country = country;
+            this._name = name;
+            this._surname = surname;
+            this._countryId = countryId;
             this._birthYear = birthYear;
-            this.position = position;
-            this._name = this.country.names.getRandomItem();
-            this._surname = this.country.surnames.getRandomItem();
-            this.overall = Random.numberBetween(1, 99);
-            this.star = this.overall > 90 ? Random.numberBetween(1, 10) === 10 : false;
-            this.skills = this.position.skills.getRandomItems(this.star ? 3 : 2);
-            this.condition = Random.numberBetween(1, 5);
-            this.injuryProneness = Random.numberBetween(1, 3);
-            this.energy = 100;
-            this.contracts = [];
+            this._positionId = positionId;
+            this.overall = overall;
+            this.star = star;
 
-            _players.push(this);
+            this._skillIds = skillIds;
+            this._skills = [];
+            
+            this.condition = condition;
+            this.injuryProneness = injuryProneness;
+            this.energy = 100;
+            
+            this._contractIds = [];
+            this._contracts = [];
+        }
+
+        static create(country, birthYear, position) {
+            let name = country.names.getRandomItem();
+            let surname = country.surnames.getRandomItem();
+            let overall = Random.numberBetween(1, 99);
+            let star = overall > 90 ? Random.numberBetween(1, 10) === 10 : false;
+            let skillIds = position.skills.getRandomItems(this.star ? 3 : 2).map(s => s.id);
+            let condition = Random.numberBetween(1, 5);
+            let injuryProneness = Random.numberBetween(1, 3);
+
+            let player = new Player(name, surname, country.id, birthYear, position.id, overall, star, skillIds, condition, injuryProneness);
+            player.id = _players.push(player);
+            return player;
+        }
+
+        static load(object) {
+            let player = new Player();
+            _players.push(Object.assign(object, player));
+            return player;
         }
 
         static all() {
             return _players;
+        }
+
+        get country() {
+            return Country.all()[this._countryId - 1];
+        }
+
+        get position() {
+            return Position.all()[this._positionId - 1];
         }
 
         get age() {
@@ -38,6 +68,18 @@ let Player = (function() {
             return `${this._name} ${this._surname.toUpperCase()}`;
         }
 
+        get skills() {
+            if (_skills.length === 0)
+                _skills = Skill.all().filter(s => this._skillIds.some(sId => s.id === sId));
+            return _skills;
+        }
+
+        get contracts() {
+            if (this._contracts.length === 0)
+                this._updateContracts();
+            return this._contracts;
+        }
+
         get club() {
             return this.contracts.filter(c => c.inForce).last().destinationClub;
         }
@@ -50,8 +92,10 @@ let Player = (function() {
             return this.overall * 115 * (this.star ? 2 : 1);
         }
 
-        addContract(value) {
-            this.contracts.push(value);
+        get contracts() {
+            if (this._contracts.length === 0)
+                this._updateContracts();
+            return this._contracts;
         }
 
         get inForceContracts() {
@@ -64,6 +108,15 @@ let Player = (function() {
 
         get wage() {
             return this.inForceContracts.last().wage;
+        }
+
+        _updateContracts() {
+            this._contracts = Contract.all().filter(c => this._contractIds.includes(c.id));
+        }
+
+        addContract(value) {
+            this._contractIds.push(value.id);
+            this._updateContracts();
         }
 
         rest(time) {

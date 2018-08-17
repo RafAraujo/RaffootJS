@@ -2,25 +2,34 @@ let Championship = (function() {
     let _championships = [];
 
     return class Championship extends Entity {
-        constructor(name, championshipType, country, confederation, division, clubCount) {
+        constructor(name, championshipTypeId, countryId, confederationId, division, clubCount) {
             super();
 
             this.name = name;
-            this.championshipType = championshipType;
-            this.country = country;
-            this.confederation = confederation;
+            this._championshipTypeId = championshipTypeId;
+            this._countryId = countryId;
+            this._confederationId = confederationId;
             this.division = division;
             this.clubCount = clubCount;
         }
 
-        static load(object) {
-            object.championshipType = ChampionshipType.all().find(ct => ct.scope === object.championshipType.scope && ct.format === object.championshipType.format);
-            object.country = Country().find(c => c.name === object.country.name);
-            object.confederation = Confederation.all().find(c => c.name === object.confederation.name);
+        static create(name, championshipType, country, confederation, division, clubCount) {
+            let countryId = country == null ? null : country.id;
+            let confederationId = confederation == null ? null : confederation.id;
 
-            let championship = new Championship(...Object.values(object));
-            _championships.push(championship);
+            let championship = new Championship(name, championshipType.id, countryId, confederationId, division, clubCount);
+            championship.id = _championships.push(championship);
             return championship;
+        }
+
+        static load(object) {
+            let championship = new Championship();
+            _championships.push(Object.assign(object, championship));
+            return championship;
+        }
+
+        static all() {
+            return _championships;
         }
     
         static seed() {
@@ -37,11 +46,11 @@ let Championship = (function() {
             for (let i = 0; i < countries.length; i++) {
                 let country = countries[i];
     
-                _championships.push(new Championship(country.name + ' Cup', nationalCup, country, null, null, country.cupClubCount));
+                Championship.create(country.name + ' Cup', nationalCup, country, null, null, country.cupClubCount);
     
                 for (let j = 0; j < country.divisionCount; j++) {
                     let division = j + 1;
-                    _championships.push(new Championship(country.name + ' League ' + division, nationalLeague, country, null, division, country.leagueClubCount));
+                    Championship.create(country.name + ' League ' + division, nationalLeague, country, null, division, country.leagueClubCount);
                 }
             }
     
@@ -52,19 +61,31 @@ let Championship = (function() {
     
                 for (let j = 0; j < confederation.divisionCount; j++) {
                     let division = j + 1;
-                    _championships.push(new Championship(confederation.cupName(division), continentalCup, null, confederation, division, confederation.cupClubCount));
+                    Championship.create(confederation.cupName(division), continentalCup, null, confederation, division, confederation.cupClubCount);
                 }
                        
-                _championships.push(new Championship(confederation.name + ' Super Cup', continentalSuperCup, null, confederation, null, 2));
+                Championship.create(confederation.name + ' Super Cup', continentalSuperCup, null, confederation, null, 2);
             }
     
-            _championships.push(new Championship('World Cup', worldwideSuperCup, null, null, null, 2));
-            
+            Championship.create('World Cup', worldwideSuperCup, null, null, null, 2);
+
             Object.freeze(_championships);
         }
     
         static all() {
             return _championships;
+        }
+
+        get championshipType() {
+            return ChampionshipType.all().find(ct => ct.id === this._championshipTypeId);
+        }
+
+        get country() {
+            return this._countryId == null ? null : Country.all()[this._countryId - 1];
+        }
+
+        get confederation() {
+            return this._confederationId == null ? null : Confederation.all()[this._confederationId - 1];
         }
     
         get regulation() {

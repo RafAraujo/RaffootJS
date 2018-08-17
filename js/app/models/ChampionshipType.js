@@ -11,19 +11,29 @@ let ChampionshipType = (function() {
             this.twoLeggedTie = twoLeggedTie;
         }
 
-        static load(object) {
-            let championshipType = new ChampionshipType(...Object.keys(object));
-            _championshipTypes.push(championshipType);
+        static create(scope, format, regulation, twoLeggedTie) {
+            let championshipType = new ChampionshipType(scope, format, regulation, twoLeggedTie);
+            championshipType.id = _championshipTypes.push(championshipType);
             return championshipType;
         }
 
-        static seed() {
-            _championshipTypes.push(new ChampionshipType('national', 'cup', 'elimination', true));
-            _championshipTypes.push(new ChampionshipType('national', 'league', 'round-robin', true));
-            _championshipTypes.push(new ChampionshipType('continental', 'cup', 'groups', true));
-            _championshipTypes.push(new ChampionshipType('continental', 'superCup', 'elimination', false));
-            _championshipTypes.push(new ChampionshipType('worldwide', 'superCup', 'elimination', false));
+        static load(object) {
+            let championshipType = new ChampionshipType();
+            _championshipTypes.push(Object.assign(object, championshipType));
+            return championshipType;
+        }
 
+        static all() {
+            return _championshipTypes;
+        }
+
+        static seed() {
+            ChampionshipType.create('national', 'cup', 'elimination', true);
+            ChampionshipType.create('national', 'league', 'round-robin', true);
+            ChampionshipType.create('continental', 'cup', 'groups', true);
+            ChampionshipType.create('continental', 'superCup', 'elimination', false);
+            ChampionshipType.create('worldwide', 'superCup', 'elimination', false);
+            
             Object.freeze(_championshipTypes);
         }
 

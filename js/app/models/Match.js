@@ -1,33 +1,45 @@
 let Match = (function() {
+    let _matches = [];
+
     const pause = 15;
 
     return class Match extends Entity {
-        constructor (date) {
+        constructor (championshipEditionId, date, refereeId) {
             super();
 
+            this._championshipEditionId = championshipEditionId;
             this.date = date;
-            this._stadium = null;
-            this.matchClubs = [];
-            this.referee = Referee.all().getRandomItem();
+            this._stadiumId = 0;
+            this._matchClubIds = [];
+            this._refereeId = refereeId;
 
             this.time = 0;
             this.duration = 90;
             this.paused = false;
         }
 
-        addClub(club, situation) {        
-            if (club == null || this.matchClubs.length === 2)
-                throw new Error('Match.addClub(club, situation)')
+        static create(championshipEdition, date, referee) {
+            let match = new Match(championshipEdition.id, date, referee.id);
+            match.id = _matches.push(match);
+            return match;
+        }
 
-            let matchClub = new MatchClub(this, club, situation);
-            this.matchClubs.push(matchClub);
+        static load(object) {
+            let match = new Match();
+            _matches.push(Object.assign(object, match));
+            return match;
+        }
 
-            if (this._stadium == null && matchClub.situation === 'home')
-                this._stadium = matchClub.club.stadium;
+        static all() {
+            return _matches;
+        }
+
+        get championshipEdition() {
+            return ChampionshipEdition.all()[this._championshipEditionId - 1];
         }
 
         get stadium() {
-            return this._stadium;
+            return Stadium.all()[this._stadiumId - 1];
         }
 
         set stadium(value) {
@@ -38,6 +50,10 @@ let Match = (function() {
             this._stadium = value;
         }
 
+        get matchClubs() {
+            return MatchClub.all().find(mc => mc.match === this);
+        }
+
         get homeClub() {
             return this.matchClubs.find(mc => mc.situation === 'home').club;
         }
@@ -46,11 +62,26 @@ let Match = (function() {
             return this.matchClubs.find(mc => mc.situation === 'away').club;
         }
 
+        get referee() {
+            return Referee.all()[this._refereeId - 1];
+        }
+
         get description() {
             let club1 = this.homeClub || this.matchClubs[0];
             let club2 = this.awayClub || this.matchClubs[1];
 
             return club1.name + " x " + club2.name;
+        }
+        
+        addClub(club, situation) {        
+            if (club == null || this._matchClubIds.length === 2)
+                throw new Error('Match.addClub(club, situation)')
+
+            let matchClub = MatchClub.create(this, club, situation);
+            this._matchClubIds.push(matchClub.id);
+
+            if (this._stadiumId === 0 && matchClub.situation === 'home')
+                this._stadiumId = matchClub.club.stadium.id;
         }
         
         play() {

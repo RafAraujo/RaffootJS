@@ -8,19 +8,27 @@ let Confederation = (function() {
             this.name = name;
         }
 
-        static seed() {
-            _confederations.push(new Confederation('America'));
-            _confederations.push(new Confederation('Europe'));
+        static create(name) {
+            let confederation = new Confederation(name);
+            confederation.id = _confederations.push(confederation);
+            return confederation;
+        }
 
-            Object.freeze(_confederations);
+        static load(object) {
+            let confederation = new Confederation();
+            _confederations.push(Object.assign(object, confederation));
+            return confederation;
         }
 
         static all() {
             return _confederations;
         }
 
-        get playableClubs() {
-            return this.clubs.filter(c => c.playable);
+        static seed() {
+            Confederation.create('America');
+            Confederation.create('Europe');
+
+            Object.freeze(_confederations);
         }
 
         get divisionCount() {

@@ -2,13 +2,29 @@ let Referee = (function() {
     let _referees = [];
 
     return class Referee extends Entity {
-        constructor(country) {
+        constructor(countryId, name, surname) {
             super();
 
-            this.country = country;
-            this._name = country.names.getRandomItem();
-            this._surname = country.surnames.getRandomItem();
+            this._countryId = countryId;
+            this._name = name;
+            this._surname = surname;
             this.rigor = Random.numberBetween(1, 3);
+        }
+
+        static create(country) {
+            let referee = new Referee(country.id, country.names.getRandomItem(), country.surnames.getRandomItem());
+            referee.id = _referees.push(referee);
+            return referee;
+        }
+
+        static load(object) {
+            let referee = new Referee();
+            _referees.push(Object.assign(object, referee));
+            return referee;
+        }
+
+        static all() {
+            return _referees;
         }
 
         static seed() {
@@ -16,14 +32,14 @@ let Referee = (function() {
 
             for (let i = 0; i < clubs.length; i++) {
                 let country = clubs[i].country
-                _referees.push(new Referee(country));
+                _referees.push(Referee.create(country));
             }
 
             Object.freeze(_referees);
         }
 
-        static all() {
-            return _referees;
+        get country() {
+            return Country.all()[this.countryId - 1];
         }
 
         get name() {

@@ -1,4 +1,4 @@
-class IndexView extends View {
+class IndexView {
     update(game) {
     }
 }

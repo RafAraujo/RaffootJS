@@ -1,4 +1,4 @@
-class HomeView{
+class HomeView {
     update(game) {
         
     }

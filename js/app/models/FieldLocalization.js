@@ -2,13 +2,29 @@ let FieldLocalization = (function() {
     let _fieldLocalizations = [];
 
     return class FieldLocalization extends Entity {
-        constructor(position, line, column) {        
+        constructor(positionId, line, column) {        
             super();
             
-            this.position = position;
+            this._positionId = positionId;
             this.line = line;
             this.column = column;
-            this.name = this.name();
+            this.name = this._name();
+        }
+
+        static create(position, line, column) {
+            let fieldLocalization = new FieldLocalization(position.id, line, column);
+            fieldLocalization.id = _fieldLocalizations.push(fieldLocalization);
+            return fieldLocalization;
+        }
+
+        static load(object) {
+            let fieldLocalization = new FieldLocalization();
+            _fieldLocalizations.push(Object.assign(object, fieldLocalization));
+            return fieldLocalization;
+        }
+
+        static all() {
+            return _fieldLocalizations;
         }
 
         static seed() {
@@ -31,51 +47,51 @@ let FieldLocalization = (function() {
             let st = positions.find(p => p.name === 'Striker');
             let cf = positions.find(p => p.name === 'Center Forward');
 
-            _fieldLocalizations.push(new FieldLocalization(gk, 0, 2));
+            FieldLocalization.create(gk, 0, 2);
 
             for (let i = 1; i < 4; i++)
-                _fieldLocalizations.push(new FieldLocalization(cb, 2, i));
+                FieldLocalization.create(cb, 2, i);
 
-            _fieldLocalizations.push(new FieldLocalization(lb, 3, 0));
-            _fieldLocalizations.push(new FieldLocalization(rb, 3, 4));
+            FieldLocalization.create(lb, 3, 0);
+            FieldLocalization.create(rb, 3, 4);
 
-            _fieldLocalizations.push(new FieldLocalization(lwb, 4, 0));
-            _fieldLocalizations.push(new FieldLocalization(rwb, 4, 4));
-
-            for (let i = 1; i < 4; i++)
-                _fieldLocalizations.push(new FieldLocalization(cdm, 5, i));
+            FieldLocalization.create(lwb, 4, 0);
+            FieldLocalization.create(rwb, 4, 4);
 
             for (let i = 1; i < 4; i++)
-                _fieldLocalizations.push(new FieldLocalization(cm, 6, i));
-
-            _fieldLocalizations.push(new FieldLocalization(lm, 7, 0));
-            _fieldLocalizations.push(new FieldLocalization(rm, 7, 4));
+                FieldLocalization.create(cdm, 5, i);
 
             for (let i = 1; i < 4; i++)
-                _fieldLocalizations.push(new FieldLocalization(cam, 8, i));
+                FieldLocalization.create(cm, 6, i);
 
-            _fieldLocalizations.push(new FieldLocalization(lw, 9, 0));
-            _fieldLocalizations.push(new FieldLocalization(ss, 9, 2));
-            _fieldLocalizations.push(new FieldLocalization(rw, 9, 4));
+            FieldLocalization.create(lm, 7, 0);
+            FieldLocalization.create(rm, 7, 4);
 
-            _fieldLocalizations.push(new FieldLocalization(st, 10, 1));
-            _fieldLocalizations.push(new FieldLocalization(st, 10, 3));
+            for (let i = 1; i < 4; i++)
+                FieldLocalization.create(cam, 8, i);
 
-            _fieldLocalizations.push(new FieldLocalization(cf, 11, 2));
+            FieldLocalization.create(lw, 9, 0);
+            FieldLocalization.create(ss, 9, 2);
+            FieldLocalization.create(rw, 9, 4);
+
+            FieldLocalization.create(st, 10, 1);
+            FieldLocalization.create(st, 10, 3);
+
+            FieldLocalization.create(cf, 11, 2);
 
             Object.freeze(_fieldLocalizations);
         }
 
-        static all() {
-            return _fieldLocalizations;
+        get position() {
+            return Position.all()[this._positionId - 1];
         }
         
-        name() {
+        _name() {
             let positions = Position.all();
             let side = '';
 
-            if (positions.filter(p => ['CB', 'CDM', 'CM', 'CAM', 'ST'].some(a => a == p.abbreviation)).some(p => p == this.position))
-                side = ['L', 'L', '', 'R', 'R'][this.column]
+            if (positions.filter(p => ['CB', 'CDM', 'CM', 'CAM', 'ST'].some(a => a == p.abbreviation)).some(p => p.id == this._positionId))
+                side = ['L', 'L', '', 'R', 'R'][this.column];
             
             return side + this.position.abbreviation;
         }

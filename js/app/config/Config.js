@@ -1,5 +1,7 @@
 const VERSION = 2018;
 
+const FIRST_YEAR = new Date().getFullYear();
+
 const CONTINENTAL_MAX_DIVISION_COUNT = 2;
 const CONTINENTAL_CUP_CLUB_COUNT = 32;
 

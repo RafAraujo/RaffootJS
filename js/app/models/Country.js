@@ -2,21 +2,29 @@ let Country = (function() {
     let _countries = [];
 
     return class Country extends Entity {
-        constructor(name, abbreviation, confederation, countryLanguage, playable) {
+        constructor(name, abbreviation, confederationId, countryLanguageId, playable) {
             super();
 
             this.name = name;
             this.abbreviation = abbreviation;
-            this.countryLanguage = countryLanguage;
-            this.confederation = confederation;
+            this.confederationId = confederationId;
+            this.countryLanguageId = countryLanguageId;
             this.playable = playable;
 
             this._stadiums = [];
             this._clubs = [];
         }
 
+        static create(name, abbreviation, confederation, countryLanguage, playable) {
+            let country = new Country(name, abbreviation, confederation.id, countryLanguage.id, playable);
+            country.id = _countries.push(country);
+            return country;
+        }
+
         static load(object) {
-            
+            let country = new Country();
+            _countries.push(Object.assign(object, country));
+            return country;
         }
 
         static seed() {
@@ -27,23 +35,23 @@ let Country = (function() {
 
             let countryLanguages = CountryLanguage.all();
 
-            _countries.push(new Country('Argentina', 'ARG', america, countryLanguages.find(cl => cl.name === 'spanish'), true));
-            _countries.push(new Country('Brazil', 'BRA', america, countryLanguages.find(cl => cl.name === 'portuguese'), true));
-            _countries.push(new Country('Chile', 'CHI', america, countryLanguages.find(cl => cl.name === 'spanish'), true));
-            _countries.push(new Country('Colombia', 'COL', america, countryLanguages.find(cl => cl.name === 'spanish'), true));
-            _countries.push(new Country('Ecuador', 'ECU', america, countryLanguages.find(cl => cl.name === 'spanish'), true));
-            _countries.push(new Country('Mexico', 'MEX', america, countryLanguages.find(cl => cl.name === 'spanish'), true));
-            _countries.push(new Country('Paraguay', 'PAR', america, countryLanguages.find(cl => cl.name === 'spanish'), true));
-            _countries.push(new Country('Uruguay', 'URU', america, countryLanguages.find(cl => cl.name === 'spanish'), true));
+            Country.create('Argentina', 'ARG', america, countryLanguages.find(cl => cl.name === 'spanish'), true);
+            Country.create('Brazil', 'BRA', america, countryLanguages.find(cl => cl.name === 'portuguese'), true);
+            Country.create('Chile', 'CHI', america, countryLanguages.find(cl => cl.name === 'spanish'), true);
+            Country.create('Colombia', 'COL', america, countryLanguages.find(cl => cl.name === 'spanish'), true);
+            Country.create('Ecuador', 'ECU', america, countryLanguages.find(cl => cl.name === 'spanish'), true);
+            Country.create('Mexico', 'MEX', america, countryLanguages.find(cl => cl.name === 'spanish'), true);
+            Country.create('Paraguay', 'PAR', america, countryLanguages.find(cl => cl.name === 'spanish'), true);
+            Country.create('Uruguay', 'URU', america, countryLanguages.find(cl => cl.name === 'spanish'), true);
 
-            _countries.push(new Country('France', 'FRA', europe, countryLanguages.find(cl => cl.name === 'french'), true));
-            _countries.push(new Country('England', 'ENG', europe, countryLanguages.find(cl => cl.name === 'english'), true));
-            _countries.push(new Country('Germany', 'GER', europe, countryLanguages.find(cl => cl.name === 'deutsche'), true));
-            _countries.push(new Country('Italy', 'ITA', europe, countryLanguages.find(cl => cl.name === 'italian'), true));
-            _countries.push(new Country('Netherlands', 'NED', europe, countryLanguages.find(cl => cl.name === 'dutch'), true));
-            _countries.push(new Country('Portugal', 'POR', europe, countryLanguages.find(cl => cl.name === 'portuguese'), true));
-            _countries.push(new Country('Russia', 'RUS', europe, countryLanguages.find(cl => cl.name === 'russian'), true));
-            _countries.push(new Country('Spain', 'ESP', europe, countryLanguages.find(cl => cl.name === 'spanish'), true));
+            Country.create('France', 'FRA', europe, countryLanguages.find(cl => cl.name === 'french'), true);
+            Country.create('England', 'ENG', europe, countryLanguages.find(cl => cl.name === 'english'), true);
+            Country.create('Germany', 'GER', europe, countryLanguages.find(cl => cl.name === 'deutsche'), true);
+            Country.create('Italy', 'ITA', europe, countryLanguages.find(cl => cl.name === 'italian'), true);
+            Country.create('Netherlands', 'NED', europe, countryLanguages.find(cl => cl.name === 'dutch'), true);
+            Country.create('Portugal', 'POR', europe, countryLanguages.find(cl => cl.name === 'portuguese'), true);
+            Country.create('Russia', 'RUS', europe, countryLanguages.find(cl => cl.name === 'russian'), true);
+            Country.create('Spain', 'ESP', europe, countryLanguages.find(cl => cl.name === 'spanish'), true);
             
             Object.freeze(_countries);
         }
@@ -54,6 +62,14 @@ let Country = (function() {
 
         static playable() {
             return _countries.filter(c => c.playable);
+        }
+
+        get confederation() {
+            return Confederation.all().find(c => c.id === this.confederationId);
+        }
+
+        get countryLanguage() {
+            return CountryLanguage.all().find(cl => cl.id === this.countryLanguageId);
         }
 
         get names() {
@@ -85,13 +101,13 @@ let Country = (function() {
 
         get stadiums() {
             if (this._stadiums.length === 0)
-                this._stadiums = Stadium.all().filter(s => s.country === this);
+                this._stadiums = Stadium.all().filter(s => s._countryId === this.id);
             return this._stadiums;
         }
 
         get clubs() {
             if (this._clubs.length === 0)
-                this._clubs = Club.all().filter(c => c.country === this);
+                this._clubs = Club.all().filter(c => c._countryId === this.id);
             return this._clubs;
         }
 
