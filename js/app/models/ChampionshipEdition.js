@@ -166,10 +166,7 @@ let ChampionshipEdition = (function() {
         }
 
         scheduleMatcheschampionshipEditionGroups() {
-            let groups = this.championshipEditionGroups;
-
-            for (let i = 0; i < groups.length; i++) {
-                let group = this.groups[i];
+            for (let group of this.championshipEditionGroups) {
                 group.matchIds = ChampionshipEdition.genericRoundRobin(this.groupDates, group.clubs, this.championship.twoLeggedTie).map(m => m.id);
                 this._matchIds = this._matchIds.concat(group.matches.map(m => m.id));
             }

@@ -38,12 +38,8 @@ let Championship = (function() {
             let continentalCup = championshipTypes.find(ct => ct.scope === 'continental' && ct.format === 'cup');
             let continentalSuperCup = championshipTypes.find(ct => ct.scope === 'continental' && ct.format === 'superCup');
             let worldwideSuperCup = championshipTypes.find(ct => ct.scope === 'worldwide' && ct.format === 'superCup');
-    
-            let countries = Country.playable();
-    
-            for (let i = 0; i < countries.length; i++) {
-                let country = countries[i];
-    
+
+            for (let country of Country.playable()) {
                 Championship.create(country.name + ' Cup', nationalCup, country, null, null, country.cupClubCount);
     
                 for (let j = 0; j < country.divisionCount; j++) {
@@ -52,11 +48,7 @@ let Championship = (function() {
                 }
             }
     
-            let confederations = Confederation.all();
-    
-            for (let i = 0; i < confederations.length; i++) {
-                let confederation = confederations[i];
-    
+            for (let confederation of Confederation.all()) {    
                 for (let j = 0; j < confederation.divisionCount; j++) {
                     let division = j + 1;
                     Championship.create(confederation.cupName(division), continentalCup, null, confederation, division, confederation.cupClubCount);

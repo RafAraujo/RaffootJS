@@ -2119,12 +2119,8 @@ let Club = (function() {
             Club.create("Yeclano Deportivo", spain);
             Club.create("Zamora CF", spain);
 
-            countries = Country.playable();
-
-            for (let i = 0; i < countries.length; i++) {
-                let country = countries[i];
+            for (let country of Country.playable())
                 _clubs.filter(c => c.country === country).getRandomItems(country.playableClubsCount).forEach(c => c.playable = true);
-            }
 
             Club.playable().forEach(c => {
                 c._stadiumId = c.country.stadiums.getRandomItem().id;

@@ -43,10 +43,10 @@ let Match = (function() {
         }
 
         set stadium(value) {
-            for (let i = 0; i < this.matchClubs.length; i++) {
-                let matchClub = this.matchClubs[i];
-                if (matchClub.situation !== 'neutral') throw new Error('Match.setStadium(value)');
-            }
+            for (let matchClub of this.matchClubs)
+                if (matchClub.situation !== 'neutral')
+                    throw new Error('Match.setStadium(value)');
+
             this._stadium = value;
         }
 
