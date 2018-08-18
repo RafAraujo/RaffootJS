@@ -65,7 +65,9 @@ let Formation = (function() {
         }
 
         get fieldLocalizations() {
-            return FieldLocalization.all().filter(fl => this._fieldLocalizationIds.includes(fl.id));
+            let fieldLocalizations = [];
+            this._fieldLocalizationIds.forEach(flId => fieldLocalizations.push(FieldLocalization.all()[flId - 1]));
+            return fieldLocalizations;
         }
     }
 })();

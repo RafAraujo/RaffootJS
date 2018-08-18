@@ -34,7 +34,9 @@ let Squad = (function() {
         }
 
         get squadPlayers() {
-            return SquadPlayer.all().filter(sp => this._squadPlayerIds.includes(sp.id));;
+            let squadPlayers = [];
+            this._squadPlayerIds.forEach(spId => squadPlayers.push(SquadPlayer.all()[spId - 1]));
+            return squadPlayers;
         }
 
         set freeKickTaker(squadPlayer) {
@@ -64,7 +66,7 @@ let Squad = (function() {
         
         get overall() {
             let sum = this.squadPlayers.map(sp => sp.player.overall).sum();
-            return sum / this.squadPlayers.length;
+            return sum / this._squadPlayerIds.length;
         }
 
         get wage() {

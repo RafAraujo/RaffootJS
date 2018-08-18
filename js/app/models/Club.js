@@ -2181,7 +2181,7 @@ let Club = (function() {
         _generateSquad() {
             let formation = Formation.all().getRandomItem();
             this._squadId = Squad.create(formation).id;
-
+            
             let fieldRegions = FieldRegion.all();
             let date = Date.firstDayCurrentYear();
             let year = date.getFullYear();

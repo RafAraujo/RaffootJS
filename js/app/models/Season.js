@@ -42,11 +42,15 @@ let Season = (function() {
         }
 
         get championshipEditions() {
-            return ChampionshipEdition.all().filter(ce => this._championshipEditionIds.includes(ce.id));
+            let championshipEditions = [];
+            this._championshipEditionIds.forEach(ceId => championshipEditions.push(ChampionshipEdition.all()[ceId - 1]));
+            return championshipEditions;
         }
 
         get seasonDates() {
-            return SeasonDate.all().filter(sd => this._seasonDateIds.includes(sd.id));
+            let seasonDates = [];
+            this._seasonDateIds.forEach(sdId => seasonDates.push(SeasonDate.all()[sdId - 1]));
+            return seasonDates;
         }
 
         get nationalLeagues() {
@@ -70,31 +74,20 @@ let Season = (function() {
             let worldwideSuperCup = ChampionshipType.all().find(c => c.scope === 'worldwide' && c.format === 'superCup');
 
             let date = Date.firstSunday(1, this.year);
-            this.addSeasonDate(date, continentalSuperCup);
+            this._addSeasonDate(date, continentalSuperCup);
 
             let championshipType = null;
-            while ((championshipType = championshipTypes.find(ct => !this.totallyScheduled(ct))) != null) {
+            while ((championshipType = championshipTypes.find(ct => !this._totallyScheduled(ct))) != null) {
             
                 date = date.addDays(date.getDay() === 0 ? 3 : 4);
                 if (date.getMonth() === 6)
                     continue;
-                this.addSeasonDate(date, championshipType);
+                this._addSeasonDate(date, championshipType);
                 championshipTypes.rotate();
             }
             
             date = date.addDays(date.getDay() === 0 ? 3 : 4);
-            this.addSeasonDate(date, worldwideSuperCup);
-        }
-
-        totallyScheduled(championshipType) {
-            let scheduledDates = this.seasonDates.filter(sd => sd.championshipType === championshipType).length;
-            let neededDates = this.championshipEditions.filter(ce => ce.championship.championshipType === championshipType).map(ce => ce.championship.dateCount).max();
-            return scheduledDates === neededDates;
-        }
-
-        addSeasonDate(date, championshipType) {
-            if (this.hasChampionship(championshipType))
-                this._seasonDateIds.push(SeasonDate.create(date, championshipType).id);
+            this._addSeasonDate(date, worldwideSuperCup);
         }
 
         schedule() {
@@ -107,6 +100,17 @@ let Season = (function() {
                 let dates = this.seasonDates.filter(sd => sd.championshipType === championshipEdition.championship.championshipType).map(sd => sd.date);
                 championshipEdition.scheduleMatches(dates);
             }
+        }
+
+        _addSeasonDate(date, championshipType) {
+            if (this.hasChampionship(championshipType))
+                this._seasonDateIds.push(SeasonDate.create(date, championshipType).id);
+        }
+
+        _totallyScheduled(championshipType) {
+            let scheduledDates = this.seasonDates.filter(sd => sd.championshipType === championshipType).length;
+            let neededDates = this.championshipEditions.filter(ce => ce.championship.championshipType === championshipType).map(ce => ce.championship.dateCount).max();
+            return scheduledDates === neededDates;
         }
 
         mainContinentalCup(confederation) {

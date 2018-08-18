@@ -21,7 +21,6 @@ let Player = (function() {
             this.energy = 100;
             
             this._contractIds = [];
-            this._contracts = [];
         }
 
         static create(country, birthYear, position) {
@@ -93,9 +92,9 @@ let Player = (function() {
         }
 
         get contracts() {
-            if (this._contracts.length === 0)
-                this._updateContracts();
-            return this._contracts;
+            let contracts = [];
+            this._contractIds.forEach(cId => contracts.push(Contract.all()[cId - 1]));
+            return contracts;
         }
 
         get inForceContracts() {
@@ -110,13 +109,8 @@ let Player = (function() {
             return this.inForceContracts.last().wage;
         }
 
-        _updateContracts() {
-            this._contracts = Contract.all().filter(c => this._contractIds.includes(c.id));
-        }
-
         addContract(value) {
             this._contractIds.push(value.id);
-            this._updateContracts();
         }
 
         rest(time) {

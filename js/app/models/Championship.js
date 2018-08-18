@@ -141,9 +141,9 @@ let Championship = (function() {
         }
     
         get clubsAbleToPlay() {
-            if (this.country != null)
+            if (this._countryId != null)
                 return this.country.playableClubs;
-            else if (this.confederation != null)
+            else if (this._confederationId != null)
                 return this.confederation.playableClubs;
             else
                 return Club.playable();
