@@ -9,7 +9,6 @@ let ChampionshipEditionGroup = (function() {
             this._championshipEditionId = championshipEditionId;
             this.number = number;
             this._championshipEditionClubIds = [];
-            this._matchIds = [];
         }
 
         static create(championshipEdition, number) {
@@ -28,12 +27,15 @@ let ChampionshipEditionGroup = (function() {
             return _championshipEditionGroups;
         }
 
+        get name() {
+            return 'Group ' + 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[this.number - 1];
+        }
+
         get championshipEdition() {
             return ChampionshipEdition.all()[this._championshipEditionId - 1];
         }
 
-        get name() {
-            return 'Group ' + 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[this.number - 1];
+        get matches() {
         }
 
         addClub(championshipEditionClub) {

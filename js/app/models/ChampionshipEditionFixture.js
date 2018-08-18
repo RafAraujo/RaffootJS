@@ -26,7 +26,10 @@ let ChampionshipEditionFixture = (function() {
         }
 
         get championshipEdition() {
-            return ChampionshipEdition.all()[this._championshipEditionId- 1];
+            return ChampionshipEdition.all()[this._championshipEditionId - 1];
+        }
+
+        get matches() {
         }
 
         get name() {

@@ -167,31 +167,35 @@ let ChampionshipEdition = (function() {
         }
 
         scheduleMatcheschampionshipEditionGroups() {
-            for (let i = 0; i < this.championshipEditionGroups.length; i++) {
-                let group = this.championshipEditionGroups[i];
+            let groups = this.championshipEditionGroups;
+
+            for (let i = 0; i < groups.length; i++) {
+                let group = this.groups[i];
                 group.matchIds = ChampionshipEdition.genericRoundRobin(this.groupDates, group.clubs, this.championship.twoLeggedTie).map(m => m.id);
-                this._matchIds = this._matchIds.concat(group.matchIds);
+                this._matchIds = this._matchIds.concat(group.matches.map(m => m.id));
             }
 
             this.scheduleMatchesElimination();
         }
 
         scheduleMatchesElimination() {
-            for (let i = 0; i < this.championshipEditionEliminationPhases.length; i++) {
-                let eliminationPhase = this.championshipEditionEliminationPhases[i];
+            let eliminationPhases = this.championshipEditionEliminationPhases;
+
+            for (let i = 0; i < eliminationPhases.length; i++) {
+                let eliminationPhase = eliminationPhases[i];
                 let clubs = eliminationPhase.championshipEditionClubs.map(cec => cec.club);
 
                 for (let j = 0; j < clubs.length; j = j + 2) {
                     for (let k = 0; k < (this.championship.twoLeggedTie ? 2 : 1); k++) {
                         let date = this.eliminationPhaseDates[i + k];
-                        let match = new Match(date);
+                        let match = Match.create(this, date);
 
                         if (clubs.length > 0) {
                             match.addClub(clubs[j], k === 0 ? 'home' : 'away');
                             match.addClub(clubs[j + 1], k === 0 ? 'away' : 'home');
                         }
 
-                        this.matches.push(match);
+                        this._matchIds.push(match.id);
                     }
                 }
             }
@@ -199,7 +203,7 @@ let ChampionshipEdition = (function() {
 
         scheduleMatchesRoundRobin() {
             let matches = ChampionshipEdition.genericRoundRobin(this, this.dates, this.championshipEditionClubs.map(cec => cec.club), this.championship.twoLeggedTie);
-            this._matchIds.concat(matches.map(m => m.id));
+            this._matchIds = this._matchIds.concat(matches.map(m => m.id));
         }
 
         static genericRoundRobin(championshipEdition, dates, clubs, twoLeggedTie) {
@@ -209,7 +213,7 @@ let ChampionshipEdition = (function() {
             for (let i = 0; i < rounds; i++) {
                 let date = dates[i];
                 for (let j = 0; j < clubs.length / 2; j++) {
-                    let match = Match.create(championshipEdition, date, Referee.all().getRandomItem());
+                    let match = Match.create(championshipEdition, date);
 
                     match.addClub(clubs[j], i % 2 === 0 ? 'home' : 'away');
                     match.addClub(clubs[clubs.length - 1 - j], i % 2 === 0 ? 'away' : 'home');

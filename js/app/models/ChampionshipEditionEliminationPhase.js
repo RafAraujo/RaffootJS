@@ -7,9 +7,7 @@ let ChampionshipEditionEliminationPhase = (function() {
 
             this._championshipEditionId = championshipEditionId;
             this.clubCount = clubCount;
-            
             this._championshipEditionClubIds = [];
-            this._matchIds = [];
         }
 
         static create(championshipEdition, clubCount) {
@@ -38,6 +36,9 @@ let ChampionshipEditionEliminationPhase = (function() {
             return championshipEditionClubs;
         }
 
+        get matches() {
+        }
+
         get name() {
             switch (this.clubCount) {
                 case 8:
@@ -55,7 +56,7 @@ let ChampionshipEditionEliminationPhase = (function() {
             if (championshipEditionClubs.length !== this.clubCount)
                 throw new Error('ChampionshipEditionGroup.addClub(championshipEditionClubs)');
 
-            this._championshipEditionClubIds.concat(championshipEditionClubs.map(cec => cec.id));
+            this._championshipEditionClubIds = championshipEditionClubs.map(cec => cec.id);
         }
     }
 })();

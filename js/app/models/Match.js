@@ -18,7 +18,9 @@ let Match = (function() {
             this.paused = false;
         }
 
-        static create(championshipEdition, date, referee) {
+        static create(championshipEdition, date) {
+            let referee = Referee.all().getRandomItem();
+
             let match = new Match(championshipEdition.id, date, referee.id);
             match.id = _matches.push(match);
             return match;
@@ -51,7 +53,9 @@ let Match = (function() {
         }
 
         get matchClubs() {
-            return MatchClub.all().find(mc => mc.match === this);
+            let matchClubs = [];
+            this._matchClubIds.forEach(mcId => matchClubs.push(MatchClub.all()[mcId - 1]));
+            return matchClubs;
         }
 
         get homeClub() {
