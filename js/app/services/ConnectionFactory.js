@@ -11,7 +11,7 @@ let ConnectionFactory = (function () {
             
             return new Promise((resolve, reject) => {
             
-                let openRequest = window.indexedDB.open(/*`Raffoot ${VERSION} - ` + */dbName, VERSION);
+                let openRequest = window.indexedDB.open(dbName, VERSION);
 
                 openRequest.onupgradeneeded = e => ConnectionFactory._createStores(e.target.result);
 
@@ -29,7 +29,7 @@ let ConnectionFactory = (function () {
         }
 
         static _createStores(connection) {
-            let stores = Entity.stores;
+            let stores = Entity.stores();
 
             stores.forEach(store => {
                 if (connection.objectStoreNames.contains(store))

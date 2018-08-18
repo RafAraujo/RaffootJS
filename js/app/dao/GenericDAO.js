@@ -8,10 +8,10 @@ class GenericDAO {
 
             let request = this._connection
                 .transaction([entity.store], 'readwrite')
-                .entityStore(entity.store)
+                .objectStore(entity.store)
                 .add(entity);
 
-            request.onsuccess = () => resolve();
+            request.onsuccess = () => resolve(entity);
 
             request.onerror = error => reject(error);
         });
@@ -25,7 +25,7 @@ class GenericDAO {
                 .entityStore(this._entity.store)
                 .put(entity);
 
-            request.onsuccess = () => resolve();
+            request.onsuccess = () => resolve(entity);
 
             request.onerror = error => reject(error);
         });

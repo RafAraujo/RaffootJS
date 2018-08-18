@@ -3,7 +3,7 @@ class GameService {
         return ConnectionFactory
             .getConnection(game.name)
             .then(connection => new GenericDAO(connection))
-            .then(dao => game.id ? dao.update(game) : dao.insert(game))
+            .then(dao => dao.insert(game))
             .then(() => game)
             .catch(error => { throw error; });
     };

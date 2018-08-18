@@ -12,7 +12,7 @@ class NewGameController {
 
         this._selectCountries.addEventListener('change', this._setCountry.bind(this), { passive: true } );
         this._selectClubs.addEventListener('change', this._setClub.bind(this), { passive: true } );
-        this._form.addEventListener('submit', event => this._save(event).bind(this));
+        this._form.addEventListener('submit', this._save.bind(this) );
     }
 
     _setCountry() {
@@ -24,7 +24,7 @@ class NewGameController {
     }
 
     _setCoach() {
-        this._proxy.coach = Coach.create(this._inputName);
+        this._proxy.coach = Coach.create(null, this._inputName.value);
     }
 
     _setName() {
