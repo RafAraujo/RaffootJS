@@ -21,8 +21,8 @@ class GenericDAO {
         return new Promise((resolve, reject) => {
 
             let request = this._connection
-                .transaction([this._entity.store], 'readwrite')
-                .entityStore(this._entity.store)
+                .transaction([entity.store], 'readwrite')
+                .objectStore(entity.store)
                 .put(entity);
 
             request.onsuccess = () => resolve(entity);
@@ -31,12 +31,12 @@ class GenericDAO {
         });
     }
 
-    select() {
+    select(entityClass) {
         return new Promise((resolve, reject) => {
 
             let cursor = this._connection
-                .transaction([this._entity.store], 'readwrite')
-                .entityStore(this._entity.store)
+                .transaction([entityClass.name], 'readwrite')
+                .objectStore(entityClass.name)
                 .openCursor();
 
             let list = [];
@@ -46,8 +46,8 @@ class GenericDAO {
                 let current = e.target.result;
 
                 if (current) {
-                    let save = current.value;
-                    list.push(this._entity.load(save));
+                    let object = current.value;
+                    list.push(entityClass.load(object));
                     current.continue();
                 }
                 else {
@@ -63,8 +63,8 @@ class GenericDAO {
         return new Promise((resolve, reject) => {
 
             let request = this._connection
-                .transaction([this._entity.store], 'readwrite')
-                .entityStore(this._entity.store)
+                .transaction([entity.store], 'readwrite')
+                .objectStore(entity.store)
                 .delete(entity.id);
 
             request.onsuccess = () => resolve();
