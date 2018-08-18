@@ -51,9 +51,7 @@ let Match = (function() {
         }
 
         get matchClubs() {
-            let matchClubs = [];
-            this._matchClubIds.forEach(mcId => matchClubs.push(MatchClub.all()[mcId - 1]));
-            return matchClubs;
+            return MatchClub.all().filterById(this._matchClubIds);
         }
 
         get homeClub() {

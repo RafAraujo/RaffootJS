@@ -90,9 +90,7 @@ let Player = (function() {
         }
 
         get contracts() {
-            let contracts = [];
-            this._contractIds.forEach(cId => contracts.push(Contract.all()[cId - 1]));
-            return contracts;
+            return Contract.all().filterById(this._contractIds);
         }
 
         get inForceContracts() {

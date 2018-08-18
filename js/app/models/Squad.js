@@ -32,9 +32,7 @@ let Squad = (function() {
         }
 
         get squadPlayers() {
-            let squadPlayers = [];
-            this._squadPlayerIds.forEach(spId => squadPlayers.push(SquadPlayer.all()[spId - 1]));
-            return squadPlayers;
+            return SquadPlayer.all().filterById(this._squadPlayerIds);
         }
 
         set freeKickTaker(squadPlayer) {
@@ -51,15 +49,6 @@ let Squad = (function() {
 
         get penaltyTaker() {
             return this._penaltyTaker;
-        }
-
-        findSquadPlayer(squadPlayer) {
-            let found = this.squadPlayers.find(p => p.squadPlayer === squadPlayer);
-            
-            if (found == null)
-                throw new ReferenceError('Squad.findSquadPlayer(squadPlayer)');
-
-            return found;
         }
         
         get overall() {
@@ -79,7 +68,15 @@ let Squad = (function() {
         remove(player) {
             let squadPlyaerId = this.squadPlayers.find(sp => sp.player.id === player.id);
             this._squadPlayerIds.remove(spId => spId === squadPlyaerId);
-            this._updateSquad();
+        }
+
+        findSquadPlayer(squadPlayer) {
+            let found = this.squadPlayers.find(p => p.squadPlayer === squadPlayer);
+            
+            if (found == null)
+                throw new ReferenceError('Squad.findSquadPlayer(squadPlayer)');
+
+            return found;
         }
 
         rest(time) {

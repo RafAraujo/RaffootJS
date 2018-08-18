@@ -8,7 +8,7 @@ let MatchPlayer = (function() {
             this._matchId = matchId;
             this._squadPlayerId = squadPlayerId;
 
-            this._matchPlayerStatIds = [];
+            this._matchPlayerStatsIds = [];
         }
 
         static create(match, squadPlayer) {
@@ -31,6 +31,10 @@ let MatchPlayer = (function() {
 
         get squadPlayer() {
             return SquadPlayer.all()[this._squadPlayerId - 1];
+        }
+
+        get matchPlayerStats() {
+            return MatchPlayerStats.all().filterById(this._matchPlayerStatsIds);
         }
 
         get overall() {

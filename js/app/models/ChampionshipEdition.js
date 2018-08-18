@@ -40,23 +40,23 @@ let ChampionshipEdition = (function() {
         }
 
         get championshipEditionGroups() {
-            return ChampionshipEditionGroup.all().filter(ceg => ceg.championshipEdition === this);
+            return ChampionshipEditionGroup.all().filterById(this._championshipEditionGroupIds);
         }
 
         get championshipEditionEliminationPhases() {
-            return ChampionshipEditionEliminationPhase.all().filter(ceep => ceep.championshipEdition === this);
+            return ChampionshipEditionEliminationPhase.all().filterById(this._championshipEditionEliminationPhaseIds);
         }
 
         get championshipEditionFixtures() {
-            return ChampionshipEditionFixture.all().filter(cef => cef.championshipEdition === this);
+            return ChampionshipEditionFixture.all().filterById(this._championshipEditionFixtureIds);
         }
 
         get championshipEditionClubs() {
-            return ChampionshipEditionClub.all().filter(cec => cec.championshipEdition === this);
+            return ChampionshipEditionClub.all().filterById(this._championshipEditionClubIds);
         }
 
         get championshipEditionPlayers() {
-            return ChampionshipEditionPlayer.all().filter(cep => cep.championshipEdition === this);
+            return ChampionshipEditionPlayer.all().filterById(this._championshipEditionPlayerIds);
         }
 
         get matches() {

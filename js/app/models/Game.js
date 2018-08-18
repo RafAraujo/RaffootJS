@@ -102,7 +102,7 @@ let Game = (function() {
         }
 
         get seasons() {
-            return Season.all().filter(s => this._seasonIds.includes(s.id));
+            return Season.all().filterById(this._seasonIds);
         }
 
         get currentSeason() {

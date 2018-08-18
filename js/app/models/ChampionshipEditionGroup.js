@@ -25,6 +25,10 @@ let ChampionshipEditionGroup = (function() {
             return _championshipEditionGroups;
         }
 
+        get championshipEditionClubs() {
+            return ChampionshipEditionClub.all().filterById(this._championshipEditionClubIds);
+        }
+
         get name() {
             return 'Group ' + 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[this.number - 1];
         }

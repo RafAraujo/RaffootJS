@@ -85,6 +85,12 @@ Array.prototype.shuffle = function() {
     }
 }
 
+Array.prototype.filterById = function(arrayIds) {
+    let list = [];
+    arrayIds.forEach(id => list.push(this[id - 1]));
+    return list;
+}
+
 Array.prototype.sum = function() {
     return this.reduce((a, b) => a + b);
 }

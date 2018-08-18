@@ -46,9 +46,7 @@ let Season = (function() {
         }
 
         get seasonDates() {
-            let seasonDates = [];
-            this._seasonDateIds.forEach(sdId => seasonDates.push(SeasonDate.all()[sdId - 1]));
-            return seasonDates;
+            return SeasonDate.all().filterById(this._seasonDateIds);
         }
 
         get nationalLeagues() {

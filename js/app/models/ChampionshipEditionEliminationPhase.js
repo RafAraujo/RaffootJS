@@ -29,9 +29,7 @@ let ChampionshipEditionEliminationPhase = (function() {
         }
 
         get championshipEditionClubs() {
-            let championshipEditionClubs = [];
-            this._championshipEditionClubIds.forEach(cecId => championshipEditionClubs.push(ChampionshipEditionClub.all()[cecId - 1]));
-            return championshipEditionClubs;
+            return ChampionshipEditionClub.all().filterById(this._championshipEditionClubIds);
         }
 
         get matches() {
