@@ -43,11 +43,10 @@ class NewGameView {
         let leagues = season.nationalLeagues.filter(c => c.championship.country === country).orderBy('championship.division');
 
         for (let league of leagues) {
-            let clubs = league.clubs.orderBy('name');
             let optionGroup = document.createElement('optgroup');
             optionGroup.label = `Division ${league.championship.division}`;
             
-            for (let club of clubs)
+            for (let club of league.clubs.orderBy('name'))
                 optionGroup.appendChild(new Option(club.name, club.id));
 
             this._selectClubs.appendChild(optionGroup);
