@@ -19,7 +19,7 @@ class HtmlHelper {
 
         for (let i = 0; i < options.length; i++) {
             let object = options[i];
-            select.appendChild(new Option(object.name));
+            select.appendChild(new Option(object.name, object.id));
         }
     }
 

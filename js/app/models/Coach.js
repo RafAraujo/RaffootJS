@@ -8,8 +8,11 @@ let Coach = (function() {
             this.name = name;
         }
 
-        static create(country) {
-            let coach = new Coach(country.names.getRandomItem());
+        static create(country = null, name = null) {
+            if (country != null)
+                name = country.names.getRandomItem();
+
+            let coach = new Coach(name);
             coach.id = _coaches.push(coach);
             return coach;
         }
