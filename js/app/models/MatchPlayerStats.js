@@ -42,6 +42,10 @@ let MatchPlayerStats = (function() {
             return super.updateList(_matchPlayerStats, Object.assign(new MatchPlayerStats(), object));
         }
 
+        static all() {
+            return _matchPlayerStats;
+        }
+
         get matchPlayer() {
             return MatchPlayer.all()[this._matchPlayerId - 1];
         }
