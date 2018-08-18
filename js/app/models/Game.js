@@ -1,4 +1,6 @@
 let Game = (function() {
+    let _games = [];
+
     return class Game extends Entity {
         constructor() {
             super();
@@ -10,6 +12,20 @@ let Game = (function() {
             this._coachId = 0;
 
             this._seasonIds = [];
+        }
+
+        static create() {
+            let game = new Game();
+            game.id = _games.push(game);
+            return game;
+        }
+
+        static load(object) {
+            return super.updateList(_games, Object.assign(new Game(), object));
+        }
+
+        static all() {
+            return _games;
         }
 
         seed() {

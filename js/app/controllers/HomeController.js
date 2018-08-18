@@ -1,7 +1,7 @@
 class HomeController {
     constructor() {
-        
+        this._service = new GameService();
 
-        this._game = new Bind(new Game(), new HomeView(), 'seed', 'country');
+        //this._game = service.
     }
 }

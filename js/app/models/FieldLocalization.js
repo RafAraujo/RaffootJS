@@ -18,9 +18,7 @@ let FieldLocalization = (function() {
         }
 
         static load(object) {
-            let fieldLocalization = new FieldLocalization();
-            _fieldLocalizations.push(Object.assign(object, fieldLocalization));
-            return fieldLocalization;
+            return super.updateList(_fieldLocalizations, Object.assign(new FieldLocalization(), object));
         }
 
         static all() {

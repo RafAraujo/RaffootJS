@@ -17,9 +17,7 @@ let SquadPlayer = (function() {
         }
 
         static load(object) {
-            let squadPlayer = new SquadPlayer();
-            _squadPlayers.push(Object.assign(object, squadPlayer));
-            return squadPlayer;
+            return super.updateList(_squadPlayers, Object.assign(new SquadPlayer(), object));
         }
 
         static all() {

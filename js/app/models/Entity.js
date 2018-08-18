@@ -7,6 +7,15 @@ let Entity = (function(){
                 _children.push(this.constructor);
         }
 
+        static updateList(list, entity) {
+            if (list[entity.id - 1] != null)
+                list.splice(entity.id - 1, 1, [entity]);
+            else
+                entity.id = list.push(entity);
+            
+            return list[entity.id - 1];
+        }
+
         static children() {
             return _children;
         }

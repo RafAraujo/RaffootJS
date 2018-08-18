@@ -21,9 +21,7 @@ let Club = (function() {
         }
 
         static load(object) {
-            let club = new Club();
-            _clubs.push(Object.assign(object, club));
-            return club;
+            return super.updateList(_clubs, Object.assign(new Club(), object));
         }
 
         static all() {

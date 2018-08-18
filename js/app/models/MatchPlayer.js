@@ -18,9 +18,7 @@ let MatchPlayer = (function() {
         }
 
         static load(object) {
-            let matchPlayer = new MatchPlayer();
-            _matchPlayers.push(Object.assign(object, matchPlayer));
-            return matchPlayer;
+            return super.updateList(_matchPlayers, Object.assign(new MatchPlayer(), object));
         }
 
         static all() {

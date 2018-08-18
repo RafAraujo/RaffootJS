@@ -16,8 +16,7 @@ let SeasonDate = (function() {
         }
 
         static load(object) {
-            let seasonDate = new SeasonDate();
-            _seasonDates.push(Object.assign(object, seasonDate));
+            let seasonDate = super.updateList(_seasonDates, Object.assign(new SeasonDate(), object));
             seasonDate.date = new Date(seasonDate.date);
             return seasonDate;
         }

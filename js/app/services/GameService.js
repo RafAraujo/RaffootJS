@@ -7,4 +7,13 @@ class GameService {
             .then(() => game)
             .catch(error => { throw error; });
     };
+
+    load(gameName) {
+        return ConnectionFactory
+            .getConnection(gameName)
+            .then(connection => new GenericDAO(connection))
+            .then(dao => dao.select(Game))
+            .then(() => Game.all()[0])
+            .catch(error => { throw error });
+    }
 }

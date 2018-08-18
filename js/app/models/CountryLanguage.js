@@ -72,9 +72,7 @@ let CountryLanguage = (function() {
         }
 
         static load(object) {
-            let countryLanguage = new CountryLanguage(object.name);
-            _countryLanguages.push(Object.assign(object, countryLanguage));
-            return countryLanguage;
+            return super.updateList(_countryLanguages, Object.assign(new CountryLanguage(), object));
         }
     
         static seed() {

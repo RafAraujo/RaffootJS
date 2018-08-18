@@ -17,9 +17,7 @@ let MatchClub = (function() {
         }
 
         static load(object) {
-            let matchClub = new MatchClub();
-            _matchClubs.push(Object.assign(object, matchClub));
-            return matchClub;
+            return super.updateList(_matchClubs, Object.assign(new MatchClub(), object));
         }
 
         static all() {

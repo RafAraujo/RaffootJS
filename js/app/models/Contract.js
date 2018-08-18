@@ -21,9 +21,7 @@ let Contract = (function() {
         }
 
         static load(object) {
-            let contract = new Contract();
-            _contracts.push(Object.assign(object, contract));
-            return contract;
+            return super.updateList(_contracts, Object.assign(new Contract(), object));
         }
 
         static all() {

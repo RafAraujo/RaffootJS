@@ -18,9 +18,7 @@ let Stadium = (function() {
         }
 
         static load(object) {
-            let stadium = new Stadium();
-            _stadiums.push(Object.assign(object, stadium));
-            return stadium;
+            return super.updateList(_stadiums, Object.assign(new Stadium(), object));
         }
 
         static all() {

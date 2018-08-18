@@ -21,9 +21,7 @@ let Season = (function() {
         }
 
         static load(object) {
-            let season = new Season();
-            _seasons.push(Object.assign(object, season));
-            return season;
+            return super.updateList(_seasons, Object.assign(new Season(), object));
         }
 
         static all() {

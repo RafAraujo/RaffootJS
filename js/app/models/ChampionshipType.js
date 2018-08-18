@@ -18,9 +18,7 @@ let ChampionshipType = (function() {
         }
 
         static load(object) {
-            let championshipType = new ChampionshipType();
-            _championshipTypes.push(Object.assign(object, championshipType));
-            return championshipType;
+            return super.updateList(_championshipTypes, Object.assign(new ChampionshipType(), object));
         }
 
         static all() {

@@ -20,9 +20,7 @@ let Squad = (function() {
         }
 
         static load(object) {
-            let squad = new Squad();
-            _squads.push(Object.assign(object, squad));
-            return squad;
+            return super.updateList(_squads, Object.assign(new Squad(), object));
         }
 
         static all() {

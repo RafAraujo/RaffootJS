@@ -22,9 +22,7 @@ let Country = (function() {
         }
 
         static load(object) {
-            let country = new Country();
-            _countries.push(Object.assign(object, country));
-            return country;
+            return super.updateList(_countries, Object.assign(new Country(), object));
         }
 
         static seed() {

@@ -17,9 +17,7 @@ let ChampionshipEditionEliminationPhase = (function() {
         }
 
         static load(object) {
-            let championshipEditionEliminationPhase = new ChampionshipEditionEliminationPhase();
-            _championshipEditionEliminationPhases.push(Object.assign(object, championshipEditionEliminationPhase));
-            return championshipEditionEliminationPhase;          
+            return super.updateList(_championshipEditionEliminationPhases, Object.assign(new ChampionshipEditionEliminationPhase(), object));
         }
 
         static all() {

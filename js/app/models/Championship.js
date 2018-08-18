@@ -23,9 +23,7 @@ let Championship = (function() {
         }
 
         static load(object) {
-            let championship = new Championship();
-            _championships.push(Object.assign(object, championship));
-            return championship;
+            return super.updateList(_championships, Object.assign(new Championship(), object));
         }
 
         static all() {

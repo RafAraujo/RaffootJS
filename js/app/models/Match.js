@@ -27,9 +27,7 @@ let Match = (function() {
         }
 
         static load(object) {
-            let match = new Match();
-            _matches.push(Object.assign(object, match));
-            return match;
+            return super.updateList(_matches, Object.assign(new Match(), object));
         }
 
         static all() {

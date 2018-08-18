@@ -18,9 +18,7 @@ let FieldRegion = (function() {
         }
 
         static load(object) {
-            let fieldRegion = new FieldRegion();
-            _fieldRegions.push(Object.assign(object, fieldRegion));
-            return fieldRegion;
+            return super.updateList(_fieldRegions, Object.assign(new FieldRegion(), object));
         }
 
         static seed() {

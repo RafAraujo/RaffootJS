@@ -39,9 +39,7 @@ let MatchPlayerStats = (function() {
         }
 
         static load(object) {
-            let matchPlayerStats = new MatchPlayerStats();
-            _matchPlayerStats.push(Object.assign(object, matchPlayerStats));
-            return matchPlayerStats;
+            return super.updateList(_matchPlayerStats, Object.assign(new MatchPlayerStats(), object));
         }
 
         get matchPlayer() {

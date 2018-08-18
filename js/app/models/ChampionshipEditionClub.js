@@ -24,9 +24,7 @@ let ChampionshipEditionClub = (function() {
         }
 
         static load(object) {
-            let championshipEditionClub = new ChampionshipEditionClub();
-            _championshipEditionClubs.push(Object.assign(object, championshipEditionClub));
-            return championshipEditionClub;
+            return super.updateList(_championshipEditionClubs, Object.assign(new ChampionshipEditionClub(), object));
         }
 
         static all() {

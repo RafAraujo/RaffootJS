@@ -16,9 +16,7 @@ let ChampionshipEditionFixture = (function() {
         }
 
         static load(object) {
-            let championshipEditionFixture = new ChampionshipEditionFixture();
-            _championshipEditionFixtures.push(Object.assign(object, championshipEditionFixture));
-            return championshiEditionFixture;
+            return super.updateList(_championshipEditionFixtures, Object.assign(new ChampionshipEditionFixture(), object));
         }
 
         static all() {

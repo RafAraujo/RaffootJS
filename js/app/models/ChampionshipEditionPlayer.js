@@ -22,9 +22,7 @@ let ChampionshipEditionPlayer = (function() {
         }
 
         static load(object) {
-            let championshipEditionPlayer = new ChampionshipEditionPlayer();
-            _championshipEditionPlayers.push(Object.assign(object, championshipEditionPlayer));
-            return championshipEditionPlayer;
+            return super.updateList(_championshipEditionPlayers, Object.assign(new championshipEditionPlayer(), object));
         }
 
         static all() {

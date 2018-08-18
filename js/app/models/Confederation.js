@@ -16,9 +16,7 @@ let Confederation = (function() {
         }
 
         static load(object) {
-            let confederation = new Confederation();
-            _confederations.push(Object.assign(object, confederation));
-            return confederation;
+            return super.updateList(_confederations, Object.assign(new Confederation(), object));
         }
 
         static all() {

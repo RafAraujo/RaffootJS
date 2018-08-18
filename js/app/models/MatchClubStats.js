@@ -21,9 +21,7 @@ let MatchClubStats = (function() {
         }
 
         static load(object) {
-            let matchClubStats = new MatchClubStats();
-            _matchClubStats.push(Object.assign(object, matchClubStats));
-            return matchClubStats;
+            return super.updateList(_matchClubStats, Object.assign(new MatchClubStats(), object));
         }
 
         static all() {

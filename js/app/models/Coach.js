@@ -18,9 +18,7 @@ let Coach = (function() {
         }
 
         static load(object) {
-            let coach = new Coach();
-            _coaches.push(Object.assign(object, coach));
-            return coach;
+            return super.updateList(_coaches, Object.assign(new Coach(), object));
         }
 
         get club() {

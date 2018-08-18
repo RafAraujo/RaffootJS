@@ -38,9 +38,7 @@ let Player = (function() {
         }
 
         static load(object) {
-            let player = new Player();
-            _players.push(Object.assign(object, player));
-            return player;
+            return super.updateList(_players, Object.assign(new Player(), object));
         }
 
         static all() {

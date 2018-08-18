@@ -39,19 +39,17 @@ class GenericDAO {
                 .objectStore(entityClass.name)
                 .openCursor();
 
-            let list = [];
-
             cursor.onsuccess = e => {
 
                 let current = e.target.result;
 
                 if (current) {
                     let object = current.value;
-                    list.push(entityClass.load(object));
+                    entityClass.load(object);
                     current.continue();
                 }
                 else {
-                    resolve(list);
+                    resolve(entityClass.all());
                 }
             };
 

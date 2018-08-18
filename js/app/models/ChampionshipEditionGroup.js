@@ -17,10 +17,8 @@ let ChampionshipEditionGroup = (function() {
             return championshipEditionGroup;
         }
 
-        static load() {
-            let championshipEditionGroup = new ChampionshipEditionGroup();
-            _championshipEditionGroups.push(Object.assign(object, championshipEditionGroup));
-            return championshipEditionGroup;
+        static load(object) {
+            return super.updateList(_championshipEditionGroups, Object.assign(new ChampionshipEditionGroup(), object));
         }
 
         static all() {

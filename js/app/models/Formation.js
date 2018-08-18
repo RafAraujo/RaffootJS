@@ -17,9 +17,7 @@ let Formation = (function() {
         }
 
         static load(object) {
-            let formation = new Formation();
-            _formations.push(Object.assign(object, formation));
-            return formation;
+            return super.updateList(_formations, Object.assign(new Formation(), object));
         }
 
         static seed() {
