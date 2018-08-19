@@ -12,7 +12,6 @@ let Match = (function() {
             this._stadiumId = 0;
             this._matchClubIds = [];
             this._refereeId = refereeId;
-
             this.time = 0;
             this.duration = 90;
             this.paused = false;

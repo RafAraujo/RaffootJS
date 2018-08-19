@@ -12,14 +12,11 @@ let Player = (function() {
             this._positionId = positionId;
             this.overall = overall;
             this.star = star;
-
             this._skillIds = skillIds;
             this._skills = [];
-            
             this.condition = condition;
             this.injuryProneness = injuryProneness;
             this.energy = 100;
-            
             this._contractIds = [];
         }
 

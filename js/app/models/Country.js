@@ -10,7 +10,6 @@ let Country = (function() {
             this.confederationId = confederationId;
             this.countryLanguageId = countryLanguageId;
             this.playable = playable;
-
             this._stadiums = [];
             this._clubs = [];
         }

@@ -6,7 +6,6 @@ let Formation = (function() {
             super();
 
             this.name = name;
-
             this._fieldLocalizationIds = fieldLocalizationIds;
         }
 

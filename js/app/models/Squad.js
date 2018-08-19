@@ -6,9 +6,7 @@ let Squad = (function() {
             super();
 
             this._formationId = formationId;
-            
             this._squadPlayerIds = [];
-
             this._freeKickTaker = null;
             this._penaltyTaker = null;
         }

@@ -7,7 +7,6 @@ let ChampionshipEditionClub = (function() {
 
             this._championshipEditionId = championshipEditionId;
             this._clubId = clubId;
-
             this.played = 0;
             this.eliminationPhasesWon = 0;
             this.won = 0;

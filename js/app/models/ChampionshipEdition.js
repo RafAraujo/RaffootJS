@@ -7,15 +7,12 @@ let ChampionshipEdition = (function() {
 
             this._championshipId = championshipId;
             this.year = year;
-
             this._championshipEditionGroupIds = [];
             this._championshipEditionEliminationPhaseIds = [];
             this._championshipEditionFixtureIds = [];
             this._championshipEditionClubIds = [];
             this._championshipEditionPlayerIds = [];
-
             this.dates = [];
-
             this._matchIds = [];
         }
 

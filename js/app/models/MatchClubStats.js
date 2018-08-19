@@ -6,7 +6,6 @@ let MatchClubStats = (function() {
             super();
             
             this._matchClubId = matchClubId;
-            
             this.goals = 0;
             this.shots = 0;
             this.shotsOnTarget = 0;

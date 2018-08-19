@@ -7,7 +7,6 @@ let Skill = (function() {
 
             this.name = name;
             this.abbreviation = abbreviation;
-
             this._positionIds = positionIds;
         }
 

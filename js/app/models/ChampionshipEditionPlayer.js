@@ -7,7 +7,6 @@ let ChampionshipEditionPlayer = (function() {
 
             this._championshipEditionId = championshipEditionId;
             this.playerId = playerId;
-
             this.appearances = 0;
             this.timePlayed = 0;
             this.goals = 0;

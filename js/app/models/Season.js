@@ -6,11 +6,9 @@ let Season = (function() {
             super();
 
             this.year = year;
-            
             this._championshipEditionIds = [];
             this._seasonDateIds = [];
             this._currentSeasonDateIndex = 0;
-            
             this.finished = false;
         }
 

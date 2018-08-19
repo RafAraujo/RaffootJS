@@ -7,7 +7,6 @@ let MatchPlayer = (function() {
 
             this._matchId = matchId;
             this._squadPlayerId = squadPlayerId;
-
             this._matchPlayerStatsIds = [];
         }
 
