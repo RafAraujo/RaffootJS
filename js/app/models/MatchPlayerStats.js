@@ -28,8 +28,6 @@ let MatchPlayerStats = (function() {
             this.penaltyMissses = 0;
             this.offsides = 0;
             this.wrongPasses = 0;
-
-            _matchPlayerStats.push(this);
         }
 
         static create(matchPlayer) {
