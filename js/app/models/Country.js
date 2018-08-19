@@ -7,11 +7,11 @@ let Country = (function() {
 
             this.name = name;
             this.abbreviation = abbreviation;
-            this.confederationId = confederationId;
-            this.countryLanguageId = countryLanguageId;
+            this._confederationId = confederationId;
+            this._countryLanguageId = countryLanguageId;
             this.playable = playable;
-            this._stadiums = [];
-            this._clubs = [];
+            this._clubIds = [];
+            this._stadiumIds = [];
         }
 
         static create(name, abbreviation, confederation, countryLanguage, playable) {
@@ -62,11 +62,11 @@ let Country = (function() {
         }
 
         get confederation() {
-            return Confederation.all().find(c => c.id === this.confederationId);
+            return Confederation.all().find(c => c.id === this._confederationId);
         }
 
         get countryLanguage() {
-            return CountryLanguage.all().find(cl => cl.id === this.countryLanguageId);
+            return CountryLanguage.all().find(cl => cl.id === this._countryLanguageId);
         }
 
         get names() {
@@ -97,19 +97,23 @@ let Country = (function() {
         }
 
         get stadiums() {
-            if (this._stadiums.length === 0)
-                this._stadiums = Stadium.all().filter(s => s._countryId === this.id);
-            return this._stadiums;
+            return Stadium.all().filterById(this._stadiumIds);
         }
 
         get clubs() {
-            if (this._clubs.length === 0)
-                this._clubs = Club.all().filter(c => c._countryId === this.id);
-            return this._clubs;
+            return Club.all().filterById(this._clubIds);
         }
 
         get playableClubs() {
             return this.clubs.filter(c => c.playable);
+        }
+
+        addClub(value) {
+            this._clubIds.push(value.id);
+        }
+
+        addStadium(value) {
+            this._stadiumIds.push(value.id);
         }
     }
 })();

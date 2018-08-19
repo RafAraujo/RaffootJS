@@ -17,6 +17,7 @@ let Club = (function() {
         static create(name, country) {
             let club = new Club(name, country.id);
             club.id = _clubs.push(club);
+            country.addClub(club);
             return club;
         }
 
@@ -2120,7 +2121,7 @@ let Club = (function() {
             Club.create("Zamora CF", spain);
 
             for (let country of Country.playable())
-                _clubs.filter(c => c.country === country).getRandomItems(country.playableClubsCount).forEach(c => c.playable = true);
+                country.clubs.getRandomItems(country.playableClubsCount).forEach(c => c.playable = true);
 
             Club.playable().forEach(c => {
                 c._stadiumId = c.country.stadiums.getRandomItem().id;

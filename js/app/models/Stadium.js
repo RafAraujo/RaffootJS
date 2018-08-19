@@ -14,6 +14,7 @@ let Stadium = (function() {
         static create(name, country) {
             let stadium = new Stadium(name, country.id);
             stadium.id = _stadiums.push(stadium);
+            country.addStadium(stadium);
             return stadium;
         }
 
