@@ -21,6 +21,10 @@ let Coach = (function() {
             return super.updateList(_coaches, Object.assign(new Coach(), object));
         }
 
+        static all() {
+            return _coaches;
+        }
+
         get club() {
             return Club.all().find(c => c.coach.id === this.id);
         }
