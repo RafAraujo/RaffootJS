@@ -41,8 +41,8 @@ let Country = (function() {
             Country.create('Paraguay', 'PAR', america, countryLanguages.find(cl => cl.name === 'spanish'), true);
             Country.create('Uruguay', 'URU', america, countryLanguages.find(cl => cl.name === 'spanish'), true);
 
-            Country.create('France', 'FRA', europe, countryLanguages.find(cl => cl.name === 'french'), true);
             Country.create('England', 'ENG', europe, countryLanguages.find(cl => cl.name === 'english'), true);
+            Country.create('France', 'FRA', europe, countryLanguages.find(cl => cl.name === 'french'), true);
             Country.create('Germany', 'GER', europe, countryLanguages.find(cl => cl.name === 'deutsche'), true);
             Country.create('Italy', 'ITA', europe, countryLanguages.find(cl => cl.name === 'italian'), true);
             Country.create('Netherlands', 'NED', europe, countryLanguages.find(cl => cl.name === 'dutch'), true);

@@ -29,23 +29,23 @@ let Stadium = (function() {
         static seed() {
             let countries = Country.all();
 
-            let argentina = countries.find(c => c.name === 'Argentina');
-            let brazil = countries.find(c => c.name === 'Brazil');
-            let chile = countries.find(c => c.name === 'Chile');
-            let colombia = countries.find(c => c.name === 'Colombia');
-            let ecuador = countries.find(c => c.name === 'Ecuador');
-            let mexico = countries.find(c => c.name === 'Mexico');
-            let paraguay = countries.find(c => c.name === 'Paraguay');
-            let uruguay = countries.find(c => c.name === 'Uruguay');
+            let argentina = countries[0];
+            let brazil = countries[1];
+            let chile = countries[2];
+            let colombia = countries[3];
+            let ecuador = countries[4];
+            let mexico = countries[5];
+            let paraguay = countries[6];
+            let uruguay = countries[7];
 
-            let england = countries.find(c => c.name === 'England');
-            let france = countries.find(c => c.name === 'France');
-            let germany = countries.find(c => c.name === 'Germany');
-            let italy = countries.find(c => c.name === 'Italy');
-            let netherlands = countries.find(c => c.name === 'Netherlands');
-            let portugal = countries.find(c => c.name === 'Portugal');
-            let russia = countries.find(c => c.name === 'Russia');
-            let spain = countries.find(c => c.name === 'Spain');
+            let england = countries[8];
+            let france = countries[9];
+            let germany = countries[10];
+            let italy = countries[11];
+            let netherlands = countries[12];
+            let portugal = countries[13];
+            let russia = countries[14];
+            let spain = countries[15];
 
             Stadium.create("15 de Abril", argentina);
             Stadium.create("20 de Octubre", argentina);
