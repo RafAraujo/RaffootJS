@@ -15,11 +15,11 @@ class NewGameController {
     }
 
     _setCountry() {
-        this._proxy.country = this._game.countries.find(c => c.id == this._selectCountries.value);
+        this._proxy.country = this._proxy.countries.find(c => c.id == this._selectCountries.value);
     }
 
     _setClub() {
-        this._proxy.club = this._game.country.clubs.find(c => c.id == this._selectClubs.value);
+        this._proxy.club = this._proxy.country.clubs.find(c => c.id == this._selectClubs.value);
     }
 
     _setCoach() {
