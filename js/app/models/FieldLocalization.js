@@ -12,9 +12,19 @@ let FieldLocalization = (function() {
         }
 
         static create(position, line, column) {
-            let fieldLocalization = new FieldLocalization(position.id, line, column, this._name());
+            let fieldLocalization = new FieldLocalization(position.id, line, column, _name());
             fieldLocalization.id = _fieldLocalizations.push(fieldLocalization);
             return fieldLocalization;
+
+            function _name() {
+                let positions = Position.all();
+                let side = '';
+    
+                if (positions.filter(p => ['CB', 'CDM', 'CM', 'CAM', 'ST'].some(a => a == p.abbreviation)).some(p => p.id === position.id))
+                    side = ['L', 'L', '', 'R', 'R'][column];
+                
+                return side + position.abbreviation;
+            }
         }
 
         static load(object) {
@@ -82,16 +92,6 @@ let FieldLocalization = (function() {
 
         get position() {
             return Position.all()[this._positionId - 1];
-        }
-        
-        _name() {
-            let positions = Position.all();
-            let side = '';
-
-            if (positions.filter(p => ['CB', 'CDM', 'CM', 'CAM', 'ST'].some(a => a == p.abbreviation)).some(p => p.id == this._positionId))
-                side = ['L', 'L', '', 'R', 'R'][this.column];
-            
-            return side + this.position.abbreviation;
         }
     }
 })();

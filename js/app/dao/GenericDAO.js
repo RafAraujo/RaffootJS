@@ -52,7 +52,7 @@ class GenericDAO {
         return new Promise((resolve, reject) => {
 
             let cursor = this._connection
-                .transaction([entityClass.name], 'readwrite')
+                .transaction([entityClass.name], 'readonly')
                 .objectStore(entityClass.name)
                 .openCursor();
 
