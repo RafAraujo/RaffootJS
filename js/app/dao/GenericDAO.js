@@ -84,8 +84,7 @@ class GenericDAO {
                 .onsuccess = e => _loadAll(e.target.result);
 
             function _loadAll(objects) {
-                for (let object of objects)
-                    entityClass.load(object);
+                objects.forEach(o => entityClass.load(o));
                 resolve(entityClass.all());
             };
 
