@@ -13,19 +13,18 @@ class GameService {
 
     load(gameName) {
         let promises = [];
-        let objectStoreNames = null;
+        let objectStoreNames = [];
 
         return ConnectionFactory
             .getConnection(gameName)
             .then(connection => {
-                objectStoreNames = connection.objectStoreNames;
+                for (let i = 0; i < connection.objectStoreNames.length; i++)
+                    objectStoreNames.push(connection.objectStoreNames[i]);
                 return new GenericDAO(connection);
             })
-            .then(dao => {
-                for (let i = 0; i < objectStoreNames.length; i++)
-                    promises.push(dao.getAll(eval(objectStoreNames[i])));
-            })
+            .then(dao => objectStoreNames.forEach(name => promises.push(dao.getAll(name))))
             .then(() => Promise.all(promises))
+            .then(results => objectStoreNames.map(name => eval(name)).forEach((_class, index) => results[index].forEach(object => _class.load(object))))
             .then(() => Game.all()[0])
             .catch(error => { throw error });
     }
