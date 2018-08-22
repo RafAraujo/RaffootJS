@@ -27,8 +27,8 @@ let Country = (function() {
         static seed() {
             let confederations = Confederation.all();
 
-            let america = confederations.find(c => c.name === 'America');
-            let europe = confederations.find(c => c.name === 'Europe');
+            let america = confederations[0];
+            let europe = confederations[1];
 
             let countryLanguages = CountryLanguage.all();
 
