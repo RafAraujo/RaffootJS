@@ -81,9 +81,10 @@ class GenericDAO {
                 .transaction([entityClass.name], 'readonly')
                 .objectStore(entityClass.name)
                 .getAll()
+                .onsuccess = e => _loadAll(e.target.result);
 
-            getAll.onsuccess = e => {
-                for (let object of e.target.result)
+            function _loadAll(objects) {
+                for (let object of objects)
                     entityClass.load(object);
                 resolve(entityClass.all());
             };
