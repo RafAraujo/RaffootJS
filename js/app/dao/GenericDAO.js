@@ -74,12 +74,12 @@ class GenericDAO {
         });
     }
 
-    getAll(objectStoreName) {
+    getAll(store) {
         return new Promise((resolve, reject) => {
 
             let getAll = this._connection
-                .transaction([objectStoreName], 'readonly')
-                .objectStore(objectStoreName)
+                .transaction([store], 'readonly')
+                .objectStore(store)
                 .getAll()
                 .onsuccess = e => resolve(e.target.result);
 
