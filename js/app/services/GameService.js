@@ -23,7 +23,7 @@ class GameService {
             })
             .then(dao => {
                 for (let i = 0; i < objectStoreNames.length; i++)
-                    promises.push(dao.select(eval(objectStoreNames[i])));
+                    promises.push(dao.getAll(eval(objectStoreNames[i])));
             })
             .then(() => Promise.all(promises))
             .then(() => Game.all()[0])

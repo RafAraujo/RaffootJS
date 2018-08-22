@@ -74,6 +74,24 @@ class GenericDAO {
         });
     }
 
+    getAll(entityClass) {
+        return new Promise((resolve, reject) => {
+
+            let getAll = this._connection
+                .transaction([entityClass.name], 'readonly')
+                .objectStore(entityClass.name)
+                .getAll()
+
+            getAll.onsuccess = e => {
+                for (let object of e.target.result)
+                    entityClass.load(object);
+                resolve(entityClass.all());
+            };
+
+            getAll.onerror = error => reject(error);
+        });
+    }
+
     delete(entity) {
         return new Promise((resolve, reject) => {
 
