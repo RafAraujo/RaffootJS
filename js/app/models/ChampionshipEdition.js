@@ -23,9 +23,7 @@ let ChampionshipEdition = (function() {
         }
 
         static load(object) {
-            let championshipEdition = super.updateList(_championshipEditions, Object.assign(new ChampionshipEdition(), object));
-            championshipEdition.dates.forEach(d => d = new Date(d));
-            return championshipEdition;
+            return super.updateList(_championshipEditions, Object.assign(new ChampionshipEdition(), object));
         }
 
         static all() {
