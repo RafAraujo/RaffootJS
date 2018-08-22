@@ -1,4 +1,6 @@
 let ConnectionFactory = (function () {
+    const RAFFOOT_DATABASES = 'RaffootDatabases';
+
     let connection = null;
     let close = null;
 
@@ -7,13 +9,34 @@ let ConnectionFactory = (function () {
             throw new Error('ConnectionFactory.constructor');
         }
 
+        static _addDatabase(dbName) {
+            let databases = ConnectionFactory.getDatabases();
+            databases.push(dbName);
+            window.localStorage.setItem(RAFFOOT_DATABASES, JSON.stringify(databases));
+            return ConnectionFactory.getDatabases();
+        }
+
+        static _removeDatabase(dbName) {
+            let databases = ConnectionFactory.getDatabases();
+            databases.remove(dbName);
+            window.localStorage.setItem(RAFFOOT_DATABASES, JSON.stringify(databases));
+            return ConnectionFactory.getDatabases();
+        }
+
+        static getDatabases() {
+            return JSON.parse(window.localStorage.getItem(RAFFOOT_DATABASES)) || [];
+        }
+
         static getConnection(dbName) {
             
             return new Promise((resolve, reject) => {
             
                 let openRequest = window.indexedDB.open(dbName, VERSION);
 
-                openRequest.onupgradeneeded = e => ConnectionFactory._createStores(e.target.result);
+                openRequest.onupgradeneeded = e => {
+                    ConnectionFactory._createStores(e.target.result);
+                    ConnectionFactory._addDatabase(dbName);
+                };
 
                 openRequest.onsuccess = e => {
                     if (!connection) {
@@ -29,9 +52,7 @@ let ConnectionFactory = (function () {
         }
 
         static _createStores(connection) {
-            let stores = Entity.stores().orderBy('name');
-
-            stores.forEach(store => {
+            Entity.stores().orderBy('name').forEach(store => {
                 if (connection.objectStoreNames.contains(store))
                     connection.deleteObjectStore(store);
                 connection.createObjectStore(store, { autoIncrement: true });
