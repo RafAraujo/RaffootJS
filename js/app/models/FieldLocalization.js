@@ -2,17 +2,17 @@ let FieldLocalization = (function() {
     let _fieldLocalizations = [];
 
     return class FieldLocalization extends Entity {
-        constructor(positionId, line, column) {        
+        constructor(positionId, line, column, name) {        
             super();
             
             this._positionId = positionId;
             this.line = line;
             this.column = column;
-            this.name = this._name();
+            this.name = name;
         }
 
         static create(position, line, column) {
-            let fieldLocalization = new FieldLocalization(position.id, line, column);
+            let fieldLocalization = new FieldLocalization(position.id, line, column, this._name());
             fieldLocalization.id = _fieldLocalizations.push(fieldLocalization);
             return fieldLocalization;
         }

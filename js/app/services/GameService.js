@@ -12,10 +12,20 @@ class GameService {
     }
 
     load(gameName) {
+        let promises = [];
+        let objectStoreNames = null;
+
         return ConnectionFactory
             .getConnection(gameName)
-            .then(connection => new GenericDAO(connection))
-            .then(dao => dao.select(Game))
+            .then(connection => {
+                objectStoreNames = connection.objectStoreNames;
+                return new GenericDAO(connection);
+            })
+            .then(dao => {
+                for (let i = 0; i < objectStoreNames.length; i++)
+                    promises.push(dao.select(eval(objectStoreNames[i])));
+            })
+            .then(() => Promise.all(promises))
             .then(() => Game.all()[0])
             .catch(error => { throw error });
     }
