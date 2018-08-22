@@ -38,7 +38,7 @@ class NewGameController {
 
         this._service
             .save(this._proxy.name)
-            .then(game => window.location.href = `home.html?game=${game.name}`)
+            .then(game => window.location.href = `home.html?game=${proxy.name}`)
             .catch(error => { throw error });
     }
 }
