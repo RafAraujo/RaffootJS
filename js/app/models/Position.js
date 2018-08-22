@@ -29,28 +29,28 @@ let Position = (function() {
             let fieldRegions = FieldRegion.all();
 
             let goal = fieldRegions.find(fr => fr.name === 'goal');
-            _positions.push(Position.create('Goalkeeper', 'GK', goal));
+            Position.create('Goalkeeper', 'GK', goal);
 
             let defense = fieldRegions.find(fr => fr.name === 'defense');
-            _positions.push(Position.create('Center Back', 'CB', defense));
-            _positions.push(Position.create('Right Back', 'RB', defense));
-            _positions.push(Position.create('Left Back', 'LB', defense));
-            _positions.push(Position.create('Right Wing Back', 'RWB', defense));
-            _positions.push(Position.create('Left Wing Back', 'LWB', defense));
+            Position.create('Center Back', 'CB', defense);
+            Position.create('Right Back', 'RB', defense);
+            Position.create('Left Back', 'LB', defense);
+            Position.create('Right Wing Back', 'RWB', defense);
+            Position.create('Left Wing Back', 'LWB', defense);
 
             let midfield = fieldRegions.find(fr => fr.name === 'midfield');       
-            _positions.push(Position.create('Center Defensive Midfielder', 'CDM', midfield));
-            _positions.push(Position.create('Right Midfielder', 'RM', midfield));
-            _positions.push(Position.create('Center Midfielder', 'CM', midfield));
-            _positions.push(Position.create('Left Midfielder', 'LM', midfield));
-            _positions.push(Position.create('Center Attacking Midfielder', 'CAM', midfield));
+            Position.create('Center Defensive Midfielder', 'CDM', midfield);
+            Position.create('Right Midfielder', 'RM', midfield);
+            Position.create('Center Midfielder', 'CM', midfield);
+            Position.create('Left Midfielder', 'LM', midfield);
+            Position.create('Center Attacking Midfielder', 'CAM', midfield);
 
             let attack = fieldRegions.find(fr => fr.name === 'attack');        
-            _positions.push(Position.create('Right Wing', 'RW', attack));
-            _positions.push(Position.create('Second Striker', 'SS', attack));
-            _positions.push(Position.create('Left Wing', 'LW', attack));
-            _positions.push(Position.create('Striker', 'ST', attack));
-            _positions.push(Position.create('Center Forward', 'CF', attack));
+            Position.create('Right Wing', 'RW', attack);
+            Position.create('Second Striker', 'SS', attack);
+            Position.create('Left Wing', 'LW', attack);
+            Position.create('Striker', 'ST', attack);
+            Position.create('Center Forward', 'CF', attack);
 
             Object.freeze(_positions);
         }

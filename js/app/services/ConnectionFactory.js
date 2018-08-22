@@ -29,7 +29,7 @@ let ConnectionFactory = (function () {
         }
 
         static _createStores(connection) {
-            let stores = Entity.stores();
+            let stores = Entity.stores().orderBy('name');
 
             stores.forEach(store => {
                 if (connection.objectStoreNames.contains(store))
