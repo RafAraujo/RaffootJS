@@ -1,13 +1,12 @@
 class GameService {
-    save(game) {
+    save(gameName) {
         let promises = [];
 
         return ConnectionFactory
-            .getConnection(game.name)
+            .getConnection(gameName)
             .then(connection => new GenericDAO(connection))
             .then(dao => Entity.children().forEach(_class => promises.push(dao.updateList(_class.all()))))
             .then(() => Promise.all(promises))
-            .then(() => game)
             .catch(error => { throw error; });
     }
 
@@ -25,7 +24,6 @@ class GameService {
             .then(dao => objectStoreNames.forEach(name => promises.push(dao.getAll(name))))
             .then(() => Promise.all(promises))
             .then(results => objectStoreNames.map(name => eval(name)).forEach((_class, index) => results[index].forEach(object => _class.load(object))))
-            .then(() => Game.all()[0])
             .catch(error => { throw error });
     }
 }

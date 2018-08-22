@@ -5,14 +5,13 @@ class NewGameController {
         this._inputName = $('#name');
         this._form = $('#form');
 
-        this._game = Game.create();
-        this._proxy = new Bind(this._game, new NewGameView(), 'seed', 'country');
+        this._proxy = new Bind(Game.create(), new NewGameView(), 'seed', 'country');
         this._proxy.seed();
         this._service = new GameService();
 
         this._selectCountries.addEventListener('change', this._setCountry.bind(this), { passive: true } );
         this._selectClubs.addEventListener('change', this._setClub.bind(this), { passive: true } );
-        this._form.addEventListener('submit', this._save.bind(this) );
+        this._form.addEventListener('submit', this._save.bind(this));
     }
 
     _setCountry() {
@@ -38,7 +37,7 @@ class NewGameController {
         this._setName();
 
         this._service
-            .save(this._game)
+            .save(this._proxy.name)
             .then(game => window.location.href = `home.html?game=${game.name}`)
             .catch(error => { throw error });
     }
