@@ -13,7 +13,6 @@ let Player = (function() {
             this.overall = overall;
             this.star = star;
             this._skillIds = skillIds;
-            this._skills = [];
             this.condition = condition;
             this.injuryProneness = injuryProneness;
             this.energy = 100;
@@ -63,9 +62,7 @@ let Player = (function() {
         }
 
         get skills() {
-            if (_skills.length === 0)
-                _skills = Skill.all().filter(s => this._skillIds.some(sId => s.id === sId));
-            return _skills;
+            return Skill.all().filterById(this._skillIds);
         }
 
         get contracts() {
