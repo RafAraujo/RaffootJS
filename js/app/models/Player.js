@@ -83,7 +83,7 @@ let Player = (function() {
         }
 
         get baseWage() {
-            return this.overall * 115 * (this.star ? 2 : 1);
+            return (Math.pow(this.overall, 2.125) * (this.star ? 2 : 1)).toFixed(2);
         }
 
         get contracts() {
