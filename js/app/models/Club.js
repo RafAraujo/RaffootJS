@@ -2127,7 +2127,7 @@ let Club = (function() {
                 c._stadiumId = c.country.stadiums.getRandomItem().id;
                 c._coachId = Coach.create(c.country).id;
                 c._generateSquad();
-                c.money += c.squad.wage * Random.numberBetween(6, 12);
+                c.receive(c.squad.wage * Random.numberBetween(6, 9));
             });
 
             Object.freeze(_clubs);
