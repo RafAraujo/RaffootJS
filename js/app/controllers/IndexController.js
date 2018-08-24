@@ -36,6 +36,9 @@ class IndexController {
     }
 
     deleteGame() {
+        let loadGame = this.loadGame;
+        this.loadGame = () => null;
+
         this._service
             .delete(this._game.name)
             .then(() => {
@@ -44,5 +47,7 @@ class IndexController {
                 this._game.name = '';
             })
             .catch(error => { throw error });
+        
+        this.loadGame = loadGame;
     }
 }
