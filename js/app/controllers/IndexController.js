@@ -1,10 +1,8 @@
 class IndexController {
     constructor() {
         this._selectDatabases = $('#databases');
-        this._labelClub = $('#club');
-        this._labelYear = $('#year');
 
-        this._game = new Bind(new Game(), new IndexView(), 'name');
+        this._game = new Bind({ name: '', clubName: '', seasonYear: '' }, new IndexView(), 'name');
         this._service = new GameService();
 
         this._selectDatabases.addEventListener('change', this._setName.bind(this), { passive: true } );
@@ -15,23 +13,22 @@ class IndexController {
     }
 
     _setName() {
-        let gameName = this._selectDatabases.value;
-
-        if (gameName) {
-            this._game.name = this._selectDatabases.value;
-            this._showInfo();
-        }
+        this._game.name = this._selectDatabases.value;
+        this._showInfo();
     }
 
     _showInfo() {
-        this._service
-            .info(this._game.name)
-            .then(info => {
-                this._labelClub.innerText = info.clubName;
-                this._labelYear.innerText = info.seasonYear;
-                this._game.name = this._selectDatabases.value;
-            })
-            .catch(error => { throw error });
+        if (this._game.name.length > 0)
+        {
+            this._service
+                .info(this._game.name)
+                .then(info => {
+                    this._game.clubName = info.clubName;
+                    this._game.seasonYear = info.seasonYear;
+                    this._game.name = info.name;
+                })
+                .catch(error => { throw error });
+        }
     }
 
     loadGame() {
@@ -41,7 +38,11 @@ class IndexController {
     deleteGame() {
         this._service
             .delete(this._game.name)
-            .then(() => this._setName())
+            .then(() => {
+                this._game.clubName = '';
+                this._game.seasonYear = '';
+                this._game.name = '';
+            })
             .catch(error => { throw error });
     }
 }

@@ -57,8 +57,8 @@ let ConnectionFactory = (function () {
 
                 dropRequest.onsuccess = e => {
                     ConnectionFactory._removeDatabaseName(dbName);
-                    resolve();
-                }
+                    resolve(e.target.result);
+                };
 
                 dropRequest.onerror = e => reject(e.target.error);
             });

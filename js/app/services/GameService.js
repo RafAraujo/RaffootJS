@@ -6,7 +6,10 @@ class GameService {
             .getConnection(gameName)
             .then(connection => new GenericDAO(connection))
             .then(dao => Entity.children().forEach(_class => promises.push(dao.updateList(_class.all()))))
-            .then(() => Promise.all(promises))
+            .then(() => {
+                ConnectionFactory.closeConnection();
+                return Promise.all(promises);
+            })
             .catch(error => { throw error; });
     }
 
@@ -22,7 +25,10 @@ class GameService {
                 return new GenericDAO(connection);
             })
             .then(dao => objectStoreNames.forEach(name => promises.push(dao.getAll(name))))
-            .then(() => Promise.all(promises))
+            .then(() => {
+                ConnectionFactory.closeConnection();
+                return Promise.all(promises);
+            })
             .then(results => objectStoreNames.map(name => eval(name)).forEach((_class, index) => results[index].forEach(object => _class.load(object))))
             .catch(error => { throw error });
     }
@@ -30,7 +36,7 @@ class GameService {
     info(gameName) {
         let dao = null;
         let game = null;
-        let info = { game: gameName, clubName: null, seasonYear: null };
+        let info = { name: gameName, clubName: '', seasonYear: '' };
 
         return ConnectionFactory
             .getConnection(gameName)
@@ -41,7 +47,10 @@ class GameService {
             .then(club => info.clubName = club.name)
             .then(() => dao.getById('Season', game._seasonIds.last()))
             .then(season => info.seasonYear = season.year)
-            .then(() => info)
+            .then(() => {
+                ConnectionFactory.closeConnection();
+                return info;
+            })
             .catch(error => { throw error });
     }
 
