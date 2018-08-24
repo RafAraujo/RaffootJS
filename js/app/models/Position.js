@@ -8,7 +8,7 @@ let Position = (function() {
             this.name = name;
             this.abbreviation = abbreviation;
             this._fieldRegionId = fieldRegionId;
-            this.skills = [];
+            this._skillIds = [];
         }
 
         static create(name, abbreviation, fieldRegion) {
@@ -59,8 +59,12 @@ let Position = (function() {
             return FieldRegion.all()[this._fieldRegionId - 1];
         }
 
+        get skills() {
+            return Skill.all().filterById(this._skillIds);
+        }
+
         addSkill(value) {
-            this.skills.push(value);
+            this._skillIds.push(value.id);
         }
 
         get isGoalkeeper() {
