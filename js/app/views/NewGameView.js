@@ -5,6 +5,8 @@ class NewGameView {
         this._selectCountries = $('#countries');
         this._selectClubs = $('#clubs');
         this._imgFlag = $('#flag');
+        this._inputStart = $('#start');
+        this._pStarting = $('#starting');
 
         this._country = null;
 
@@ -15,14 +17,26 @@ class NewGameView {
         if (game.countries.length === 0)
             return;
         
+        if (game.name.length  === 0)
+            this._changed(game);
+        else if (game.name.length > 0)
+            this._starting();
+    }
+
+    _changed(game) {
         HtmlHelper.hide(this._pLoading);
         HtmlHelper.show(this._form);
+        HtmlHelper.hide(this._pStarting);
 
         this._fillCountries(game.countries);
         this._fillClubs(game.country, game.currentSeason);
-        //this._showFlag(game.country);
 
         this._country = $('#countries').value;
+    }
+
+    _starting() {
+        this._inputStart.disabled = true;
+        HtmlHelper.show(this._pStarting);
     }
 
     _fillCountries(countries) {

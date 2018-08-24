@@ -5,7 +5,7 @@ class NewGameController {
         this._inputName = $('#name');
         this._form = $('#form');
 
-        this._game = new Bind(Game.create(), new NewGameView(), 'seed', 'country');
+        this._game = new Bind(Game.create(), new NewGameView(), 'seed', 'country', 'name');
         this._game.seed();
         this._service = new GameService();
 
