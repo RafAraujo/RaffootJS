@@ -21,7 +21,7 @@ class GenericDAO {
         return new Promise((resolve, reject) => {
 
             let request = this._connection
-                .transaction([entity.store], 'readwrite')
+                .transaction([entity.store], IDBTransaction.READ_WRITE)
                 .objectStore(entity.store)
                 .put(entity);
 
@@ -35,7 +35,7 @@ class GenericDAO {
         return new Promise((resolve, reject) => {
 
             let objectStore = this._connection
-                .transaction([entities[0].store], 'readwrite')
+                .transaction([entities[0].store], IDBTransaction.READ_WRITE)
                 .objectStore(entities[0].store)
             
             for (let entity of entities) {
@@ -48,42 +48,30 @@ class GenericDAO {
         });
     }
 
-    select(entityClass) {
-        return new Promise((resolve, reject) => {
-
-            let cursor = this._connection
-                .transaction([entityClass.name], 'readonly')
-                .objectStore(entityClass.name)
-                .openCursor();
-
-            cursor.onsuccess = e => {
-
-                let current = e.target.result;
-
-                if (current) {
-                    let object = current.value;
-                    entityClass.load(object);
-                    current.continue();
-                }
-                else {
-                    resolve(entityClass.all());
-                }
-            };
-
-            cursor.onerror = error => reject(error);
-        });
-    }
-
     getAll(store) {
         return new Promise((resolve, reject) => {
 
             let getAll = this._connection
-                .transaction([store], 'readonly')
+                .transaction([store], IDBTransaction.READ_ONLY)
                 .objectStore(store)
-                .getAll()
-                .onsuccess = e => resolve(e.target.result);
+                .getAll();
+            
+            getAll.onsuccess = e => resolve(e.target.result);
 
             getAll.onerror = error => reject(error);
+        });
+    }
+
+    getById(store, id) {
+        return new Promise((resolve, reject) => {
+            let getById = this._connection
+                .transaction([store], IDBTransaction.READ_ONLY)
+                .objectStore(store)
+                .get(id);
+            
+            getById.onsuccess = e => resolve(e.target.result);
+
+            getById.onerror = error => reject(error);
         });
     }
 
@@ -91,7 +79,7 @@ class GenericDAO {
         return new Promise((resolve, reject) => {
 
             let request = this._connection
-                .transaction([entity.store], 'readwrite')
+                .transaction([entity.store], IDBTransaction.READ_WRITE)
                 .objectStore(entity.store)
                 .delete(entity.id);
 

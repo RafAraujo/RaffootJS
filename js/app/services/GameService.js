@@ -26,4 +26,22 @@ class GameService {
             .then(results => objectStoreNames.map(name => eval(name)).forEach((_class, index) => results[index].forEach(object => _class.load(object))))
             .catch(error => { throw error });
     }
+
+    info(gameName) {
+        let dao = null;
+        let game = null;
+        let info = { game: gameName, clubName: null, seasonYear: null };
+
+        return ConnectionFactory
+            .getConnection(gameName)
+            .then(connection => dao = new GenericDAO(connection))
+            .then(() => dao.getById('Game', 1))
+            .then(object => game = object)
+            .then(() => dao.getById('Club', game._clubId))
+            .then(club => info.clubName = club.name)
+            .then(() => dao.getById('Season', game._seasonIds.last()))
+            .then(season => info.seasonYear = season.year)
+            .then(() => info)
+            .catch(error => { throw error });
+    }
 }

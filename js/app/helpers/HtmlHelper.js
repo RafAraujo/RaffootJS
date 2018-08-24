@@ -17,10 +17,11 @@ class HtmlHelper {
         HtmlHelper.clearSelect(select);
         select.appendChild(new Option());
 
-        for (let i = 0; i < options.length; i++) {
-            let object = options[i];
-            select.appendChild(new Option(object.name, object.id));
-        }
+        for (let option of options)
+            if (option instanceof Entity)
+                select.appendChild(new Option(option.name, option.id));
+            else
+                select.appendChild(new Option(option));
     }
 
     static clearSelect(select) {

@@ -24,7 +24,7 @@ h5 {
     font-size: 1.25em;
 }
 button, input, select {
-    min-width: 50%;
+    min-width: 25vw;
 }
 .flex {
     display: flex;
@@ -35,4 +35,7 @@ button, input, select {
     justify-content: center;
     min-height: 5vh;
     width: 99vw;
+}
+.bold {
+    font-weight: bold;
 }

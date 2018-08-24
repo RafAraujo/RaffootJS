@@ -8,10 +8,17 @@
     </head>
     <body>
         <dialog id="saves">
-            <select>
+            <label class="bold">Load Game</label>
+            <br>
+            <select id="databases">
                 <option></option>
             </select>
-            <button>Load</button>
+            <br><br>
+            Club: <label id="club"></label>
+            <br>
+            Year: <label id="year"></label>
+            <br><br>
+            <button id="load" onclick="controller.loadGame()">Load</button>
         </dialog>
         <h1>Raffoot 2018</h1>
         <div class="flex line"><a href="new-game.html">NEW GAME</a>
