@@ -44,4 +44,10 @@ class GameService {
             .then(() => info)
             .catch(error => { throw error });
     }
+
+    delete(gameName) {
+        return ConnectionFactory
+            .dropDatabase(gameName)
+            .catch(error => { throw error });
+    }
 }

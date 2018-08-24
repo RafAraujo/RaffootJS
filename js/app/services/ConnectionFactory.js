@@ -9,14 +9,14 @@ let ConnectionFactory = (function () {
             throw new Error('ConnectionFactory.constructor');
         }
 
-        static _addDatabase(dbName) {
+        static _addDatabaseName(dbName) {
             let databases = ConnectionFactory.getDatabases();
             databases.push(dbName);
             window.localStorage.setItem(RAFFOOT_DATABASES, JSON.stringify(databases));
             return ConnectionFactory.getDatabases();
         }
 
-        static _removeDatabase(dbName) {
+        static _removeDatabaseName(dbName) {
             let databases = ConnectionFactory.getDatabases();
             databases.remove(dbName);
             window.localStorage.setItem(RAFFOOT_DATABASES, JSON.stringify(databases));
@@ -35,7 +35,7 @@ let ConnectionFactory = (function () {
 
                 openRequest.onupgradeneeded = e => {
                     ConnectionFactory._createStores(e.target.result);
-                    ConnectionFactory._addDatabase(dbName);
+                    ConnectionFactory._addDatabaseName(dbName);
                 };
 
                 openRequest.onsuccess = e => {
@@ -48,6 +48,19 @@ let ConnectionFactory = (function () {
                 };
 
                 openRequest.onerror = e => reject(e.target.error);
+            });
+        }
+
+        static dropDatabase(dbName) {
+            return new Promise((resolve, reject) => {
+                let dropRequest = window.indexedDB.deleteDatabase(dbName);
+
+                dropRequest.onsuccess = e => {
+                    ConnectionFactory._removeDatabaseName(dbName);
+                    resolve();
+                }
+
+                dropRequest.onerror = e => reject(e.target.error);
             });
         }
 

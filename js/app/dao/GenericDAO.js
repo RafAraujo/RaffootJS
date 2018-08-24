@@ -21,7 +21,7 @@ class GenericDAO {
         return new Promise((resolve, reject) => {
 
             let request = this._connection
-                .transaction([entity.store], IDBTransaction.READ_WRITE)
+                .transaction([entity.store], 'readwrite')
                 .objectStore(entity.store)
                 .put(entity);
 
@@ -35,7 +35,7 @@ class GenericDAO {
         return new Promise((resolve, reject) => {
 
             let objectStore = this._connection
-                .transaction([entities[0].store], IDBTransaction.READ_WRITE)
+                .transaction([entities[0].store], 'readwrite')
                 .objectStore(entities[0].store)
             
             for (let entity of entities) {
@@ -52,7 +52,7 @@ class GenericDAO {
         return new Promise((resolve, reject) => {
 
             let getAll = this._connection
-                .transaction([store], IDBTransaction.READ_ONLY)
+                .transaction([store], 'readonly')
                 .objectStore(store)
                 .getAll();
             
@@ -65,7 +65,7 @@ class GenericDAO {
     getById(store, id) {
         return new Promise((resolve, reject) => {
             let getById = this._connection
-                .transaction([store], IDBTransaction.READ_ONLY)
+                .transaction([store], 'readonly')
                 .objectStore(store)
                 .get(id);
             
@@ -79,7 +79,7 @@ class GenericDAO {
         return new Promise((resolve, reject) => {
 
             let request = this._connection
-                .transaction([entity.store], IDBTransaction.READ_WRITE)
+                .transaction([entity.store], 'readwrite')
                 .objectStore(entity.store)
                 .delete(entity.id);
 

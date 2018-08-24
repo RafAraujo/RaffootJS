@@ -3,7 +3,6 @@ class IndexController {
         this._selectDatabases = $('#databases');
         this._labelClub = $('#club');
         this._labelYear = $('#year');
-        this._buttonLoad = $('#load');
 
         this._game = new Bind(new Game(), new IndexView(), 'name');
         this._service = new GameService();
@@ -18,20 +17,31 @@ class IndexController {
     _setName() {
         let gameName = this._selectDatabases.value;
 
+        if (gameName) {
+            this._game.name = this._selectDatabases.value;
+            this._showInfo();
+        }
+    }
+
+    _showInfo() {
         this._service
-            .info(gameName)
+            .info(this._game.name)
             .then(info => {
                 this._labelClub.innerText = info.clubName;
                 this._labelYear.innerText = info.seasonYear;
                 this._game.name = this._selectDatabases.value;
             })
-    }
-
-    showInfo() {
-
+            .catch(error => { throw error });
     }
 
     loadGame() {
         window.location.href = `home.html?game=${this._game.name}`;
+    }
+
+    deleteGame() {
+        this._service
+            .delete(this._game.name)
+            .then(() => this._setName())
+            .catch(error => { throw error });
     }
 }

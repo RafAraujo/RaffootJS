@@ -24,7 +24,7 @@ h5 {
     font-size: 1.25em;
 }
 button, input, select {
-    min-width: 25vw;
+    min-width: 15vw;
 }
 .flex {
     display: flex;
