@@ -2,10 +2,21 @@ class IndexController {
     constructor() {
         this._selectDatabases = document.getElementById('databases');
 
-        this._game = new Bind({ name: '', clubName: '', seasonYear: '' }, new IndexView(), 'name');
+        this._game = {
+            name: '',
+            clubName: '',
+            seasonYear: '',
+            message: {
+                text: '',
+                type: 'alert-success'
+            }
+        };
+        
+        this._view = new IndexView();
         this._service = new GameService();
 
         this._selectDatabases.addEventListener('change', this._setName.bind(this), { passive: true } );
+        this._view.update(this._game);
     }
 
     newGame() {
@@ -28,7 +39,10 @@ class IndexController {
                     this._game.clubName = info.clubName;
                     this._game.seasonYear = info.seasonYear;
                     this._game.name = info.name;
+
+                    this._game.message.text = '';
                 })
+                .then(() => this._view.update(this._game))
                 .catch(error => { throw error });
     }
 
@@ -46,8 +60,16 @@ class IndexController {
                 this._game.clubName = '';
                 this._game.seasonYear = '';
                 this._game.name = '';
+
+                this._game.message.text = "Game deleted with success";
+                this._game.message.type = "alert-success";
             })
-            .catch(error => { throw error });
+            .then(() => this._view.update(this._game))
+            .catch(error => {
+                this._game.message.text = "Error on deleting game";
+                this._game.message.type = "alert-error";
+                console.log(error);
+             });
         
         this.loadGame = loadGame;
     }

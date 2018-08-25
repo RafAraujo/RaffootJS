@@ -8,6 +8,7 @@ class IndexView {
 
         this._buttonLoad = document.getElementById('load');
         this._buttonDelete = document.getElementById('delete');
+        this._divMessage = document.getElementById('message');
     }
 
     update(game) {
@@ -17,9 +18,17 @@ class IndexView {
         this._buttonLoad.disabled = this._buttonDelete.disabled = game.name.length === 0;
         this._labelClub.innerText = game.clubName;
         this._labelYear.innerText = game.seasonYear;
+        this._updateMessage(game.message);
     }
 
     _fillDatabases() {
         HtmlHelper.fillSelect(this._selectDatabases, ConnectionFactory.getDatabases());
+    }
+
+    _updateMessage(message) {
+        message.text.length > 0 ? HtmlHelper.show(this._divMessage) : HtmlHelper.hide(this._divMessage);
+        this._divMessage.innerText = message.text;
+        this._divMessage.classList.remove("alert-success", "alert-error");
+        this._divMessage.classList.add(message.type);
     }
 }

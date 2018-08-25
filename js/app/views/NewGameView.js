@@ -1,12 +1,12 @@
 class NewGameView {
     constructor() {
-        this._pLoading = document.getElementById('loading');
+        this._divLoading = document.getElementById('loading');
         this._form = document.getElementById('form');
         this._selectCountries = document.getElementById('countries');
         this._selectClubs = document.getElementById('clubs');
         this._imgFlag = document.getElementById('flag');
         this._buttonStart = document.getElementById('start');
-        this._pStarting = document.getElementById('starting');
+        this._divStarting = document.getElementById('starting');
 
         this._country = null;
 
@@ -24,9 +24,9 @@ class NewGameView {
     }
 
     _changed(game) {
-        HtmlHelper.hide(this._pLoading);
+        HtmlHelper.hide(this._divLoading);
         HtmlHelper.show(this._form);
-        HtmlHelper.hide(this._pStarting);
+        HtmlHelper.hide(this._divStarting);
 
         this._fillCountries(game.countries);
         this._fillClubs(game.country, game.currentSeason);
@@ -36,7 +36,7 @@ class NewGameView {
 
     _starting() {
         this._buttonStart.disabled = true;
-        HtmlHelper.show(this._pStarting);
+        HtmlHelper.show(this._divStarting);
     }
 
     _fillCountries(countries) {
