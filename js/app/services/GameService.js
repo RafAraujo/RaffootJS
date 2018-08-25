@@ -1,9 +1,9 @@
 class GameService {
-    save(gameName) {
+    create(gameName) {
         let promises = [];
 
         return ConnectionFactory
-            .getConnection(gameName)
+            .getConnection(gameName, true)
             .then(connection => new GenericDAO(connection))
             .then(dao => Entity.children().forEach(_class => promises.push(dao.updateList(_class.all()))))
             .then(() => {

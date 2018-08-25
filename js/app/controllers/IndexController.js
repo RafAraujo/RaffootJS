@@ -11,7 +11,7 @@ class IndexController {
                 type: 'alert-success'
             }
         };
-        
+
         this._view = new IndexView();
         this._service = new GameService();
 
@@ -42,8 +42,12 @@ class IndexController {
 
                     this._game.message.text = '';
                 })
+                .catch(error => {
+                    this._game.message.text = "Error on showing game info";
+                    this._game.message.type = "alert-danger";
+                    console.log(error);
+                 })
                 .then(() => this._view.update(this._game))
-                .catch(error => { throw error });
     }
 
     loadGame() {
@@ -51,9 +55,6 @@ class IndexController {
     }
 
     deleteGame() {
-        let loadGame = this.loadGame;
-        this.loadGame = () => null;
-
         this._service
             .delete(this._game.name)
             .then(() => {
@@ -64,13 +65,11 @@ class IndexController {
                 this._game.message.text = "Game deleted with success";
                 this._game.message.type = "alert-success";
             })
-            .then(() => this._view.update(this._game))
             .catch(error => {
                 this._game.message.text = "Error on deleting game";
                 this._game.message.type = "alert-error";
                 console.log(error);
-             });
-        
-        this.loadGame = loadGame;
+             })
+             .then(() => this._view.update(this._game));
     }
 }

@@ -26,9 +26,9 @@ class IndexView {
     }
 
     _updateMessage(message) {
-        message.text.length > 0 ? HtmlHelper.show(this._divMessage) : HtmlHelper.hide(this._divMessage);
         this._divMessage.innerText = message.text;
         this._divMessage.classList.remove("alert-success", "alert-error");
         this._divMessage.classList.add(message.type);
+        message.text.length > 0 ? HtmlHelper.show(this._divMessage) : HtmlHelper.hide(this._divMessage);
     }
 }

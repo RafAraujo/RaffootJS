@@ -37,7 +37,7 @@ class NewGameController {
         this._setName();
 
         this._service
-            .save(this._game.name)
+            .create(this._game.name)
             .then(() => window.location.href = `home.html?game=${this._game.name}`)
             .catch(error => { throw error });
     }

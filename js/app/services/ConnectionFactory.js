@@ -27,13 +27,19 @@ let ConnectionFactory = (function () {
             return JSON.parse(window.localStorage.getItem(RAFFOOT_DATABASES)) || [];
         }
 
-        static getConnection(dbName) {
+        static getConnection(dbName, createIfNotExists = false) {
             
             return new Promise((resolve, reject) => {
             
                 let openRequest = window.indexedDB.open(dbName, VERSION);
 
                 openRequest.onupgradeneeded = e => {
+                    if (!createIfNotExists)
+                    {
+                        e.target.transaction.abort();
+                        return;
+                    }
+
                     ConnectionFactory._createStores(e.target.result);
                     ConnectionFactory._addDatabaseName(dbName);
                 };
