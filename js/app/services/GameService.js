@@ -21,7 +21,8 @@ class GameService {
             .getConnection(gameName)
             .then(connection => {
                 for (let i = 0; i < connection.objectStoreNames.length; i++)
-                    objectStoreNames.push(connection.objectStoreNames[i]);
+                    if (!["CountryLanguage", "Match", "MatchClub", "Referee"].includes(connection.objectStoreNames[i]))
+                        objectStoreNames.push(connection.objectStoreNames[i]);
                 return new GenericDAO(connection);
             })
             .then(dao => objectStoreNames.forEach(name => promises.push(dao.getAll(name))))
