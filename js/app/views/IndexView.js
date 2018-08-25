@@ -1,10 +1,13 @@
 class IndexView {
     constructor() {
-        this._selectDatabases = $('#databases');
-        this._labelClub = $('#club');
-        this._labelYear = $('#year');
-        this._buttonLoad = $('#load');
-        this._buttonDelete = $('#delete');
+        //let $ = document.querySelector.bind(document);
+
+        this._selectDatabases = document.getElementById('databases');
+        this._labelClub = document.getElementById('club');
+        this._labelYear = document.getElementById('year');
+
+        this._buttonLoad = document.getElementById('load');
+        this._buttonDelete = document.getElementById('delete');
     }
 
     update(game) {

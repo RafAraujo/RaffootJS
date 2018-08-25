@@ -1,12 +1,12 @@
 class NewGameView {
     constructor() {
-        this._pLoading = $('#loading');
-        this._form = $('#form');
-        this._selectCountries = $('#countries');
-        this._selectClubs = $('#clubs');
-        this._imgFlag = $('#flag');
-        this._inputStart = $('#start');
-        this._pStarting = $('#starting');
+        this._pLoading = document.getElementById('loading');
+        this._form = document.getElementById('form');
+        this._selectCountries = document.getElementById('countries');
+        this._selectClubs = document.getElementById('clubs');
+        this._imgFlag = document.getElementById('flag');
+        this._buttonStart = document.getElementById('start');
+        this._pStarting = document.getElementById('starting');
 
         this._country = null;
 
@@ -31,11 +31,11 @@ class NewGameView {
         this._fillCountries(game.countries);
         this._fillClubs(game.country, game.currentSeason);
 
-        this._country = $('#countries').value;
+        this._country = document.getElementById('countries').value;
     }
 
     _starting() {
-        this._inputStart.disabled = true;
+        this._buttonStart.disabled = true;
         HtmlHelper.show(this._pStarting);
     }
 

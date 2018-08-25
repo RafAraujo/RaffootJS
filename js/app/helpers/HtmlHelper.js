@@ -1,5 +1,3 @@
-let $ = document.querySelector.bind(document);
-
 class HtmlHelper {
     constructor() {
         throw new Error('HtmlHelper.constructor');

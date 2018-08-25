@@ -1,9 +1,9 @@
 class NewGameController {
     constructor() {
-        this._selectCountries = $('#countries');
-        this._selectClubs = $('#clubs');
-        this._inputName = $('#name');
-        this._form = $('#form');
+        this._selectCountries = document.getElementById('countries');
+        this._selectClubs = document.getElementById('clubs');
+        this._inputName = document.getElementById('name');
+        this._form = document.getElementById('form');
 
         this._game = new Bind(Game.create(), new NewGameView(), 'seed', 'country', 'name');
         this._game.seed();

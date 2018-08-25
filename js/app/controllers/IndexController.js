@@ -1,6 +1,6 @@
 class IndexController {
     constructor() {
-        this._selectDatabases = $('#databases');
+        this._selectDatabases = document.getElementById('databases');
 
         this._game = new Bind({ name: '', clubName: '', seasonYear: '' }, new IndexView(), 'name');
         this._service = new GameService();
@@ -8,8 +8,12 @@ class IndexController {
         this._selectDatabases.addEventListener('change', this._setName.bind(this), { passive: true } );
     }
 
-    showDialog() {
-        $('#saves').showModal();
+    newGame() {
+        window.location.href = "new-game.html";
+    }
+
+    showSaves() {
+        document.getElementById('saves').showModal();
     }
 
     _setName() {
@@ -18,8 +22,6 @@ class IndexController {
     }
 
     _showInfo() {
-        if (this._game.name.length > 0)
-        {
             this._service
                 .info(this._game.name)
                 .then(info => {
@@ -28,7 +30,6 @@ class IndexController {
                     this._game.name = info.name;
                 })
                 .catch(error => { throw error });
-        }
     }
 
     loadGame() {

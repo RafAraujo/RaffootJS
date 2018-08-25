@@ -1,5 +1,7 @@
 class HomeController {
     constructor() {
+        let $ = document.querySelector.bind(document);
+
         this._service = new GameService();
 
         this._loadGame();

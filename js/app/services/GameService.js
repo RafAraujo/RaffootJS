@@ -38,6 +38,9 @@ class GameService {
         let game = null;
         let info = { name: gameName, clubName: '', seasonYear: '' };
 
+        if (gameName === '')
+            return Promise.resolve(info);
+
         return ConnectionFactory
             .getConnection(gameName)
             .then(connection => dao = new GenericDAO(connection))
