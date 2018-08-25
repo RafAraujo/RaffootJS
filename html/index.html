@@ -1,107 +1,110 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Raffoot</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
-    </head>
-    <body>
-        <div id="saves" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="savesLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 id="savesLabel" class="modal-title">Saved Games</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>
-                            <select id="databases" class="form-control"></select>
-                        </p>
-                        <p>
-                            <span>Club: </span>
-                            <span id="club" class="font-weight-bold"></span>
-                            <br>
-                            <span>Year: </span>
-                            <span id="year" class="font-weight-bold"></span>
+    <title>Raffoot</title>
 
-                            <div id="message" class="alert" role="alert"></div>
-                        </p>
-                    </div>
-                    <div class="modal-footer">
-                        <button id="load" type="button" class="btn btn-primary" onclick="controller.loadGame()">Load</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button id="delete" type="button" class="btn btn-danger" onclick="controller.deleteGame()">Delete</button>
-                    </div>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+</head>
+
+<body>
+    <div id="saves" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="savesLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="savesLabel" class="modal-title">Saved Games</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <select id="databases" class="form-control"></select>
+                    </p>
+                    <p>
+                        <span>Club: </span>
+                        <span id="club" class="font-weight-bold"></span>
+                        <br>
+                        <span>Year: </span>
+                        <span id="year" class="font-weight-bold"></span>
+
+                        <div id="message" class="alert" role="alert"></div>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button id="load-game" type="button" class="btn btn-primary">Load</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button id="delete-game" type="button" class="btn btn-danger">Delete</button>
                 </div>
             </div>
         </div>
-        <div class="container">
-            <h1 class="text-center">Raffoot 2018</h1>
-            <button class="btn btn-outline-dark btn-block btn-lg" onclick="controller.newGame()">NEW GAME</button>
-            <button class="btn btn-outline-dark btn-block btn-lg" data-toggle="modal" data-target="#saves">LOAD GAME</button>
-        </div>
-        <script src="../js/ui/jquery-3.3.1.min.js"></script>
-        <script src="../js/ui/bootstrap.min.js"></script>
+    </div>
+    <div class="container">
+        <h1 class="text-center">Raffoot 2018</h1>
+        <button id="new-game" class="btn btn-outline-dark btn-block btn-lg">NEW GAME</button>
+        <button id="show-saves" class="btn btn-outline-dark btn-block btn-lg" data-toggle="modal" data-target="#saves">LOAD GAME</button>
+    </div>
+    <script src="../js/ui/jquery-3.3.1.min.js"></script>
+    <script src="../js/ui/bootstrap.min.js"></script>
 
-        <script src="../js/app/config/Config.js"></script>
+    <script src="../js/app/config/Config.js"></script>
 
-        <script src="../js/app/helpers/ArrayExtensions.js"></script>
-        <script src="../js/app/helpers/Bind.js"></script>
-        <script src="../js/app/helpers/DateExtensions.js"></script>
-        <script src="../js/app/helpers/HtmlHelper.js"></script>
-        <script src="../js/app/helpers/Random.js"></script>
-        <script src="../js/app/helpers/StringExtensions.js"></script>
+    <script src="../js/app/helpers/ArrayExtensions.js"></script>
+    <script src="../js/app/helpers/Bind.js"></script>
+    <script src="../js/app/helpers/DateExtensions.js"></script>
+    <script src="../js/app/helpers/HtmlHelper.js"></script>
+    <script src="../js/app/helpers/Random.js"></script>
+    <script src="../js/app/helpers/StringExtensions.js"></script>
 
-        <script src="../js/app/models/Entity.js"></script>
-        <script src="../js/app/models/Game.js"></script>
+    <script src="../js/app/models/Entity.js"></script>
+    <script src="../js/app/models/Game.js"></script>
 
-        <script src="../js/app/models/Championship.js"></script>
-        <script src="../js/app/models/ChampionshipEdition.js"></script>
-        <script src="../js/app/models/ChampionshipEditionClub.js"></script>
-        <script src="../js/app/models/ChampionshipEditionEliminationPhase.js"></script>
-        <script src="../js/app/models/ChampionshipEditionFixture.js"></script>
-        <script src="../js/app/models/ChampionshipEditionGroup.js"></script>
-        <script src="../js/app/models/ChampionshipEditionPlayer.js"></script>
-        <script src="../js/app/models/ChampionshipType.js"></script>
-        <script src="../js/app/models/Club.js"></script>
-        <script src="../js/app/models/Coach.js"></script>
-        <script src="../js/app/models/Confederation.js"></script>
-        <script src="../js/app/models/Contract.js"></script>
-        <script src="../js/app/models/Country.js"></script>
-        <script src="../js/app/models/CountryLanguage.js"></script>
-        <script src="../js/app/models/FieldLocalization.js"></script>
-        <script src="../js/app/models/FieldRegion.js"></script>
-        <script src="../js/app/models/Formation.js"></script>
-        <script src="../js/app/models/Match.js"></script>
-        <script src="../js/app/models/MatchClub.js"></script>
-        <script src="../js/app/models/MatchClubStats.js"></script>
-        <script src="../js/app/models/MatchPlayer.js"></script>
-        <script src="../js/app/models/MatchPlayerStats.js"></script>
-        <script src="../js/app/models/Player.js"></script>
-        <script src="../js/app/models/Position.js"></script>
-        <script src="../js/app/models/Referee.js"></script>
-        <script src="../js/app/models/Season.js"></script>
-        <script src="../js/app/models/SeasonDate.js"></script>
-        <script src="../js/app/models/Skill.js"></script>
-        <script src="../js/app/models/Squad.js"></script>
-        <script src="../js/app/models/SquadPlayer.js"></script>
-        <script src="../js/app/models/Stadium.js"></script>
+    <script src="../js/app/models/Championship.js"></script>
+    <script src="../js/app/models/ChampionshipEdition.js"></script>
+    <script src="../js/app/models/ChampionshipEditionClub.js"></script>
+    <script src="../js/app/models/ChampionshipEditionEliminationPhase.js"></script>
+    <script src="../js/app/models/ChampionshipEditionFixture.js"></script>
+    <script src="../js/app/models/ChampionshipEditionGroup.js"></script>
+    <script src="../js/app/models/ChampionshipEditionPlayer.js"></script>
+    <script src="../js/app/models/ChampionshipType.js"></script>
+    <script src="../js/app/models/Club.js"></script>
+    <script src="../js/app/models/Coach.js"></script>
+    <script src="../js/app/models/Confederation.js"></script>
+    <script src="../js/app/models/Contract.js"></script>
+    <script src="../js/app/models/Country.js"></script>
+    <script src="../js/app/models/CountryLanguage.js"></script>
+    <script src="../js/app/models/FieldLocalization.js"></script>
+    <script src="../js/app/models/FieldRegion.js"></script>
+    <script src="../js/app/models/Formation.js"></script>
+    <script src="../js/app/models/Match.js"></script>
+    <script src="../js/app/models/MatchClub.js"></script>
+    <script src="../js/app/models/MatchClubStats.js"></script>
+    <script src="../js/app/models/MatchPlayer.js"></script>
+    <script src="../js/app/models/MatchPlayerStats.js"></script>
+    <script src="../js/app/models/Player.js"></script>
+    <script src="../js/app/models/Position.js"></script>
+    <script src="../js/app/models/Referee.js"></script>
+    <script src="../js/app/models/Season.js"></script>
+    <script src="../js/app/models/SeasonDate.js"></script>
+    <script src="../js/app/models/Skill.js"></script>
+    <script src="../js/app/models/Squad.js"></script>
+    <script src="../js/app/models/SquadPlayer.js"></script>
+    <script src="../js/app/models/Stadium.js"></script>
 
-        <script src="../js/app/services/ConnectionFactory.js"></script>
-        <script src="../js/app/services/GameService.js"></script>
-        <script src="../js/app/services/ProxyFactory.js"></script>
+    <script src="../js/app/services/ConnectionFactory.js"></script>
+    <script src="../js/app/services/GameService.js"></script>
+    <script src="../js/app/services/ProxyFactory.js"></script>
 
-        <script src="../js/app/dao/GenericDAO.js"></script>
+    <script src="../js/app/dao/GenericDAO.js"></script>
 
-        <script src="../js/app/views/IndexView.js"></script>
-        <script src="../js/app/controllers/IndexController.js"></script>
+    <script src="../js/app/views/IndexView.js"></script>
+    <script src="../js/app/controllers/IndexController.js"></script>
 
-     </body>
+</body>
+
 </html>
 <script>
     let controller = new IndexController();

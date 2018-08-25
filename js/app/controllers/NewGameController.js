@@ -1,17 +1,25 @@
 class NewGameController {
     constructor() {
+        this._form = document.getElementById('form');
         this._selectCountries = document.getElementById('countries');
         this._selectClubs = document.getElementById('clubs');
         this._inputName = document.getElementById('name');
-        this._form = document.getElementById('form');
+        this._buttonBack = document.getElementById('back');
+        this._buttonStart = document.getElementById('start');
 
         this._game = new Bind(Game.create(), new NewGameView(), 'seed', 'country', 'name');
         this._game.seed();
         this._service = new GameService();
 
+        this._form.addEventListener('submit', this._save.bind(this));
         this._selectCountries.addEventListener('change', this._setCountry.bind(this), { passive: true } );
         this._selectClubs.addEventListener('change', this._setClub.bind(this), { passive: true } );
-        this._form.addEventListener('submit', this._save.bind(this));
+        this._buttonBack.addEventListener('click', this._backToIndex);
+        this._buttonStart.addEventListener('click', this._save.bind(this));
+    }
+
+    _backToIndex() {
+        window.location.href = "index.html";
     }
 
     _setCountry() {
@@ -39,6 +47,8 @@ class NewGameController {
         this._service
             .create(this._game.name)
             .then(() => window.location.href = `home.html?game=${this._game.name}`)
-            .catch(error => { throw error });
+            .catch(error => {
+                console.log(error);
+            });
     }
 }

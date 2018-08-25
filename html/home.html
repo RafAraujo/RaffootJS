@@ -1,114 +1,118 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Raffoot</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">Raffoot 2018</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="main-menu">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#squad">Squad</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#calendar">Calendar</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#tables">Tables</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#stadium">Stadium</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#clubs">Clubs</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#players">Players</a>
-                    </li>
-                        <a class="nav-link" href="#coaches">Coaches</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="menu-history" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            History
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="menu-history">
-                            <a class="dropdown-item" href="#">Champions</a>
-                            <a class="dropdown-item" href="#">Top Scorers</a>
-                            <a class="dropdown-item" href="#">Ranking</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+    <title>Raffoot</title>
 
-        <script src="../js/ui/jquery-3.3.1.min.js"></script>
-        <script src="../js/ui/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+</head>
 
-        <script src="../js/app/config/Config.js"></script>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Raffoot 2018</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-menu" aria-controls="main-menu" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="main-menu">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#squad">Squad</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#calendar">Calendar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#tables">Tables</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#stadium">Stadium</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#clubs">Clubs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#players">Players</a>
+                </li>
+                <a class="nav-link" href="#coaches">Coaches</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="menu-history" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        History
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="menu-history">
+                        <a class="dropdown-item" href="#">Champions</a>
+                        <a class="dropdown-item" href="#">Top Scorers</a>
+                        <a class="dropdown-item" href="#">Ranking</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-        <script src="../js/app/helpers/ArrayExtensions.js"></script>
-        <script src="../js/app/helpers/Bind.js"></script>
-        <script src="../js/app/helpers/DateExtensions.js"></script>
-        <script src="../js/app/helpers/HtmlHelper.js"></script>
-        <script src="../js/app/helpers/Random.js"></script>
-        <script src="../js/app/helpers/StringExtensions.js"></script>
+    <script src="../js/ui/jquery-3.3.1.min.js"></script>
+    <script src="../js/ui/bootstrap.min.js"></script>
 
-        <script src="../js/app/models/Entity.js"></script>
-        <script src="../js/app/models/Game.js"></script>
+    <script src="../js/app/config/Config.js"></script>
 
-        <script src="../js/app/models/Championship.js"></script>
-        <script src="../js/app/models/ChampionshipEdition.js"></script>
-        <script src="../js/app/models/ChampionshipEditionClub.js"></script>
-        <script src="../js/app/models/ChampionshipEditionEliminationPhase.js"></script>
-        <script src="../js/app/models/ChampionshipEditionFixture.js"></script>
-        <script src="../js/app/models/ChampionshipEditionGroup.js"></script>
-        <script src="../js/app/models/ChampionshipEditionPlayer.js"></script>
-        <script src="../js/app/models/ChampionshipType.js"></script>
-        <script src="../js/app/models/Club.js"></script>
-        <script src="../js/app/models/Coach.js"></script>
-        <script src="../js/app/models/Confederation.js"></script>
-        <script src="../js/app/models/Contract.js"></script>
-        <script src="../js/app/models/Country.js"></script>
-        <script src="../js/app/models/CountryLanguage.js"></script>
-        <script src="../js/app/models/FieldLocalization.js"></script>
-        <script src="../js/app/models/FieldRegion.js"></script>
-        <script src="../js/app/models/Formation.js"></script>
-        <script src="../js/app/models/Match.js"></script>
-        <script src="../js/app/models/MatchClub.js"></script>
-        <script src="../js/app/models/MatchClubStats.js"></script>
-        <script src="../js/app/models/MatchPlayer.js"></script>
-        <script src="../js/app/models/MatchPlayerStats.js"></script>
-        <script src="../js/app/models/Player.js"></script>
-        <script src="../js/app/models/Position.js"></script>
-        <script src="../js/app/models/Referee.js"></script>
-        <script src="../js/app/models/Season.js"></script>
-        <script src="../js/app/models/SeasonDate.js"></script>
-        <script src="../js/app/models/Skill.js"></script>
-        <script src="../js/app/models/Squad.js"></script>
-        <script src="../js/app/models/SquadPlayer.js"></script>
-        <script src="../js/app/models/Stadium.js"></script>
+    <script src="../js/app/helpers/ArrayExtensions.js"></script>
+    <script src="../js/app/helpers/Bind.js"></script>
+    <script src="../js/app/helpers/DateExtensions.js"></script>
+    <script src="../js/app/helpers/HtmlHelper.js"></script>
+    <script src="../js/app/helpers/Random.js"></script>
+    <script src="../js/app/helpers/StringExtensions.js"></script>
 
-        <script src="../js/app/services/ConnectionFactory.js"></script>
-        <script src="../js/app/services/GameService.js"></script>
-        <script src="../js/app/services/ProxyFactory.js"></script>
+    <script src="../js/app/models/Entity.js"></script>
+    <script src="../js/app/models/Game.js"></script>
 
-        <script src="../js/app/dao/GenericDAO.js"></script>
+    <script src="../js/app/models/Championship.js"></script>
+    <script src="../js/app/models/ChampionshipEdition.js"></script>
+    <script src="../js/app/models/ChampionshipEditionClub.js"></script>
+    <script src="../js/app/models/ChampionshipEditionEliminationPhase.js"></script>
+    <script src="../js/app/models/ChampionshipEditionFixture.js"></script>
+    <script src="../js/app/models/ChampionshipEditionGroup.js"></script>
+    <script src="../js/app/models/ChampionshipEditionPlayer.js"></script>
+    <script src="../js/app/models/ChampionshipType.js"></script>
+    <script src="../js/app/models/Club.js"></script>
+    <script src="../js/app/models/Coach.js"></script>
+    <script src="../js/app/models/Confederation.js"></script>
+    <script src="../js/app/models/Contract.js"></script>
+    <script src="../js/app/models/Country.js"></script>
+    <script src="../js/app/models/CountryLanguage.js"></script>
+    <script src="../js/app/models/FieldLocalization.js"></script>
+    <script src="../js/app/models/FieldRegion.js"></script>
+    <script src="../js/app/models/Formation.js"></script>
+    <script src="../js/app/models/Match.js"></script>
+    <script src="../js/app/models/MatchClub.js"></script>
+    <script src="../js/app/models/MatchClubStats.js"></script>
+    <script src="../js/app/models/MatchPlayer.js"></script>
+    <script src="../js/app/models/MatchPlayerStats.js"></script>
+    <script src="../js/app/models/Player.js"></script>
+    <script src="../js/app/models/Position.js"></script>
+    <script src="../js/app/models/Referee.js"></script>
+    <script src="../js/app/models/Season.js"></script>
+    <script src="../js/app/models/SeasonDate.js"></script>
+    <script src="../js/app/models/Skill.js"></script>
+    <script src="../js/app/models/Squad.js"></script>
+    <script src="../js/app/models/SquadPlayer.js"></script>
+    <script src="../js/app/models/Stadium.js"></script>
 
-        <script src="../js/app/views/HomeView.js"></script>
-        <script src="../js/app/controllers/HomeController.js"></script>
-    </body>
+    <script src="../js/app/services/ConnectionFactory.js"></script>
+    <script src="../js/app/services/GameService.js"></script>
+    <script src="../js/app/services/ProxyFactory.js"></script>
+
+    <script src="../js/app/dao/GenericDAO.js"></script>
+
+    <script src="../js/app/views/HomeView.js"></script>
+    <script src="../js/app/controllers/HomeController.js"></script>
+</body>
+
 </html>
 <script>
-    $('.nav-link').on('click', function() {
+    $('.nav-link').on('click', function () {
         $(".nav-item").find('.active').removeClass('active');
         $(this).addClass('active');
         $('.nav-collapse').collapse('hide');
