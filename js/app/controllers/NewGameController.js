@@ -12,7 +12,6 @@ class NewGameController {
         this._form.addEventListener('submit', this._save.bind(this));
         this._selectCountries.addEventListener('change', this._setCountry.bind(this), { passive: true } );
         this._selectClubs.addEventListener('change', this._setClub.bind(this), { passive: true } );
-        this._buttonBack.addEventListener('click', this._backToIndex);
     }
 
     _setCountry() {
