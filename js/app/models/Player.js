@@ -2,7 +2,7 @@ let Player = (function() {
     let _players = [];
 
     return class Player extends Entity {
-        constructor(name, surname, countryId, birthYear, positionId, overall, star, skillIds, condition, injuryProneness) {
+        constructor(name, surname, countryId, birthYear, positionId, side, overall, star, skillIds, condition, injuryProneness) {
             super();
 
             this._name = name;
@@ -10,6 +10,7 @@ let Player = (function() {
             this._countryId = countryId;
             this._birthYear = birthYear;
             this._positionId = positionId;
+            this.side = side;
             this.overall = overall;
             this.star = star;
             this._skillIds = skillIds;
@@ -20,6 +21,7 @@ let Player = (function() {
         }
 
         static create(country, birthYear, position) {
+            let side = position.fieldLocalizations.getRandomItem().side;
             let name = country.names.getRandomItem();
             let surname = country.surnames.getRandomItem();
             let overall = Random.numberBetween(1, 99);
@@ -28,7 +30,7 @@ let Player = (function() {
             let condition = Random.numberBetween(1, 5);
             let injuryProneness = Random.numberBetween(1, 3);
 
-            let player = new Player(name, surname, country.id, birthYear, position.id, overall, star, skillIds, condition, injuryProneness);
+            let player = new Player(name, surname, country.id, birthYear, position.id, side, overall, star, skillIds, condition, injuryProneness);
             player.id = _players.push(player);
             return player;
         }

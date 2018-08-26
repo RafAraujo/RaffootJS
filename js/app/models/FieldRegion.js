@@ -8,7 +8,7 @@ let FieldRegion = (function() {
             super();
 
             this.name = name;
-            this._positions = [];
+            this._positionIds = [];
         }
 
         static create(name) {
@@ -35,9 +35,11 @@ let FieldRegion = (function() {
         }
 
         get positions() {
-            if (_positions.length === 0)
-                _positions = Position.all().filter(p => p.fieldRegion === this);
-            return _positions;
+            return Position.all().filterById(this._positionIds);
+        }
+
+        addPosition(value) {
+            this._positionIds.push(value.id);
         }
 
         randomPlayersCount(formation) {

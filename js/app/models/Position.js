@@ -8,12 +8,14 @@ let Position = (function() {
             this.name = name;
             this.abbreviation = abbreviation;
             this._fieldRegionId = fieldRegionId;
+            this._fieldLocalizationIds = [];
             this._skillIds = [];
         }
 
         static create(name, abbreviation, fieldRegion) {
             let position = new Position(name, abbreviation, fieldRegion.id);
             position.id = _positions.push(position);
+            fieldRegion.addPosition(position);
             return position;
         }
 
@@ -59,16 +61,24 @@ let Position = (function() {
             return FieldRegion.all()[this._fieldRegionId - 1];
         }
 
+        get fieldLocalizations() {
+            return FieldLocalization.all().filterById(this._fieldLocalizationIds);
+        }
+
         get skills() {
             return Skill.all().filterById(this._skillIds);
         }
 
-        addSkill(value) {
-            this._skillIds.push(value.id);
-        }
-
         get isGoalkeeper() {
             return this.name === 'Goalkeeper';
+        }
+
+        addFieldLocalization(value) {
+            this._fieldLocalizationIds.push(value.id);
+        }
+
+        addSkill(value) {
+            this._skillIds.push(value.id);
         }
     }
 })();

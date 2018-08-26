@@ -20,8 +20,8 @@ class IndexController {
         this._view = new IndexView();
         this._service = new GameService();
 
-        this._selectDatabases.addEventListener('change', this._setName.bind(this), { passive: true } );
-        this._buttonLoadGame.addEventListener('click', this._loadGame);
+        this._selectDatabases.addEventListener('change', this._setName.bind(this));
+        this._buttonLoadGame.addEventListener('click', this._loadGame.bind(this));
         this._buttonDeleteGame.addEventListener('click', this._deleteGame.bind(this));
 
         this._buttonNewGame.addEventListener('click', this._newGame);
@@ -49,7 +49,7 @@ class IndexController {
     }
 
     _loadGame() {
-        window.location.href = `home.html?game=${this._game.name}`;
+        window.location.href = `home.html?game=${this._game.name}#squad`;
     }
 
     _deleteGame() {

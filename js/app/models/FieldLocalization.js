@@ -14,6 +14,7 @@ let FieldLocalization = (function() {
         static create(position, line, column) {
             let fieldLocalization = new FieldLocalization(position.id, line, column, _name());
             fieldLocalization.id = _fieldLocalizations.push(fieldLocalization);
+            position.addFieldLocalization(fieldLocalization);
             return fieldLocalization;
 
             function _name() {
@@ -92,6 +93,10 @@ let FieldLocalization = (function() {
 
         get position() {
             return Position.all()[this._positionId - 1];
+        }
+
+        get side() {
+            return ['L', 'L', 'C', 'R', 'R'][this.column];
         }
     }
 })();
