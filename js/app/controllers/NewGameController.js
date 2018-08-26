@@ -10,8 +10,8 @@ class NewGameController {
         this._service = new GameService();
 
         this._form.addEventListener('submit', this._save.bind(this));
-        this._selectCountries.addEventListener('change', this._setCountry.bind(this), { passive: true } );
-        this._selectClubs.addEventListener('change', this._setClub.bind(this), { passive: true } );
+        this._selectCountries.addEventListener('change', this._setCountry.bind(this));
+        this._selectClubs.addEventListener('change', this._setClub.bind(this));
     }
 
     _setCountry() {
