@@ -4,11 +4,11 @@ class HtmlHelper {
     }
 
     static show(element) {
-        element.style.removeProperty('display');
+        element.classList.remove('d-none');
     }
 
     static hide(element) {
-        element.style.display = 'none';
+        element.classList.add('d-none');
     }
 
     static fillSelect(select, options) {

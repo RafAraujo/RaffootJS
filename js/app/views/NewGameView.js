@@ -5,7 +5,7 @@ class NewGameView {
         this._selectCountries = document.getElementById('countries');
         this._selectClubs = document.getElementById('clubs');
         this._imgFlag = document.getElementById('flag');
-        this._buttonBack = document.getElementById('back');
+        this._aBack = document.getElementById('back');
         this._buttonStart = document.getElementById('start');
         this._divStarting = document.getElementById('starting');
 
@@ -36,8 +36,7 @@ class NewGameView {
     }
 
     _starting() {
-        this._buttonBack.disabled = true;
-        this._buttonStart.disabled = true;
+        this._aBack.disabled = this._buttonStart.disabled = true;
         HtmlHelper.show(this._divStarting);
     }
 

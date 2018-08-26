@@ -12,35 +12,56 @@
 
 <body>
     <div class="container">
-        <h1 class="text-center">Raffoot 2018</h1>
-
-        <div id="loading" class="alert alert-primary" role="alert">Creating game...</div>
-        <form id="form" action="home.html" style="display: none">
+        <div class="row">
+            <div class="col text-center">
+                <h1 class="text-center">Raffoot 2018</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div id="loading" class="alert alert-primary" role="alert">Creating game...</div>
+            </div>
+        </div>
+        <form id="form" action="home.html" class="d-none">
             <fieldset>
                 <legend>Choose your club</legend>
-                <div id="new-game">
-                    <div class="form-group">
+                
+                <div class="row form-group">
+                    <div class="col">
                         <label for="countries">Country</label>
                         <select id="countries" class="form-control" autocomplete="country-name" required></select>
                     </div>
+                </div>
 
-                    <div class="form-group">
+                <div class="row form-group">
+                    <div class="col">
                         <label for="clubs">Club</label>
                         <select id="clubs" class="form-control" autocomplete="club" required></select>
                     </div>
+                </div>
 
-                    <div class="form-group">
+                <div class="row form-group">
+                    <div class="col">
                         <label for="name">Name</label>
                         <input id="name" class="form-control" type="text" required>
                     </div>
                 </div>
             </fieldset>
-            <a href="index.html" class="btn btn-secondary">Back</a>
-            <button type="submit" class="btn btn-primary">Start Game >></button>
+
+            <div class="row">
+                <div class="col-6 col-sm-3">
+                    <a id="back" href="index.html" class="btn btn-secondary btn-block">Back</a>
+                </div>
+                <div class="col-6 col-sm-3">
+                    <button id="start" type="submit" class="btn btn-primary btn-block">Start</button>
+                </div>
+            </div>
         </form>
-        <br>
-        <div id="starting" class="alert alert-primary" role="alert" style="display: none">Starting game...</div>
-    </div>
+        <div class="row mt-3">
+            <div class="col">
+                <div id="starting" class="alert alert-primary d-none" role="alert">Starting game...</div>
+            </div>
+        </div>
     </div>
 
     <script src="../js/app/config/Config.js"></script>

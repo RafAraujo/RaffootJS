@@ -21,18 +21,27 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>
-                        <select id="databases" class="form-control"></select>
-                    </p>
-                    <p>
-                        <span>Club: </span>
-                        <span id="club" class="font-weight-bold"></span>
-                        <br>
-                        <span>Year: </span>
-                        <span id="year" class="font-weight-bold"></span>
-
-                        <div id="message" class="alert" role="alert"></div>
-                    </p>
+                    <div class="row form-group">
+                        <div class="col">
+                            <select id="databases" class="form-control"></select>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <label for="club" class="col-2 text-right">Club: </label>
+                        <span id="club" class="col-10 font-weight-bold"></span>
+                    </div>
+                    
+                    <div class="row">
+                        <label for="year" class="col-2 text-right">Year: </label>
+                        <span id="year" class="col-10 font-weight-bold"></span>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col">
+                            <div id="message" class="alert" role="alert"></div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button id="load-game" type="button" class="btn btn-primary">Load</button>
