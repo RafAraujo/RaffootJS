@@ -17,7 +17,7 @@ class HomeView {
 
             HtmlHelper.insertCell(tr, player.id, 'd-none');
             HtmlHelper.insertCell(tr, player.position.abbreviation, 'text-center');
-            HtmlHelper.insertCell(tr, '', 'text-center');
+            HtmlHelper.insertCell(tr, player.star ? '&starf;' : '', 'text-center');
             HtmlHelper.insertCell(tr, player.completeName);
             HtmlHelper.insertCell(tr, player.side, 'text-center');
             HtmlHelper.insertCell(tr, player.overall, 'text-center');

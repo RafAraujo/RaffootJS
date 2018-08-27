@@ -26,9 +26,9 @@ class HtmlHelper {
         select.innerHTML = '';
     }
 
-    static insertCell(tr, text, ...classList) {
+    static insertCell(tr, innerHTML, ...classList) {
         let td = tr.insertCell();
-        td.innerText = text;
+        td.innerHTML = innerHTML;
         td.classList.add(...classList);
         return td;
     }
