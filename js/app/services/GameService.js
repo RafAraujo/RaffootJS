@@ -1,3 +1,6 @@
+//https://stackoverflow.com/questions/10484965/how-can-i-put-several-requests-in-one-transaction-in-indexeddb
+//https://stackoverflow.com/questions/33594790/indexeddb-and-large-amount-of-inserts-on-angular-app
+
 class GameService {
     create(gameName) {
         let promises = [];
