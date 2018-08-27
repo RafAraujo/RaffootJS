@@ -26,6 +26,10 @@ let Season = (function() {
             return _seasons;
         }
 
+        static current() {
+            return Season.all().last();
+        }
+
         get championshipTypes() {
             let championshipTypes = ChampionshipType.all(); 
 

@@ -65,6 +65,10 @@ let Position = (function() {
             return FieldLocalization.all().filterById(this._fieldLocalizationIds);
         }
 
+        get line() {
+            return Math.min(...this.fieldLocalizations.map(fl => fl.line));
+        }
+
         get skills() {
             return Skill.all().filterById(this._skillIds);
         }

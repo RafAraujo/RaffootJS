@@ -51,6 +51,10 @@ let Player = (function() {
             return Position.all()[this._positionId - 1];
         }
 
+        get line() {
+            return this.position.line;
+        }
+
         get age() {
             return Season.current().year - this._birthYear;
         }
@@ -67,10 +71,18 @@ let Player = (function() {
             return Skill.all().filterById(this._skillIds);
         }
 
+        get skillsDescription() {
+            let description = '';
+            for (let skill of this.skills) {
+                if (description.length > 0)
+                    description += '/';
+                description += skill.abbreviation;
+            }
+            return description;
+        }
+
         get contracts() {
-            if (this._contracts.length === 0)
-                this._updateContracts();
-            return this._contracts;
+            return Contract.all().filterById(this._contractIds);
         }
 
         get club() {

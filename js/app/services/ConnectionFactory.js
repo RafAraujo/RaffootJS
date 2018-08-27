@@ -34,14 +34,16 @@ let ConnectionFactory = (function () {
                 let openRequest = window.indexedDB.open(dbName, VERSION);
 
                 openRequest.onupgradeneeded = e => {
-                    if (!createIfNotExists)
+                    if (createIfNotExists)
+                    {
+                        ConnectionFactory._createStores(e.target.result);
+                        ConnectionFactory._addDatabaseName(dbName);
+                    }
+                    else
                     {
                         e.target.transaction.abort();
                         return;
                     }
-
-                    ConnectionFactory._createStores(e.target.result);
-                    ConnectionFactory._addDatabaseName(dbName);
                 };
 
                 openRequest.onsuccess = e => {

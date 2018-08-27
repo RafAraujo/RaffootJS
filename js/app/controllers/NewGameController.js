@@ -5,9 +5,9 @@ class NewGameController {
         this._selectClubs = document.getElementById('clubs');
         this._inputName = document.getElementById('name');
 
+        this._service = new GameService();
         this._game = new Bind(Game.create(), new NewGameView(), 'seed', 'country', 'name');
         this._game.seed();
-        this._service = new GameService();
 
         this._form.addEventListener('submit', this._save.bind(this));
         this._selectCountries.addEventListener('change', this._setCountry.bind(this));

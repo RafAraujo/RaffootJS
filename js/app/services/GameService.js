@@ -31,6 +31,7 @@ class GameService {
                 return Promise.all(promises);
             })
             .then(results => objectStoreNames.map(name => eval(name)).forEach((_class, index) => results[index].forEach(object => _class.load(object))))
+            .then(() => Game.all()[0])
             .catch(error => { throw error });
     }
 

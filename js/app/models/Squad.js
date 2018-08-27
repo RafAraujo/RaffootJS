@@ -33,6 +33,10 @@ let Squad = (function() {
             return SquadPlayer.all().filterById(this._squadPlayerIds);
         }
 
+        get players() {
+            return this.squadPlayers.map(sp => sp.player).orderBy('line');
+        }
+
         set freeKickTaker(squadPlayer) {
             this._freeKickTaker = this.findSquadPlayer(squadPlayer);
         }

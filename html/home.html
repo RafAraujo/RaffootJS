@@ -52,22 +52,32 @@
             </ul>
         </div>
     </nav>
-    <section id="squad">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>POS</th>
-                    <th>Name</th>
-                </tr>
-            </thead>
-            <tbody>
+    <div class="container-fluid">
+        <section id="squad">
+            <table id="table-squad" class="table table-responsive table-hover">
+                <thead>
+                    <tr>
+                        <th class="text-center">POS</th>
+                        <th class="text-center">&nbsp;</th>
+                        <!-- Star -->
+                        <th class="text-center">NAME</th>
+                        <th class="text-center">SIDE</th>
+                        <th class="text-center">OVA</th>
+                        <th class="text-center">ENERGY</th>
+                        <th class="text-center">SKILLS</th>
+                        <th class="text-center">AGE</th>
+                        <th class="text-center">CON</th>
+                        <!-- Condition -->
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                <tfoot>
 
-            </tbody>
-            <tfoot>
-
-            </tfoot>
-        </table>
-    </section>
+                </tfoot>
+            </table>
+        </section>
+    </div>
 
     <script src="../js/ui/jquery-3.3.1.min.js"></script>
     <script src="../js/ui/bootstrap.min.js"></script>
@@ -78,6 +88,7 @@
     <script src="../js/app/helpers/Bind.js"></script>
     <script src="../js/app/helpers/DateExtensions.js"></script>
     <script src="../js/app/helpers/HtmlHelper.js"></script>
+    <script src="../js/app/helpers/ObjectExtensions.js"></script>
     <script src="../js/app/helpers/Random.js"></script>
     <script src="../js/app/helpers/StringExtensions.js"></script>
 
