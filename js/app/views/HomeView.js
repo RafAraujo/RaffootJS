@@ -46,7 +46,7 @@ class HomeView {
             HtmlHelper.insertCell(tr, match.id, 'd-none');
             HtmlHelper.insertCell(tr, match.date.toLocaleDateString(), 'text-center');
             HtmlHelper.insertCell(tr, match.homeClub.name, 'text-left');
-            HtmlHelper.insertCell(tr, 'x', 'text-center');
+            HtmlHelper.insertCell(tr, match.score, 'text-center');
             HtmlHelper.insertCell(tr, match.awayClub.name, 'text-right');
             HtmlHelper.insertCell(tr, match.championshipEdition.championship.name, 'text-right');
             HtmlHelper.insertCell(tr, match.audience, 'text-center');

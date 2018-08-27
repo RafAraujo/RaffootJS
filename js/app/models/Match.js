@@ -63,6 +63,13 @@ let Match = (function() {
             return this.matchClubs.find(mc => mc.situation === 'away').club;
         }
 
+        get score() {
+            if (this.finished)
+                return `${this.homeClub.matchClubStats.goals} x ${this.awayClub.matchClubStats.goals}`;
+            else
+                return 'x';
+        }
+
         get referee() {
             return Referee.all()[this._refereeId - 1];
         }
