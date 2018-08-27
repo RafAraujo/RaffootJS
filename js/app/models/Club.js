@@ -2192,6 +2192,12 @@ let Club = (function() {
             }
         }
 
+        getMatchesCurrentSeason() {
+            let season = Season.current();
+
+            
+        }
+
         leaguePoints(championshipEdition) {
             let position = championshipEdition.championshipEditionClubs.find(cec => cec.club === this).position;
 

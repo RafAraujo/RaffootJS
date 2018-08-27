@@ -69,6 +69,10 @@ let Position = (function() {
             return Math.min(...this.fieldLocalizations.map(fl => fl.line));
         }
 
+        get side() {
+            return ['L', 'L', 'C', 'R', 'R'][Math.min(...this.fieldLocalizations.map(fl => fl.column))];
+        }
+
         get skills() {
             return Skill.all().filterById(this._skillIds);
         }

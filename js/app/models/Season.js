@@ -123,6 +123,10 @@ let Season = (function() {
             return this.seasonDates[this._currentSeasonDateIndex - 1];
         }
 
+        get matches() {
+            return this.selectMany('championshipEditions.matches');
+        }
+
         get today() {
             return this._currentSeasonDate.date;
         }
@@ -143,8 +147,12 @@ let Season = (function() {
             this.finished = this._currentSeasonDateIndex === this.seasonDates.length;
         }
 
-        getMatches(date) {
-            return this.selectMany('championshipEditions.matches').filter(m => m.date === date);
+        getMatchesByDate(date) {
+            return this.matches.filter(m => m.date === date);
+        }
+
+        getMatchesByClub(club) {
+            return this.matches.filter(m => m.matchClubs.map(mc => mc.club).includes(club));
         }
     }
 })();

@@ -6,10 +6,8 @@ class GameService {
             .getConnection(gameName, true)
             .then(connection => new GenericDAO(connection))
             .then(dao => Entity.children().forEach(_class => promises.push(dao.updateList(_class.all()))))
-            .then(() => {
-                ConnectionFactory.closeConnection();
-                return Promise.all(promises);
-            })
+            .then(() => Promise.all(promises))
+            .then(() => ConnectionFactory.closeConnection())
             .catch(error => { throw error; });
     }
 
@@ -21,16 +19,14 @@ class GameService {
             .getConnection(gameName)
             .then(connection => {
                 for (let i = 0; i < connection.objectStoreNames.length; i++)
-                    if (!["CountryLanguage", "Match", "MatchClub", "Referee"].includes(connection.objectStoreNames[i]))
+                    //if (!["CountryLanguage", "Match", "MatchClub", "Referee"].includes(connection.objectStoreNames[i]))
                         objectStoreNames.push(connection.objectStoreNames[i]);
                 return new GenericDAO(connection);
             })
             .then(dao => objectStoreNames.forEach(name => promises.push(dao.getAll(name))))
-            .then(() => {
-                ConnectionFactory.closeConnection();
-                return Promise.all(promises);
-            })
+            .then(() => Promise.all(promises))
             .then(results => objectStoreNames.map(name => eval(name)).forEach((_class, index) => results[index].forEach(object => _class.load(object))))
+            .then(() => ConnectionFactory.closeConnection())
             .then(() => Game.all()[0])
             .catch(error => { throw error });
     }

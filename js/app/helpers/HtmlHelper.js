@@ -25,4 +25,11 @@ class HtmlHelper {
     static clearSelect(select) {
         select.innerHTML = '';
     }
+
+    static insertCell(tr, text, ...classList) {
+        let td = tr.insertCell();
+        td.innerText = text;
+        td.classList.add(...classList);
+        return td;
+    }
 }

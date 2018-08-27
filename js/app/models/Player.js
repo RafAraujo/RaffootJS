@@ -52,7 +52,7 @@ let Player = (function() {
         }
 
         get line() {
-            return this.position.line;
+            return this.position.line + (this.position.side === 'L' ? 0.5 : 0);
         }
 
         get age() {
@@ -69,16 +69,6 @@ let Player = (function() {
 
         get skills() {
             return Skill.all().filterById(this._skillIds);
-        }
-
-        get skillsDescription() {
-            let description = '';
-            for (let skill of this.skills) {
-                if (description.length > 0)
-                    description += '/';
-                description += skill.abbreviation;
-            }
-            return description;
         }
 
         get contracts() {
