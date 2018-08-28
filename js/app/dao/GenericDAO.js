@@ -31,18 +31,15 @@ class GenericDAO {
         });
     }
 
-    updateList(entities) {
+    addMany(entities) {
         return new Promise((resolve, reject) => {
 
-            let objectStore = this._connection
-                .transaction([entities[0].store], 'readwrite')
-                .objectStore(entities[0].store)
+            let transaction = this._connection.transaction([entities[0].store], 'readwrite')
             
+            transaction.oncomplete = () => resolve(entities);
+
             for (let entity of entities) {
-                let request = objectStore.put(entity);
-
-                request.onsuccess = () => resolve(entity);
-
+                let request = transaction.objectStore(entity.store).add(entity);
                 request.onerror = error => reject(error);
             }
         });
