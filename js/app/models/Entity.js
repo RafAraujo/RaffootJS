@@ -7,6 +7,10 @@ let Entity = (function(){
                 _children.push(this.constructor);
         }
 
+        static all() {
+            return Entity.children().map(e => e.all()).reduce((result, array) => result.concat(array), []);
+        }
+
         static children() {
             return _children;
         }

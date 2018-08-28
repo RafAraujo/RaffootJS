@@ -3,13 +3,10 @@
 
 class GameService {
     create(gameName) {
-        let promises = [];
-
         return ConnectionFactory
             .getConnection(gameName, true)
             .then(connection => new GenericDAO(connection))
-            .then(dao => Entity.children().forEach(_class => promises.push(dao.addMany(_class.all()))))
-            .then(() => Promise.all(promises))
+            .then(dao => dao.addAll(Entity.children().map(e => e.name), Entity.all()))
             .then(() => ConnectionFactory.closeConnection())
             .catch(error => { throw error; });
     }
