@@ -7,6 +7,8 @@ class HomeView {
         this._showSquad(game.club.squad);
 
         this._showCalendar(game.currentSeason.getMatchesByClub(game.club));
+
+        document.querySelectorAll('section').forEach(section => HtmlHelper.show(section));
     }
 
     _showSquad(squad) {
