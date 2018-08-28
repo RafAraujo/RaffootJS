@@ -27,8 +27,8 @@ let Match = (function() {
             return match;
         }
 
-        static load(object) {
-            return super.updateList(_matches, Object.assign(new Match(), object));
+        static load(objects) {
+            _matches = objects.map(o => Object.assign(new Match(), o));
         }
 
         static all() {

@@ -1,5 +1,4 @@
-//https://stackoverflow.com/questions/10484965/how-can-i-put-several-requests-in-one-transaction-in-indexeddb
-//https://stackoverflow.com/questions/33594790/indexeddb-and-large-amount-of-inserts-on-angular-app
+
 
 class GameService {
     create(gameName) {
@@ -24,7 +23,7 @@ class GameService {
             })
             .then(dao => objectStoreNames.forEach(name => promises.push(dao.getAll(name))))
             .then(() => Promise.all(promises))
-            .then(results => objectStoreNames.map(name => eval(name)).forEach((_class, index) => results[index].forEach(object => _class.load(object))))
+            .then(results => objectStoreNames.map(name => eval(name)).forEach((_class, index) => _class.load(results[index])))
             .then(() => ConnectionFactory.closeConnection())
             .then(() => Game.all()[0])
             .catch(error => { throw error });

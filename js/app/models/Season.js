@@ -18,8 +18,8 @@ let Season = (function() {
             return season;
         }
 
-        static load(object) {
-            return super.updateList(_seasons, Object.assign(new Season(), object));
+        static load(objects) {
+            _seasons = objects.map(o => Object.assign(new Season(), o));
         }
 
         static all() {

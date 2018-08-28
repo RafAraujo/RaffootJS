@@ -19,8 +19,8 @@ let MatchClubStats = (function() {
             return matchClubStats;
         }
 
-        static load(object) {
-            return super.updateList(_matchClubStats, Object.assign(new MatchClubStats(), object));
+        static load(objects) {
+            _matchClubStats = objects.map(o => Object.assign(new MatchClubStats(), o));
         }
 
         static all() {

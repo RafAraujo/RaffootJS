@@ -20,8 +20,8 @@ let Country = (function() {
             return country;
         }
 
-        static load(object) {
-            return super.updateList(_countries, Object.assign(new Country(), object));
+        static load(objects) {
+            _countries = objects.map(o => Object.assign(new Country(), o));
         }
 
         static seed() {

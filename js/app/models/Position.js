@@ -19,8 +19,8 @@ let Position = (function() {
             return position;
         }
 
-        static load(object) {
-            return super.updateList(_positions, Object.assign(new Position(), object));
+        static load(objects) {
+            _positions = objects.map(o => Object.assign(new Position(), o));
         }
 
         static all() {

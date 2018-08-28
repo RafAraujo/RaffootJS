@@ -20,8 +20,8 @@ let Contract = (function() {
             return contract;
         }
 
-        static load(object) {
-            return super.updateList(_contracts, Object.assign(new Contract(), object));
+        static load(objects) {
+            _contracts = objects.map(o => Object.assign(new Contract(), o));
         }
 
         static all() {

@@ -35,8 +35,8 @@ let Player = (function() {
             return player;
         }
 
-        static load(object) {
-            return super.updateList(_players, Object.assign(new Player(), object));
+        static load(objects) {
+            _players = objects.map(o => Object.assign(new Player(), o));
         }
 
         static all() {

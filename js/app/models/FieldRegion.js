@@ -1,8 +1,6 @@
 let FieldRegion = (function() {
     let _fieldRegions = [];
 
-    let _positions = [];
-
     return class FieldRegion extends Entity {
         constructor(name) {
             super();
@@ -17,8 +15,8 @@ let FieldRegion = (function() {
             return fieldRegion;
         }
 
-        static load(object) {
-            return super.updateList(_fieldRegions, Object.assign(new FieldRegion(), object));
+        static load(objects) {
+            _fieldRegions = objects.map(o => Object.assign(new FieldRegion(), o));
         }
 
         static seed() {

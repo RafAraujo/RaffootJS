@@ -16,8 +16,8 @@ let ChampionshipEditionEliminationPhase = (function() {
             return championshipEditionEliminationPhase;
         }
 
-        static load(object) {
-            return super.updateList(_championshipEditionEliminationPhases, Object.assign(new ChampionshipEditionEliminationPhase(), object));
+        static load(objects) {
+            _championshipEditionEliminationPhases = objects.map(o => Object.assign(new ChampionshipEditionEliminationPhase(), o));
         }
 
         static all() {

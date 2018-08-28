@@ -19,15 +19,6 @@ let Entity = (function(){
             return _children.map(c => c.name);
         }
 
-        static updateList(list, entity) {
-            if (list[entity.id - 1] != null)
-                list.splice(entity.id - 1, 1, entity);
-            else
-                entity.id = list.push(entity);
-            
-            return list[entity.id - 1];
-        }
-
         get store() {
             return this.constructor.name;
         }

@@ -60,14 +60,14 @@ class GenericDAO {
     getAll(store) {
         return new Promise((resolve, reject) => {
 
-            let getAll = this._connection
+            let request = this._connection
                 .transaction([store], 'readonly')
                 .objectStore(store)
                 .getAll();
             
-            getAll.onsuccess = e => resolve(e.target.result);
+            request.onsuccess = e => resolve(e.target.result);
 
-            getAll.onerror = error => reject(error);
+            request.onerror = error => reject(error);
         });
     }
 

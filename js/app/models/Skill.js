@@ -16,8 +16,8 @@ let Skill = (function() {
             return skill;
         }
 
-        static load(object) {
-            return super.updateList(_skills, Object.assign(new Skill(), object));
+        static load(objects) {
+            _skills = objects.map(o => Object.assign(new Skill(), o));
         }
 
         static all() {

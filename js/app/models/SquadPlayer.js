@@ -16,8 +16,8 @@ let SquadPlayer = (function() {
             return squadPlayer;
         }
 
-        static load(object) {
-            return super.updateList(_squadPlayers, Object.assign(new SquadPlayer(), object));
+        static load(objects) {
+            _squadPlayers = objects.map(o => Object.assign(new SquadPlayer(), o));
         }
 
         static all() {

@@ -71,8 +71,8 @@ let CountryLanguage = (function() {
             return countryLanguage;
         }
 
-        static load(object) {
-            return super.updateList(_countryLanguages, Object.assign(new CountryLanguage(), object));
+        static load(objects) {
+            _countryLanguages = objects.map(o => Object.assign(new CountryLanguage(), o));
         }
     
         static seed() {

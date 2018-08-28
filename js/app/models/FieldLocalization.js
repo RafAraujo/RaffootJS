@@ -28,8 +28,8 @@ let FieldLocalization = (function() {
             }
         }
 
-        static load(object) {
-            return super.updateList(_fieldLocalizations, Object.assign(new FieldLocalization(), object));
+        static load(objects) {
+            _fieldLocalizations = objects.map(o => Object.assign(new FieldLocalization(), o));
         }
 
         static all() {

@@ -15,8 +15,8 @@ let Formation = (function() {
             return formation;
         }
 
-        static load(object) {
-            return super.updateList(_formations, Object.assign(new Formation(), object));
+        static load(objects) {
+            _formations = objects.map(o => Object.assign(new Formation(), o));
         }
 
         static seed() {

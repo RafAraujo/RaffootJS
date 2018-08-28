@@ -4,14 +4,9 @@ class HomeView {
     }
 
     update(game, section) {
-        let t0 = performance.now();
-
         this._showSquad(game.club.squad);
 
         this._showCalendar(game.currentSeason.getMatchesByClub(game.club));
-
-        
-        let t1 = performance.now(); console.log("Call took " + (t1 - t0) + " milliseconds.");
     }
 
     _showSquad(squad) {

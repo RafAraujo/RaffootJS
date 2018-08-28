@@ -15,8 +15,8 @@ let SeasonDate = (function() {
             return seasonDate;
         }
 
-        static load(object) {
-            return super.updateList(_seasonDates, Object.assign(new SeasonDate(), object));
+        static load(objects) {
+            _seasonDates = objects.map(o => Object.assign(new SeasonDate(), o));
         }
 
         static all() {

@@ -22,8 +22,8 @@ let ChampionshipEdition = (function() {
             return championshipEdition;
         }
 
-        static load(object) {
-            return super.updateList(_championshipEditions, Object.assign(new ChampionshipEdition(), object));
+        static load(objects) {
+            _championshipEditions = objects.map(o => Object.assign(new ChampionshipEdition(), o));
         }
 
         static all() {

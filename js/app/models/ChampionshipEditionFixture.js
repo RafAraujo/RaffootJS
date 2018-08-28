@@ -15,8 +15,8 @@ let ChampionshipEditionFixture = (function() {
             return championshipEditionFixture;
         }
 
-        static load(object) {
-            return super.updateList(_championshipEditionFixtures, Object.assign(new ChampionshipEditionFixture(), object));
+        static load(objects) {
+            _championshipEditionFixtures = objects.map(o => Object.assign(new ChampionshipEditionFixture(), o));
         }
 
         static all() {

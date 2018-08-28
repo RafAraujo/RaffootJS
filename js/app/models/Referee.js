@@ -17,8 +17,8 @@ let Referee = (function() {
             return referee;
         }
 
-        static load(object) {
-            return super.updateList(_referees, Object.assign(new Referee(), object));
+        static load(objects) {
+            _referees = objects.map(o => Object.assign(new Referee(), o));
         }
 
         static all() {

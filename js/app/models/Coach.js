@@ -17,8 +17,8 @@ let Coach = (function() {
             return coach;
         }
 
-        static load(object) {
-            return super.updateList(_coaches, Object.assign(new Coach(), object));
+        static load(objects) {
+            _coaches = objects.map(o => Object.assign(new Coach(), o));
         }
 
         static all() {

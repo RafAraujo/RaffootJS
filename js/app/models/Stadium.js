@@ -18,8 +18,8 @@ let Stadium = (function() {
             return stadium;
         }
 
-        static load(object) {
-            return super.updateList(_stadiums, Object.assign(new Stadium(), object));
+        static load(objects) {
+            _stadiums = objects.map(o => Object.assign(new Stadium(), o));
         }
 
         static all() {
