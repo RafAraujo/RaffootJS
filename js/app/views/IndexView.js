@@ -1,6 +1,8 @@
 class IndexView {
-    constructor() {
+    constructor(game) {
         //let $ = document.querySelector.bind(document);
+        
+        this._game = game;
 
         this._selectDatabases = document.getElementById('databases');
         this._labelClub = document.getElementById('club');
@@ -11,14 +13,14 @@ class IndexView {
         this._divMessage = document.getElementById('message');
     }
 
-    update(game) {
-        if (game.name.length === 0)
+    update() {
+        if (this._game.name.length === 0)
             this._fillDatabases();
 
-        this._buttonLoad.disabled = this._buttonDelete.disabled = game.name.length === 0;
-        this._labelClub.innerText = game.clubName;
-        this._labelYear.innerText = game.seasonYear;
-        this._updateMessage(game.message);
+        this._buttonLoad.disabled = this._buttonDelete.disabled = this._game.name.length === 0;
+        this._labelClub.innerText = this._game.clubName;
+        this._labelYear.innerText = this._game.seasonYear;
+        this._updateMessage(this._game.message);
     }
 
     _fillDatabases() {
