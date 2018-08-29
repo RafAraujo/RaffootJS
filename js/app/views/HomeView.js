@@ -74,7 +74,9 @@ class HomeView {
 
     _setActiveSection(section) {
         document.querySelectorAll('a.nav-link').forEach(e => e.classList.remove('active'));
-        document.querySelector(`a.nav-link[href="#${section}"`).classList.add('active');
+        let active = document.querySelector(`a.nav-link[href="#${section}"`);
+        active.classList.add('active');
+        active.innerHTML += ' <span class="sr-only">(current)</span>';
 
         document.querySelectorAll('section').forEach(e => HtmlHelper.hide(e));
         HtmlHelper.show(document.getElementById(section));
