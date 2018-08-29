@@ -73,10 +73,14 @@ class HomeView {
     }
 
     _setActiveSection(section) {
-        document.querySelectorAll('a.nav-link').forEach(e => e.classList.remove('active'));
+        document.querySelectorAll('a.nav-link').forEach(e => {
+            e.classList.remove('active');
+            if (e.children.length > 0)
+                e.removeChild(e.children[0]);
+        });
         let active = document.querySelector(`a.nav-link[href="#${section}"`);
         active.classList.add('active');
-        active.innerHTML += ' <span class="sr-only">(current)</span>';
+        active.appendChild(HtmlHelper.createElement('span', '(current)', 'sr-only'));
 
         document.querySelectorAll('section').forEach(e => HtmlHelper.hide(e));
         HtmlHelper.show(document.getElementById(section));

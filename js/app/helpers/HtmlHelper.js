@@ -11,6 +11,10 @@ class HtmlHelper {
         element.classList.add('d-none');
     }
 
+    static clearSelect(select) {
+        select.innerHTML = '';
+    }
+
     static fillSelect(select, options) {
         HtmlHelper.clearSelect(select);
         select.appendChild(new Option());
@@ -22,8 +26,11 @@ class HtmlHelper {
                 select.appendChild(new Option(option));
     }
 
-    static clearSelect(select) {
-        select.innerHTML = '';
+    static createElement(tagName, innerHTML, ...classList) {
+        let element = document.createElement(tagName);
+        element.innerHTML = innerHTML;
+        element.classList.add(...classList);
+        return element;
     }
 
     static insertCell(tr, innerHTML, ...classList) {
