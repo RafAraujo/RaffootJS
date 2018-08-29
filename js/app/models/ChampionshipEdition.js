@@ -50,6 +50,10 @@ let ChampionshipEdition = (function() {
             return ChampionshipEditionClub.all().filterById(this._championshipEditionClubIds);
         }
 
+        get clubs() {
+            return this.championshipEditionClubs.map(cec => cec.club);
+        }
+
         get championshipEditionPlayers() {
             return ChampionshipEditionPlayer.all().filterById(this._championshipEditionPlayerIds);
         }
@@ -74,10 +78,6 @@ let ChampionshipEdition = (function() {
                 return [];
             else
                 return this.dates.slice(this.championship.groupDatesCount);
-        }
-
-        get clubs() {
-            return this.championshipEditionClubs.map(cec => cec.club);
         }
 
         defineClubs() {

@@ -9,6 +9,7 @@ class HomeView {
     update(section) {
         this._showSquad();
         this._showCalendar();
+        this._showTables();
 
         this._setActiveSection(section);
 
@@ -16,11 +17,11 @@ class HomeView {
     }
 
     _showSquad() {
-        let squad = this._game.club.squad;
-
         let table = document.querySelector('#table-squad tbody');
 
-        for (let player of squad.players) {
+        let players = this._game.club.squad.players;
+
+        for (let player of players) {
             let tr = table.insertRow();
 
             HtmlHelper.insertCell(tr, player.id, 'd-none');
@@ -45,9 +46,9 @@ class HomeView {
     }
 
     _showCalendar() {
-        let matches = this._game.currentSeason.getMatchesByClub(this._game.club);
-
         let table = document.querySelector('#table-calendar tbody');
+
+        let matches = this._game.currentSeason.getMatchesByClub(this._game.club);
 
         for (let match of matches) {
             let tr = table.insertRow();
@@ -61,6 +62,14 @@ class HomeView {
             HtmlHelper.insertCell(tr, match.audience, 'text-center');
             HtmlHelper.insertCell(tr, match.income, 'text-center');
         }
+    }
+
+    _showTables() {
+        let table = document.querySelector('#table-tables tbody');
+
+        let championshipEditions = this._game.currentSeason.getChampionshipEditionsByClub(this._game.club);
+
+        HtmlHelper.fillSelect(document.getElementById('select-championships'), championshipEditions.map(ce => ce.championship));
     }
 
     _setActiveSection(section) {
