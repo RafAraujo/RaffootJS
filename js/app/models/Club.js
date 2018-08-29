@@ -2180,11 +2180,10 @@ let Club = (function() {
             let date = Date.firstDayCurrentYear();
             let year = date.getFullYear();
 
-            for (let i = 0; i < fieldRegions.length; i++) {
-                let fieldRegion = fieldRegions[i];
+            for (let fieldRegion of fieldRegions) {
                 let count = fieldRegion.randomPlayersCount(formation);
 
-                for (let j = 0; j < count; j++) {
+                for (let i = 0; i < count; i++) {
                     let player = Player.create(this.country, year - Random.numberBetween(16, 38), fieldRegion.positions.getRandomItem());
                     let contract = Contract.create(this, player, 'definitive', 0, player.baseWage, date, date.addMonths(Random.numberBetween(6, 24)));
                     contract.sign();
