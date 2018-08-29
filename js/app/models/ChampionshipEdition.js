@@ -13,7 +13,6 @@ let ChampionshipEdition = (function() {
             this._championshipEditionClubIds = [];
             this._championshipEditionPlayerIds = [];
             this.dates = [];
-            this._matchIds = [];
         }
 
         static create(championship, year) {
@@ -162,8 +161,8 @@ let ChampionshipEdition = (function() {
 
         scheduleMatcheschampionshipEditionGroups() {
             for (let group of this.championshipEditionGroups) {
-                group.matchIds = ChampionshipEdition.genericRoundRobin(this.groupDates, group.clubs, this.championship.twoLeggedTie).map(m => m.id);
-                this._matchIds = this._matchIds.concat(group.matches.map(m => m.id));
+                let matches = ChampionshipEdition.genericRoundRobin(this.groupDates, group.clubs, this.championship.twoLeggedTie);
+                group.addMatches(matches);
             }
 
             this.scheduleMatchesElimination();
@@ -185,8 +184,6 @@ let ChampionshipEdition = (function() {
                             match.addClub(clubs[j], k === 0 ? 'home' : 'away');
                             match.addClub(clubs[j + 1], k === 0 ? 'away' : 'home');
                         }
-
-                        this._matchIds.push(match.id);
                     }
                 }
             }
@@ -194,7 +191,6 @@ let ChampionshipEdition = (function() {
 
         scheduleMatchesRoundRobin() {
             let matches = ChampionshipEdition.genericRoundRobin(this, this.dates, this.championshipEditionClubs.map(cec => cec.club), this.championship.twoLeggedTie);
-            this._matchIds = this._matchIds.concat(matches.map(m => m.id));
         }
 
         static genericRoundRobin(championshipEdition, dates, clubs, twoLeggedTie) {
