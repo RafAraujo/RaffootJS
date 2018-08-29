@@ -65,7 +65,7 @@ class IndexController {
             })
             .catch(error => {
                 this._game.message.text = "Error on deleting game";
-                this._game.message.type = "alert-error";
+                this._game.message.type = "alert-danger";
                 console.log(error);
             })
             .then(() => this._view.update(this._game));
