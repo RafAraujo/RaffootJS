@@ -84,7 +84,7 @@ let Player = (function() {
         }
 
         get baseWage() {
-            return Math.max(Math.pow(this.overall, 2.125) * (this.star ? 2 : 1), 133).toFixed(2);
+            return parseFloat(Math.max(Math.pow(this.overall, 2.125) * (this.star ? 2 : 1), 133).toFixed(2));
         }
 
         get contracts() {
