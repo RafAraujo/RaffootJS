@@ -9,6 +9,7 @@ let ChampionshipEditionGroup = (function() {
             this._championshipEditionId = championshipEditionId;
             this.number = number;
             this._championshipEditionClubIds = [];
+            this._matchIds = [];
         }
 
         static create(championshipEdition, number) {
@@ -38,6 +39,7 @@ let ChampionshipEditionGroup = (function() {
         }
 
         get matches() {
+            return this.championshipEdition.matches.filterById(this._matchIds);
         }
 
         addClub(championshipEditionClub) {
@@ -45,6 +47,10 @@ let ChampionshipEditionGroup = (function() {
                 throw new Error('ChampionshipEditionGroup.addClub(championshipEditionClub)');
 
             this.championshipEditionClubs.push(championshipEditionClub);
+        }
+        
+        addMatches(matches) {
+            this._matchIds.concat(matches.map(m => m.id));
         }
 
         table() {
