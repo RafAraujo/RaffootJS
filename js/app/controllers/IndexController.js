@@ -17,7 +17,7 @@ class IndexController {
             }
         };
 
-        this._view = new IndexView();
+        this._view = new IndexView(this._game);
         this._service = new GameService();
 
         this._selectDatabases.addEventListener('change', this._setName.bind(this));
@@ -27,7 +27,7 @@ class IndexController {
         this._buttonNewGame.addEventListener('click', this._newGame);
         this._buttonShowSaves.addEventListener('click', this._showSaves.bind(this));
         
-        this._view.update(this._game);
+        this._view.update();
     }
 
     _showInfo() {
@@ -45,7 +45,7 @@ class IndexController {
                 this._game.message.type = "alert-danger";
                 console.log(error);
              })
-            .then(() => this._view.update(this._game))
+            .then(() => this._view.update())
     }
 
     _loadGame() {
@@ -68,7 +68,7 @@ class IndexController {
                 this._game.message.type = "alert-danger";
                 console.log(error);
             })
-            .then(() => this._view.update(this._game));
+            .then(() => this._view.update());
     }
 
     _newGame() {
@@ -77,7 +77,7 @@ class IndexController {
 
     _showSaves() {
         this._game.message.text = '';
-        this._view.update(this._game);
+        this._view.update();
     }
 
     _setName() {
