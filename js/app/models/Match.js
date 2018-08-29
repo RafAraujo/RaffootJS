@@ -67,7 +67,7 @@ let Match = (function() {
             if (this.finished)
                 return `${this.homeClub.matchClubStats.goals} x ${this.awayClub.matchClubStats.goals}`;
             else
-                return 'x';
+                return ' x ';
         }
 
         get referee() {

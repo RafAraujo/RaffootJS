@@ -31,22 +31,19 @@ let ConnectionFactory = (function () {
             
             return new Promise((resolve, reject) => {
             
-                let openRequest = window.indexedDB.open(dbName, VERSION);
+                let request = window.indexedDB.open(dbName, VERSION);
 
-                openRequest.onupgradeneeded = e => {
+                request.onupgradeneeded = e => {
                     if (createIfNotExists)
                     {
                         ConnectionFactory._createStores(e.target.result);
                         ConnectionFactory._addDatabaseName(dbName);
                     }
                     else
-                    {
                         e.target.transaction.abort();
-                        return;
-                    }
                 };
 
-                openRequest.onsuccess = e => {
+                request.onsuccess = e => {
                     if (!connection) {
                         connection = e.target.result;
                         close = connection.close.bind(connection);
@@ -55,20 +52,20 @@ let ConnectionFactory = (function () {
                     resolve(connection);
                 };
 
-                openRequest.onerror = e => reject(e.target.error);
+                request.onerror = e => reject(e.target.error);
             });
         }
 
         static dropDatabase(dbName) {
             return new Promise((resolve, reject) => {
-                let dropRequest = window.indexedDB.deleteDatabase(dbName);
+                let request = window.indexedDB.deleteDatabase(dbName);
 
-                dropRequest.onsuccess = e => {
+                request.onsuccess = e => {
                     ConnectionFactory._removeDatabaseName(dbName);
                     resolve(e.target.result);
                 };
 
-                dropRequest.onerror = e => reject(e.target.error);
+                request.onerror = e => reject(e.target.error);
             });
         }
 

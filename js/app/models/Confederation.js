@@ -6,7 +6,7 @@ let Confederation = (function() {
             super();
 
             this.name = name;
-            this._clubs = null;
+            this._clubIds = [];
         }
 
         static create(name) {
@@ -39,13 +39,15 @@ let Confederation = (function() {
         }
 
         get clubs() {
-            if (this._clubs.length === 0)
-                this._clubs = Club.all().filter(c => c.country.confederation === this);
-            return this._clubs;
+            return Club.all().filterById(this._clubIds);
         }
 
         get playableClubs() {
             return this.clubs.filter(c => c.playable);
+        }
+
+        addClub(value) {
+            this._clubIds.push(value.id);
         }
 
         cupName(division) {

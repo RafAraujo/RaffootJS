@@ -2,8 +2,16 @@ class HomeController {
     constructor() {
         this._service = new GameService();
         this._loadGame()
-            .then(game => this._game = new Bind(game, new HomeView()))
+            .then(game => {
+                this._game = game;
+                this._view = new HomeView(this._game);
+                this._view.update(this._section);
+            })
             .catch(error => { throw error });
+    }
+
+    get _queryString() {
+        return window.location.search;
     }
 
     get _gameName() {
@@ -11,9 +19,16 @@ class HomeController {
         return queryString.substring(queryString.indexOf('=') + 1);
     }
 
-    _loadGame() {
+    get _defaultSection() {
+        return 'squad';
+    }
 
-        
+    get _section() {
+        let url = document.URL;
+        return url.includes('#') ? url.substring(url.indexOf('#') + 1) : this._defaultSection;
+    }
+
+    _loadGame() {
         let t0 = performance.now();
 
         return this._service

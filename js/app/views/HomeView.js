@@ -1,17 +1,23 @@
 class HomeView {
-    constructor() {
+    constructor(game) {
+        this._game = game;
 
+        document.querySelectorAll('a.nav-link')
+            .forEach(e => e.addEventListener('click', this._setActiveSection.bind(this, e.getAttribute('href').substr(1))));
+
+        $('[data-toggle="tooltip"]').tooltip();
     }
 
-    update(game, section) {
-        this._showSquad(game.club.squad);
+    update(section) {
+        this._showSquad();
+        this._showCalendar();
 
-        this._showCalendar(game.currentSeason.getMatchesByClub(game.club));
-
-        document.querySelectorAll('section').forEach(section => HtmlHelper.show(section));
+        this._setActiveSection(section);
     }
 
-    _showSquad(squad) {
+    _showSquad() {
+        let squad = this._game.club.squad;
+
         let table = document.querySelector('#table-squad tbody');
 
         for (let player of squad.players) {
@@ -25,21 +31,22 @@ class HomeView {
             HtmlHelper.insertCell(tr, player.overall, 'text-center');
             HtmlHelper.insertCell(tr, player.energy, 'text-center');
 
-            let td = HtmlHelper.insertCell(tr, player.skills.map(s => s.abbreviation).toString().replace(',', '/'), 'text-center');
+            let td = HtmlHelper.insertCell(tr, player.skills.map(s => s.abbreviation).join('/'), 'text-center');
             td.setAttribute('data-toggle', 'tooltip');
             td.setAttribute('data-placement', 'bottom');
             td.setAttribute('data-html', 'true');
-            td.setAttribute('title', player.skills.map(s => s.name).toString().replace(',', '<br>'));
+            td.setAttribute('title', player.skills.map(s => s.name).join('<br>'));
             
             HtmlHelper.insertCell(tr, player.age, 'text-center');
             HtmlHelper.insertCell(tr, player.condition, 'text-center');
         }
 
         document.querySelectorAll('#table-squad td').forEach(td => td.classList.add('align-middle'));
-        $('[data-toggle="tooltip"]').tooltip();
     }
 
-    _showCalendar(matches) {
+    _showCalendar() {
+        let matches = this._game.currentSeason.getMatchesByClub(this._game.club);
+
         let table = document.querySelector('#table-calendar tbody');
 
         for (let match of matches) {
@@ -54,5 +61,13 @@ class HomeView {
             HtmlHelper.insertCell(tr, match.audience, 'text-center');
             HtmlHelper.insertCell(tr, match.income, 'text-center');
         }
+    }
+
+    _setActiveSection(section) {
+        document.querySelectorAll('a.nav-link').forEach(e => e.classList.remove('active'));
+        document.querySelector(`a.nav-link[href="#${section}"`).classList.add('active');
+
+        document.querySelectorAll('section').forEach(e => HtmlHelper.hide(e));
+        HtmlHelper.show(document.getElementById(section));
     }
 }
