@@ -5,7 +5,7 @@ class GameService {
         return ConnectionFactory
             .getConnection(gameName, true)
             .then(connection => new GenericDAO(connection))
-            .then(dao => dao.addAll(Entity.children().map(e => e.name), Entity.all()))
+            .then(dao => dao.addAll(Entity.stores(), Entity.all()))
             .then(() => ConnectionFactory.closeConnection())
             .catch(error => { throw error; });
     }
