@@ -2,9 +2,9 @@ class HomeView {
     constructor(game) {
         this._game = game;
 
-        document.querySelectorAll('a.nav-link')
+        document.querySelectorAll('a.nav-link:not(.dropdown-toggle), a.dropdown-item')
             .forEach(e => e.addEventListener('click', () => {
-                    this._setActiveSection.call(this, e.getAttribute('href').substr(1));
+                    this._setActiveSection.call(this, e);
                     $('.navbar-collapse').collapse('hide');
                 })
             );
@@ -15,7 +15,7 @@ class HomeView {
         this._showCalendar();
         this._showTables();
 
-        this._setActiveSection(section);
+        this._setActiveSection(document.querySelector(`a[href="#${section}"`));
 
         $('[data-toggle="tooltip"]').tooltip();
     }
@@ -76,17 +76,21 @@ class HomeView {
         HtmlHelper.fillSelect(document.getElementById('select-championships'), championshipEditions.map(ce => ce.championship));
     }
 
-    _setActiveSection(section) {
-        document.querySelectorAll('a.nav-link').forEach(e => {
+    _setActiveSection(link) {
+        document.querySelectorAll('a.nav-link, a.dropdown-item').forEach(e => {
             e.classList.remove('active');
-            if (e.children.length > 0)
-                e.removeChild(e.children[0]);
+            Array.from(e.children).forEach(child => {
+                if (child.tagName === 'SPAN')
+                    e.removeChild(child);
+            });
         });
-        let active = document.querySelector(`a.nav-link[href="#${section}"`);
+
+        let active = link.classList.contains('dropdown-item') ? link.parentElement.parentElement.children[0] : link;
         active.classList.add('active');
-        active.appendChild(HtmlHelper.createElement('span', '(current)', 'sr-only'));
+
+        link.appendChild(HtmlHelper.createElement('span', '(current)', 'sr-only'));
 
         document.querySelectorAll('section').forEach(e => HtmlHelper.hide(e));
-        HtmlHelper.show(document.getElementById(section));
+        HtmlHelper.show(document.getElementById(link.getAttribute("href").substr(1)));
     }
 }
