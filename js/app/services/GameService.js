@@ -11,7 +11,6 @@ class GameService {
     }
 
     load(gameName) {
-        let promises = [];
         let objectStoreNames = [];
 
         return ConnectionFactory
@@ -20,8 +19,8 @@ class GameService {
                 objectStoreNames = Array.from(connection.objectStoreNames);
                 return new GenericDAO(connection);
             })
-            .then(dao => objectStoreNames.forEach(name => promises.push(dao.getAll(name))))
-            .then(() => Promise.all(promises))
+            .then(dao => objectStoreNames.map(name => dao.getAll(name)))
+            .then(promises => Promise.all(promises))
             .then(results => objectStoreNames.map(name => eval(name)).forEach((_class, index) => _class.load(results[index])))
             .then(() => ConnectionFactory.closeConnection())
             .then(() => Game.all()[0])
