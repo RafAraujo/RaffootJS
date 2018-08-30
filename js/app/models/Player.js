@@ -115,8 +115,8 @@ let Player = (function() {
             this._contractIds.push(value.id);
         }
 
-        rest(time) {
-            this.energy += time > 100 ? 100 : this.energy;
-        }
+        hasSkill(skillName) {
+            return this.skillsDescription.includes(skillName);
+	}
     }
 })();
