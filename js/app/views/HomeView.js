@@ -32,11 +32,11 @@ class HomeView {
             HtmlHelper.insertCell(tr, player.overall, 'text-center');
             HtmlHelper.insertCell(tr, player.energy, 'text-center');
 
-            let td = HtmlHelper.insertCell(tr, player.skills.map(s => s.abbreviation).join('/'), 'text-center');
+            let td = HtmlHelper.insertCell(tr, player.skillsAbbreviatedDescription, 'text-center');
             td.setAttribute('data-toggle', 'tooltip');
             td.setAttribute('data-placement', 'bottom');
             td.setAttribute('data-html', 'true');
-            td.setAttribute('title', player.skills.map(s => s.name).join('<br>'));
+            td.setAttribute('title', player.skillsDescription.split('/').join('<br>'));
             
             HtmlHelper.insertCell(tr, player.age, 'text-center');
             HtmlHelper.insertCell(tr, player.condition, 'text-center');

@@ -2156,11 +2156,7 @@ let Club = (function() {
         get squad() {
             return Squad.all()[this._squadId - 1];
         }
-
-        get overall() {
-            return this.squad.overall;
-        }
-
+        
         get league() {
             let season = Season.current();
             let championshipEditions = season.nationalLeagues;

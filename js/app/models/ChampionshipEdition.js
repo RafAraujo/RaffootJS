@@ -86,7 +86,7 @@ let ChampionshipEdition = (function() {
                 let clubCount = this.championship.clubCount;
                 let start = (division - 1) * clubCount;
                 
-                let clubs = clubsAbleToPlay.orderBy('-overall').slice(start, start + clubCount);
+                let clubs = clubsAbleToPlay.orderBy('-squad.overall').slice(start, start + clubCount);
                 clubs.forEach(c => this._championshipEditionClubIds.push(ChampionshipEditionClub.create(this, c).id));
             }
             else {

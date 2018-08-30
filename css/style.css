@@ -1,3 +1,6 @@
 .section-anchor {
     padding-top: 4rem;
 }
+section th {
+    cursor: pointer;
+}

@@ -40,4 +40,22 @@ class HomeController {
             })
             .catch(error => { throw error });
     }
+
+    sort(table, columnIndex) {
+        let players = this._game.club.squad.players.orderBy(...sortCriteria(sortColumn));
+        if (this._squadSortColumn === sortColumn)
+            players = players.reverse();
+
+        function sortCriteria(column) {
+            switch (column)
+            {
+                case 'position':
+                    return ['position.line', 'position.abbreviation', '-overall'];
+                case 'skills':
+                    return ['skillsDescription'];
+                default:
+                    return [column];
+            }
+        }
+    }
 }

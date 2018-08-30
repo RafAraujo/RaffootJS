@@ -34,7 +34,7 @@ let Squad = (function() {
         }
 
         get players() {
-            return this.squadPlayers.map(sp => sp.player).orderBy('line', '-overall');
+            return this.squadPlayers.map(sp => sp.player).orderBy('position.line', 'position.abbreviation', '-overall');
         }
 
         set freeKickTaker(squadPlayer) {

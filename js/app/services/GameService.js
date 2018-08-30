@@ -17,8 +17,7 @@ class GameService {
         return ConnectionFactory
             .getConnection(gameName)
             .then(connection => {
-                for (let i = 0; i < connection.objectStoreNames.length; i++)
-                    objectStoreNames.push(connection.objectStoreNames[i]);
+                objectStoreNames = Array.from(connection.objectStoreNames);
                 return new GenericDAO(connection);
             })
             .then(dao => objectStoreNames.forEach(name => promises.push(dao.getAll(name))))
