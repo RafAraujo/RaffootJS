@@ -36,7 +36,7 @@ let SquadPlayer = (function() {
             let x = this.player.idealFieldLocalization.line - this.fieldLocalization.line;
             let y = this.player.idealFieldLocalization.column - this.fieldLocalization.column;
 
-            return Math.round(Math.hypot(x, y));
+            return Math.hypot(x, y);
 	}
 		
 	get baseOverall() {
@@ -47,11 +47,10 @@ let SquadPlayer = (function() {
             if (!this.fieldLocalization)
                 return this.baseOverall;
 
-                let factor = this.baseOverall * player.hasSkill('Versatility') ? 0.0325 : 0.075;
-                let overall = this.baseOverall - (this.baseOverall * factor * this.distanceToIdealFieldLocalization);
-			
-                return overall;
-            }
+            let factor = this.baseOverall * player.hasSkill('Versatility') ? 0.0325 : 0.075;
+            let overall = this.baseOverall - (this.baseOverall * factor * this.distanceToIdealFieldLocalization);
+
+            return Math.round(overall);
         }
     }
 })();
