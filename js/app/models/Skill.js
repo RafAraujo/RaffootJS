@@ -13,6 +13,7 @@ let Skill = (function() {
         static create(name, abbreviation, positions) {
             let skill = new Skill(name, abbreviation, positions.map(p => p.id));
             skill.id = _skills.push(skill);
+            positions.forEach(p => p.addSkill(skill));
             return skill;
         }
 
