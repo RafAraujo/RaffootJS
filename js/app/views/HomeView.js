@@ -11,6 +11,7 @@ class HomeView {
         
         this._partialSquad = new _SquadView(this._game.club.squad);
         this._partialCalendar = new _CalendarView(this._game.currentSeason.getMatchesByClub(this._game.club));
+        this._partialTables = new _TablesView(this._game.currentSeason.championshipEditions);
     }
 
     update(section) {
@@ -30,11 +31,7 @@ class HomeView {
     }
 
     showTables() {
-        let table = document.querySelector('#table-tables tbody');
-
-        let championshipEditions = this._game.currentSeason.getChampionshipEditionsByClub(this._game.club);
-
-        HtmlHelper.fillSelect(document.getElementById('select-championships'), championshipEditions.map(ce => ce.championship));
+        this._partialTables.update();
     }
 
     _setActiveSection(link) {
