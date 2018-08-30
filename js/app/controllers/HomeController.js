@@ -41,7 +41,7 @@ class HomeController {
             .catch(error => { throw error });
     }
 
-    sort(table, columnIndex) {
+    sortTable(td) {
         let players = this._game.club.squad.players.orderBy(...sortCriteria(sortColumn));
         if (this._squadSortColumn === sortColumn)
             players = players.reverse();
