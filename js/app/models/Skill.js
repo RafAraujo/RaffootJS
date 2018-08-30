@@ -35,7 +35,6 @@ let Skill = (function() {
             Skill.create('Rushing Out', 'RUS', goalkeeper);
 
             let outfieldPlayers = positions.filter(p => !p.isGoalkeeper);
-            Skill.create('Adaptability', 'ADA', outfieldPlayers);
             Skill.create('Ambidextrous', 'AMB', outfieldPlayers);
             Skill.create('Ball Control', 'BAC', outfieldPlayers);
             Skill.create('Crossing', 'CRO', outfieldPlayers);
@@ -44,10 +43,10 @@ let Skill = (function() {
             Skill.create('Finishing', 'FIN', outfieldPlayers);
             Skill.create('Heading', 'HEA', outfieldPlayers);
             Skill.create('Marking', 'MAR', outfieldPlayers);
+            Skill.create('Mentality', 'MEN', outfieldPlayers);
             Skill.create('Passing', 'PAS', outfieldPlayers);
             Skill.create('Physical', 'PHY', outfieldPlayers);
             Skill.create('Speed', 'SPD', outfieldPlayers);
-            Skill.create('Stamina', 'STA', outfieldPlayers);
             Skill.create('Technique', 'TEC', outfieldPlayers);
             Skill.create('Teamwork', 'TWK', outfieldPlayers);
             Skill.create('Tackling', 'TAC', outfieldPlayers);
