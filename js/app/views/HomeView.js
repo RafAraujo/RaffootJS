@@ -4,7 +4,7 @@ class HomeView {
 
         this._squadOrder = {
             properties: ['position.line', 'position.abbreviation', '-overall'],
-            direction: 1
+            direction: -1
         };
 
         document.querySelectorAll('a.nav-link:not(.dropdown-toggle), a.dropdown-item')
