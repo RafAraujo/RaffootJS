@@ -27,7 +27,7 @@ let Skill = (function() {
 
         static seed() {
             let positions = Position.all();
-
+            
             Skill.create('Positioning', 'POS', positions);
             Skill.create('Mentality', 'MEN', positions);
             Skill.create('Teamwork', 'TWK', positions);
