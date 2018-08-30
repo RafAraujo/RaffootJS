@@ -15,23 +15,15 @@ class HomeView {
     }
 
     update(section) {
-        this.showSquad();
-        this.showCalendar();
-        this.showTables();
+        this._partialSquad.update();
+        this._partialCalendar.update();
+        this._partialTables.update();
 
         this._setActiveSection(document.querySelector(`a[href="#${section}"`));
     }
 
-    showSquad(orderProperties) {
+    sortSquad(orderProperties) {
         this._partialSquad.update(orderProperties);
-    }
-
-    showCalendar() {
-        this._partialCalendar.update();
-    }
-
-    showTables() {
-        this._partialTables.update();
     }
 
     _setActiveSection(link) {

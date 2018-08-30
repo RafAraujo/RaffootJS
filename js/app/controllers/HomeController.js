@@ -40,7 +40,7 @@ class HomeController {
             .catch(error => { throw error });
     }
 
-    sortSquad(order) {
-        this._view.showSquad(order);
+    sortSquad(orderProperties) {
+        this._view.sortSquad(orderProperties);
     }
 }
