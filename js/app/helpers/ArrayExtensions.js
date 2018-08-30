@@ -56,19 +56,22 @@ function dynamicSort(properties) {
                 property = property.substr(1);
             }
 
-            if (typeof value(a, property) === 'string')
-                result = value(a, property).localeCompare(value(b, property)) * order;
+            let valueA = value(a, property);
+            let valueB = value(b, property);
+
+            if (typeof valueA === 'string')
+                result = valueA.localeCompare(valueB) * order;
             else
-                result = (value(a, property) < value(b, property) ? -1 : value(a, property) > value(b, property) ? 1 : 0) * order;
+                result = (valueA < valueB ? -1 : valueA > valueB ? 1 : 0) * order;
         }
+
+        return result;
 
         function value(object, propertyPath) {
             let value = object;
             propertyPath.split('.').forEach(p => value = value[p]);
             return value;
         }
-
-        return result;
     }
 }
 
