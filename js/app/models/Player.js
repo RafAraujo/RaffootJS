@@ -74,6 +74,10 @@ let Player = (function() {
         get skillsAbbreviatedDescription() {
             return this.skills.map(s => s.abbreviation).join('/');
         }
+        
+        get idealFieldLocalization() {
+			return this.position.fieldLocalizations.find(fl => fl.side === this.side);
+		}
 
         get contracts() {
             return Contract.all().filterById(this._contractIds);
