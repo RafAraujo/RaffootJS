@@ -10,10 +10,32 @@ class _SquadView {
         };
     }
 
+    get _players() {
+        let players = this._squad.players.orderBy(...this._squadOrder.properties);
+        
+        if (this._squadOrder.direction === -1)
+            players = players.reverse();
+        
+        return players;
+    }
+
     update(orderProperties) {
+        this._updateOrder(orderProperties);
+        this._fillTable();
+    }
+
+    _updateOrder(orderProperties) {
+        if (!orderProperties)
+            orderProperties = this._squadOrder.properties;
+        
+        this._squadOrder.direction *= (JSON.stringify(orderProperties) === JSON.stringify(this._squadOrder.properties)) ? -1 : 1;
+        this._squadOrder.properties = orderProperties;
+    }
+
+    _fillTable() {
         HtmlHelper.clearTbody(this._tbody);
 
-        for (let player of this._getPlayers(orderProperties)) {
+        for (let player of this._players) {
             let tr = this._tbody.insertRow();
 
             HtmlHelper.insertCell(tr, player.id, 'd-none', 'align-middle');
@@ -35,20 +57,5 @@ class _SquadView {
         }
 
         $('[data-toggle="tooltip"]').tooltip();
-    }
-
-    _getPlayers(orderProperties) {
-        if (!orderProperties)
-            orderProperties = this._squadOrder.properties;
-
-        let players = this._squad.players.orderBy(...orderProperties);
-        
-        this._squadOrder.direction *= (JSON.stringify(orderProperties) === JSON.stringify(this._squadOrder.properties)) ? -1 : 1;
-        this._squadOrder.properties = orderProperties;
-        
-        if (this._squadOrder.direction === - 1)
-            players = players.reverse();
-        
-        return players;
     }
 }
