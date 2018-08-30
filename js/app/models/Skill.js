@@ -54,8 +54,6 @@ let Skill = (function() {
             Skill.create('Versatility', 'VER', outfieldPlayers);
             Skill.create('Vision', 'VIS', outfieldPlayers);
 
-            _skills.forEach(s => s.positions.forEach(p => p.addSkill(s)));
-
             Object.freeze(_skills);
         }
 
