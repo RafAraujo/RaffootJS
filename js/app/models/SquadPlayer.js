@@ -47,7 +47,7 @@ let SquadPlayer = (function() {
             if (!this.fieldLocalization)
                 return this.baseOverall;
 
-            let factor = this.baseOverall * player.hasSkill('Versatility') ? 0.0325 : 0.075;
+            let factor = this.baseOverall * this.player.hasSkill('Versatility') ? 0.0325 : 0.075;
             let overall = this.baseOverall - (this.baseOverall * factor * this.distanceToIdealFieldLocalization);
 
             return Math.round(overall);
