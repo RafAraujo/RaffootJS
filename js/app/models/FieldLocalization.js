@@ -1,5 +1,7 @@
 let FieldLocalization = (function() {
     let _fieldLocalizations = [];
+    
+    let _sides = ['L', 'L', 'C', 'R', 'R'];
 
     return class FieldLocalization extends Entity {
         constructor(positionId, line, column, name) {        
@@ -22,7 +24,7 @@ let FieldLocalization = (function() {
                 let side = '';
     
                 if (positions.filter(p => ['CB', 'CDM', 'CM', 'CAM', 'ST'].some(a => a == p.abbreviation)).some(p => p.id === position.id))
-                    side = ['L', 'L', '', 'R', 'R'][column];
+                    side = _sides[column];
                 
                 return side + position.abbreviation;
             }
@@ -90,13 +92,17 @@ let FieldLocalization = (function() {
 
             Object.freeze(_fieldLocalizations);
         }
+        
+        static sides() {
+            return _sides;
+        }
 
         get position() {
             return Position.all()[this._positionId - 1];
         }
 
         get side() {
-            return ['L', 'L', 'C', 'R', 'R'][this.column];
+            return _sides[this.column];
         }
     }
 })();
