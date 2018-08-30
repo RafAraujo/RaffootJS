@@ -58,9 +58,7 @@ let Skill = (function() {
         }
 
         get positions() {
-            let positions = [];
-            this._positionIds.forEach(pId => positions.push(Position.all()[pId - 1]));
-            return positions;
+            return Position.all().filterById(this._positionIds);
         }
     }
 })();
