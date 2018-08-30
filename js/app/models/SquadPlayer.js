@@ -31,5 +31,28 @@ let SquadPlayer = (function() {
         get player() {
             return Player.all()[this._playerId - 1];
         }
+        
+        get distanceToIdealFieldLocalization() {
+			let x = this.player.idealFieldLocalization.line - this.fieldLocalization.line;
+			let y = this.player.idealFieldLocalization.column - this.fieldLocalization.column;
+			
+			return Math.round(Math.hypot(x, y));
+		}
+		
+		get baseOverall() {
+			return this.player.overall;
+		}
+		
+		get overall() {
+			let baseOverall = this.baseOverall;
+			
+			if (!this.fieldLocalization)
+				return baseOverall;
+			
+			let factor = baseOverall * this.player.hasSkill('Versatility') ? 0.0325 : 0.075;
+			let overall = baseOverall - (baseOverall * factor * this._distanceTo(this.player.idealFieldLocalization));
+			
+			return overall;
+		}
     }
 })();
