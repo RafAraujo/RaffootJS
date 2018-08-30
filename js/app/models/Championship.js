@@ -42,17 +42,13 @@ let Championship = (function() {
             for (let country of Country.playable()) {
                 Championship.create(country.name + ' Cup', nationalCup, country, null, null, country.cupClubCount);
     
-                for (let j = 0; j < country.divisionCount; j++) {
-                    let division = j + 1;
-                    Championship.create(country.name + ' League ' + division, nationalLeague, country, null, division, country.leagueClubCount);
-                }
+                for (let j = 0; j < country.divisionCount; j++)
+                    Championship.create(country.name + ' League ' + division, nationalLeague, country, null, j + 1, country.leagueClubCount);
             }
     
             for (let confederation of Confederation.all()) {    
-                for (let j = 0; j < confederation.divisionCount; j++) {
-                    let division = j + 1;
-                    Championship.create(confederation.cupName(division), continentalCup, null, confederation, division, confederation.cupClubCount);
-                }
+                for (let j = 0; j < confederation.divisionCount; j++)
+                    Championship.create(confederation.cupName(division), continentalCup, null, confederation, j + 1, confederation.cupClubCount);
                        
                 Championship.create(confederation.name + ' Super Cup', continentalSuperCup, null, confederation, null, 2);
             }
