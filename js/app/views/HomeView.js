@@ -3,9 +3,11 @@ class HomeView {
         this._game = game;
 
         document.querySelectorAll('a.nav-link')
-            .forEach(e => e.addEventListener('click', this._setActiveSection.bind(this, e.getAttribute('href').substr(1))));
-        
-        $('a.nav-link').on('click', () => $('.navbar-collapse').collapse('hide'));
+            .forEach(e => e.addEventListener('click', () => {
+                    this._setActiveSection.call(this, e.getAttribute('href').substr(1));
+                    $('.navbar-collapse').collapse('hide');
+                })
+            );
     }
 
     update(section) {
