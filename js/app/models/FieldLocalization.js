@@ -1,7 +1,7 @@
 let FieldLocalization = (function() {
     let _fieldLocalizations = [];
     
-    const _sides = ['L', 'L', 'C', 'R', 'R'];
+    const _sides = Object.freeze(['L', 'L', 'C', 'R', 'R']);
 
     return class FieldLocalization extends Entity {
         constructor(positionId, line, column, name) {        
