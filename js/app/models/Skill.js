@@ -28,10 +28,13 @@ let Skill = (function() {
         static seed() {
             let positions = Position.all();
 
+            Skill.create('Positioning', 'POS', positions);
+            Skill.create('Mentality', 'MEN', positions);
+            Skill.create('Teamwork', 'TWK', positions);
+            
             let goalkeeper = positions.filter(p => p.isGoalkeeper);
             Skill.create('Throwing', 'THR', goalkeeper);
             Skill.create('Penalty Saves', 'PEN', goalkeeper);
-            Skill.create('Positioning', 'POS', goalkeeper);
             Skill.create('Reflexes', 'REF', goalkeeper);
             Skill.create('Rushing Out', 'RUS', goalkeeper);
 
@@ -44,12 +47,10 @@ let Skill = (function() {
             Skill.create('Finishing', 'FIN', outfieldPlayers);
             Skill.create('Heading', 'HEA', outfieldPlayers);
             Skill.create('Marking', 'MAR', outfieldPlayers);
-            Skill.create('Mentality', 'MEN', outfieldPlayers);
             Skill.create('Passing', 'PAS', outfieldPlayers);
             Skill.create('Physical', 'PHY', outfieldPlayers);
             Skill.create('Speed', 'SPD', outfieldPlayers);
             Skill.create('Technique', 'TEC', outfieldPlayers);
-            Skill.create('Teamwork', 'TWK', outfieldPlayers);
             Skill.create('Tackling', 'TAC', outfieldPlayers);
             Skill.create('Versatility', 'VER', outfieldPlayers);
             Skill.create('Vision', 'VIS', outfieldPlayers);
