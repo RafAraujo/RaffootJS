@@ -25,6 +25,10 @@ let Game = (function() {
         static all() {
             return _games;
         }
+        
+        static current() {
+            return _games.first();
+        }
 
         seed() {
             let t0 = performance.now();
