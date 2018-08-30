@@ -2,31 +2,44 @@ class HomeView {
     constructor(game) {
         this._game = game;
 
+        this._squadOrder = {
+            properties: ['position.line', 'position.abbreviation', '-overall'],
+            direction: 1
+        };
+
         document.querySelectorAll('a.nav-link:not(.dropdown-toggle), a.dropdown-item')
-            .forEach(e => e.addEventListener('click', () => {
-                    this._setActiveSection.call(this, e);
+            .forEach(element => element.addEventListener('click', () => {
+                    this._setActiveSection.call(this, element);
                     $('.navbar-collapse').collapse('hide');
                 })
             );
     }
 
     update(section) {
-        this._showSquad();
-        this._showCalendar();
-        this._showTables();
+        this.showSquad(this._squadOrder.properties);
+        this.showCalendar();
+        this.showTables();
 
         this._setActiveSection(document.querySelector(`a[href="#${section}"`));
-
-        $('[data-toggle="tooltip"]').tooltip();
     }
 
-    _showSquad() {
-        let table = document.querySelector('#table-squad tbody');
+    showSquad(orderProperties) {
+        let tbody = document.querySelector('#table-squad tbody');
 
-        let players = this._game.club.squad.players;
+        HtmlHelper.clearTbody(tbody);
+
+        let players = this._game.club.squad.players.orderBy(...orderProperties);
+        
+        (function updateOrder() {
+            this._squadOrder.direction *= (JSON.stringify(orderProperties) === JSON.stringify(this._squadOrder.properties)) ? -1 : 1;
+            this._squadOrder.properties = orderProperties;
+        }).call(this);
+        
+        if (this._squadOrder.direction === - 1)
+            players = players.reverse();
 
         for (let player of players) {
-            let tr = table.insertRow();
+            let tr = tbody.insertRow();
 
             HtmlHelper.insertCell(tr, player.id, 'd-none');
             HtmlHelper.insertCell(tr, player.position.abbreviation, 'text-center');
@@ -47,9 +60,11 @@ class HomeView {
         }
 
         document.querySelectorAll('#table-squad td').forEach(td => td.classList.add('align-middle'));
+
+        $('[data-toggle="tooltip"]').tooltip();
     }
 
-    _showCalendar() {
+    showCalendar() {
         let table = document.querySelector('#table-calendar tbody');
 
         let matches = this._game.currentSeason.getMatchesByClub(this._game.club);
@@ -68,7 +83,7 @@ class HomeView {
         }
     }
 
-    _showTables() {
+    showTables() {
         let table = document.querySelector('#table-tables tbody');
 
         let championshipEditions = this._game.currentSeason.getChampionshipEditionsByClub(this._game.club);
@@ -79,10 +94,9 @@ class HomeView {
     _setActiveSection(link) {
         document.querySelectorAll('a.nav-link, a.dropdown-item').forEach(e => {
             e.classList.remove('active');
-            Array.from(e.children).forEach(child => {
-                if (child.tagName === 'SPAN')
-                    e.removeChild(child);
-            });
+            let span = document.querySelector('.navbar-nav a > span.sr-only')
+            if (span)
+                span.parentElement.removeChild(span);
         });
 
         let active = link.classList.contains('dropdown-item') ? link.parentElement.parentElement.children[0] : link;

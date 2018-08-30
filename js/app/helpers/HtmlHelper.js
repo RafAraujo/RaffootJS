@@ -39,4 +39,8 @@ class HtmlHelper {
         td.classList.add(...classList);
         return td;
     }
+
+    static clearTbody(tbody) {
+        Array.from(tbody.children).forEach(tr => tbody.removeChild(tr));
+    }
 }

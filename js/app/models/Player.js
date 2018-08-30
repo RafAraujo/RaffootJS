@@ -68,7 +68,7 @@ let Player = (function() {
         }
 
         get skillsDescription() {
-            return this.skills.join('/');
+            return this.skills.map(s => s.name).join('/');
         }
 
         get skillsAbbreviatedDescription() {

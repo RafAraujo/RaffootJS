@@ -2180,7 +2180,8 @@ let Club = (function() {
                 let count = fieldRegion.randomPlayersCount(formation);
 
                 for (let i = 0; i < count; i++) {
-                    let player = Player.create(this.country, year - Random.numberBetween(16, 38), fieldRegion.positions.getRandomItem());
+                    let country = Random.number(10) < 9 ? this.country : Country.all().getRandomItem();
+                    let player = Player.create(country, year - Random.numberBetween(16, 38), fieldRegion.positions.getRandomItem());
                     let contract = Contract.create(this, player, 'definitive', 0, player.baseWage, date, date.addMonths(Random.numberBetween(6, 24)));
                     contract.sign();
                 }
