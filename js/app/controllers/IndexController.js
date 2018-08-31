@@ -49,7 +49,7 @@ class IndexController {
     }
 
     _loadGame() {
-        window.location.href = `home.html?game=${this._game.name}#squad`;
+        window.location.href = `home.html?game=${this._game.name}`;
     }
 
     _deleteGame() {

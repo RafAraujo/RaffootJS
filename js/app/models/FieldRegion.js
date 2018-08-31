@@ -43,7 +43,7 @@ let FieldRegion = (function() {
         randomPlayersCount(formation) {
             return this.name === 'goal' ?
                 Random.numberBetween(2, 3) :
-                Math.round(formation.fieldLocalizations.filter(fl => fl.position.fieldRegion === this).length * Random.numberBetween(15, 25) / 10);
+                Math.round(formation.fieldLocalizations.filter(fl => fl.position.fieldRegion === this).length * Random.numberBetween(18, 24) / 10);
         }
     }
 })();
