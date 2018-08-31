@@ -5,7 +5,7 @@ class HomeController {
             .then(game => {
                 this._game = game;
                 this._view = new HomeView(this._game);
-                this._view.update(this._section);
+                this._view.update();
             })
             .catch(error => { throw error });
     }
@@ -17,15 +17,6 @@ class HomeController {
     get _gameName() {
         let queryString = window.location.search;
         return queryString.substring(queryString.indexOf('=') + 1);
-    }
-
-    get _defaultSection() {
-        return 'squad';
-    }
-
-    get _section() {
-        let url = document.URL;
-        return url.includes('#') ? url.substring(url.indexOf('#') + 1) : this._defaultSection;
     }
 
     _loadGame() {

@@ -2,8 +2,9 @@ class HomeView {
     constructor(game) {
         this._game = game;
 
-        this._h2ClubName = document.getElementById('club-name');
+        this._sectionName = '';
 
+        this._h2ClubName = document.getElementById('club-name');
         this._aPlayerCount = document.getElementById('player-count');
         this._aMoney = document.getElementById('money');
         this._aDate = document.getElementById('date');
@@ -18,6 +19,10 @@ class HomeView {
 
     get _defaultSection() {
         return 'squad';
+    }
+
+    get _section() {
+        return this._sectionName ? this._sectionName : this._defaultSection;
     }
 
     _configHeader() {
@@ -47,8 +52,8 @@ class HomeView {
         });
     }
 
-    update(section) {
-        this._setActiveSection(document.querySelector(`a[href="#${section}"`));
+    update() {
+        this._setActiveSection(document.querySelector(`a[href="#${this._section}"`));
 
         this._partialSquad.update();
         this._partialCalendar.update();
@@ -62,6 +67,8 @@ class HomeView {
     }
 
     _setActiveSection(link) {
+        this._sectionName = link.getAttribute('href').substr(1);
+
         document.querySelectorAll('a.nav-link, a.dropdown-item').forEach(e => {
             e.classList.remove('active');
             let span = document.querySelector('.navbar-nav a > span.sr-only')
@@ -75,7 +82,7 @@ class HomeView {
         link.appendChild(HtmlHelper.createElement('span', '(current)', 'sr-only'));
 
         document.querySelectorAll('section').forEach(e => HtmlHelper.hide(e));
-        HtmlHelper.show(document.getElementById(link.getAttribute("href").substr(1)));
+        HtmlHelper.show(document.getElementById(this._section));
     }
 
     _fillFooter() {
