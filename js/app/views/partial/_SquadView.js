@@ -37,6 +37,7 @@ class _SquadView {
 
         for (let player of this._players) {
             let tr = this._tbody.insertRow();
+			let td = null;
 
             HtmlHelper.insertCell(tr, player.id, 'd-none', 'align-middle');
             HtmlHelper.insertCell(tr, player.position.abbreviation, 'align-middle', 'text-center');
@@ -44,9 +45,21 @@ class _SquadView {
             HtmlHelper.insertCell(tr, player.completeName, 'align-middle',);
             HtmlHelper.insertCell(tr, player.side, 'align-middle', 'text-center');
             HtmlHelper.insertCell(tr, player.overall, 'align-middle', 'text-center');
-            HtmlHelper.insertCell(tr, player.energy, 'align-middle', 'text-center');
+			
+			td = HtmlHelper.insertCell(tr, '', 'align-middle', 'text-center');
+			let divProgress = HtmlHelper.createElement('div', '', 'progress');
+			
+			player.energy -= Random.number(100); //TO-DO remove random
+			let divProgressBar = HtmlHelper.createElement('div', '', 'progress-bar', this._playerEnergyColor(player.energy));
+			divProgressBar.setAttribute('role', 'progressbar');
+			divProgressBar.style.width = `${player.energy}%`;
+			divProgressBar.setAttribute('aria-valuenow', player.energy);
+			divProgressBar.setAttribute('aria-valuemin', 0);
+			divProgressBar.setAttribute('aria-valuemax', 100);
+			divProgress.appendChild(divProgressBar);
+			td.appendChild(divProgress);
 
-            let td = HtmlHelper.insertCell(tr, player.skillsAbbreviatedDescription, 'align-middle', 'text-center');
+            td = HtmlHelper.insertCell(tr, player.skillsAbbreviatedDescription, 'align-middle', 'text-center');
             td.setAttribute('data-toggle', 'tooltip');
             td.setAttribute('data-placement', 'bottom');
             td.setAttribute('data-html', 'true');
@@ -58,4 +71,13 @@ class _SquadView {
 
         $('[data-toggle="tooltip"]').tooltip();
     }
+	
+	_playerEnergyColor(value) {
+		if (value >= 70)
+			return 'bg-success';
+		else if (value >= 50)
+			return 'bg-warning';
+		else
+			return 'bg-danger';
+	}
 }
