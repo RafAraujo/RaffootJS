@@ -119,6 +119,10 @@ let Season = (function() {
             return this.seasonDates[this._currentSeasonDateIndex];
         }
 
+        get currentDate() {
+            return this.currentSeasonDate.date;
+        }
+
         get previousSeasonDate() {
             return this.seasonDates[this._currentSeasonDateIndex - 1];
         }

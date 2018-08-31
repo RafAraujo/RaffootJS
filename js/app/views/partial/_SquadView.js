@@ -1,7 +1,8 @@
 class _SquadView {
-    constructor(squad) {
-        this._squad = squad;
+    constructor(game) {
+        this._game = game;
 
+        this._h2 = document.getElementById('club-name');
         this._tbody = document.querySelector('#table-squad tbody');
 
         this._squadOrder = {
@@ -11,7 +12,7 @@ class _SquadView {
     }
 
     get _players() {
-        let players = this._squad.players.orderBy(...this._squadOrder.properties);
+        let players = this._game.club.squad.players.orderBy(...this._squadOrder.properties);
         
         if (this._squadOrder.direction === -1)
             players = players.reverse();
@@ -20,6 +21,8 @@ class _SquadView {
     }
 
     update(orderProperties) {
+        this._h2.innerText = this._game.club.name;
+
         this._updateOrder(orderProperties);
         this._fillTable();
     }

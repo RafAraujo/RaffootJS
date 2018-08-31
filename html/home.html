@@ -33,6 +33,9 @@
                     <a class="nav-link" href="#stadium">Stadium</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="#finance">Finance</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="#clubs">Clubs</a>
                 </li>
                 <li class="nav-item">
@@ -53,44 +56,62 @@
     </nav>
     <main class="container-fluid">
         <section id="squad" class="section-anchor d-none">
-            <table id="table-squad" class="table table-responsive table-hover sortable">
-                <thead>
-                    <tr>
-                        <th class="d-none">Id</th>
-                        <th class="text-center" onclick="controller.sortSquad(['position.line', 'position.abbreviation', '-overall'])">POS</th>
-                        <th class="text-center" onclick="controller.sortSquad(['star'])">&nbsp;</th>
-                        <!-- Star -->
-                        <th class="text-center" onclick="controller.sortSquad(['name'])">Name</th>
-                        <th class="text-center" onclick="controller.sortSquad(['side'])">Side</th>
-                        <th class="text-center" onclick="controller.sortSquad(['overall'])">OVA</th>
-                        <th class="text-center" onclick="controller.sortSquad(['energy'])">Energy</th>
-                        <th class="text-center" onclick="controller.sortSquad(['skillsDescription'])">Skills</th>
-                        <th class="text-center" onclick="controller.sortSquad(['age'])">Age</th>
-                        <th class="text-center" onclick="controller.sortSquad(['condition'])">CON</th>
-                        <!-- Condition -->
-                    </tr>
-                </thead>
-                <tbody></tbody>
-                <tfoot></tfoot>
-            </table>
+            <div class="row">
+                <div class="col">
+                    <h4 id="club-name"></h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <table id="table-squad" class="table table-responsive table-hover sortable">
+                        <thead>
+                            <tr>
+                                <th class="d-none">Id</th>
+                                <th class="text-center" onclick="controller.sortSquad(['position.line', 'position.abbreviation', '-overall'])">POS</th>
+                                <th class="text-center" onclick="controller.sortSquad(['star'])">&nbsp;</th>
+                                <!-- Star -->
+                                <th class="text-center" onclick="controller.sortSquad(['name'])">Name</th>
+                                <th class="text-center" onclick="controller.sortSquad(['side'])">Side</th>
+                                <th class="text-center" onclick="controller.sortSquad(['overall'])">OVA</th>
+                                <th class="text-center" onclick="controller.sortSquad(['energy'])">Energy</th>
+                                <th class="text-center" onclick="controller.sortSquad(['skillsDescription'])">Skills</th>
+                                <th class="text-center" onclick="controller.sortSquad(['age'])">Age</th>
+                                <th class="text-center" onclick="controller.sortSquad(['condition'])">CON</th>
+                                <!-- Condition -->
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                        <tfoot></tfoot>
+                    </table>
+                </div>
+            </div>
         </section>
         <section id="calendar" class="section-anchor d-none">
-            <table id="table-calendar" class="table table-responsive table-hover">
-                <thead>
-                    <tr>
-                        <th class="d-none">Id</th>
-                        <th class="text-center">Date</th>
-                        <th class="text-left">Home</th>
-                        <th class="text-center"></th>
-                        <th class="text-right">Away</th>
-                        <th class="text-right">Championship</th>
-                        <th class="text-center">Audience</th>
-                        <th class="text-center">Income</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-                <tfoot></tfoot>
-            </table>
+            <div class="row">
+                <div class="col">
+                    <h4>Calendar</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <table id="table-calendar" class="table table-responsive table-hover">
+                        <thead>
+                            <tr>
+                                <th class="d-none">Id</th>
+                                <th class="text-center">Date</th>
+                                <th class="text-left">Home</th>
+                                <th class="text-center"></th>
+                                <th class="text-right">Away</th>
+                                <th class="text-right">Championship</th>
+                                <th class="text-center">Audience</th>
+                                <th class="text-center">Income</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                        <tfoot></tfoot>
+                    </table>
+                </div>
+            </div>
         </section>
         <section id="tables" class="section-anchor d-none">
             <div class="row">
@@ -98,6 +119,9 @@
             </div>
         </section>
         <section id="stadium" class="section-anchor d-none">
+
+        </section>
+        <section id="finance" class="section-anchor d-none">
 
         </section>
         <section id="clubs" class="section-anchor d-none">
@@ -110,17 +134,32 @@
 
         </section>
         <section id="history" class="d-none">
-                <section id="champions" class="section-anchor d-none">
+            <section id="champions" class="section-anchor d-none">
 
-                </section>
-                <section id="topScorers" class="section-anchor d-none">
+            </section>
+            <section id="topScorers" class="section-anchor d-none">
 
-                </section>
-                <section id="ranking" class="section-anchor d-none">
+            </section>
+            <section id="ranking" class="section-anchor d-none">
 
-                </section>
+            </section>
         </section>
     </main>
+    <footer class="footer fixed-bottom bg-light">
+        <div class="container-fluid">
+            <div class="row p-3">
+                <div class="col-4 col-sm-3">
+                    <a id="player-count" href="#" class="text-dark"></a>
+                </div>
+                <div class="col-4 col-sm-3">
+                    <a id="money" href="#"></a>
+                </div>
+                <div class="col-4 col-sm-3 align-right">
+                    <a id="date" href="#" class="text-dark"></a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <script src="../js/ui/jquery-3.3.1.min.js"></script>
     <script src="../js/ui/popper.min.js"></script>
