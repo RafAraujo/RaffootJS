@@ -2,7 +2,6 @@ class _SquadView {
     constructor(game) {
         this._game = game;
 
-        this._h2 = document.getElementById('club-name');
         this._tbody = document.querySelector('#table-squad tbody');
 
         this._squadOrder = {
@@ -21,8 +20,6 @@ class _SquadView {
     }
 
     update(orderProperties) {
-        this._h2.innerText = this._game.club.name;
-
         this._updateOrder(orderProperties);
         this._fillTable();
     }

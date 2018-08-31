@@ -2,6 +2,8 @@ class HomeView {
     constructor(game) {
         this._game = game;
 
+        this._h2ClubName = document.getElementById('club-name');
+
         this._aPlayerCount = document.getElementById('player-count');
         this._aMoney = document.getElementById('money');
         this._aDate = document.getElementById('date');
@@ -14,9 +16,16 @@ class HomeView {
         this._partialTables = new _TablesView(this._game.currentSeason.championshipEditions);
     }
 
+    get _defaultSection() {
+        return 'squad';
+    }
+
     _configHeader() {
+        this._h2ClubName.innerHTML = this._game.club.name;
+
         document.querySelectorAll('a.nav-link:not(.dropdown-toggle), a.dropdown-item')
-            .forEach(element => element.addEventListener('click', () => {
+            .forEach(element => element.addEventListener('click', event => {
+                event.preventDefault();
                 this._setActiveSection.call(this, element);
                 $('.navbar-collapse').collapse('hide');
             })
