@@ -77,9 +77,18 @@ let Championship = (function() {
         get confederation() {
             return this._confederationId == null ? null : Confederation.all()[this._confederationId - 1];
         }
-    
-        get regulation() {
-            return this.championshipType.regulation;
+
+        get importance() {
+            switch (this.championshipType.scope) {
+                case 'worldwide':
+                    return 4;
+                case 'continental':
+                    return this.division === 1 ? 5 : 3;
+                case 'national':
+                    return this.championshipType.regulation === 'cup' ? 3 : 5 - this.division;
+                default:
+                    return 0;
+            }
         }
     
         get twoLeggedTie() {
@@ -87,11 +96,11 @@ let Championship = (function() {
         }
     
         get groupCount() {
-            return this.regulation === 'groups' ? this.clubCount / GROUP_CLUB_COUNT : 0;
+            return this.championshipType.regulation === 'groups' ? this.clubCount / GROUP_CLUB_COUNT : 0;
         }
     
         get groupClubCount() {
-            return this.regulation === 'groups' ? GROUP_CLUB_COUNT : null;
+            return this.championshipType.regulation === 'groups' ? GROUP_CLUB_COUNT : null;
         }
     
         get qualifiedClubsByGroupCount() {
@@ -99,11 +108,11 @@ let Championship = (function() {
         }
     
         get groupDatesCount() {
-            return this.regulation === 'groups' ? (GROUP_CLUB_COUNT - 1) * (this.twoLeggedTie ? 2 : 1) : 0;
+            return this.championshipType.regulation === 'groups' ? (GROUP_CLUB_COUNT - 1) * (this.twoLeggedTie ? 2 : 1) : 0;
         }
     
         get eliminationDatesCount() {
-            switch (this.regulation) {
+            switch (this.championshipType.regulation) {
                 case 'groups':
                     return genericEliminationDatesCount(GROUP_CLUB_COUNT * GROUP_QUALIFIED_CLUB_COUNT, this.twoLeggedTie);
                 case 'elimination':
@@ -118,7 +127,7 @@ let Championship = (function() {
         }
     
         get dateCount() {
-            switch (this.regulation) {
+            switch (this.championshipType.regulation) {
                 case 'groups':
                     return  this.groupDatesCount + this.eliminationDatesCount;;
                 case 'elimination':

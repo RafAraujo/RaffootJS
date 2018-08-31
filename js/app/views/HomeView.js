@@ -14,7 +14,7 @@ class HomeView {
 
         this._partialSquad = new _SquadView(this._game);
         this._partialCalendar = new _CalendarView(this._game.currentSeason.getMatchesByClub(this._game.club));
-        this._partialTables = new _TablesView(this._game.currentSeason.championshipEditions);
+        this._partialTables = new _TablesView(this._game);
     }
 
     get _defaultSection() {

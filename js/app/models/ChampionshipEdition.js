@@ -66,14 +66,14 @@ let ChampionshipEdition = (function() {
         }
 
         get groupDates() {
-            if (this.championship.regulation != 'groups')
+            if (this.championship.championshipType.regulation != 'groups')
                 return [];
             else
                 return this.dates.slice(0, this.championship.groupDatesCount - 1);
         }
 
         get eliminationPhaseDates() {
-            if (this.championship.regulation === 'round-robin')
+            if (this.championship.championshipType.regulation === 'round-robin')
                 return [];
             else
                 return this.dates.slice(this.championship.groupDatesCount);
@@ -101,7 +101,7 @@ let ChampionshipEdition = (function() {
             if (this._championshipEditionClubIds.length === 0 || this.dates == null)
                 throw new Error('ChampionshipEdition.scheduleMatches(dates)')
 
-            switch (this.championship.regulation) {
+            switch (this.championship.championshipType.regulation) {
                 case 'groups':
                     this.definechampionshipEditionGroups();
                     this.definechampionshipEditionEliminationPhases();
@@ -137,7 +137,7 @@ let ChampionshipEdition = (function() {
         }
 
         definechampionshipEditionEliminationPhases() {
-            let clubCount = this.championship.regulation === 'groups' ?
+            let clubCount = this.championship.championshipType.regulation === 'groups' ?
                 this.championship.groupCount * this.championship.qualifiedClubsByGroupCount :
                 this.championship.clubCount;
 
@@ -147,7 +147,7 @@ let ChampionshipEdition = (function() {
                 clubCount /= 2;
             }
 
-            if (this.championship.regulation === 'elimination') {
+            if (this.championship.championshipType.regulation === 'elimination') {
                 this.championshipEditionEliminationPhases.first().qualify(this.championshipEditionClubs);
             }
         }
@@ -215,6 +215,10 @@ let ChampionshipEdition = (function() {
             }
 
             return matches;
+        }
+
+        hasClub(club) {
+            return this.clubs.includes(club);
         }
 
         matchesOf(date) {
