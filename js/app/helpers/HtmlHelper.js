@@ -32,6 +32,27 @@ class HtmlHelper {
         element.classList.add(...classList);
         return element;
     }
+    
+	static createProgressBar(value, ...classList) {
+		let divProgress = HtmlHelper.createElement('div', '', 'progress');
+		let divProgressBar = HtmlHelper.createElement('div', '', 'progress-bar');
+		divProgressBar.classList.add(...classList);
+		divProgressBar.setAttribute('role', 'progressbar');
+		divProgressBar.style.width = `${value}%`;
+		divProgressBar.setAttribute('aria-valuenow', value);
+		divProgressBar.setAttribute('aria-valuemin', 0);
+		divProgressBar.setAttribute('aria-valuemax', 100);
+		divProgress.appendChild(divProgressBar);
+		return divProgress;
+	}
+	
+	static setTooltip(element, innerHTML) {
+		element.setAttribute('data-toggle', 'tooltip');
+		element.setAttribute('data-placement', 'bottom');
+		element.setAttribute('data-html', 'true');
+		element.setAttribute('title', innerHTML);
+		return element;
+	}
 
     static insertCell(tr, innerHTML, ...classList) {
         let td = tr.insertCell();
