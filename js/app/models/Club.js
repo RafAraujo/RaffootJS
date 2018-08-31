@@ -2158,10 +2158,7 @@ let Club = (function() {
         }
         
         get league() {
-            let season = Season.current();
-            let championshipEditions = season.nationalLeagues;
-            let league = championshipEditions.find(ce => ce.championshipEditionClubs.map(cec => cec.club).includes(this)).championship;
-            return league;
+            return Season.current().nationalLeagues.find(ce => ce.clubs.includes(this)).championship;
         }
 
         get division() {
