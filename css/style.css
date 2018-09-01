@@ -26,7 +26,7 @@ table.sortable tr {
     border-left: solid #dc3545 !important;
 }
 
-.bg-player-star {
+.td-player-star {
     background-color: black;
     color: gold;
 }

@@ -15,7 +15,7 @@ class _SquadView {
 
         if (this._squadOrder.direction === -1)
             players = players.reverse();
-        
+
         return players;
     }
 
@@ -24,9 +24,9 @@ class _SquadView {
         this._fillTable();
     }
 
-    _updateOrder(orderProperties) {       
+    _updateOrder(orderProperties) {
         this._squadOrder.direction = (JSON.stringify(orderProperties) === JSON.stringify(this._squadOrder.properties)) ? this._squadOrder.direction * -1 : 1;
-        
+
         if (!orderProperties)
             orderProperties = this._squadOrder.properties;
         this._squadOrder.properties = orderProperties;
@@ -46,10 +46,12 @@ class _SquadView {
             let td = HtmlHelper.insertCell(tr, player.position.abbreviation, 'align-middle', 'text-center', 'font-weight-bold', `text-${fieldRegionColorClass}`, 'border', `border-left-${player.position.fieldRegion.name}`);
             HtmlHelper.setTooltip(td, player.position.name);
 
-            HtmlHelper.insertCell(tr, player.star ? '&starf;' : '', 'align-middle', 'text-center');
-            HtmlHelper.insertCell(tr, player.completeName, 'align-middle',);
-            
-            HtmlHelper.insertCell(tr, player.overall, 'align-middle', 'text-center', 'border', `bg-${this._overallColorClass(player)}`);
+            HtmlHelper.insertCell(tr, player.star ? '' : '', 'align-middle', 'text-center');
+            HtmlHelper.insertCell(tr, player.completeName, 'align-middle');
+
+            td = HtmlHelper.insertCell(tr, player.overall, 'align-middle', 'text-center', 'border', `bg-${this._overallColorClass(player)}`);
+            if (player.star)
+                td.classList.add('td-player-star');
 
             td = HtmlHelper.insertCell(tr, player.side, 'align-middle', 'text-center');
             HtmlHelper.setTooltip(td, sides.find(s => s.substr(0, 1) === player.side));
@@ -88,10 +90,7 @@ class _SquadView {
     }
 
     _overallColorClass(player) {
-        if (player.star)
-            return 'player-star';
-        else
-            return player.overall >= 80 ? 'gold' : player.overall >= 60 ? 'silver' : 'bronze';
+        return player.overall >= 80 ? 'gold' : player.overall >= 60 ? 'silver' : 'bronze';
     }
 
     _energyColorClass(value) {
