@@ -41,61 +41,50 @@ class _SquadView {
             let tr = this._tbody.insertRow();
 
             HtmlHelper.insertCell(tr, player.id, 'd-none', 'align-middle');
-            HtmlHelper.insertCellWithTooltip(tr, player.position.abbreviation, player.position.name, ...this._positionClasses(player.position));
+            HtmlHelper.insertCellWithTooltip(tr, player.position.abbreviation, player.position.name, 'align-middle', 'text-center');
             HtmlHelper.insertCell(tr, player.completeName, 'align-middle');
-            
-            let td = HtmlHelper.insertCell(tr, player.overall, 'align-middle', 'text-center', 'border', `bg-${this._overallColorClass(player)}`);
-            if (player.star) {
-                let icon = HtmlHelper.icon('star', Bootstrap.yellow().color);
-                HtmlHelper.setTooltip(td, icon.outerHTML, 'left');
-                td.classList.add('td-player-star');
-            }
-
+            HtmlHelper.insertCell(tr, player.overall, 'align-middle', 'text-center');
             HtmlHelper.insertCellWithTooltip(tr, player.side, sides.find(s => s.substr(0, 1) === player.side), 'align-middle', 'text-center');
-            HtmlHelper.insertCell(tr, HtmlHelper.createProgressBar(player.energy, `bg-${this._energyColorClass(player.energy)}`).outerHTML, 'align-middle', 'text-center');
+            HtmlHelper.insertCell(tr, '', 'align-middle');
             HtmlHelper.insertCell(tr, player.wage.toLocaleString(), 'text-right');
             HtmlHelper.insertCell(tr, player.marketValue.toLocaleString(), 'text-right');
             HtmlHelper.insertCellWithTooltip(tr, player.skillsAbbreviatedDescription, player.skillsDescription.split('/').join('<br>'), 'align-middle', 'text-center');
-            HtmlHelper.insertCell(tr, player.age, 'align-middle', 'text-center', `text-${this._ageColorClass(player.age)}`);
+            HtmlHelper.insertCell(tr, player.age, 'align-middle', 'text-center');
+            HtmlHelper.insertCell(tr, '', 'align-middle', 'text-center');
             
-            td = HtmlHelper.insertCell(tr, '', 'align-middle', 'text-center');
-            this._formatCondition(td, player.condition);
+            this._formatPosition(tr.children[1], player.position);
+            this._formatEnergy(tr.children[5], player.energy);
+            this._formatOverall(tr.children[3], player);
+            this._formatAge(tr.children[9], player.age);
+            this._formatCondition(tr.children[10], player.condition);
         }
 
         $('[data-toggle="tooltip"]').tooltip();
     }
 
-    _positionClasses(position) {
-        let bootstrapColorName = '';
+    _formatPosition(td, position) {
+        td.classList.add('font-weight-bold', `text-${position.fieldRegion.color.class}`, 'border', `border-left-${position.fieldRegion.name}`);
+    }
 
-        switch (position.fieldRegion.name) {
-            case 'goal':
-                bootstrapColorName = Bootstrap.yellow().class;
-                break;
-            case 'defense':
-                bootstrapColorName = Bootstrap.blue().class;
-                break;
-            case 'midfield':
-                bootstrapColorName = Bootstrap.green().class;
-                break;
-            case 'attack':
-                bootstrapColorName = Bootstrap.red().class;
-                break;
+    _formatEnergy(td, energy) {
+        let backgroundClass = `bg-${(energy >= 70 ? Bootstrap.green().class : energy >= 50 ? Bootstrap.yellow().class : Bootstrap.red().class)}`;
+        let divProgress = HtmlHelper.createProgressBar(energy, backgroundClass);
+        td.appendChild(divProgress);
+    }
+
+    _formatOverall(td, player) {
+        td.classList.add('border', `bg-${player.category}`);
+
+        if (player.star) {
+            let icon = HtmlHelper.icon('star', Bootstrap.yellow().color);
+            HtmlHelper.setTooltip(td, icon.outerHTML, 'left');
+            td.classList.add('td-player-star');
         }
-
-        return ['align-middle', 'text-center', 'font-weight-bold', `text-${bootstrapColorName}`, 'border', `border-left-${position.fieldRegion.name}`];
     }
-
-    _overallColorClass(player) {
-        return player.overall >= 80 ? 'gold' : player.overall >= 60 ? 'silver' : 'bronze';
-    }
-
-    _energyColorClass(energy) {
-        return energy >= 70 ? 'success' : value >= 50 ? Bootstrap.yellow().class : Bootstrap.red().class;
-    }
-
-    _ageColorClass(age) {
-        return age >= 32 ? Bootstrap.red().class : Bootstrap.blue().class;
+    
+    _formatAge(td, age) {
+        let textColorClass = `text-${(age >= 32 ? Bootstrap.red().class : Bootstrap.blue().class)}`;
+        td.classList.add(textColorClass);
     }
 
     _formatCondition(td, condition) {

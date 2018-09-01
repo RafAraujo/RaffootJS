@@ -1,12 +1,12 @@
 class _CalendarView {
-    constructor(matches) {
-        this._matches = matches;
+    constructor(game) {
+        this._game = game;
         
         this._table = document.querySelector('#table-calendar tbody');
     }
 
     update() {
-        for (let match of this._matches) {
+        for (let match of this._game.currentSeason.getMatchesByClub(this._game.club)) {
             let tr = this._table.insertRow();
 
             HtmlHelper.insertCell(tr, match.id, 'd-none');

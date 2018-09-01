@@ -83,6 +83,10 @@ let Player = (function() {
             return `${this._name} ${this._surname.toUpperCase()}`;
         }
 
+        get category() {
+            return this.overall >= 80 ? 'gold' : this.overall >= 60 ? 'silver' : 'bronze';
+        }
+
         get skills() {
             return Skill.all().filterById(this._skillIds);
         }

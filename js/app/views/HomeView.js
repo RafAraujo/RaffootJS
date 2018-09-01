@@ -13,7 +13,7 @@ class HomeView {
         this._configFooter();
 
         this._partialSquad = new _SquadView(this._game);
-        this._partialCalendar = new _CalendarView(this._game.currentSeason.getMatchesByClub(this._game.club));
+        this._partialCalendar = new _CalendarView(this._game);
         this._partialTables = new _TablesView(this._game);
     }
 

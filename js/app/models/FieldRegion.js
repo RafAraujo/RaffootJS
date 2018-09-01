@@ -36,6 +36,19 @@ let FieldRegion = (function() {
             return Position.all().filterById(this._positionIds);
         }
 
+        get color() {
+            switch (this.name) {
+                case 'goal':
+                    return Bootstrap.yellow();
+                case 'defense':
+                    return Bootstrap.blue();
+                case 'midfield':
+                    return Bootstrap.green();
+                case 'attack':
+                    return Bootstrap.red();
+            }
+        }
+
         addPosition(value) {
             this._positionIds.push(value.id);
         }
