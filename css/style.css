@@ -26,11 +26,6 @@ table.sortable tr {
     border-left: solid #dc3545 !important;
 }
 
-.td-player-star {
-    background-color: black;
-    color: gold;
-}
-
 .bg-gold {
     background-color: gold;
 }
@@ -41,4 +36,9 @@ table.sortable tr {
 
 .bg-bronze {
     background-color: tan;
+}
+
+.td-player-star {
+    background-color: black;
+    color: gold;
 }
