@@ -43,6 +43,26 @@ let Player = (function() {
             return _players;
         }
 
+        static minimumWage() {
+            return 133;
+        }
+
+        static _calculateBaseWage(overall, star) {
+            let factor = 2.125;
+            let value = Math.pow(overall, factor);
+            value *= star ? 2 : 1;
+            value = Math.max(value, Player.minimumWage());
+            return parseFloat(value.toFixed(2));
+        }
+
+        static _calculateMarketValue(overall, star, age) {
+            let reference = Player._calculateBaseWage(overall, star) * 24;
+            let multiplier = 32 - age;
+            let factor = 0.05;
+            let value = reference + (multiplier * factor * reference);
+            return parseFloat(value.toFixed(2));
+        }
+
         get country() {
             return Country.all()[this._countryId - 1];
         }
@@ -77,7 +97,15 @@ let Player = (function() {
         
         get idealFieldLocalization() {
 			return this.position.fieldLocalizations.find(fl => fl.side === this.side);
-		}
+        }
+        
+        get baseWage() {
+            return Player._calculateBaseWage(this.overall, this.star);
+        }
+
+        get marketValue() {
+            return Player._calculateMarketValue(this.overall, this.star, this.age);
+        }
 
         get contracts() {
             return Contract.all().filterById(this._contractIds);
@@ -89,14 +117,6 @@ let Player = (function() {
 
         get owner() {
             return this.contracts.filter(c => c.inForce && c.type === 'definitive').destinationClub;
-        }
-
-        get baseWage() {
-            return parseFloat(Math.max(Math.pow(this.overall, 2.125) * (this.star ? 2 : 1), 133).toFixed(2));
-        }
-
-        get marketValue() {
-            return this.baseWage * 24;
         }
 
         get contracts() {
