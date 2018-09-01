@@ -67,6 +67,12 @@ class HtmlHelper {
         return td;
     }
 
+    static icon(name, color) {
+        let i = HtmlHelper.createElement('i', '', 'fas', `fa-${name}`, 'fa-lg');
+        i.style.color = color;
+        return i;
+    }
+
     static clearTbody(tbody) {
         Array.from(tbody.children).forEach(tr => tbody.removeChild(tr));
     }

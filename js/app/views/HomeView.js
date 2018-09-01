@@ -88,7 +88,7 @@ class HomeView {
     _fillFooter() {
         this._aPlayerCount.innerText = this._game.club.squad.squadPlayers.length;
 
-        this._aMoney.innerText = `$ ${this._game.club.money.toLocaleString()}`;
+        this._aMoney.innerText = `${this._game.club.money.toLocaleString()}`;
         this._aMoney.classList.remove('text-success', 'text-danger');
         this._aMoney.classList.add(this._game.club.money > 0 ? 'text-success' : 'text-danger');
 

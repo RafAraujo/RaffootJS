@@ -68,7 +68,7 @@ class _SquadView {
             HtmlHelper.setTooltip(td, player.skillsDescription.split('/').join('<br>'));
 
             HtmlHelper.insertCell(tr, player.age, 'align-middle', 'text-center', `text-${this._ageColorClass(player.age)}`);
-            HtmlHelper.insertCell(tr, player.condition, 'align-middle', 'text-center');
+            HtmlHelper.insertCell(tr, this._iconCondition(player.condition).outerHTML, 'align-middle', 'text-center');
         }
 
         $('[data-toggle="tooltip"]').tooltip();
@@ -77,15 +77,15 @@ class _SquadView {
     _fieldRegionColorClass(value) {
         switch (value.name) {
             case 'goal':
-                return 'warning';
+                return Bootstrap.yellow().class;
             case 'defense':
-                return 'primary';
+                return Bootstrap.blue().class;
             case 'midfield':
-                return 'success';
+                return Bootstrap.green().class;
             case 'attack':
-                return 'danger';
+                return Bootstrap.red().class;
             default:
-                return 'secondary';
+                return Bootstrap.gray().class;
         }
     }
 
@@ -94,10 +94,25 @@ class _SquadView {
     }
 
     _energyColorClass(value) {
-        return value >= 70 ? 'success' : value >= 50 ? 'warning' : 'danger';
+        return value >= 70 ? 'success' : value >= 50 ? Bootstrap.yellow().class : Bootstrap.red().class;
     }
 
     _ageColorClass(value) {
-        return value >= 32 ? 'danger' : 'primary';
+        return value >= 32 ? Bootstrap.red().class : Bootstrap.blue().class;
+    }
+
+    _iconCondition(value) {
+        switch (value) {
+            case 1:
+                return HtmlHelper.icon('angle-double-down', Bootstrap.purple().color);
+            case 2:
+                return HtmlHelper.icon('angle-down', Bootstrap.blue().color);                
+            case 3:
+                return HtmlHelper.icon('angle-right', Bootstrap.green().color);
+            case 4:
+                return HtmlHelper.icon('angle-up', Bootstrap.orange().color);
+            case 5:
+                return HtmlHelper.icon('angle-double-up', Bootstrap.red().color);
+        }
     }
 }
