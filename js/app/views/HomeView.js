@@ -51,8 +51,6 @@ class HomeView {
             event.preventDefault();
             document.querySelector(`a[href="#calendar"`).click();
         });
-
-        HtmlHelper.show(document.querySelector('footer').children[0]);
     }
 
     update() {
@@ -84,19 +82,21 @@ class HomeView {
 
         link.appendChild(HtmlHelper.createElement('span', '(current)', 'sr-only'));
 
-        document.querySelectorAll('section').forEach(e => HtmlHelper.hide(e));
-        HtmlHelper.show(document.getElementById(this._section));
+        document.querySelectorAll('section:not(#history)').forEach(e => HtmlHelper.hide(e));
+        let section = document.getElementById(this._section);
+        HtmlHelper.show(section);
     }
 
     _fillFooter() {
         this._aPlayerCount.innerText = this._game.club.squad.squadPlayers.length;
 
-        let money = this._game.club.money;
-        this._aMoney.innerText = `${money.toLocaleString()}`;
-        let bootstrapColor = money > 0 ? Bootstrap.green() : Bootstrap.red();
-        this._aMoney.parentElement.children[0].style.color = bootstrapColor.color;
-        this._aMoney.classList.remove('text-success', 'text-danger');
-        this._aMoney.classList.add(`text-${bootstrapColor.class}`);
+        this._aMoney.innerText = `${this._game.club.money.toLocaleString()}`;
+        if (this._game.club.money <= 0) {
+            let bootstrapColor = Bootstrap.red();
+            this._aMoney.parentElement.style.color = bootstrapColor.color;
+            this._aMoney.classList.remove('text-dark', 'text-success', 'text-danger');
+            this._aMoney.classList.add(`text-${bootstrapColor.class}`);
+        }
 
         this._aDate.innerText = this._game.currentSeason.currentDate.toLocaleDateString();
     }
