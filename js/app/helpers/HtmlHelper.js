@@ -11,6 +11,23 @@ class HtmlHelper {
         element.classList.add('d-none');
     }
 
+    static bootstrapColor(name) {
+        switch (name) {
+            case 'primary':
+                return '#007bff';
+            case 'secondary':
+                return '#0062cc';
+            case 'success':
+                return '#28a745';
+            case 'danger':
+                return '#dc3545';
+            case 'warning':
+                return '#ffc107';
+            default:
+                return 'red';
+        }
+    }
+
     static clearSelect(select) {
         select.innerHTML = '';
     }
@@ -35,7 +52,7 @@ class HtmlHelper {
     
 	static createProgressBar(value, ...classList) {
 		let divProgress = HtmlHelper.createElement('div', '', 'progress');
-		let divProgressBar = HtmlHelper.createElement('div', '', 'progress-bar');
+		let divProgressBar = HtmlHelper.createElement('div', value, 'progress-bar');
 		divProgressBar.classList.add(...classList);
 		divProgressBar.setAttribute('role', 'progressbar');
 		divProgressBar.style.width = `${value}%`;
@@ -44,7 +61,13 @@ class HtmlHelper {
 		divProgressBar.setAttribute('aria-valuemax', 100);
 		divProgress.appendChild(divProgressBar);
 		return divProgress;
-	}
+    }
+    
+    static createWell(innerHTML, ...classList) {
+        let well = HtmlHelper.createElement('div', innerHTML, 'well');
+        well.classList.add(...classList);
+        return well;
+    }
 	
 	static setTooltip(element, innerHTML) {
 		element.setAttribute('data-toggle', 'tooltip');

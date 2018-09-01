@@ -6,6 +6,18 @@ main {
     padding-bottom: 3rem;
 }
 
-.sortable th {
+table.sortable tr {
     cursor: pointer;
+}
+
+.bg-gold {
+    background-color: gold;
+}
+
+.bg-silver {
+    background-color: lightgray;
+}
+
+.bg-bronze {
+    background-color: tan;
 }

@@ -95,6 +95,10 @@ let Player = (function() {
             return parseFloat(Math.max(Math.pow(this.overall, 2.125) * (this.star ? 2 : 1), 133).toFixed(2));
         }
 
+        get marketValue() {
+            return this.baseWage * 24;
+        }
+
         get contracts() {
             return Contract.all().filterById(this._contractIds);
         }
