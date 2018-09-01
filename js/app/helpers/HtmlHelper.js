@@ -11,23 +11,6 @@ class HtmlHelper {
         element.classList.add('d-none');
     }
 
-    static bootstrapColor(name) {
-        switch (name) {
-            case 'primary':
-                return '#007bff';
-            case 'secondary':
-                return '#0062cc';
-            case 'success':
-                return '#28a745';
-            case 'danger':
-                return '#dc3545';
-            case 'warning':
-                return '#ffc107';
-            default:
-                return 'red';
-        }
-    }
-
     static clearSelect(select) {
         select.innerHTML = '';
     }

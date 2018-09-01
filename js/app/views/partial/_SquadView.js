@@ -43,14 +43,13 @@ class _SquadView {
             HtmlHelper.insertCell(tr, player.id, 'd-none', 'align-middle');
 
             let fieldRegionColorClass = this._fieldRegionColorClass(player.position.fieldRegion);
-            let td = HtmlHelper.insertCell(tr, player.position.abbreviation, 'align-middle', 'text-center', 'font-weight-bold', `text-${fieldRegionColorClass}`, 'border');
-            td.style.cssText = `border-left: solid ${HtmlHelper.bootstrapColor(fieldRegionColorClass)} !important`;
+            let td = HtmlHelper.insertCell(tr, player.position.abbreviation, 'align-middle', 'text-center', 'font-weight-bold', `text-${fieldRegionColorClass}`, 'border', `border-left-${player.position.fieldRegion.name}`);
             HtmlHelper.setTooltip(td, player.position.name);
 
             HtmlHelper.insertCell(tr, player.star ? '&starf;' : '', 'align-middle', 'text-center');
             HtmlHelper.insertCell(tr, player.completeName, 'align-middle',);
             
-            HtmlHelper.insertCell(tr, player.overall, 'align-middle', 'text-center', 'border', `bg-${this._overallColorClass(player.overall)}`);
+            HtmlHelper.insertCell(tr, player.overall, 'align-middle', 'text-center', 'border', `bg-${this._overallColorClass(player)}`);
 
             td = HtmlHelper.insertCell(tr, player.side, 'align-middle', 'text-center');
             HtmlHelper.setTooltip(td, sides.find(s => s.substr(0, 1) === player.side));
@@ -88,8 +87,11 @@ class _SquadView {
         }
     }
 
-    _overallColorClass(value) {
-        return value >= 80 ? 'gold' : value >= 60 ? 'silver' : 'bronze';
+    _overallColorClass(player) {
+        if (player.star)
+            return 'player-star';
+        else
+            return player.overall >= 80 ? 'gold' : player.overall >= 60 ? 'silver' : 'bronze';
     }
 
     _energyColorClass(value) {

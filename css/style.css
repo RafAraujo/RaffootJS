@@ -10,6 +10,27 @@ table.sortable tr {
     cursor: pointer;
 }
 
+.border-left-goal {
+    border-left: solid #ffc107 !important;
+}
+
+.border-left-defense {
+    border-left: solid #007bff !important;
+}
+
+.border-left-midfield {
+    border-left: solid #28a745 !important;
+}
+
+.border-left-attack {
+    border-left: solid #dc3545 !important;
+}
+
+.bg-player-star {
+    background-color: black;
+    color: gold;
+}
+
 .bg-gold {
     background-color: gold;
 }
