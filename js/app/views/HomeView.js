@@ -5,6 +5,7 @@ class HomeView {
         this._sectionName = '';
 
         this._h2ClubName = document.getElementById('club-name');
+
         this._aPlayerCount = document.getElementById('player-count');
         this._aMoney = document.getElementById('money');
         this._aDate = document.getElementById('date');
@@ -50,6 +51,8 @@ class HomeView {
             event.preventDefault();
             document.querySelector(`a[href="#calendar"`).click();
         });
+
+        HtmlHelper.show(document.querySelector('footer').children[0]);
     }
 
     update() {
@@ -88,9 +91,12 @@ class HomeView {
     _fillFooter() {
         this._aPlayerCount.innerText = this._game.club.squad.squadPlayers.length;
 
-        this._aMoney.innerText = `${this._game.club.money.toLocaleString()}`;
+        let money = this._game.club.money;
+        this._aMoney.innerText = `${money.toLocaleString()}`;
+        let bootstrapColor = money > 0 ? Bootstrap.green() : Bootstrap.red();
+        this._aMoney.parentElement.children[0].style.color = bootstrapColor.color;
         this._aMoney.classList.remove('text-success', 'text-danger');
-        this._aMoney.classList.add(this._game.club.money > 0 ? 'text-success' : 'text-danger');
+        this._aMoney.classList.add(`text-${bootstrapColor.class}`);
 
         this._aDate.innerText = this._game.currentSeason.currentDate.toLocaleDateString();
     }

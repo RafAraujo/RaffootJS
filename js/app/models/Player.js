@@ -44,19 +44,18 @@ let Player = (function() {
         }
 
         static minimumWage() {
-            return 133;
+            return Player._calculateBaseWage(10, false);
         }
 
         static _calculateBaseWage(overall, star) {
             let factor = 2.125;
             let value = Math.pow(overall, factor);
             value *= star ? 2 : 1;
-            value = Math.max(value, Player.minimumWage());
             return parseFloat(value.toFixed(2));
         }
 
         static _calculateMarketValue(overall, star, age) {
-            let reference = Player._calculateBaseWage(overall, star) * 24;
+            let reference = Player._calculateBaseWage(overall, star) * 36;
             let multiplier = 32 - age;
             let factor = 0.05;
             let value = reference + (multiplier * factor * reference);
@@ -104,7 +103,7 @@ let Player = (function() {
         }
         
         get baseWage() {
-            return Player._calculateBaseWage(this.overall, this.star);
+            return Math.max(Player._calculateBaseWage(this.overall, this.star), Player.minimumWage());
         }
 
         get marketValue() {

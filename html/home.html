@@ -73,7 +73,8 @@
                             <thead>
                                 <tr>
                                     <th class="d-none">Id</th>
-                                    <th class="text-center" onclick="controller.sortSquad(['position.line', 'position.abbreviation', '-overall'])" title="Position" data-toggle="tooltip" data-placement="bottom">POS</th>
+                                    <th class="text-center" onclick="controller.sortSquad(['position.line', 'position.abbreviation', '-overall'])" title="Position"
+                                        data-toggle="tooltip" data-placement="bottom">POS</th>
                                     <th class="text-center" onclick="controller.sortSquad(['name'])">Name</th>
                                     <th class="text-center" onclick="controller.sortSquad(['overall'])" title="Overall" data-toggle="tooltip" data-placement="bottom">OVA</th>
                                     <th class="text-center" onclick="controller.sortSquad(['side'])" title="Preferred Side" data-toggle="tooltip" data-placement="bottom">PS</th>
@@ -191,15 +192,24 @@
             </section>
         </main>
         <footer class="footer fixed-bottom bg-light border-top border-secondary">
-            <div class="container-fluid">
+            <div class="container-fluid d-none">
                 <div class="row p-3">
                     <div class="col-2 col-sm-2">
+                        <span>
+                            <i class="fas fa-users"></i>
+                        </span>
                         <a id="player-count" href="#" class="text-dark"></a>
                     </div>
                     <div class="col-5 col-sm-3">
+                        <span>
+                            <i class="fas fa-dollar-sign"></i>
+                        </span>
                         <a id="money" href="#"></a>
                     </div>
                     <div class="col-5 col-sm-3 align-right">
+                        <span>
+                            <i class="fas fa-clock"></i>
+                        </span>
                         <a id="date" href="#" class="text-dark"></a>
                     </div>
                 </div>
