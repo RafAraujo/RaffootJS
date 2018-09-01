@@ -40,6 +40,8 @@ class _SquadView {
         for (let player of this._players) {
             let tr = this._tbody.insertRow();
 
+            let contract = player.currentContract;
+
             HtmlHelper.insertCell(tr, player.id, 'd-none', 'align-middle');
             HtmlHelper.insertCellWithTooltip(tr, player.position.abbreviation, player.position.name, 'align-middle', 'text-center');
             HtmlHelper.insertCell(tr, player.completeName, 'align-middle');
@@ -50,13 +52,15 @@ class _SquadView {
             HtmlHelper.insertCell(tr, player.marketValue.toLocaleString(), 'text-right');
             HtmlHelper.insertCellWithTooltip(tr, player.skillsAbbreviatedDescription, player.skillsDescription.split('/').join('<br>'), 'align-middle', 'text-center');
             HtmlHelper.insertCell(tr, player.age, 'align-middle', 'text-center');
+            HtmlHelper.insertCell(tr, contract.endDate.toLocaleDateString(), 'align-middle', 'text-center');
             HtmlHelper.insertCell(tr, '', 'align-middle', 'text-center');
             
             this._formatPosition(tr.children[1], player.position);
             this._formatOverall(tr.children[3], player);
             this._formatEnergy(tr.children[5], player.energy);
             this._formatAge(tr.children[9], player.age);
-            this._formatCondition(tr.children[10], player.condition);
+            this._formatContract(tr.children[10], contract);
+            this._formatCondition(tr.children[11], player.condition);
         }
 
         $('[data-toggle="tooltip"]').tooltip();
@@ -81,10 +85,20 @@ class _SquadView {
         let divProgress = HtmlHelper.createProgressBar(energy, backgroundClass);
         td.appendChild(divProgress);
     }
+
+    _formatAge(td, age) {
+        let textColorClass = `text-${(age >= 32 ? Bootstrap.red().class : Bootstrap.blue().class)}`;
+        td.classList.add(textColorClass);
+    }
     
     _formatAge(td, age) {
         let textColorClass = `text-${(age >= 32 ? Bootstrap.red().class : Bootstrap.blue().class)}`;
         td.classList.add(textColorClass);
+    }
+
+    _formatContract(td, contract) {
+        if (Date.monthDiff(this._game.currentSeason.currentDate, contract.endDate) < 3)
+            td.classList.add(`text-${Bootstrap.red().class}`);
     }
 
     _formatCondition(td, condition) {

@@ -115,24 +115,24 @@ let Player = (function() {
             return Contract.all().filterById(this._contractIds);
         }
 
-        get club() {
-            return this.contracts.filter(c => c.inForce).last().destinationClub;
-        }
-
-        get owner() {
-            return this.contracts.filter(c => c.inForce && c.type === 'definitive').destinationClub;
-        }
-
-        get contracts() {
-            return Contract.all().filterById(this._contractIds);
-        }
-
         get inForceContracts() {
             return this.contracts.filter(c => c.inForce);
         }
 
+        get currentContract() {
+            return this.inForceContracts.last();
+        }
+
+        get club() {
+            return this.currentContract.destinationClub;
+        }
+
         get owner() {
-            return this.inForceContracts.find(c => c.type === 'definitive');
+            return this.contracts.filter(c => c.inForce && c.type === 'definitive').last().destinationClub;
+        }
+
+        get remainingMonthsOfContract() {
+            return Date.monthDiff(Season.current().currentDate, this.currentContract.endDate);
         }
 
         get wage() {
