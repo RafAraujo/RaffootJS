@@ -53,8 +53,8 @@ class _SquadView {
             HtmlHelper.insertCell(tr, '', 'align-middle', 'text-center');
             
             this._formatPosition(tr.children[1], player.position);
-            this._formatEnergy(tr.children[5], player.energy);
             this._formatOverall(tr.children[3], player);
+            this._formatEnergy(tr.children[5], player.energy);
             this._formatAge(tr.children[9], player.age);
             this._formatCondition(tr.children[10], player.condition);
         }
@@ -66,12 +66,6 @@ class _SquadView {
         td.classList.add('font-weight-bold', `text-${position.fieldRegion.color.class}`, 'border', `border-left-${position.fieldRegion.name}`);
     }
 
-    _formatEnergy(td, energy) {
-        let backgroundClass = `bg-${(energy >= 70 ? Bootstrap.green().class : energy >= 50 ? Bootstrap.yellow().class : Bootstrap.red().class)}`;
-        let divProgress = HtmlHelper.createProgressBar(energy, backgroundClass);
-        td.appendChild(divProgress);
-    }
-
     _formatOverall(td, player) {
         td.classList.add('border', `bg-${player.category}`);
 
@@ -80,6 +74,12 @@ class _SquadView {
             HtmlHelper.setTooltip(td, icon.outerHTML, 'left');
             td.classList.add('td-player-star');
         }
+    }
+
+    _formatEnergy(td, energy) {
+        let backgroundClass = `bg-${(energy >= 70 ? Bootstrap.green().class : energy >= 50 ? Bootstrap.yellow().class : Bootstrap.red().class)}`;
+        let divProgress = HtmlHelper.createProgressBar(energy, backgroundClass);
+        td.appendChild(divProgress);
     }
     
     _formatAge(td, age) {
