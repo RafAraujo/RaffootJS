@@ -41,78 +41,91 @@ class _SquadView {
             let tr = this._tbody.insertRow();
 
             HtmlHelper.insertCell(tr, player.id, 'd-none', 'align-middle');
-
-            let fieldRegionColorClass = this._fieldRegionColorClass(player.position.fieldRegion);
-            let td = HtmlHelper.insertCell(tr, player.position.abbreviation, 'align-middle', 'text-center', 'font-weight-bold', `text-${fieldRegionColorClass}`, 'border', `border-left-${player.position.fieldRegion.name}`);
-            HtmlHelper.setTooltip(td, player.position.name);
-
-            HtmlHelper.insertCell(tr, player.star ? '' : '', 'align-middle', 'text-center');
+            HtmlHelper.insertCellWithTooltip(tr, player.position.abbreviation, player.position.name, ...this._positionClasses(player.position));
             HtmlHelper.insertCell(tr, player.completeName, 'align-middle');
-
-            td = HtmlHelper.insertCell(tr, player.overall, 'align-middle', 'text-center', 'border', `bg-${this._overallColorClass(player)}`);
-            if (player.star)
+            
+            let td = HtmlHelper.insertCell(tr, player.overall, 'align-middle', 'text-center', 'border', `bg-${this._overallColorClass(player)}`);
+            if (player.star) {
+                let icon = HtmlHelper.icon('star', Bootstrap.yellow().color);
+                HtmlHelper.setTooltip(td, icon.outerHTML, 'left');
                 td.classList.add('td-player-star');
+            }
 
-            td = HtmlHelper.insertCell(tr, player.side, 'align-middle', 'text-center');
-            HtmlHelper.setTooltip(td, sides.find(s => s.substr(0, 1) === player.side));
-
-            td = HtmlHelper.insertCell(tr, '', 'align-middle', 'text-center');
-            let divProgress = HtmlHelper.createProgressBar(player.energy, `bg-${this._energyColorClass(player.energy)}`);
-            td.appendChild(divProgress);
-            HtmlHelper.setTooltip(divProgress, player.energy);
-
+            HtmlHelper.insertCellWithTooltip(tr, player.side, sides.find(s => s.substr(0, 1) === player.side), 'align-middle', 'text-center');
+            HtmlHelper.insertCell(tr, HtmlHelper.createProgressBar(player.energy, `bg-${this._energyColorClass(player.energy)}`).outerHTML, 'align-middle', 'text-center');
             HtmlHelper.insertCell(tr, player.wage.toLocaleString(), 'text-right');
             HtmlHelper.insertCell(tr, player.marketValue.toLocaleString(), 'text-right');
-
-            td = HtmlHelper.insertCell(tr, player.skillsAbbreviatedDescription, 'align-middle', 'text-center');
-            HtmlHelper.setTooltip(td, player.skillsDescription.split('/').join('<br>'));
-
+            HtmlHelper.insertCellWithTooltip(tr, player.skillsAbbreviatedDescription, player.skillsDescription.split('/').join('<br>'), 'align-middle', 'text-center');
             HtmlHelper.insertCell(tr, player.age, 'align-middle', 'text-center', `text-${this._ageColorClass(player.age)}`);
-            HtmlHelper.insertCell(tr, this._iconCondition(player.condition).outerHTML, 'align-middle', 'text-center');
+            
+            td = HtmlHelper.insertCell(tr, '', 'align-middle', 'text-center');
+            this._formatCondition(td, player.condition);
         }
 
         $('[data-toggle="tooltip"]').tooltip();
     }
 
-    _fieldRegionColorClass(value) {
-        switch (value.name) {
+    _positionClasses(position) {
+        let bootstrapColorName = '';
+
+        switch (position.fieldRegion.name) {
             case 'goal':
-                return Bootstrap.yellow().class;
+                bootstrapColorName = Bootstrap.yellow().class;
+                break;
             case 'defense':
-                return Bootstrap.blue().class;
+                bootstrapColorName = Bootstrap.blue().class;
+                break;
             case 'midfield':
-                return Bootstrap.green().class;
+                bootstrapColorName = Bootstrap.green().class;
+                break;
             case 'attack':
-                return Bootstrap.red().class;
-            default:
-                return Bootstrap.gray().class;
+                bootstrapColorName = Bootstrap.red().class;
+                break;
         }
+
+        return ['align-middle', 'text-center', 'font-weight-bold', `text-${bootstrapColorName}`, 'border', `border-left-${position.fieldRegion.name}`];
     }
 
     _overallColorClass(player) {
         return player.overall >= 80 ? 'gold' : player.overall >= 60 ? 'silver' : 'bronze';
     }
 
-    _energyColorClass(value) {
-        return value >= 70 ? 'success' : value >= 50 ? Bootstrap.yellow().class : Bootstrap.red().class;
+    _energyColorClass(energy) {
+        return energy >= 70 ? 'success' : value >= 50 ? Bootstrap.yellow().class : Bootstrap.red().class;
     }
 
-    _ageColorClass(value) {
-        return value >= 32 ? Bootstrap.red().class : Bootstrap.blue().class;
+    _ageColorClass(age) {
+        return age >= 32 ? Bootstrap.red().class : Bootstrap.blue().class;
     }
 
-    _iconCondition(value) {
-        switch (value) {
+    _formatCondition(td, condition) {
+        let icon = null;
+        let tooltipIcon = null;
+
+        switch (condition) {
             case 1:
-                return HtmlHelper.icon('angle-double-down', Bootstrap.purple().color);
+                icon = HtmlHelper.icon('angle-double-down', Bootstrap.purple().color, 'fa-lg');
+                tooltipIcon = HtmlHelper.icon('tired', 'gold', 'fa-2x');
+                break;
             case 2:
-                return HtmlHelper.icon('angle-down', Bootstrap.blue().color);                
+                icon = HtmlHelper.icon('angle-down', Bootstrap.blue().color, 'fa-lg');
+                tooltipIcon = HtmlHelper.icon('frown', 'gold', 'fa-2x');
+                break;
             case 3:
-                return HtmlHelper.icon('angle-right', Bootstrap.green().color);
+                icon = HtmlHelper.icon('angle-right', Bootstrap.green().color, 'fa-lg');
+                tooltipIcon = HtmlHelper.icon('meh-blank', 'gold', 'fa-2x');
+                break;
             case 4:
-                return HtmlHelper.icon('angle-up', Bootstrap.orange().color);
+                icon = HtmlHelper.icon('angle-up', Bootstrap.orange().color, 'fa-lg');
+                tooltipIcon = HtmlHelper.icon('smile', 'gold', 'fa-2x');
+                break;
             case 5:
-                return HtmlHelper.icon('angle-double-up', Bootstrap.red().color);
+                icon = HtmlHelper.icon('angle-double-up', Bootstrap.red().color, 'fa-lg');
+                tooltipIcon = HtmlHelper.icon('grin-squint', 'gold', 'fa-2x');
+                break;
         }
+
+        td.appendChild(icon);
+        HtmlHelper.setTooltip(td, tooltipIcon.outerHTML, 'right', 'fa-lg');
     }
 }

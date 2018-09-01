@@ -29,7 +29,8 @@ class HtmlHelper {
     static createElement(tagName, innerHTML, ...classList) {
         let element = document.createElement(tagName);
         element.innerHTML = innerHTML;
-        element.classList.add(...classList);
+        if (classList.length > 0)
+            element.classList.add(...classList);
         return element;
     }
     
@@ -41,20 +42,15 @@ class HtmlHelper {
 		divProgressBar.style.width = `${value}%`;
 		divProgressBar.setAttribute('aria-valuenow', value);
 		divProgressBar.setAttribute('aria-valuemin', 0);
-		divProgressBar.setAttribute('aria-valuemax', 100);
+        divProgressBar.setAttribute('aria-valuemax', 100);
+        HtmlHelper.setTooltip(divProgress, value);
 		divProgress.appendChild(divProgressBar);
 		return divProgress;
     }
-    
-    static createWell(innerHTML, ...classList) {
-        let well = HtmlHelper.createElement('div', innerHTML, 'well');
-        well.classList.add(...classList);
-        return well;
-    }
 	
-	static setTooltip(element, innerHTML) {
+	static setTooltip(element, innerHTML, position) {
 		element.setAttribute('data-toggle', 'tooltip');
-		element.setAttribute('data-placement', 'bottom');
+		element.setAttribute('data-placement', position || 'bottom');
 		element.setAttribute('data-html', 'true');
 		element.setAttribute('title', innerHTML);
 		return element;
@@ -67,10 +63,18 @@ class HtmlHelper {
         return td;
     }
 
-    static icon(name, color) {
-        let i = HtmlHelper.createElement('i', '', 'fas', `fa-${name}`, 'fa-lg');
-        i.style.color = color;
-        return i;
+    static insertCellWithTooltip(tr, innerHTML, tooltip, ...classList) {
+        let span = HtmlHelper.createElement('span', innerHTML);
+        HtmlHelper.setTooltip(span, tooltip);
+        return HtmlHelper.insertCell(tr, span.outerHTML, ...classList);
+    }
+
+    static icon(name, color, ...classList) {
+        let span = HtmlHelper.createElement('span', '');
+        let i = HtmlHelper.createElement('i', '', 'fas', `fa-${name}`, ...classList);
+        span.style.color = color;
+        span.appendChild(i);
+        return span;
     }
 
     static clearTbody(tbody) {
