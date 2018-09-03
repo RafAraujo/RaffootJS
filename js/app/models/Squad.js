@@ -67,12 +67,12 @@ let Squad = (function() {
         }
 
         remove(player) {
-            let squadPlyaerId = this.squadPlayers.find(sp => sp.player.id === player.id);
-            this._squadPlayerIds.remove(spId => spId === squadPlyaerId);
+            let squadPlayer = this.squadPlayers.find(sp => sp.player === player);
+            this._squadPlayerIds.remove(squadPlayer);
         }
 
         findSquadPlayer(squadPlayer) {
-            return this.squadPlayers.find(p => p.squadPlayer === squadPlayer);
+            return this.squadPlayers.find(sp => sp.squadPlayer === squadPlayer);
         }
 
         rest(time) {

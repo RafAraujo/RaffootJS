@@ -26,7 +26,7 @@ let Coach = (function() {
         }
 
         get club() {
-            return Club.all().find(c => c.coach.id === this.id);
+            return Club.all().find(c => c.coach === this);
         }
     }
 })();

@@ -67,7 +67,7 @@ let Championship = (function() {
         }
 
         get championshipType() {
-            return ChampionshipType.all().find(ct => ct.id === this._championshipTypeId);
+            return ChampionshipType.all()[this._championshipTypeId - 1];
         }
 
         get country() {

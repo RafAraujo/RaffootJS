@@ -62,11 +62,11 @@ let Country = (function() {
         }
 
         get confederation() {
-            return Confederation.all().find(c => c.id === this._confederationId);
+            return Confederation.all()[this._confederationId - 1];
         }
 
         get countryLanguage() {
-            return CountryLanguage.all().find(cl => cl.id === this._countryLanguageId);
+            return CountryLanguage.all()[this._countryLanguageId - 1];
         }
 
         get names() {
