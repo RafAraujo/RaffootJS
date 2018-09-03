@@ -97,11 +97,11 @@ let Player = (function() {
         get skillsAbbreviatedDescription() {
             return this.skills.map(s => s.abbreviation).join('/');
         }
-        
+
         get idealFieldLocalization() {
-			return this.position.fieldLocalizations.find(fl => fl.side === this.side);
+            return this.position.fieldLocalizations.find(fl => fl.side === this.side);
         }
-        
+
         get baseWage() {
             return Math.max(Player._calculateBaseWage(this.overall, this.star), Player.minimumWage());
         }
@@ -144,6 +144,6 @@ let Player = (function() {
 
         hasSkill(skillName) {
             return this.skillsDescription.includes(skillName);
-	}
+        }
     }
 })();
