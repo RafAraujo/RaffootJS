@@ -26,8 +26,7 @@ let Referee = (function() {
         }
 
         static seed() {
-            for (let club of Club.playable())
-                _referees.push(Referee.create(club.country));
+            Club.playable().forEach(c => _referees.push(Referee.create(c.country)));
 
             Object.freeze(_referees);
         }
