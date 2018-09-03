@@ -42,9 +42,7 @@ let Season = (function() {
         }
 
         get championshipEditions() {
-            let championshipEditions = [];
-            this._championshipEditionIds.forEach(ceId => championshipEditions.push(ChampionshipEdition.all()[ceId - 1]));
-            return championshipEditions;
+            return ChampionshipEdition.all().filterById(this._championshipEditionIds);
         }
 
         get seasonDates() {
@@ -92,8 +90,7 @@ let Season = (function() {
             this.defineChampionshipEditions();
             this.defineCalendar();
 
-            for (let i = 0; i < this._championshipEditionIds.length; i++) {
-                let championshipEdition = ChampionshipEdition.all()[this._championshipEditionIds[i] - 1];
+            for (let championshipEdition of this.championshipEditions) {
                 championshipEdition.defineClubs();
                 let dates = this.seasonDates.filter(sd => sd.championshipType === championshipEdition.championship.championshipType).map(sd => sd.date);
                 championshipEdition.scheduleMatches(dates);
@@ -138,14 +135,10 @@ let Season = (function() {
         advanceDate() {
             this._currentSeasonDateIndex++;
 
-            let clubs = Club.playable();
-            for (let i = 0; i < clubs.length; i++) {
-                let club = clubs[i];
-                
+            for (let club of Club.playable()) {           
                 club.squad.rest();
-                if (this._currentSeasonDateIndex > 0 && this.currentSeasonDate.date.getMonth() > this.previousSeasonDate.date.getMonth()) {
+                if (this._currentSeasonDateIndex > 0 && this.currentSeasonDate.date.getMonth() > this.previousSeasonDate.date.getMonth())
                     club.payWages();
-                }
             }
 
             this.finished = this._currentSeasonDateIndex === this.seasonDates.length;
