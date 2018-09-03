@@ -17,7 +17,8 @@ class ProxyFactory {
                 
             set(target, property, value, receiver) {
                 let result = Reflect.set(target, property, value, receiver);
-                if (properties.includes(property)) action(target);
+                if (properties.includes(property))
+                    action(target);
                 return result;
             }
         });
