@@ -2,17 +2,17 @@ let Referee = (function() {
     let _referees = [];
 
     return class Referee extends Entity {
-        constructor(countryId, name, surname) {
+        constructor(countryId, name, surname, rigor) {
             super();
 
             this._countryId = countryId;
             this._name = name;
             this._surname = surname;
-            this.rigor = Random.numberBetween(1, 3);
+            this.rigor = rigor;
         }
 
         static create(country) {
-            let referee = new Referee(country.id, country.names.getRandomItem(), country.surnames.getRandomItem());
+            let referee = new Referee(country.id, country.names.getRandomItem(), country.surnames.getRandomItem(), Random.numberBetween(1, 3));
             referee.id = _referees.push(referee);
             return referee;
         }
