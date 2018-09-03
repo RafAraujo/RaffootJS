@@ -31,7 +31,7 @@ let ChampionshipEditionFixture = (function() {
         }
 
         get name() {
-            return 'Fixture ' + number;
+            return `Fixture ${number}`;
         }
     }
 })();

@@ -44,7 +44,7 @@ let ChampionshipEditionEliminationPhase = (function() {
                 case 2:
                     return 'Final';
                 default:
-                    return 'Round of ' + this.clubCount.toString();
+                    return `Round of ${this.clubCount.toString()}`;
             }
         }
 

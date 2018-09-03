@@ -31,7 +31,7 @@ let ChampionshipEditionGroup = (function() {
         }
 
         get name() {
-            return 'Group ' + 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[this.number - 1];
+            return `Group ${'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[this.number - 1]}`;
         }
 
         get championshipEdition() {
