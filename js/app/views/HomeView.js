@@ -4,8 +4,6 @@ class HomeView {
 
         this._sectionName = '';
 
-        this._h2ClubName = document.getElementById('club-name');
-
         this._aPlayerCount = document.getElementById('player-count');
         this._aMoney = document.getElementById('money');
         this._aDate = document.getElementById('date');
@@ -27,7 +25,7 @@ class HomeView {
     }
 
     _configHeader() {
-        this._h2ClubName.innerHTML = this._game.club.name;
+        document.getElementById('club-name').innerHTML = this._game.club.name;
 
         document.querySelectorAll('a.nav-link:not(.dropdown-toggle), a.dropdown-item')
             .forEach(element => element.addEventListener('click', event => {
@@ -83,8 +81,7 @@ class HomeView {
         link.appendChild(HtmlHelper.createElement('span', '(current)', 'sr-only'));
 
         document.querySelectorAll('section:not(#history)').forEach(e => HtmlHelper.hide(e));
-        let section = document.getElementById(this._section);
-        HtmlHelper.show(section);
+        HtmlHelper.show(document.getElementById(this._section));
     }
 
     _fillFooter() {
