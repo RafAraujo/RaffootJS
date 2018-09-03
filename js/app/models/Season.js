@@ -31,7 +31,12 @@ let Season = (function() {
         }
 
         get championshipTypes() {
-            return this.year === FIRST_YEAR ? ChampionshipType.all().filter(ct => ct.scope === 'national') : ChampionshipType.all();
+            if (this.year === FIRST_YEAR)
+                return ChampionshipType.all().filter(ct => ct.scope === 'national');
+            else if (this.year === FIRST_YEAR + 1)
+                return ChampionshipType.all().filter(ct => !(ct.scope === 'continental' && ct.format === 'superCup'));
+            else
+                return ChampionshipType.all();
         }
 
         get championshipEditions() {
