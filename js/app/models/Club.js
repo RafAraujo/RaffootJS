@@ -1580,7 +1580,6 @@ let Club = (function() {
             Club.create("ADO Den Haag", netherlands);
             Club.create("AGOVV Apeldoorn", netherlands);
             Club.create("Ajax", netherlands);
-            Club.create("Ajax Amateurs", netherlands);
             Club.create("Almere City", netherlands);
             Club.create("Amsterdamsche FC", netherlands);
             Club.create("ASWH", netherlands);
