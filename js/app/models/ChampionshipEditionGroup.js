@@ -43,10 +43,10 @@ let ChampionshipEditionGroup = (function() {
         }
 
         addClub(championshipEditionClub) {
-            if (this.championshipEditionClubs.length === GROUP_CLUB_COUNT)
+            if (this._championshipEditionClubIds.length === GROUP_CLUB_COUNT)
                 throw new Error('ChampionshipEditionGroup.addClub(championshipEditionClub)');
 
-            this.championshipEditionClubs.push(championshipEditionClub);
+            this._championshipEditionClubIds.push(championshipEditionClub.id);
         }
         
         addMatches(matches) {
