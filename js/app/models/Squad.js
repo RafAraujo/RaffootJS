@@ -54,12 +54,11 @@ let Squad = (function() {
         }
         
         get overall() {
-            let sum = this.squadPlayers.map(sp => sp.player.overall).sum();
-            return sum / this._squadPlayerIds.length;
+            return this.squadPlayers.map(sp => sp.player.overall).sum();
         }
 
         get wage() {
-            return this.squadPlayers.map(sp => sp.player).map(p => p.wage).sum();
+            return this.squadPlayers.map(sp => sp.player.wage).sum();
         }
 
         add(player) {
@@ -73,16 +72,11 @@ let Squad = (function() {
         }
 
         findSquadPlayer(squadPlayer) {
-            let found = this.squadPlayers.find(p => p.squadPlayer === squadPlayer);
-            
-            if (found == null)
-                throw new ReferenceError('Squad.findSquadPlayer(squadPlayer)');
-
-            return found;
+            return this.squadPlayers.find(p => p.squadPlayer === squadPlayer);
         }
 
         rest(time) {
-            this.squadPlayers.map(sp => sp.player).forEach(p => p.rest(time));
+            this.squadPlayers.forEach(sp => sp.player.rest(time));
         }
     }
 })();

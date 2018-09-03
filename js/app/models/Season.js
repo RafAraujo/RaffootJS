@@ -47,12 +47,8 @@ let Season = (function() {
             return this.championshipEditions.filter(ce => ce.championship.championshipType === nationalLeague);
         }
 
-        get currentSeasonDate() {
-            return this.seasonDates[this._currentSeasonDateIndex];
-        }
-
         get currentDate() {
-            return this.currentSeasonDate.date;
+            return this.seasonDates[this._currentSeasonDateIndex].date;
         }
 
         get previousSeasonDate() {
@@ -134,7 +130,7 @@ let Season = (function() {
 
             for (let club of Club.playable()) {           
                 club.squad.rest();
-                if (this._currentSeasonDateIndex > 0 && this.currentSeasonDate.date.getMonth() > this.previousSeasonDate.date.getMonth())
+                if (this._currentSeasonDateIndex > 0 && this.currentDate.getMonth() > this.previousSeasonDate.date.getMonth())
                     club.payWages();
             }
 
