@@ -2168,11 +2168,10 @@ let Club = (function() {
             let formation = Formation.all().getRandomItem();
             this._squadId = Squad.create(formation).id;
 
-            let fieldRegions = FieldRegion.all();
             let date = Date.firstDayCurrentYear();
             let year = date.getFullYear();
 
-            for (let fieldRegion of fieldRegions) {
+            for (let fieldRegion of FieldRegion.all()) {
                 let count = fieldRegion.randomPlayersCount(formation);
 
                 for (let i = 0; i < count; i++) {
