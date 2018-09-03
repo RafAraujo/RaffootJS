@@ -67,11 +67,4 @@ class NewGameView {
             this._selectClubs.appendChild(optionGroup);
         }
     }
-
-    _showFlag(country) {
-        if (country == null)
-            return;
-
-        this._imgFlag.src = `${window.location.href}/../res/flags/${country.name.toLowerCase()}.svg`;
-    }
 }

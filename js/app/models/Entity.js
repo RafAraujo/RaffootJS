@@ -8,7 +8,7 @@ let Entity = (function(){
         }
 
         static all() {
-            return Entity.children().map(e => e.all()).reduce((result, array) => result.concat(array), []);
+            return Entity.children().map(e => e.all()).reduce((result, array) => result.concat(array));
         }
 
         static children() {
