@@ -1,4 +1,4 @@
-let Season = (function() {
+let Season = (function () {
     let _seasons = [];
 
     return class Season extends Entity {
@@ -103,14 +103,14 @@ let Season = (function() {
 
             let championshipType = null;
             while ((championshipType = championshipTypes.find(ct => !this._totallyScheduled(ct))) != null) {
-            
+
                 date = date.addDays(date.getDay() === 0 ? 3 : 4);
                 if (date.getMonth() === 6)
                     continue;
                 this._addSeasonDate(date, championshipType);
                 championshipTypes.rotate();
             }
-            
+
             date = date.addDays(date.getDay() === 0 ? 3 : 4);
             this._addSeasonDate(date, worldwideSuperCup);
         }
@@ -133,7 +133,7 @@ let Season = (function() {
         advanceDate() {
             this._currentSeasonDateIndex++;
 
-            for (let club of Club.playable()) {           
+            for (let club of Club.playable()) {
                 club.squad.rest();
                 if (this._currentSeasonDateIndex > 0 && this.currentDate.getMonth() > this.previousSeasonDate.date.getMonth())
                     club.payWages();

@@ -1,4 +1,4 @@
-let ChampionshipEditionFixture = (function() {
+let ChampionshipEditionFixture = (function () {
     let _championshipEditionFixtures = [];
 
     return class ChampionshipEditionFixture extends Entity {

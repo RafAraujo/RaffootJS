@@ -1,4 +1,4 @@
-let Game = (function() {
+let Game = (function () {
     let _games = [];
 
     return class Game extends Entity {
@@ -25,7 +25,7 @@ let Game = (function() {
         static all() {
             return _games;
         }
-        
+
         static current() {
             return _games.first();
         }
@@ -49,7 +49,7 @@ let Game = (function() {
 
             FieldLocalization.seed();
             t1 = performance.now(); console.log("Call took " + (t1 - t0) + " milliseconds.");
-            
+
             Formation.seed();
             t1 = performance.now(); console.log("Call took " + (t1 - t0) + " milliseconds.");
 
@@ -58,7 +58,7 @@ let Game = (function() {
 
             Stadium.seed();
             t1 = performance.now(); console.log("Call took " + (t1 - t0) + " milliseconds.");
-            
+
             Club.seed();
             t1 = performance.now(); console.log("Call took " + (t1 - t0) + " milliseconds.");
 

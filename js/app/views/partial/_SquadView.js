@@ -54,7 +54,7 @@ class _SquadView {
             HtmlHelper.insertCell(tr, player.age, 'align-middle', 'text-center');
             HtmlHelper.insertCell(tr, contract.endDate.toLocaleDateString(), 'align-middle', 'text-center');
             HtmlHelper.insertCell(tr, '', 'align-middle', 'text-center');
-            
+
             this._formatPosition(tr.children[1], player.position);
             this._formatOverall(tr.children[3], player);
             this._formatEnergy(tr.children[5], player.energy);
@@ -90,7 +90,7 @@ class _SquadView {
         let textColorClass = `text-${(age >= 32 ? Bootstrap.red().class : Bootstrap.blue().class)}`;
         td.classList.add(textColorClass);
     }
-    
+
     _formatAge(td, age) {
         let textColorClass = `text-${(age >= 32 ? Bootstrap.red().class : Bootstrap.blue().class)}`;
         td.classList.add(textColorClass);

@@ -1,4 +1,4 @@
-let Squad = (function() {
+let Squad = (function () {
     let _squads = [];
 
     return class Squad extends Entity {
@@ -52,7 +52,7 @@ let Squad = (function() {
         get penaltyTaker() {
             return this._penaltyTaker;
         }
-        
+
         get overall() {
             return this.squadPlayers.map(sp => sp.player.overall).sum();
         }

@@ -1,4 +1,4 @@
-let Coach = (function() {
+let Coach = (function () {
     let _coaches = [];
 
     return class Coach extends Entity {

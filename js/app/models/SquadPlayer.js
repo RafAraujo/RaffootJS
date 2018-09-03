@@ -1,4 +1,4 @@
-let SquadPlayer = (function() {
+let SquadPlayer = (function () {
     let _squadPlayers = [];
 
     return class SquadPlayer extends Entity {
@@ -31,18 +31,18 @@ let SquadPlayer = (function() {
         get player() {
             return Player.all()[this._playerId - 1];
         }
-        
+
         get distanceToIdealFieldLocalization() {
             let x = this.player.idealFieldLocalization.line - this.fieldLocalization.line;
             let y = this.player.idealFieldLocalization.column - this.fieldLocalization.column;
 
             return Math.hypot(x, y);
-	}
-		
-	get baseOverall() {
-	    return this.player.overall;
-	}
-		
+        }
+
+        get baseOverall() {
+            return this.player.overall;
+        }
+
         get overall() {
             if (!this.fieldLocalization)
                 return this.baseOverall;

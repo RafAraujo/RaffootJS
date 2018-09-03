@@ -1,4 +1,4 @@
-let Club = (function() {
+let Club = (function () {
     let _clubs = [];
 
     return class Club extends Entity {
@@ -2155,7 +2155,7 @@ let Club = (function() {
         get squad() {
             return Squad.all()[this._squadId - 1];
         }
-        
+
         get league() {
             return Season.current().nationalLeagues.find(ce => ce.clubs.includes(this)).championship;
         }

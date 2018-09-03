@@ -1,10 +1,10 @@
-let Match = (function() {
+let Match = (function () {
     let _matches = [];
 
     const pause = 15;
 
     return class Match extends Entity {
-        constructor (championshipEditionId, date, refereeId) {
+        constructor(championshipEditionId, date, refereeId) {
             super();
 
             this._championshipEditionId = championshipEditionId;
@@ -78,8 +78,8 @@ let Match = (function() {
 
             return club1.name + " x " + club2.name;
         }
-        
-        addClub(club, situation) {        
+
+        addClub(club, situation) {
             if (club == null || this._matchClubIds.length === 2)
                 throw new Error('Match.addClub(club, situation)')
 
@@ -89,7 +89,7 @@ let Match = (function() {
             if (this._stadiumId === 0 && matchClub.situation === 'home')
                 this._stadiumId = matchClub.club.stadium.id;
         }
-        
+
         play() {
             while (this.time++ <= 90 && !this.paused) {
                 nextMove();

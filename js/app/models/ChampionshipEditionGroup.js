@@ -1,5 +1,5 @@
 
-let ChampionshipEditionGroup = (function() {
+let ChampionshipEditionGroup = (function () {
     let _championshipEditionGroups = [];
 
     return class ChampionshipEditionGroup extends Entity {
@@ -48,7 +48,7 @@ let ChampionshipEditionGroup = (function() {
 
             this._championshipEditionClubIds.push(championshipEditionClub.id);
         }
-        
+
         addMatches(matches) {
             this._matchIds.concat(matches.map(m => m.id));
         }

@@ -1,7 +1,7 @@
 class IndexView {
     constructor(game) {
         //let $ = document.querySelector.bind(document);
-        
+
         this._game = game;
 
         this._selectDatabases = document.getElementById('databases');

@@ -1,4 +1,4 @@
-let ChampionshipEditionPlayer = (function() {
+let ChampionshipEditionPlayer = (function () {
     let _championshipEditionPlayers = [];
 
     return class ChampionshipEditionPlayer extends Entity {

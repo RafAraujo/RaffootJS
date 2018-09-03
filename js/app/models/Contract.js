@@ -1,4 +1,4 @@
-let Contract = (function() {
+let Contract = (function () {
     let _contracts = [];
 
     return class Contract extends Entity {
@@ -38,11 +38,11 @@ let Contract = (function() {
 
         sign() {
             this.club.pay(this.fee);
-            
+
             let previousContract = this.player.contracts.filter(c => c.inForce && c.type === 'definitive').last();
             if (previousContract != null)
                 previousContract.revoke();
-            
+
             this.club.squad.add(this.player);
             this.player.addContract(this);
             this.inForce = true;

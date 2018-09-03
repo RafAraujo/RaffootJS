@@ -1,4 +1,4 @@
-let Player = (function() {
+let Player = (function () {
     let _players = [];
 
     return class Player extends Entity {

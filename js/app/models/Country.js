@@ -1,4 +1,4 @@
-let Country = (function() {
+let Country = (function () {
     let _countries = [];
 
     return class Country extends Entity {
@@ -49,7 +49,7 @@ let Country = (function() {
             Country.create('Portugal', 'POR', europe, countryLanguages.find(cl => cl.name === 'portuguese'), true);
             Country.create('Russia', 'RUS', europe, countryLanguages.find(cl => cl.name === 'russian'), true);
             Country.create('Spain', 'ESP', europe, countryLanguages.find(cl => cl.name === 'spanish'), true);
-            
+
             Object.freeze(_countries);
         }
 

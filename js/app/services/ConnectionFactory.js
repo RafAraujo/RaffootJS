@@ -28,14 +28,13 @@ let ConnectionFactory = (function () {
         }
 
         static getConnection(dbName, createIfNotExists = false) {
-            
+
             return new Promise((resolve, reject) => {
-            
+
                 let request = window.indexedDB.open(dbName, VERSION);
 
                 request.onupgradeneeded = e => {
-                    if (createIfNotExists)
-                    {
+                    if (createIfNotExists) {
                         ConnectionFactory._createStores(e.target.result);
                         ConnectionFactory._addDatabaseName(dbName);
                     }

@@ -1,8 +1,8 @@
-let ChampionshipEdition = (function() {
+let ChampionshipEdition = (function () {
     let _championshipEditions = [];
 
     return class ChampionshipEdition extends Entity {
-        constructor (championshipId, year) {
+        constructor(championshipId, year) {
             super();
 
             this._championshipId = championshipId;
@@ -85,7 +85,7 @@ let ChampionshipEdition = (function() {
                 let division = this.championship.division || 1;
                 let clubCount = this.championship.clubCount;
                 let start = (division - 1) * clubCount;
-                
+
                 let clubs = clubsAbleToPlay.orderBy('-squad.overall').slice(start, start + clubCount);
                 clubs.forEach(c => this._championshipEditionClubIds.push(ChampionshipEditionClub.create(this, c).id));
             }
@@ -129,7 +129,7 @@ let ChampionshipEdition = (function() {
                 for (let j = 0; j < this.championship.groupClubCount; j++) {
                     let club = championshipEditionClubs.getRandomItem();
                     group.addClub(club);
-                    championshipEditionClubs.remove(club);   
+                    championshipEditionClubs.remove(club);
                 }
 
                 this._championshipEditionGroupIdss.push(group.id);

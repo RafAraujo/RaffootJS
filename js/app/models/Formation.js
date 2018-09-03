@@ -1,4 +1,4 @@
-let Formation = (function() {
+let Formation = (function () {
     let _formations = [];
 
     return class Formation extends Entity {

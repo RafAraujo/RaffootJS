@@ -1,4 +1,4 @@
-let FieldRegion = (function() {
+let FieldRegion = (function () {
     let _fieldRegions = [];
 
     return class FieldRegion extends Entity {

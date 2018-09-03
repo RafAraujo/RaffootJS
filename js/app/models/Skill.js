@@ -1,4 +1,4 @@
-let Skill = (function() {
+let Skill = (function () {
     let _skills = [];
 
     return class Skill extends Entity {
@@ -27,11 +27,11 @@ let Skill = (function() {
 
         static seed() {
             let positions = Position.all();
-            
+
             Skill.create('Positioning', 'POS', positions);
             Skill.create('Mentality', 'MEN', positions);
             Skill.create('Teamwork', 'TWK', positions);
-            
+
             let goalkeeper = positions.filter(p => p.isGoalkeeper);
             Skill.create('Throwing', 'THR', goalkeeper);
             Skill.create('Penalty Saves', 'PEN', goalkeeper);
@@ -42,8 +42,8 @@ let Skill = (function() {
             Skill.create('Ambidextrous', 'AMB', outfieldPlayers);
             Skill.create('Ball Control', 'BAC', outfieldPlayers);
             Skill.create('Crossing', 'CRO', outfieldPlayers);
-            Skill.create('Dead Ball', 'DBA', outfieldPlayers);        
-            Skill.create('Dribbling', 'DRI', outfieldPlayers);        
+            Skill.create('Dead Ball', 'DBA', outfieldPlayers);
+            Skill.create('Dribbling', 'DRI', outfieldPlayers);
             Skill.create('Finishing', 'FIN', outfieldPlayers);
             Skill.create('Heading', 'HEA', outfieldPlayers);
             Skill.create('Marking', 'MAR', outfieldPlayers);

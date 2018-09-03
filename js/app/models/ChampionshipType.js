@@ -1,4 +1,4 @@
-let ChampionshipType = (function() {
+let ChampionshipType = (function () {
     let _championshipTypes = [];
 
     return class ChampionshipType extends Entity {
@@ -31,7 +31,7 @@ let ChampionshipType = (function() {
             ChampionshipType.create('continental', 'cup', 'groups', true);
             ChampionshipType.create('continental', 'superCup', 'elimination', false);
             ChampionshipType.create('worldwide', 'superCup', 'elimination', false);
-            
+
             Object.freeze(_championshipTypes);
         }
 

@@ -1,4 +1,4 @@
-let MatchPlayer = (function() {
+let MatchPlayer = (function () {
     let _matchPlayers = [];
 
     return class MatchPlayer extends Entity {

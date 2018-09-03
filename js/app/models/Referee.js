@@ -1,4 +1,4 @@
-let Referee = (function() {
+let Referee = (function () {
     let _referees = [];
 
     return class Referee extends Entity {

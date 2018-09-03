@@ -1,10 +1,10 @@
-let MatchClubStats = (function() {
+let MatchClubStats = (function () {
     let _matchClubStats = [];
 
     return class MatchClubStats extends Entity {
         constructor(matchClubId) {
             super();
-            
+
             this._matchClubId = matchClubId;
             this.goals = 0;
             this.shots = 0;

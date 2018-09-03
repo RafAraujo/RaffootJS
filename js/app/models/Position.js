@@ -1,4 +1,4 @@
-let Position = (function() {
+let Position = (function () {
     let _positions = [];
 
     return class Position extends Entity {
@@ -40,14 +40,14 @@ let Position = (function() {
             Position.create('Right Wing Back', 'RWB', defense);
             Position.create('Left Wing Back', 'LWB', defense);
 
-            let midfield = fieldRegions.find(fr => fr.name === 'midfield');       
+            let midfield = fieldRegions.find(fr => fr.name === 'midfield');
             Position.create('Center Defensive Midfielder', 'CDM', midfield);
             Position.create('Right Midfielder', 'RM', midfield);
             Position.create('Center Midfielder', 'CM', midfield);
             Position.create('Left Midfielder', 'LM', midfield);
             Position.create('Center Attacking Midfielder', 'CAM', midfield);
 
-            let attack = fieldRegions.find(fr => fr.name === 'attack');        
+            let attack = fieldRegions.find(fr => fr.name === 'attack');
             Position.create('Right Wing', 'RW', attack);
             Position.create('Second Striker', 'SS', attack);
             Position.create('Left Wing', 'LW', attack);

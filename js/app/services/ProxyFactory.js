@@ -1,20 +1,20 @@
 class ProxyFactory {
 
-    static create(object, properties, action) {     
+    static create(object, properties, action) {
         return new Proxy(object, {
 
-            get(target, property, receiver) {        
+            get(target, property, receiver) {
                 if (properties.includes(property) && ProxyFactory._isFunction(target[property])) {
-                    return function() {
+                    return function () {
                         let result = Reflect.apply(target[property], target, arguments);
                         action(target);
                         return result;
                     }
                 }
-                
+
                 return Reflect.get(target, property, receiver);
             },
-                
+
             set(target, property, value, receiver) {
                 let result = Reflect.set(target, property, value, receiver);
                 if (properties.includes(property))
@@ -23,8 +23,8 @@ class ProxyFactory {
             }
         });
     }
-    
-    static _isFunction(func) {    
-        return typeof(func) == typeof(Function);
+
+    static _isFunction(func) {
+        return typeof (func) == typeof (Function);
     }
 }

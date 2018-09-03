@@ -1,4 +1,4 @@
-let SeasonDate = (function() {
+let SeasonDate = (function () {
     let _seasonDates = [];
 
     return class SeasonDate extends Entity {

@@ -33,7 +33,7 @@ class HomeView {
                 this._setActiveSection.call(this, element);
                 $('.navbar-collapse').collapse('hide');
             })
-        );
+            );
     }
 
     _configFooter() {

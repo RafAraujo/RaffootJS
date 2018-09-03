@@ -1,4 +1,4 @@
-let MatchPlayerStats = (function() {
+let MatchPlayerStats = (function () {
     let _matchPlayerStats = [];
 
     return class MatchPlayerStats extends Entity {

@@ -1,4 +1,4 @@
-let Championship = (function() {
+let Championship = (function () {
     let _championships = [];
 
     return class Championship extends Entity {
@@ -29,10 +29,10 @@ let Championship = (function() {
         static all() {
             return _championships;
         }
-    
+
         static seed() {
             let championshipTypes = ChampionshipType.all();
-    
+
             let nationalCup = championshipTypes.find(ct => ct.scope === 'national' && ct.format === 'cup');
             let nationalLeague = championshipTypes.find(ct => ct.scope === 'national' && ct.format === 'league');
             let continentalCup = championshipTypes.find(ct => ct.scope === 'continental' && ct.format === 'cup');
@@ -41,27 +41,27 @@ let Championship = (function() {
 
             for (let country of Country.playable()) {
                 Championship.create(`${country.name} Cup`, nationalCup, country, null, null, country.cupClubCount);
-    
+
                 for (let j = 0; j < country.divisionCount; j++) {
                     let division = j + 1;
                     Championship.create(`${country.name} League ${division}`, nationalLeague, country, null, division, country.leagueClubCount);
                 }
             }
-    
-            for (let confederation of Confederation.all()) {    
+
+            for (let confederation of Confederation.all()) {
                 for (let j = 0; j < confederation.divisionCount; j++) {
                     let division = j + 1;
                     Championship.create(confederation.cupName(division), continentalCup, null, confederation, division, confederation.cupClubCount);
                 }
-                       
+
                 Championship.create(`${confederation.name} Super Cup`, continentalSuperCup, null, confederation, null, 2);
             }
-    
+
             Championship.create('World Cup', worldwideSuperCup, null, null, null, 2);
 
             Object.freeze(_championships);
         }
-    
+
         static all() {
             return _championships;
         }
@@ -90,27 +90,27 @@ let Championship = (function() {
                     return 0;
             }
         }
-    
+
         get twoLeggedTie() {
             return this.championshipType.twoLeggedTie;
         }
-    
+
         get groupCount() {
             return this.championshipType.regulation === 'groups' ? this.clubCount / GROUP_CLUB_COUNT : 0;
         }
-    
+
         get groupClubCount() {
             return this.championshipType.regulation === 'groups' ? GROUP_CLUB_COUNT : null;
         }
-    
+
         get qualifiedClubsByGroupCount() {
             return GROUP_QUALIFIED_CLUB_COUNT;
         }
-    
+
         get groupDatesCount() {
             return this.championshipType.regulation === 'groups' ? (GROUP_CLUB_COUNT - 1) * (this.twoLeggedTie ? 2 : 1) : 0;
         }
-    
+
         get eliminationDatesCount() {
             switch (this.championshipType.regulation) {
                 case 'groups':
@@ -120,16 +120,16 @@ let Championship = (function() {
                 default:
                     return 0;
             }
-        
+
             function genericEliminationDatesCount(clubCount, twoLeggedTie) {
                 return Math.log2(clubCount) * (twoLeggedTie ? 2 : 1);
             }
         }
-    
+
         get dateCount() {
             switch (this.championshipType.regulation) {
                 case 'groups':
-                    return  this.groupDatesCount + this.eliminationDatesCount;;
+                    return this.groupDatesCount + this.eliminationDatesCount;;
                 case 'elimination':
                     return this.eliminationDatesCount;
                 case 'round-robin':
@@ -138,7 +138,7 @@ let Championship = (function() {
                     return 0;
             }
         }
-    
+
         get clubsAbleToPlay() {
             if (this._countryId != null)
                 return this.country.playableClubs;
@@ -147,7 +147,7 @@ let Championship = (function() {
             else
                 return Club.playable();
         }
-    
+
         prize(classification) {
             return 0;
         }

@@ -1,4 +1,4 @@
-let Confederation = (function() {
+let Confederation = (function () {
     let _confederations = [];
 
     return class Confederation extends Entity {

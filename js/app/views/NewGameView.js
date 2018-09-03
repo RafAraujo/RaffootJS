@@ -17,8 +17,8 @@ class NewGameView {
     update(game) {
         if (game.countries.length === 0)
             return;
-        
-        if (game.name.length  === 0)
+
+        if (game.name.length === 0)
             this._changed(game);
         else if (game.name.length > 0)
             this._starting();
@@ -43,7 +43,7 @@ class NewGameView {
     _fillCountries(countries) {
         if (this._selectCountries.options.length > 0)
             return;
-        
+
         HtmlHelper.fillSelect(this._selectCountries, countries.orderBy('name'));
         this._selectCountries.focus();
     }
@@ -60,7 +60,7 @@ class NewGameView {
         for (let league of leagues) {
             let optionGroup = document.createElement('optgroup');
             optionGroup.label = `Division ${league.championship.division}`;
-            
+
             for (let club of league.clubs.orderBy('name'))
                 optionGroup.appendChild(new Option(club.name, club.id));
 

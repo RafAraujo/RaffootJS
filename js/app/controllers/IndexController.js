@@ -26,7 +26,7 @@ class IndexController {
 
         this._buttonNewGame.addEventListener('click', this._newGame);
         this._buttonShowSaves.addEventListener('click', this._showSaves.bind(this));
-        
+
         this._view.update();
     }
 
@@ -44,7 +44,7 @@ class IndexController {
                 this._game.message.text = "Error on showing game info";
                 this._game.message.type = "alert-danger";
                 console.log(error);
-             })
+            })
             .then(() => this._view.update())
     }
 
