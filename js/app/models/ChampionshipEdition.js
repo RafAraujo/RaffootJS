@@ -107,16 +107,16 @@ let ChampionshipEdition = (function () {
 
             switch (this.championship.championshipType.regulation) {
                 case 'elimination':
-                    this._definechampionshipEditionEliminationPhases();
+                    this._defineChampionshipEditionEliminationPhases();
                     this._scheduleMatchesElimination();
                     break;
                 case 'groups':
-                    this._definechampionshipEditionGroups();
-                    this._definechampionshipEditionEliminationPhases();
+                    this._defineChampionshipEditionGroups();
+                    this._defineChampionshipEditionEliminationPhases();
                     this._scheduleMatcheschampionshipEditionGroups();
                     break;
                 case 'round-robin':
-                    this._definechampionshipEditionFixtures();
+                    this._defineChampionshipEditionFixtures();
                     this._scheduleMatchesRoundRobin();
                     break;
                 default:
@@ -124,7 +124,7 @@ let ChampionshipEdition = (function () {
             }
         }
 
-        _definechampionshipEditionGroups() {
+        _defineChampionshipEditionGroups() {
             let championshipEditionClubs = this.championshipEditionClubs.slice();
 
             for (let i = 0; i < this.championship.groupCount; i++) {
@@ -140,7 +140,7 @@ let ChampionshipEdition = (function () {
             }
         }
 
-        _definechampionshipEditionEliminationPhases() {
+        _defineChampionshipEditionEliminationPhases() {
             let clubCount = this.championship.championshipType.regulation === 'groups' ?
                 this.championship.groupCount * this.championship.qualifiedClubsByGroupCount :
                 this.championship.clubCount;
@@ -156,7 +156,7 @@ let ChampionshipEdition = (function () {
             }
         }
 
-        _definechampionshipEditionFixtures() {
+        _defineChampionshipEditionFixtures() {
             for (let i = 0; i < this.championship.dateCount; i++) {
                 let fixture = ChampionshipEditionFixture.create(this, i + 1);
                 this._championshipEditionFixtureIds.push(fixture.id);
