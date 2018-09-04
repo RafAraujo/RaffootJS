@@ -14,6 +14,8 @@ class _TablesView {
         HtmlHelper.clearElement(this._divContent);
 
         this._showTable();
+
+        $('[data-toggle="tooltip"]').tooltip();
     }
 
     _fillSelect() {
@@ -44,14 +46,16 @@ class _TablesView {
     }
 
     _showTableRoundRobin(championshipEdition) {
-        let table = HtmlHelper.createTable(['#', 'Club', 'P', 'M', 'W', 'GF', 'GA', 'GD']);
+        let table = HtmlHelper.createTable(['#', 'Club', 'P', 'M', 'W', 'D', 'L', 'GF', 'GA', 'GD']);
         HtmlHelper.setTooltip(table.children[0].children[0].children[2], 'Points');
         HtmlHelper.setTooltip(table.children[0].children[0].children[3], 'Matches');
         HtmlHelper.setTooltip(table.children[0].children[0].children[4], 'Wins');
-        HtmlHelper.setTooltip(table.children[0].children[0].children[5], 'Goals For');
-        HtmlHelper.setTooltip(table.children[0].children[0].children[6], 'Goals Against');
-        HtmlHelper.setTooltip(table.children[0].children[0].children[7], 'Goals Difference');
-        
+        HtmlHelper.setTooltip(table.children[0].children[0].children[5], 'Draws');
+        HtmlHelper.setTooltip(table.children[0].children[0].children[6], 'Losses');
+        HtmlHelper.setTooltip(table.children[0].children[0].children[7], 'Goals For');
+        HtmlHelper.setTooltip(table.children[0].children[0].children[8], 'Goals Against');
+        HtmlHelper.setTooltip(table.children[0].children[0].children[9], 'Goals Difference');
+
         this._divContent.appendChild(table);
         let tbody = table.children[1];
 
@@ -63,6 +67,8 @@ class _TablesView {
             HtmlHelper.insertCell(tr, championshipEditionClub.points, 'text-center');
             HtmlHelper.insertCell(tr, 0, 'text-center');
             HtmlHelper.insertCell(tr, championshipEditionClub.won, 'text-center');
+            HtmlHelper.insertCell(tr, championshipEditionClub.drawn, 'text-center');
+            HtmlHelper.insertCell(tr, championshipEditionClub.lost, 'text-center');
             HtmlHelper.insertCell(tr, championshipEditionClub.goalsFor, 'text-center');
             HtmlHelper.insertCell(tr, championshipEditionClub.goalsAgainst, 'text-center');
             HtmlHelper.insertCell(tr, championshipEditionClub.goalsDifference, 'text-center');

@@ -35,8 +35,6 @@ class HomeView {
         this._partialTables.update();
 
         this._fillFooter();
-
-        $('[data-toggle="tooltip"]').tooltip();
     }
 
     sortSquad(orderProperties) {

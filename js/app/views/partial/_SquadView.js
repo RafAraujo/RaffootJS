@@ -22,6 +22,8 @@ class _SquadView {
     update(orderProperties) {
         this._updateOrder(orderProperties);
         this._fillTable();
+
+        $('[data-toggle="tooltip"]').tooltip();
     }
 
     _updateOrder(orderProperties) {
