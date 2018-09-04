@@ -64,5 +64,11 @@ let Formation = (function () {
         get fieldLocalizations() {
             return FieldLocalization.all().filterById(this._fieldLocalizationIds);
         }
+
+        randomPlayersCount(fieldRegion) {
+            return fieldRegion.name === 'goal' ?
+                Random.numberBetween(2, 3) :
+                Math.round(this.fieldLocalizations.filter(fl => fl.position.fieldRegion === fieldRegion).length * Random.numberBetween(18, 24) / 10);
+        }
     }
 })();

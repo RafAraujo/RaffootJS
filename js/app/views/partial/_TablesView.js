@@ -65,7 +65,7 @@ class _TablesView {
             HtmlHelper.insertCell(tr, index + 1, 'text-center');
             HtmlHelper.insertCell(tr, championshipEditionClub.club.name, 'text-left');
             HtmlHelper.insertCell(tr, championshipEditionClub.points, 'text-center');
-            HtmlHelper.insertCell(tr, 0, 'text-center');
+            HtmlHelper.insertCell(tr, championshipEdition.championshipEditionFixture == null ? 0 : championshipEdition.championshipEditionFixture.number, 'text-center');
             HtmlHelper.insertCell(tr, championshipEditionClub.won, 'text-center');
             HtmlHelper.insertCell(tr, championshipEditionClub.drawn, 'text-center');
             HtmlHelper.insertCell(tr, championshipEditionClub.lost, 'text-center');

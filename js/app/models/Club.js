@@ -2172,7 +2172,7 @@ let Club = (function () {
             let year = date.getFullYear();
 
             for (let fieldRegion of FieldRegion.all()) {
-                let count = fieldRegion.randomPlayersCount(formation);
+                let count = formation.randomPlayersCount(fieldRegion);
 
                 for (let i = 0; i < count; i++) {
                     let country = Random.number(10) < 9 ? this.country : Country.all().getRandomItem();
