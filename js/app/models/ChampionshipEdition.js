@@ -80,7 +80,7 @@ let ChampionshipEdition = (function () {
         }
 
         get table() {
-            return this.championshipEditionClubs.orderBy('-championshipEditionEliminationPhasesWon', '-points', '-won', '-goalsDifference', '-goalsFor');
+            return this.championshipEditionClubs.orderBy('-championshipEditionEliminationPhasesWon', '-points', '-won', '-goalsDifference', '-goalsFor', 'club.name');
         }
 
         defineClubs() {
