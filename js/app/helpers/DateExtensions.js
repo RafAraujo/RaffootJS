@@ -1,11 +1,11 @@
-Date.daysInMonth = function(month, year) {
+Date.daysInMonth = function (month, year) {
     let date = new Date(year, month, 1);
     date.setMonth(month + 1);
     date.setDate(0);
     return date.getDate();
 };
 
-Date.firstDayCurrentYear = function() {
+Date.firstDayCurrentYear = function () {
     let date = new Date();
     date.setMonth(0);
     date.setDate(1);
@@ -14,7 +14,7 @@ Date.firstDayCurrentYear = function() {
 
 Date.firstSunday = (month, year) => {
     let date = new Date(year, month, 1);
-    
+
     let day = date.getDay();
 
     if (day !== 0)
@@ -38,13 +38,13 @@ Date.monthDiff = (d1, d2) => {
     return months > 0 ? months : 0;
 };
 
-Date.prototype.addDays = function(value) {
+Date.prototype.addDays = function (value) {
     let date = new Date(this);
     date.setDate(this.getDate() + value);
     return date;
 };
 
-Date.prototype.addMonths = function(value) {
+Date.prototype.addMonths = function (value) {
     let date = new Date(this);
     date.setMonth(this.getMonth() + value);
     return date;

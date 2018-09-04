@@ -1,8 +1,4 @@
 class Random {
-    constructor() {
-        throw new Error('Random.constructor');
-    }
-
     static month() {
         return Random.number(11);
     }
