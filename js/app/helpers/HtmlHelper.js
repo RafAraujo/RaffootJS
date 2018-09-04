@@ -24,10 +24,22 @@ class HtmlHelper {
 
     static createElement(tagName, innerHTML, ...classList) {
         let element = document.createElement(tagName);
-        element.innerHTML = innerHTML;
+
+        if (innerHTML)
+            element.innerHTML = innerHTML;
+
         if (classList.length > 0)
             element.classList.add(...classList);
+
         return element;
+    }
+
+    static createIcon(name, color, ...classList) {
+        let span = HtmlHelper.createElement('span', '');
+        let i = HtmlHelper.createElement('i', '', 'fas', `fa-${name}`, ...classList);
+        span.style.color = color;
+        span.appendChild(i);
+        return span;
     }
 
     static createProgressBar(value, ...classList) {
@@ -42,6 +54,25 @@ class HtmlHelper {
         HtmlHelper.setTooltip(divProgress, value);
         divProgress.appendChild(divProgressBar);
         return divProgress;
+    }
+
+    static createTable(headers) {
+        let table = HtmlHelper.createElement('table', '', 'table', 'table-responsive', 'table-hover');
+
+        let thead = HtmlHelper.createElement('thead');
+        let tr = HtmlHelper.createElement('tr');
+        thead.appendChild(tr);
+
+        for (let header of headers) {
+            let th = HtmlHelper.createElement('th', header);
+            tr.appendChild(th);
+        }
+
+        table.appendChild(thead);
+        table.appendChild(HtmlHelper.createElement('tbody'));
+        table.appendChild(HtmlHelper.createElement('tfoot'));
+
+        return table;
     }
 
     static setTooltip(element, innerHTML, position) {
@@ -65,15 +96,7 @@ class HtmlHelper {
         return HtmlHelper.insertCell(tr, span.outerHTML, ...classList);
     }
 
-    static icon(name, color, ...classList) {
-        let span = HtmlHelper.createElement('span', '');
-        let i = HtmlHelper.createElement('i', '', 'fas', `fa-${name}`, ...classList);
-        span.style.color = color;
-        span.appendChild(i);
-        return span;
-    }
-
-    static clearTbody(tbody) {
-        Array.from(tbody.children).forEach(tr => tbody.removeChild(tr));
+    static clearElement(element) {
+        Array.from(element.children).forEach(child => element.removeChild(child));
     }
 }

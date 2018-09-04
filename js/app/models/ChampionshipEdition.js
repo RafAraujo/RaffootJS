@@ -79,6 +79,10 @@ let ChampionshipEdition = (function () {
                 return this.dates.slice(this.championship.groupDatesCount);
         }
 
+        get table() {
+            return this.championshipEditionClubs.orderBy('-championshipEditionEliminationPhasesWon', '-points', '-won', '-goalsDifference', '-goalsFor');
+        }
+
         defineClubs() {
             if (this.year === FIRST_YEAR) {
                 let clubsAbleToPlay = this.championship.clubsAbleToPlay;
@@ -102,25 +106,25 @@ let ChampionshipEdition = (function () {
                 throw new Error('ChampionshipEdition.scheduleMatches(dates)')
 
             switch (this.championship.championshipType.regulation) {
-                case 'groups':
-                    this.definechampionshipEditionGroups();
-                    this.definechampionshipEditionEliminationPhases();
-                    this.scheduleMatcheschampionshipEditionGroups();
-                    break;
                 case 'elimination':
-                    this.definechampionshipEditionEliminationPhases();
-                    this.scheduleMatchesElimination();
+                    this._definechampionshipEditionEliminationPhases();
+                    this._scheduleMatchesElimination();
+                    break;
+                case 'groups':
+                    this._definechampionshipEditionGroups();
+                    this._definechampionshipEditionEliminationPhases();
+                    this._scheduleMatcheschampionshipEditionGroups();
                     break;
                 case 'round-robin':
-                    this.definechampionshipEditionFixtures();
-                    this.scheduleMatchesRoundRobin();
+                    this._definechampionshipEditionFixtures();
+                    this._scheduleMatchesRoundRobin();
                     break;
                 default:
                     throw new Error('ChampionshipEdition.scheduleMatches(dates)');
             }
         }
 
-        definechampionshipEditionGroups() {
+        _definechampionshipEditionGroups() {
             let championshipEditionClubs = this.championshipEditionClubs.slice();
 
             for (let i = 0; i < this.championship.groupCount; i++) {
@@ -136,7 +140,7 @@ let ChampionshipEdition = (function () {
             }
         }
 
-        definechampionshipEditionEliminationPhases() {
+        _definechampionshipEditionEliminationPhases() {
             let clubCount = this.championship.championshipType.regulation === 'groups' ?
                 this.championship.groupCount * this.championship.qualifiedClubsByGroupCount :
                 this.championship.clubCount;
@@ -152,14 +156,14 @@ let ChampionshipEdition = (function () {
             }
         }
 
-        definechampionshipEditionFixtures() {
+        _definechampionshipEditionFixtures() {
             for (let i = 0; i < this.championship.dateCount; i++) {
                 let fixture = ChampionshipEditionFixture.create(this, i + 1);
                 this._championshipEditionFixtureIds.push(fixture.id);
             }
         }
 
-        scheduleMatcheschampionshipEditionGroups() {
+        _scheduleMatcheschampionshipEditionGroups() {
             for (let group of this.championshipEditionGroups) {
                 let matches = ChampionshipEdition.genericRoundRobin(this.groupDates, group.clubs, this.championship.twoLeggedTie);
                 group.addMatches(matches);
@@ -168,7 +172,7 @@ let ChampionshipEdition = (function () {
             this.scheduleMatchesElimination();
         }
 
-        scheduleMatchesElimination() {
+        _scheduleMatchesElimination() {
             let eliminationPhases = this.championshipEditionEliminationPhases;
 
             for (let i = 0; i < eliminationPhases.length; i++) {
@@ -189,8 +193,8 @@ let ChampionshipEdition = (function () {
             }
         }
 
-        scheduleMatchesRoundRobin() {
-            let matches = ChampionshipEdition.genericRoundRobin(this, this.dates, this.championshipEditionClubs.map(cec => cec.club), this.championship.twoLeggedTie);
+        _scheduleMatchesRoundRobin() {
+            ChampionshipEdition.genericRoundRobin(this, this.dates, this.championshipEditionClubs.map(cec => cec.club), this.championship.twoLeggedTie);
         }
 
         static genericRoundRobin(championshipEdition, dates, clubs, twoLeggedTie) {
@@ -223,10 +227,6 @@ let ChampionshipEdition = (function () {
 
         matchesOf(date) {
             return this.matches.filter(m => m.date === date);
-        }
-
-        table() {
-            return this.championshipEditionClubs.orderBy('-championshipEditionEliminationPhasesWon', '-points', '-won', '-goalsDifference', '-goalsFor');
         }
 
         promotionZone() {

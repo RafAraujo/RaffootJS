@@ -33,7 +33,7 @@ class _SquadView {
     }
 
     _fillTable() {
-        HtmlHelper.clearTbody(this._tbody);
+        HtmlHelper.clearElement(this._tbody);
 
         let sides = ['Center', 'Left', 'Right'];
 
@@ -62,8 +62,6 @@ class _SquadView {
             this._formatContract(tr.children[10], contract);
             this._formatCondition(tr.children[11], player.condition);
         }
-
-        $('[data-toggle="tooltip"]').tooltip();
     }
 
     _formatPosition(td, position) {
@@ -74,7 +72,7 @@ class _SquadView {
         td.classList.add('border', `bg-${player.category}`);
 
         if (player.star) {
-            let icon = HtmlHelper.icon('star', Bootstrap.yellow().color);
+            let icon = HtmlHelper.createIcon('star', Bootstrap.yellow().color);
             HtmlHelper.setTooltip(td, icon.outerHTML, 'left');
             td.classList.add('td-player-star');
         }
@@ -107,24 +105,24 @@ class _SquadView {
 
         switch (condition) {
             case 1:
-                icon = HtmlHelper.icon('angle-double-down', Bootstrap.purple().color, 'fa-lg');
-                tooltipIcon = HtmlHelper.icon('tired', 'gold', 'fa-2x');
+                icon = HtmlHelper.createIcon('angle-double-down', Bootstrap.purple().color, 'fa-lg');
+                tooltipIcon = HtmlHelper.createIcon('tired', 'gold', 'fa-2x');
                 break;
             case 2:
-                icon = HtmlHelper.icon('angle-down', Bootstrap.blue().color, 'fa-lg');
-                tooltipIcon = HtmlHelper.icon('frown', 'gold', 'fa-2x');
+                icon = HtmlHelper.createIcon('angle-down', Bootstrap.blue().color, 'fa-lg');
+                tooltipIcon = HtmlHelper.createIcon('frown', 'gold', 'fa-2x');
                 break;
             case 3:
-                icon = HtmlHelper.icon('angle-right', Bootstrap.green().color, 'fa-lg');
-                tooltipIcon = HtmlHelper.icon('meh-blank', 'gold', 'fa-2x');
+                icon = HtmlHelper.createIcon('angle-right', Bootstrap.green().color, 'fa-lg');
+                tooltipIcon = HtmlHelper.createIcon('meh-blank', 'gold', 'fa-2x');
                 break;
             case 4:
-                icon = HtmlHelper.icon('angle-up', Bootstrap.orange().color, 'fa-lg');
-                tooltipIcon = HtmlHelper.icon('smile', 'gold', 'fa-2x');
+                icon = HtmlHelper.createIcon('angle-up', Bootstrap.orange().color, 'fa-lg');
+                tooltipIcon = HtmlHelper.createIcon('smile', 'gold', 'fa-2x');
                 break;
             case 5:
-                icon = HtmlHelper.icon('angle-double-up', Bootstrap.red().color, 'fa-lg');
-                tooltipIcon = HtmlHelper.icon('grin-squint', 'gold', 'fa-2x');
+                icon = HtmlHelper.createIcon('angle-double-up', Bootstrap.red().color, 'fa-lg');
+                tooltipIcon = HtmlHelper.createIcon('grin-squint', 'gold', 'fa-2x');
                 break;
         }
 

@@ -1,7 +1,5 @@
 class IndexView {
     constructor(game) {
-        //let $ = document.querySelector.bind(document);
-
         this._game = game;
 
         this._selectDatabases = document.getElementById('databases');
@@ -29,7 +27,7 @@ class IndexView {
 
     _updateMessage(message) {
         this._divMessage.innerText = message.text;
-        this._divMessage.classList.remove("alert-success", "alert-danger");
+        this._divMessage.classList.remove('alert-success', 'alert-danger');
         this._divMessage.classList.add(message.type);
         message.text.length > 0 ? HtmlHelper.show(this._divMessage) : HtmlHelper.hide(this._divMessage);
     }
