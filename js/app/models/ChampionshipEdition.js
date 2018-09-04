@@ -49,6 +49,10 @@ let ChampionshipEdition = (function () {
             return this.championshipEditionFixtures.filter(f => f.date < Season.current().date).last();
         }
 
+        get championshipEditionFixturesPlayed() {
+            return this.currentChampionshipEditionFixture == null ? 0 : championshipEdition.championshipEditionFixture.number;
+        }
+
         get championshipEditionClubs() {
             return ChampionshipEditionClub.all().filterById(this._championshipEditionClubIds);
         }
