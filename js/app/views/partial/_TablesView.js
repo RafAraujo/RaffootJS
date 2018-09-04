@@ -51,18 +51,18 @@ class _TablesView {
         HtmlHelper.setTooltip(table.children[0].children[0].children[5], 'Goals For');
         HtmlHelper.setTooltip(table.children[0].children[0].children[6], 'Goals Against');
         HtmlHelper.setTooltip(table.children[0].children[0].children[7], 'Goals Difference');
+        
         this._divContent.appendChild(table);
-
         let tbody = table.children[1];
 
         championshipEdition.table.forEach((championshipEditionClub, index) => {
             let tr = tbody.insertRow();
 
-            HtmlHelper.insertCell(tr, index + 1, 'text-left');
+            HtmlHelper.insertCell(tr, index + 1, 'text-center');
             HtmlHelper.insertCell(tr, championshipEditionClub.club.name, 'text-left');
             HtmlHelper.insertCell(tr, championshipEditionClub.points, 'text-center');
-            HtmlHelper.insertCell(tr, 0, 'text-right');
-            HtmlHelper.insertCell(tr, championshipEditionClub.won, 'text-right');
+            HtmlHelper.insertCell(tr, 0, 'text-center');
+            HtmlHelper.insertCell(tr, championshipEditionClub.won, 'text-center');
             HtmlHelper.insertCell(tr, championshipEditionClub.goalsFor, 'text-center');
             HtmlHelper.insertCell(tr, championshipEditionClub.goalsAgainst, 'text-center');
             HtmlHelper.insertCell(tr, championshipEditionClub.goalsDifference, 'text-center');
