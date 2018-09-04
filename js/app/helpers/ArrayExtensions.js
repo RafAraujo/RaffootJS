@@ -22,7 +22,7 @@ Array.prototype.getRandomItems = function (count) {
 
     let result = this.slice();
     result.shuffle();
-    return result.slice(0, count);
+    return result.firstItems(count);
 }
 
 Array.prototype.last = function () {
