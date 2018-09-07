@@ -37,31 +37,27 @@ class _SquadView {
     _fillTable() {
         HtmlHelper.clearElement(this._tbody);
 
-        let sides = ['Center', 'Left', 'Right'];
-
         for (let player of this._players) {
             let tr = this._tbody.insertRow();
-
-            let contract = player.currentContract;
 
             HtmlHelper.insertCell(tr, player.id, 'd-none', 'align-middle');
             HtmlHelper.insertCellWithTooltip(tr, player.position.abbreviation, player.position.name, 'align-middle', 'text-center');
             HtmlHelper.insertCell(tr, player.completeName, 'align-middle');
             HtmlHelper.insertCell(tr, player.overall, 'align-middle', 'text-center');
-            HtmlHelper.insertCellWithTooltip(tr, player.side, sides.find(s => s.substr(0, 1) === player.side), 'align-middle', 'text-center');
+            HtmlHelper.insertCellWithTooltip(tr, player.side, player.sideDescription, 'align-middle', 'text-center');
             HtmlHelper.insertCell(tr, '', 'align-middle');
-            HtmlHelper.insertCell(tr, player.wage.toLocaleString(), 'text-right');
-            HtmlHelper.insertCell(tr, player.marketValue.toLocaleString(), 'text-right');
+            HtmlHelper.insertCell(tr, player.wage.toLocaleString(), 'align-middle', 'text-right');
+            HtmlHelper.insertCell(tr, player.marketValue.toLocaleString(), 'align-middle', 'text-right');
             HtmlHelper.insertCellWithTooltip(tr, player.skillsAbbreviatedDescription, player.skillsDescription.split('/').join('<br>'), 'align-middle', 'text-center');
             HtmlHelper.insertCell(tr, player.age, 'align-middle', 'text-center');
-            HtmlHelper.insertCell(tr, contract.endDate.toLocaleDateString(), 'align-middle', 'text-center');
+            HtmlHelper.insertCell(tr, player.currentContract.endDate.toLocaleDateString(), 'align-middle', 'text-center');
             HtmlHelper.insertCell(tr, '', 'align-middle', 'text-center');
 
             this._formatPosition(tr.children[1], player.position);
             this._formatOverall(tr.children[3], player);
             this._formatEnergy(tr.children[5], player.energy);
             this._formatAge(tr.children[9], player.age);
-            this._formatContract(tr.children[10], contract);
+            this._formatContract(tr.children[10], player.currentContract);
             this._formatCondition(tr.children[11], player.condition);
         }
     }

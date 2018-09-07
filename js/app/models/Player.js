@@ -1,6 +1,8 @@
 let Player = (function () {
     let _players = [];
 
+    const _sides = Object.freeze(['Left', 'Center', 'Right']);
+
     return class Player extends Entity {
         constructor(name, surname, countryId, birthYear, positionId, side, overall, star, skillIds, condition, injuryProneness) {
             super();
@@ -43,6 +45,10 @@ let Player = (function () {
             return _players;
         }
 
+        static sides() {
+            return ['Center', 'Left', 'Right'];
+        }
+
         static minimumWage() {
             return Player._calculateBaseWage(10, false);
         }
@@ -68,6 +74,10 @@ let Player = (function () {
 
         get position() {
             return Position.all()[this._positionId - 1];
+        }
+
+        get sideDescription() {
+            return _sides.find(s => s.substr(0, 1) === this.side);
         }
 
         get age() {
@@ -123,7 +133,7 @@ let Player = (function () {
         }
 
         get club() {
-            return this.currentContract.destinationClub;
+            return this.currentContract.club;
         }
 
         get owner() {

@@ -111,6 +111,11 @@ let Game = (function () {
             return this.seasons.last();
         }
 
+        get currentChampionshipEdition() {
+            let season = this.currentSeason;
+            return season.championshipEditions.find(ce => ce.championship.championshipType === season.currentSeasonDate.championshipType);
+        }
+
         advanceDate() {
             this.currentSeason.advanceDate();
             if (this.currentSeason.finished)

@@ -15,6 +15,7 @@ class HomeView {
         this._partialSquad = new _SquadView(this._game);
         this._partialCalendar = new _CalendarView(this._game);
         this._partialTables = new _TablesView(this._game);
+        this._partialPlayers = new _PlayersView(this._game);
     }
 
     _configLinks() {
@@ -28,13 +29,18 @@ class HomeView {
     }
 
     update() {
+        let t0 = performance.now();
+
         this._setActiveSection(document.querySelector(`a[href="#${this._currentSection}"`));
 
         this._partialSquad.update();
         this._partialCalendar.update();
         this._partialTables.update();
+        this._partialPlayers.update();
 
         this._fillFooter();
+                
+        let t1 = performance.now(); console.log("Interface took " + (t1 - t0) + " milliseconds.");
     }
 
     sortSquad(orderProperties) {

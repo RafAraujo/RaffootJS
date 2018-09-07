@@ -52,12 +52,16 @@ let Season = (function () {
             return this.championshipEditions.filter(ce => ce.championship.championshipType === nationalLeague);
         }
 
-        get currentDate() {
-            return this.seasonDates[this._currentSeasonDateIndex].date;
+        get currentSeasonDate() {
+            return this.seasonDates[this._currentSeasonDateIndex];
         }
 
         get previousSeasonDate() {
             return this.seasonDates[this._currentSeasonDateIndex - 1];
+        }
+
+        get currentDate() {
+            return this.currentSeasonDate.date;
         }
 
         get matches() {
