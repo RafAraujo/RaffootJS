@@ -22,10 +22,10 @@ let FieldLocalization = (function () {
             function _name() {
                 let side = '';
 
-                if (Position.all().filter(p => ['CB', 'CDM', 'CM', 'CAM', 'ST'].some(a => a == p.abbreviation)))
+                if (['CB', 'CDM', 'CM', 'CAM', 'ST'].some(a => a === position.abbreviation))
                     side = _sides[column];
 
-                return side + position.abbreviation;
+                return `${side}${position.abbreviation}`;
             }
         }
 
