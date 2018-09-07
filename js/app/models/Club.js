@@ -475,7 +475,7 @@ let Club = (function () {
             Club.create("SE Vitória", brazil);
             Club.create("SER Caxias do Sul", brazil);
             Club.create("SERC Guarani", brazil);
-            Club.create("Serra Macaense ", brazil);
+            Club.create("Serra Macaense", brazil);
             Club.create("Serra Talhada", brazil);
             Club.create("Serrano SC", brazil);
             Club.create("Sertãozinho FC", brazil);
