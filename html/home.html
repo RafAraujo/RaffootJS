@@ -83,7 +83,9 @@
                                     <th class="text-center" onclick="controller.sortSquad(['marketValue'])">Market Value</th>
                                     <th class="text-center" onclick="controller.sortSquad(['skillsDescription'])">Skills</th>
                                     <th class="text-center" onclick="controller.sortSquad(['age'])">Age</th>
-                                    <th class="text-center" onclick="controller.sortSquad(['currentContract.endDate'])">Contract End</th>
+                                    <th class="text-center" onclick="controller.sortSquad(['currentContract.endDate'])">Contract
+                                        End
+                                    </th>
                                     <th class="text-center" onclick="controller.sortSquad(['condition'])" title="Condition" data-toggle="tooltip" data-placement="bottom">CON</th>
                                 </tr>
                             </thead>
@@ -159,7 +161,88 @@
             <section id="players" class="section-anchor d-none">
                 <div class="row">
                     <div class="col">
-                        <h5 class="text-secondary">Players</h5>
+                        <h5 class="text-secondary"></h5>
+                    </div>
+                </div>
+                <form>
+                    <fieldset>
+                        <legend>Find Player</legend>
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                <label for="player-name">Name</label>
+                                <input id="player-name" type="text" class="form-control">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="player-position">Position</label>
+                                <select id="player-position" class="form-control"></select>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                <label for="player-category">Category</label>
+                                <select id="player-category" class="form-control"></select>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="player-overall">Overall</label>
+                                <select id="player-overall" class="form-control"></select>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                <label for="player-age">Age</label>
+                                <select id="player-age" class="form-control"></select>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="player-side">Preferred Side</label>
+                                <select id="player-side" class="form-control"></select>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                <label for="player-skill-1">Skill 1</label>
+                                <select id="player-skill-1" class="form-control"></select>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="player-skill-2">Skill 2</label>
+                                <select id="player-skill-2" class="form-control"></select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <button id="search-players" class="btn btn-primary btn-block">Search</button>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="reset" value="Reset" class="btn btn-secondary btn-block">
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+                <div class="row">
+                    <div class="col">
+                        <table id="table-squad" class="table table-responsive table-hover mt-3 sortable">
+                            <thead>
+                                <tr>
+                                    <th class="d-none">Id</th>
+                                    <th class="text-center" onclick="controller.sortPlayers(['position.line', 'position.abbreviation'])" title="Position" data-toggle="tooltip"
+                                        data-placement="bottom">POS</th>
+                                    <th class="text-center" onclick="controller.sortPlayers(['country.name'])">Country</th>
+                                    <th class="text-center" onclick="controller.sortPlayers(['name'])">Name</th>
+                                    <th class="text-center" onclick="controller.sortPlayers(['club.name'])">Club</th>
+                                    <th class="text-center" onclick="controller.sortPlayers(['side'])" title="Preferred Side" data-toggle="tooltip" data-placement="bottom">PS</th>
+                                    <th class="text-center" onclick="controller.sortPlayers(['overall'])">Overall</th>
+                                    <th class="text-center" onclick="controller.sortPlayers(['wage'])">Wage</th>
+                                    <th class="text-center" onclick="controller.sortPlayers(['marketValue'])">Market Value</th>
+                                    <th class="text-center" onclick="controller.sortPlayers(['skillsDescription'])">Skills</th>
+                                    <th class="text-center" onclick="controller.sortPlayers(['age'])">Age</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                            <tfoot></tfoot>
+                        </table>
                     </div>
                 </div>
             </section>
