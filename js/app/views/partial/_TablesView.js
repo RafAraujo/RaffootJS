@@ -80,6 +80,8 @@ class _TablesView {
     _showTableElimination(championshipEdition) {
         championshipEdition.championshipEditionEliminationPhases.forEach(eliminationPhase => {
 
+            if (eliminationPhase.championshipEditionEliminationPhaseDuels.length === 0)
+                return;
             let table = HtmlHelper.createTable(eliminationPhase.name, ['Club 1', 'Aggregate', 'Club 2', '1st Leg', '2nd Leg']);
 
             eliminationPhase.championshipEditionEliminationPhaseDuels.forEach(duel => {
