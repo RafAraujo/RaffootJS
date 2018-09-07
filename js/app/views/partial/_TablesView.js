@@ -46,7 +46,7 @@ class _TablesView {
     }
 
     _showTableRoundRobin(championshipEdition) {
-        let table = HtmlHelper.createTable(['#', 'Club', 'Points', 'M', 'W', 'D', 'L', 'GF', 'GA', 'GD']);
+        let table = HtmlHelper.createTable(null, ['#', 'Club', 'Points', 'M', 'W', 'D', 'L', 'GF', 'GA', 'GD']);
         HtmlHelper.setTooltip(table.children[0].children[0].children[3], 'Matches');
         HtmlHelper.setTooltip(table.children[0].children[0].children[4], 'Wins');
         HtmlHelper.setTooltip(table.children[0].children[0].children[5], 'Draws');
@@ -80,7 +80,7 @@ class _TablesView {
     _showTableElimination(championshipEdition) {
         championshipEdition.championshipEditionEliminationPhases.forEach(eliminationPhase => {
 
-            let table = HtmlHelper.createTable(['Club 1', 'Aggregate', 'Club 2', '1st Leg', '2nd Leg']);
+            let table = HtmlHelper.createTable(eliminationPhase.name, ['Club 1', 'Aggregate', 'Club 2', '1st Leg', '2nd Leg']);
 
             eliminationPhase.championshipEditionEliminationPhaseDuels.forEach(duel => {
                 let tr = table.children[1].insertRow();

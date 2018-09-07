@@ -56,13 +56,22 @@ class HtmlHelper {
         return divProgress;
     }
 
-    static createTable(headers) {
+    static createTable(title, headers) {
         let table = HtmlHelper.createElement('table', '', 'table', 'table-responsive', 'table-hover');
 
         let thead = HtmlHelper.createElement('thead');
+
+        if (title) {
+            let tr = HtmlHelper.createElement('tr');
+            thead.appendChild(tr);
+
+            let th = HtmlHelper.createElement('th', title, 'text-center');
+            th.setAttribute('colspan', headers.length);
+            tr.appendChild(th);
+        }
+
         let tr = HtmlHelper.createElement('tr');
         thead.appendChild(tr);
-
         for (let header of headers) {
             let th = HtmlHelper.createElement('th', header, 'text-center');
             tr.appendChild(th);
