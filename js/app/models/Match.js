@@ -22,6 +22,9 @@ let Match = (function () {
 
             let match = new Match(championshipEdition.id, date, referee.id);
             match.id = _matches.push(match);
+
+            championshipEdition.addMatch(match);
+
             return match;
         }
 

@@ -9,6 +9,7 @@ let ChampionshipEditionEliminationPhase = (function() {
             this.clubCount = clubCount;
             this._championshipEditionClubIds = [];
             this._matchIds = [];
+            this._championshipEditionEliminationPhaseDuelIds = [];
         }
 
         static create(championshipEdition, clubCount) {
@@ -50,7 +51,7 @@ let ChampionshipEditionEliminationPhase = (function() {
         }
 
         get championshipEditionEliminationPhaseDuels() {
-            return ChampionshipEditionEliminationPhaseDuel.all().filter(ceepd => ceepd.championshipEditionEliminationPhase === this);
+            return ChampionshipEditionEliminationPhaseDuel.all().filterById(this._championshipEditionEliminationPhaseDuelIds);
         }
 
         get name() {
@@ -64,6 +65,10 @@ let ChampionshipEditionEliminationPhase = (function() {
                 default:
                     return `Round of ${this.clubCount}`;
             }
+        }
+
+        addChampionshipEditionEliminationPhaseDuel(championshipEditionEliminationPhaseDuel) {
+            this._championshipEditionEliminationPhaseDuelIds.push(championshipEditionEliminationPhaseDuel.id);
         }
 
         qualify(championshipEditionClubs) {

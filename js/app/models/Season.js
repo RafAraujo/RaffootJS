@@ -76,15 +76,11 @@ let Season = (function () {
             this._defineChampionshipEditions();
             this._defineCalendar();
 
-            for (let championshipEdition of this.championshipEditions) {
-                championshipEdition.defineClubs();
-                let dates = this._seasonDatesByChampionshipType(championshipEdition.championship.championshipType).map(sd => sd.date);
-                championshipEdition.scheduleMatches(dates);
-            }
-        }
-
-        hasChampionship(championshipType) {
-            return this._championshipEditionIds.includes(championshipType.id);
+            this.championshipEditions.forEach(ce => {
+                ce.defineClubs();
+                let dates = this._getSeasonDatesByChampionshipType(ce.championship.championshipType).map(sd => sd.date);
+                ce.scheduleMatches(dates);
+            });
         }
 
         mainContinentalCup(confederation) {
@@ -92,21 +88,19 @@ let Season = (function () {
         }
 
         _defineChampionshipEditions() {
-            let championships = Championship.all().filter(c => this.championshipTypes.includes(c.championshipType));
-            this._championshipEditionIds = championships.map(c => ChampionshipEdition.create(c, this.year)).map(ce => ce.id);
+            this.selectMany('championshipTypes.championships').forEach(c => this._championshipEditionIds.push(ChampionshipEdition.create(c, this.year).id));
         }
 
         _defineCalendar() {
-            let championshipTypes = this.championshipTypes.slice();
-
             let continentalSuperCup = ChampionshipType.all().find(c => c.scope === 'continental' && c.format === 'superCup');
             let worldwideSuperCup = ChampionshipType.all().find(c => c.scope === 'worldwide' && c.format === 'superCup');
 
             let date = Date.firstSunday(1, this.year);
             this._addSeasonDate(date, continentalSuperCup);
 
+            let championshipTypes = this.championshipTypes.slice();
             let championshipType = null;
-            while ((championshipType = championshipTypes.find(ct => !this._totallyScheduled(ct))) != null) {
+            while (championshipType = championshipTypes.find(ct => !this._totallyScheduled(ct))) {
 
                 date = date.addDays(date.getDay() === 0 ? 3 : 4);
                 if (date.getMonth() === 6)
@@ -120,11 +114,11 @@ let Season = (function () {
         }
 
         _addSeasonDate(date, championshipType) {
-            if (this.hasChampionship(championshipType))
+            if (this.championshipTypes.includes(championshipType))
                 this._seasonDateIds.push(SeasonDate.create(date, championshipType).id);
         }
 
-        _seasonDatesByChampionshipType(championshipType) {
+        _getSeasonDatesByChampionshipType(championshipType) {
             return this.seasonDates.filter(sd => sd.championshipType === championshipType);
         }
 

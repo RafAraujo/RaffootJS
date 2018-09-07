@@ -6,6 +6,7 @@ let Coach = (function () {
             super();
 
             this.name = name;
+            this._clubId = null;
         }
 
         static create(country = null, name = null) {
@@ -26,7 +27,11 @@ let Coach = (function () {
         }
 
         get club() {
-            return Club.all().find(c => c.coach === this);
+            return Club.all()[this._clubId - 1];
+        }
+
+        set club(value) {
+            this._clubId = value;
         }
     }
 })();

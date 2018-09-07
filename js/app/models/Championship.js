@@ -19,6 +19,9 @@ let Championship = (function () {
 
             let championship = new Championship(name, championshipType.id, countryId, confederationId, division, clubCount);
             championship.id = _championships.push(championship);
+
+            championshipType.addChampionship(championship);
+
             return championship;
         }
 

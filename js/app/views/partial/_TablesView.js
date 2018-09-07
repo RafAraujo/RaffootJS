@@ -21,7 +21,7 @@ class _TablesView {
     _fillSelect() {
         HtmlHelper.clearSelect(this._selectChampionships);
 
-        let championshipEditions = this._game.currentSeason.championshipEditions;
+        let championshipEditions = this._game.currentSeason.championshipEditions.orderBy('championship.country.name');
 
         championshipEditions.forEach(ce => this._selectChampionships.appendChild(new Option(ce.championship.name, ce.id)));
         this._selectChampionships.value = this._game.club.league.id;
@@ -94,7 +94,7 @@ class _TablesView {
                 HtmlHelper.insertCell(tr, duel.matches.last().scoreReverse, 'text-center');
 
                 if (duel.clubs.includes(this._game.club))
-                    Array.from(tr.children).forEach(td => td.classList.add('font-weight-bold'));
+                    tr.classList.add('border-my-club');
             });
 
             this._divContent.appendChild(table);

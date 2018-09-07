@@ -9,6 +9,7 @@ let ChampionshipType = (function () {
             this.format = format;
             this.regulation = regulation;
             this.twoLeggedTie = twoLeggedTie;
+            this._championshipIds = [];
         }
 
         static create(scope, format, regulation, twoLeggedTie) {
@@ -37,6 +38,14 @@ let ChampionshipType = (function () {
 
         static all() {
             return _championshipTypes;
+        }
+
+        get championships() {
+            return Championship.all().filterById(this._championshipIds);
+        }
+
+        addChampionship(championship) {
+            this._championshipIds.push(championship.id);
         }
     }
 })();

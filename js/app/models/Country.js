@@ -116,6 +116,7 @@ let Country = (function () {
 
         addClub(club) {
             this._clubIds.push(club.id);
+            this.confederation.addClub(club);
         }
 
         addStadium(stadium) {

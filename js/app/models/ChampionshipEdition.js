@@ -13,6 +13,7 @@ let ChampionshipEdition = (function () {
             this._championshipEditionClubIds = [];
             this._championshipEditionPlayerIds = [];
             this.dates = [];
+            this._matchIds = [];
         }
 
         static create(championship, year) {
@@ -66,7 +67,7 @@ let ChampionshipEdition = (function () {
         }
 
         get matches() {
-            return Match.all().filter(m => m.championshipEdition === this);
+            return Match.all().filterById(this._matchIds);
         }
 
         get name() {
@@ -109,6 +110,10 @@ let ChampionshipEdition = (function () {
 
         get bestPlayers() {
             return this.championshipEditionPlayers.orderBy('-averageRating', 'appearances', 'timePlayed');
+        }
+
+        addMatch(match) {
+            this._matchIds.push(match.id);
         }
 
         defineClubs() {
@@ -174,8 +179,7 @@ let ChampionshipEdition = (function () {
                 this.championship.clubCount;
 
             while (clubCount >= 2) {
-                let eliminationPhase = ChampionshipEditionEliminationPhase.create(this, clubCount);
-                this._championshipEditionEliminationPhaseIds.push(eliminationPhase.id);
+                this._championshipEditionEliminationPhaseIds.push(ChampionshipEditionEliminationPhase.create(this, clubCount).id);
                 clubCount /= 2;
             }
         }

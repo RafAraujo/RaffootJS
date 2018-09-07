@@ -26,6 +26,11 @@ table.sortable th {
     border-left: solid #dc3545 !important;
 }
 
+.border-my-club {
+    border-top: solid lightgray !important;
+    border-bottom: solid lightgray !important;
+}
+
 .bg-gold {
     background-color: gold;
 }

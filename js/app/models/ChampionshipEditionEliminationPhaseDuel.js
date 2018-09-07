@@ -9,9 +9,10 @@ let ChampionshipEditionEliminationPhaseDuel = (function () {
             this._matchIds = matchIds;
         }
 
-        static create(championshipEliminationPhase, matches) {
-            let championshipEditionEliminationPhaseDuel = new ChampionshipEditionEliminationPhaseDuel(championshipEliminationPhase.id, matches.map(m => m.id));
+        static create(championshipEditionEliminationPhase, matches) {
+            let championshipEditionEliminationPhaseDuel = new ChampionshipEditionEliminationPhaseDuel(championshipEditionEliminationPhase.id, matches.map(m => m.id));
             championshipEditionEliminationPhaseDuel.id = _championshipEditionEliminationPhaseDuels.push(championshipEditionEliminationPhaseDuel);
+            championshipEditionEliminationPhase.addChampionshipEditionEliminationPhaseDuel(championshipEditionEliminationPhaseDuel);
             return championshipEditionEliminationPhaseDuel;
         }
 

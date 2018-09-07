@@ -2157,11 +2157,11 @@ let Club = (function () {
         }
 
         get league() {
-            return Season.current().nationalLeagues.find(ce => ce.clubs.includes(this)).championship;
+            return Season.current().nationalLeagues.find(ce => ce.clubs.includes(this));
         }
 
         get division() {
-            return this.league.division;
+            return this.league.championship.division;
         }
 
         _generateSquad() {
@@ -2181,12 +2181,6 @@ let Club = (function () {
                     contract.sign();
                 }
             }
-        }
-
-        leaguePoints(championshipEdition) {
-            let position = championshipEdition.championshipEditionClubs.find(cec => cec.club === this).position;
-
-            return (currentLeague.championship.clubCount + 1 - position) * (NATIONAL_MAX_DIVISION_COUNT + 1 - currentLeague.championship.division);
         }
 
         pay(amount) {
