@@ -22,7 +22,7 @@ let FieldLocalization = (function () {
             function _name() {
                 let side = '';
 
-                if (['CB', 'CDM', 'CM', 'CAM', 'ST'].some(a => a === position.abbreviation))
+                if (column !== 2 && ['CB', 'CDM', 'CM', 'CAM', 'ST'].some(a => a === position.abbreviation))
                     side = _sides[column];
 
                 return `${side}${position.abbreviation}`;
