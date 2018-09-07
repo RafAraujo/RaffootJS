@@ -42,6 +42,16 @@ class HtmlHelper {
         return span;
     }
 
+    static createImage(path, alt, ...classList) {
+        let img = HtmlHelper.createElement('img', '', ...classList);
+        img.setAttribute('src', path);
+        img.setAttribute('alt', alt);
+        img.setAttribute('title', alt);
+        img.classList.add('img-fluid');
+
+        return img;
+    }
+
     static createProgressBar(value, ...classList) {
         let divProgress = HtmlHelper.createElement('div', '', 'progress');
         let divProgressBar = HtmlHelper.createElement('div', value, 'progress-bar');
@@ -51,7 +61,7 @@ class HtmlHelper {
         divProgressBar.setAttribute('aria-valuenow', value);
         divProgressBar.setAttribute('aria-valuemin', 0);
         divProgressBar.setAttribute('aria-valuemax', 100);
-        HtmlHelper.setTooltip(divProgress, value);
+        divProgress.setAttribute('title', value);
         divProgress.appendChild(divProgressBar);
         return divProgress;
     }
@@ -84,14 +94,6 @@ class HtmlHelper {
         return table;
     }
 
-    static setTooltip(element, innerHTML, position) {
-        element.setAttribute('data-toggle', 'tooltip');
-        element.setAttribute('data-placement', position || 'bottom');
-        element.setAttribute('data-html', 'true');
-        element.setAttribute('title', innerHTML);
-        return element;
-    }
-
     static insertCell(tr, innerHTML, ...classList) {
         let td = tr.insertCell();
         td.innerHTML = innerHTML;
@@ -103,6 +105,14 @@ class HtmlHelper {
         let span = HtmlHelper.createElement('span', innerHTML);
         HtmlHelper.setTooltip(span, tooltip);
         return HtmlHelper.insertCell(tr, span.outerHTML, ...classList);
+    }
+
+    static setTooltip(element, innerHTML, position) {
+        element.setAttribute('data-toggle', 'tooltip');
+        element.setAttribute('data-placement', position || 'bottom');
+        element.setAttribute('data-html', 'true');
+        element.setAttribute('title', innerHTML);
+        return element;
     }
 
     static clearElement(element) {

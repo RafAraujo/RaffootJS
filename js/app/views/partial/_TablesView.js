@@ -14,8 +14,6 @@ class _TablesView {
         HtmlHelper.clearElement(this._divContent);
 
         this._showTable();
-
-        $('[data-toggle="tooltip"]').tooltip();
     }
 
     _fillSelect() {
@@ -87,11 +85,11 @@ class _TablesView {
             eliminationPhase.championshipEditionEliminationPhaseDuels.forEach(duel => {
                 let tr = table.children[1].insertRow();
 
-                HtmlHelper.insertCell(tr, duel.clubs.first().name, 'text-right');
-                HtmlHelper.insertCell(tr, duel.aggregate, 'text-center');
-                HtmlHelper.insertCell(tr, duel.clubs.last().name, 'text-left');
-                HtmlHelper.insertCell(tr, duel.matches.first().score, 'text-center');
-                HtmlHelper.insertCell(tr, duel.matches.last().scoreReverse, 'text-center');
+                HtmlHelper.insertCell(tr, duel.clubs.first().name, null, 'text-right');
+                HtmlHelper.insertCell(tr, duel.aggregate, null, 'text-center');
+                HtmlHelper.insertCell(tr, duel.clubs.last().name, null, 'text-left');
+                HtmlHelper.insertCell(tr, duel.matches.first().score, null, 'text-center');
+                HtmlHelper.insertCell(tr, duel.matches.last().scoreReverse, null, 'text-center');
 
                 if (duel.clubs.includes(this._game.club))
                     tr.classList.add('border-my-club');

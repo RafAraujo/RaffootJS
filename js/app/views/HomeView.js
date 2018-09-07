@@ -31,9 +31,9 @@ class HomeView extends View {
     }
 
     update() {
-        super.update();
-
         let t0 = performance.now();
+
+        super.update();
 
         this._setActiveSection(document.querySelector(`a[href="#${this._currentSection}"`));
 
@@ -43,7 +43,9 @@ class HomeView extends View {
         this._partialPlayers.update();
 
         this._fillFooter();
-                
+
+        $('[data-toggle="tooltip"]').tooltip();
+
         let t1 = performance.now(); console.log("Interface took " + (t1 - t0) + " milliseconds.");
     }
 
@@ -72,10 +74,9 @@ class HomeView extends View {
 
         this._aMoney.innerText = `${this._game.club.money.toLocaleString()}`;
         if (this._game.club.money <= 0) {
-            let bootstrapColor = Bootstrap.red();
-            aMoney.parentElement.style.color = bootstrapColor.color;
+            aMoney.parentElement.style.color = '#dc3545';
             aMoney.classList.remove('text-dark', 'text-success', 'text-danger');
-            aMoney.classList.add(`text-${bootstrapColor.class}`);
+            aMoney.classList.add(`text-danger`);
         }
 
         this._aDate.innerText = this._game.currentSeason.currentDate.toLocaleDateString();

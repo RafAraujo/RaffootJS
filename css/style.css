@@ -43,6 +43,10 @@ table.sortable th {
     background-color: tan;
 }
 
+.img-miniature {
+    max-height: 1.5rem;
+}
+
 .td-player-star {
     background-color: black;
     color: gold;

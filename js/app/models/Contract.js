@@ -36,6 +36,10 @@ let Contract = (function () {
             return Player.all()[this._playerId - 1];
         }
 
+        get remainingMonths() {
+            return Date.monthDiff(Season.current().currentDate, this.endDate);
+        }
+
         sign() {
             this.club.pay(this.fee);
 

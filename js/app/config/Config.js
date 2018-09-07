@@ -12,3 +12,11 @@ const NATIONAL_CUP_MAX_CLUB_COUNT = 64;
 
 const GROUP_CLUB_COUNT = 4;
 const GROUP_QUALIFIED_CLUB_COUNT = 2;
+
+const BLUE = '#007bff';
+const GRAY = '#6c757d';
+const GREEN = '#28a745';
+const ORANGE = '#fd7e14';
+const PURPLE = '#6f42c1';
+const RED = '#dc3545';
+const YELLOW = '#ffc107';

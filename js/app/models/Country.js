@@ -109,9 +109,7 @@ let Country = (function () {
         }
 
         get flag() {
-            let scripts = document.getElementsByTagName("script");
-            let src = scripts[scripts.length - 1].src;
-            return `${src}/../res/flags/${this.name.toLowerCase()}.svg`;
+            return `${window.location.pathname}/../../res/flags/${this.name.toLowerCase()}.svg`;
         }
 
         addClub(club) {

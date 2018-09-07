@@ -73,31 +73,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col">
-                        <table id="table-squad" class="table table-responsive table-hover sortable">
-                            <thead>
-                                <tr>
-                                    <th class="d-none">Id</th>
-                                    <th class="text-center" onclick="controller.sortSquad(['position.line', 'position.abbreviation', '-overall'])" title="Position"
-                                        data-toggle="tooltip" data-placement="bottom">POS</th>
-                                    <th class="text-center" onclick="controller.sortSquad(['name'])">Name</th>
-                                    <th class="text-center" onclick="controller.sortSquad(['overall'])" title="Overall" data-toggle="tooltip" data-placement="bottom">OVA</th>
-                                    <th class="text-center" onclick="controller.sortSquad(['side'])" title="Preferred Side" data-toggle="tooltip" data-placement="bottom">PS</th>
-                                    <th class="text-center" onclick="controller.sortSquad(['energy'])">Energy</th>
-                                    <th class="text-center" onclick="controller.sortSquad(['wage'])">Wage</th>
-                                    <th class="text-center" onclick="controller.sortSquad(['marketValue'])">Market Value</th>
-                                    <th class="text-center" onclick="controller.sortSquad(['skillsDescription'])">Skills</th>
-                                    <th class="text-center" onclick="controller.sortSquad(['age'])">Age</th>
-                                    <th class="text-center" onclick="controller.sortSquad(['currentContract.endDate'])">Contract
-                                        End
-                                    </th>
-                                    <th class="text-center" onclick="controller.sortSquad(['condition'])" title="Condition" data-toggle="tooltip" data-placement="bottom">CON</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                            <tfoot></tfoot>
-                        </table>
-                    </div>
+                    <div id="squad-content" class="col"></div>
                 </div>
             </section>
             <section id="calendar" class="section-anchor d-none">
@@ -228,28 +204,7 @@
                     </fieldset>
                 </form>
                 <div class="row">
-                    <div class="col">
-                        <table id="table-players" class="table table-responsive table-hover mt-3 sortable">
-                            <thead>
-                                <tr>
-                                    <th class="d-none">Id</th>
-                                    <th class="text-center" onclick="controller.sortPlayers(['position.line', 'position.abbreviation'])" title="Position" data-toggle="tooltip"
-                                        data-placement="bottom">POS</th>
-                                    <th class="text-center" onclick="controller.sortPlayers(['country.name'])">Country</th>
-                                    <th class="text-center" onclick="controller.sortPlayers(['name'])">Name</th>
-                                    <th class="text-center" onclick="controller.sortPlayers(['club.name'])">Club</th>
-                                    <th class="text-center" onclick="controller.sortPlayers(['side'])" title="Preferred Side" data-toggle="tooltip" data-placement="bottom">PS</th>
-                                    <th class="text-center" onclick="controller.sortPlayers(['overall'])">Overall</th>
-                                    <th class="text-center" onclick="controller.sortPlayers(['wage'])">Wage</th>
-                                    <th class="text-center" onclick="controller.sortPlayers(['marketValue'])">Market Value</th>
-                                    <th class="text-center" onclick="controller.sortPlayers(['skillsDescription'])">Skills</th>
-                                    <th class="text-center" onclick="controller.sortPlayers(['age'])">Age</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                            <tfoot></tfoot>
-                        </table>
-                    </div>
+                    <div id="players-content" class="col"></div>
                 </div>
             </section>
             <section id="coaches" class="section-anchor d-none">
@@ -318,7 +273,6 @@
 
     <script src="../js/app/helpers/ArrayExtensions.js"></script>
     <script src="../js/app/helpers/Bind.js"></script>
-    <script src="../js/app/helpers/Bootstrap.js"></script>
     <script src="../js/app/helpers/DateExtensions.js"></script>
     <script src="../js/app/helpers/HtmlHelper.js"></script>
     <script src="../js/app/helpers/Random.js"></script>
@@ -370,6 +324,7 @@
 
     <script src="../js/app/views/View.js"></script>
     <script src="../js/app/views/HomeView.js"></script>
+    <script src="../js/app/views/components/PlayersTable.js"></script>
     <script src="../js/app/views/partial/_CalendarView.js"></script>
     <script src="../js/app/views/partial/_PlayersView.js"></script>
     <script src="../js/app/views/partial/_SquadView.js"></script>
