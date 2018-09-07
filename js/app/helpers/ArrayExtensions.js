@@ -92,6 +92,7 @@ Array.prototype.shuffle = function () {
         this[i] = this[index];
         this[index] = aux;
     }
+    return this;
 }
 
 Array.prototype.filterById = function (arrayIds) {

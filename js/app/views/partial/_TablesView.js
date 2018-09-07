@@ -46,8 +46,7 @@ class _TablesView {
     }
 
     _showTableRoundRobin(championshipEdition) {
-        let table = HtmlHelper.createTable(['#', 'Club', 'P', 'M', 'W', 'D', 'L', 'GF', 'GA', 'GD']);
-        HtmlHelper.setTooltip(table.children[0].children[0].children[2], 'Points');
+        let table = HtmlHelper.createTable(['#', 'Club', 'Points', 'M', 'W', 'D', 'L', 'GF', 'GA', 'GD']);
         HtmlHelper.setTooltip(table.children[0].children[0].children[3], 'Matches');
         HtmlHelper.setTooltip(table.children[0].children[0].children[4], 'Wins');
         HtmlHelper.setTooltip(table.children[0].children[0].children[5], 'Draws');
@@ -56,11 +55,8 @@ class _TablesView {
         HtmlHelper.setTooltip(table.children[0].children[0].children[8], 'Goals Against');
         HtmlHelper.setTooltip(table.children[0].children[0].children[9], 'Goals Difference');
 
-        this._divContent.appendChild(table);
-        let tbody = table.children[1];
-
         championshipEdition.table.forEach((championshipEditionClub, index) => {
-            let tr = tbody.insertRow();
+            let tr = table.children[1].insertRow();
 
             HtmlHelper.insertCell(tr, index + 1, 'text-center');
             HtmlHelper.insertCell(tr, championshipEditionClub.club.name, 'text-left');
@@ -72,6 +68,34 @@ class _TablesView {
             HtmlHelper.insertCell(tr, championshipEditionClub.goalsFor, 'text-center');
             HtmlHelper.insertCell(tr, championshipEditionClub.goalsAgainst, 'text-center');
             HtmlHelper.insertCell(tr, championshipEditionClub.goalsDifference, 'text-center');
+
+            if (championshipEditionClub.club === this._game.club)
+                Array.from(tr.children).forEach(td => td.classList.add('font-weight-bold'));
+        });
+
+        
+        this._divContent.appendChild(table);
+    }
+
+    _showTableElimination(championshipEdition) {
+        championshipEdition.championshipEditionEliminationPhases.forEach(eliminationPhase => {
+
+            let table = HtmlHelper.createTable(['Club 1', 'Aggregate', 'Club 2', '1st Leg', '2nd Leg']);
+
+            eliminationPhase.championshipEditionEliminationPhaseDuels.forEach(duel => {
+                let tr = table.children[1].insertRow();
+
+                HtmlHelper.insertCell(tr, duel.clubs.first().name, 'text-right');
+                HtmlHelper.insertCell(tr, duel.aggregate, 'text-center');
+                HtmlHelper.insertCell(tr, duel.clubs.last().name, 'text-left');
+                HtmlHelper.insertCell(tr, duel.matches.first().score, 'text-center');
+                HtmlHelper.insertCell(tr, duel.matches.last().scoreReverse, 'text-center');
+
+                if (duel.clubs.includes(this._game.club))
+                    Array.from(tr.children).forEach(td => td.classList.add('font-weight-bold'));
+            });
+
+            this._divContent.appendChild(table);
         });
     }
 }

@@ -114,12 +114,12 @@ let Country = (function () {
             return `${src}/../res/flags/${this.name.toLowerCase()}.svg`;
         }
 
-        addClub(value) {
-            this._clubIds.push(value.id);
+        addClub(club) {
+            this._clubIds.push(club.id);
         }
 
-        addStadium(value) {
-            this._stadiumIds.push(value.id);
+        addStadium(stadium) {
+            this._stadiumIds.push(stadium.id);
         }
     }
 })();

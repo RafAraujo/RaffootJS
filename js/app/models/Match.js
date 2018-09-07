@@ -53,12 +53,27 @@ let Match = (function () {
             return MatchClub.all().filterById(this._matchClubIds);
         }
 
-        get homeClub() {
-            return this.matchClubs.find(mc => mc.situation === 'home').club;
+        get matchClubHome() {
+            return this.matchClubs.find(mc => mc.situation === 'home');
         }
 
-        get awayClub() {
-            return this.matchClubs.find(mc => mc.situation === 'away').club;
+        get matchClubAway() {
+            return this.matchClubs.find(mc => mc.situation === 'away');
+        }
+
+        get clubs() {
+            return this.matchClubs.map(mc => mc.club);
+        }
+
+        get referee() {
+            return Referee.all()[this._refereeId - 1];
+        }
+
+        get description() {
+            let club1 = this.matchClubHome ? this.matchClubHome.club : this.matchClubs[0].club;
+            let club2 = this.matchClubAway ? this.matchClubAway.club : this.matchClubs[1].club;
+
+            return club1.name + " x " + club2.name;
         }
 
         get score() {
@@ -68,15 +83,15 @@ let Match = (function () {
                 return ' x ';
         }
 
-        get referee() {
-            return Referee.all()[this._refereeId - 1];
+        get scoreReverse() {
+            if (this.finished)
+                return `${this.awayClub.matchClubStats.goals} x ${this.homeClub.matchClubStats.goals}`;
+            else
+                return ' x ';
         }
 
-        get description() {
-            let club1 = this.homeClub || this.matchClubs[0];
-            let club2 = this.awayClub || this.matchClubs[1];
+        get isDecision() {
 
-            return club1.name + " x " + club2.name;
         }
 
         addClub(club, situation) {
@@ -88,6 +103,10 @@ let Match = (function () {
 
             if (this._stadiumId === 0 && matchClub.situation === 'home')
                 this._stadiumId = matchClub.club.stadium.id;
+        }
+
+        getGoalsByClub(club) {
+            return this.matchClubs.find(mc => mc.club === club).matchClubStats.goals;
         }
 
         play() {

@@ -64,7 +64,7 @@ class HtmlHelper {
         thead.appendChild(tr);
 
         for (let header of headers) {
-            let th = HtmlHelper.createElement('th', header);
+            let th = HtmlHelper.createElement('th', header, 'text-center');
             tr.appendChild(th);
         }
 

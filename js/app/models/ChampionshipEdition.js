@@ -91,6 +91,26 @@ let ChampionshipEdition = (function () {
             return this.championshipEditionClubs.orderBy('-championshipEditionEliminationPhasesWon', '-points', '-won', '-goalsDifference', '-goalsFor', 'club.name');
         }
 
+        get promotionZone() {
+            return this.championship.division > 1 ? this.table().firstItems(NATIONAL_LEAGUE_PROMOTION_RELEGATION_CLUB_COUNT) : [];
+        }
+
+        get relegationZone() {
+            return this.championship.division < NATIONAL_MAX_DIVISION_COUNT ? this.table().lastItems(NATIONAL_LEAGUE_PROMOTION_RELEGATION_CLUB_COUNT) : [];
+        }
+
+        get topScorers() {
+            return this.championshipEditionPlayers.orderBy('-goals', 'appearances', 'timePlayed');
+        }
+
+        get topAssists() {
+            return this.championshipEditionPlayers.orderBy('-assists', 'appearances', 'timePlayed');
+        }
+
+        get bestPlayers() {
+            return this.championshipEditionPlayers.orderBy('-averageRating', 'appearances', 'timePlayed');
+        }
+
         defineClubs() {
             if (this.year === FIRST_YEAR) {
                 let clubsAbleToPlay = this.championship.clubsAbleToPlay;
@@ -158,10 +178,6 @@ let ChampionshipEdition = (function () {
                 this._championshipEditionEliminationPhaseIds.push(eliminationPhase.id);
                 clubCount /= 2;
             }
-
-            if (this.championship.championshipType.regulation === 'elimination') {
-                this.championshipEditionEliminationPhases.first().qualify(this.championshipEditionClubs);
-            }
         }
 
         _defineChampionshipEditionFixtures() {
@@ -185,24 +201,23 @@ let ChampionshipEdition = (function () {
 
             for (let i = 0; i < eliminationPhases.length; i++) {
                 let eliminationPhase = eliminationPhases[i];
-                let clubs = eliminationPhase.championshipEditionClubs.map(cec => cec.club);
 
-                for (let j = 0; j < clubs.length; j = j + 2) {
+                for (let j = 0; j < eliminationPhase.clubCount; j = j + 2) {
                     for (let k = 0; k < (this.championship.twoLeggedTie ? 2 : 1); k++) {
                         let date = this.eliminationPhaseDates[i + k];
+                        
                         let match = Match.create(this, date);
-
-                        if (clubs.length > 0) {
-                            match.addClub(clubs[j], k === 0 ? 'home' : 'away');
-                            match.addClub(clubs[j + 1], k === 0 ? 'away' : 'home');
-                        }
+                        eliminationPhase.addMatch(match);
                     }
                 }
             }
+
+            if (this.championship.championshipType.regulation === 'elimination')
+                eliminationPhases.first().qualify(this.championshipEditionClubs);
         }
 
         _scheduleMatchesRoundRobin() {
-            ChampionshipEdition.genericRoundRobin(this, this.dates, this.championshipEditionClubs.map(cec => cec.club), this.championship.twoLeggedTie);
+            ChampionshipEdition.genericRoundRobin(this, this.dates, this.clubs, this.championship.twoLeggedTie);
         }
 
         static genericRoundRobin(championshipEdition, dates, clubs, twoLeggedTie) {
@@ -237,28 +252,8 @@ let ChampionshipEdition = (function () {
             return this.matches.filter(m => m.date === date);
         }
 
-        promotionZone() {
-            return this.championship.division > 1 ? this.table().firstItems(NATIONAL_LEAGUE_PROMOTION_RELEGATION_CLUB_COUNT) : [];
-        }
-
-        relegationZone() {
-            return this.championship.division < NATIONAL_MAX_DIVISION_COUNT ? this.table().lastItems(NATIONAL_LEAGUE_PROMOTION_RELEGATION_CLUB_COUNT) : [];
-        }
-
         getChampionshipEditionPlayer(player) {
             return this.championshipEditionPlayers.find(cep => cep.player === player);
-        }
-
-        topScorers() {
-            return this.championshipEditionPlayers.orderBy('-goals', 'appearances', 'timePlayed');
-        }
-
-        topAssists() {
-            return this.championshipEditionPlayers.orderBy('-assists', 'appearances', 'timePlayed');
-        }
-
-        bestPlayers() {
-            return this.championshipEditionPlayers.orderBy('-averageRating', 'appearances', 'timePlayed');
         }
     }
 })();

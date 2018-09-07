@@ -13,6 +13,10 @@ let MatchClub = (function () {
         static create(match, club, situation) {
             let matchClub = new MatchClub(match.id, club.id, situation);
             matchClub.id = _matchClubs.push(matchClub);
+            
+            let matchClubStats = MatchClubStats.create(matchClub);
+            matchClub._matchClubStatsId = matchClubStats.id;
+
             return matchClub;
         }
 
@@ -30,6 +34,10 @@ let MatchClub = (function () {
 
         get club() {
             return Club.all()[this._clubId - 1];
+        }
+
+        get matchClubStats() {
+            return MatchClubStats.all()[this._matchClubStatsId - 1];
         }
     }
 })();

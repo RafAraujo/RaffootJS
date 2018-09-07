@@ -81,12 +81,12 @@ let Position = (function () {
             return this.name === 'Goalkeeper';
         }
 
-        addFieldLocalization(value) {
-            this._fieldLocalizationIds.push(value.id);
+        addFieldLocalization(fieldLocalization) {
+            this._fieldLocalizationIds.push(fieldLocalization.id);
         }
 
-        addSkill(value) {
-            this._skillIds.push(value.id);
+        addSkill(skill) {
+            this._skillIds.push(skill.id);
         }
     }
 })();

@@ -46,8 +46,8 @@ let Confederation = (function () {
             return this.clubs.filter(c => c.playable);
         }
 
-        addClub(value) {
-            this._clubIds.push(value.id);
+        addClub(club) {
+            this._clubIds.push(club.id);
         }
 
         cupName(division) {

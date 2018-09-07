@@ -138,8 +138,8 @@ let Player = (function () {
             return this.inForceContracts.last().wage;
         }
 
-        addContract(value) {
-            this._contractIds.push(value.id);
+        addContract(contract) {
+            this._contractIds.push(contract.id);
         }
 
         hasSkill(skillName) {

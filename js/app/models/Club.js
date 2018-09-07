@@ -115,7 +115,7 @@ let Club = (function () {
             Club.create("Club General Belgrano", argentina);
             Club.create("Club Olimpo", argentina);
             Club.create("Club Rivadavia", argentina);
-            Club.create("Club Sol de América ", argentina);
+            Club.create("Club Sol de América", argentina);
             Club.create("Colón", argentina);
             Club.create("Concepción FC", argentina);
             Club.create("Crucero del Norte", argentina);

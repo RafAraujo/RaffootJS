@@ -15,7 +15,7 @@ let MatchClubStats = (function () {
 
         static create(matchClub) {
             let matchClubStats = new MatchClubStats(matchClub.id);
-            matchClubStats.id = _matchClubStats.push(matchClub);
+            matchClubStats.id = _matchClubStats.push(matchClubStats);
             return matchClubStats;
         }
 
@@ -24,7 +24,7 @@ let MatchClubStats = (function () {
         }
 
         static all() {
-            return _matchClubs;
+            return _matchClubStats;
         }
 
         get matchClub() {
