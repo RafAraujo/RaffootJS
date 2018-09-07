@@ -11,6 +11,7 @@ let MatchClubStats = (function () {
             this.shotsOnTarget = 0;
             this.ballPosession = 0;
             this.fouls = 0;
+            this.penaltyShootoutGoals = 0;
         }
 
         static create(matchClub) {

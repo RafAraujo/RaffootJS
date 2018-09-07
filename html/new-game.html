@@ -19,7 +19,7 @@
         </div>
         <div class="row">
             <div class="col">
-                <div id="loading" class="alert alert-primary" role="alert">Creating game...</div>
+                <div id="message" class="alert alert-primary" role="alert">Creating game...</div>
             </div>
         </div>
         <form id="form" action="home.html" class="d-none">
@@ -57,11 +57,6 @@
                 </div>
             </div>
         </form>
-        <div class="row mt-3">
-            <div class="col">
-                <div id="starting" class="alert alert-primary d-none" role="alert">Starting game...</div>
-            </div>
-        </div>
     </div>
 
     <script src="../js/ui/jquery/jquery-3.3.1.min.js"></script>
@@ -122,10 +117,13 @@
     <script src="../js/app/dao/GenericDAO.js"></script>
 
     <script src="../js/app/controllers/NewGameController.js"></script>
+
+    <script src="../js/app/views/View.js"></script>    
     <script src="../js/app/views/NewGameView.js"></script>
 </body>
 
 </html>
 <script>
     let controller = new NewGameController();
+    controller.createGame();
 </script>

@@ -61,6 +61,11 @@
             </div>
         </header>
         <main>
+            <div class="row">
+                <div class="col">
+                    <div id="message" class="alert d-none" role="alert"></div>
+                </div>
+            </div>
             <section id="squad" class="section-anchor d-none">
                 <div class="row">
                     <div class="col">
@@ -363,6 +368,7 @@
 
     <script src="../js/app/controllers/HomeController.js"></script>
 
+    <script src="../js/app/views/View.js"></script>
     <script src="../js/app/views/HomeView.js"></script>
     <script src="../js/app/views/partial/_CalendarView.js"></script>
     <script src="../js/app/views/partial/_PlayersView.js"></script>
@@ -373,4 +379,5 @@
 </html>
 <script>
     let controller = new HomeController();
+    controller.loadGame();
 </script>

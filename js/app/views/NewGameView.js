@@ -1,61 +1,63 @@
-class NewGameView {
-    constructor() {
-        this._divLoading = document.getElementById('loading');
+class NewGameView extends View {
+    constructor(game) {
+        super();
+
+        this._game = game;
+
         this._form = document.getElementById('form');
         this._selectCountries = document.getElementById('countries');
         this._selectClubs = document.getElementById('clubs');
         this._imgFlag = document.getElementById('flag');
         this._aBack = document.getElementById('back');
         this._buttonStart = document.getElementById('start');
-        this._divStarting = document.getElementById('starting');
 
         this._country = null;
 
         HtmlHelper.hide(this._form);
     }
 
-    update(game) {
-        if (game.countries.length === 0)
+    update() {
+        super.update();
+
+        if (this._game.countries.length === 0)
             return;
 
-        if (game.name.length === 0)
-            this._changed(game);
-        else if (game.name.length > 0)
+        if (this._game.name.length === 0)
+            this._changed();
+        else if (this._game.name.length > 0)
             this._starting();
     }
 
-    _changed(game) {
-        HtmlHelper.hide(this._divLoading);
+    _changed() {
         HtmlHelper.show(this._form);
-        HtmlHelper.hide(this._divStarting);
 
-        this._fillCountries(game.countries);
-        this._fillClubs(game.country, game.currentSeason);
+        this._fillCountries();
+        this._fillClubs();
 
         this._country = document.getElementById('countries').value;
     }
 
     _starting() {
         this._aBack.disabled = this._buttonStart.disabled = true;
-        HtmlHelper.show(this._divStarting);
+        this.showMessage('Starting...', 'primary');
     }
 
-    _fillCountries(countries) {
+    _fillCountries() {
         if (this._selectCountries.options.length > 0)
             return;
 
-        HtmlHelper.fillSelect(this._selectCountries, countries.orderBy('name'));
+        HtmlHelper.fillSelect(this._selectCountries, this._game.countries.orderBy('name'));
         this._selectCountries.focus();
     }
 
-    _fillClubs(country, season) {
-        if (country == null || this._country == this._selectCountries.value)
+    _fillClubs() {
+        if (this._game.country == null || this._country == this._selectCountries.value)
             return;
 
         HtmlHelper.clearSelect(this._selectClubs);
         this._selectClubs.appendChild(new Option());
 
-        let leagues = season.nationalLeagues.filter(c => c.championship.country === country).orderBy('championship.division');
+        let leagues = this._game.currentSeason.nationalLeagues.filter(ce => ce.championship.country === this._game.country).orderBy('championship.division');
 
         for (let league of leagues) {
             let optionGroup = document.createElement('optgroup');

@@ -10,11 +10,7 @@ class IndexController {
         this._game = {
             name: '',
             clubName: '',
-            seasonYear: '',
-            message: {
-                text: '',
-                type: 'alert-success'
-            }
+            seasonYear: ''
         };
 
         this._view = new IndexView(this._game);
@@ -37,13 +33,10 @@ class IndexController {
                 this._game.clubName = info.clubName;
                 this._game.seasonYear = info.seasonYear;
                 this._game.name = info.name;
-
-                this._game.message.text = '';
             })
             .catch(error => {
-                this._game.message.text = "Error on showing game info";
-                this._game.message.type = "alert-danger";
                 console.log(error);
+                this._view.showMessage('Error on showing game info', 'danger');
             })
             .then(() => this._view.update())
     }
@@ -60,13 +53,11 @@ class IndexController {
                 this._game.seasonYear = '';
                 this._game.name = '';
 
-                this._game.message.text = "Game deleted with success";
-                this._game.message.type = "alert-success";
+                this._view.showMessage('Game deleted with success', 'success');
             })
             .catch(error => {
-                this._game.message.text = "Error on deleting game";
-                this._game.message.type = "alert-danger";
                 console.log(error);
+                this._view.showMessage('Error on deleting game', 'danger');
             })
             .then(() => this._view.update());
     }
@@ -76,7 +67,6 @@ class IndexController {
     }
 
     _showSaves() {
-        this._game.message.text = '';
         this._view.update();
     }
 

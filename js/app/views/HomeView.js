@@ -1,10 +1,12 @@
-class HomeView {
+class HomeView extends View {
     constructor(game) {
-        this._game = game;
+        super();
 
+        this._game = game;
         this._currentSection = 'squad';
 
         document.getElementById('club-name').innerHTML = this._game.club.name;
+
         this._sections = document.querySelectorAll('section:not(#history)');
         this._aPlayerCount = document.getElementById('player-count');
         this._aMoney = document.getElementById('money');
@@ -29,6 +31,8 @@ class HomeView {
     }
 
     update() {
+        super.update();
+
         let t0 = performance.now();
 
         this._setActiveSection(document.querySelector(`a[href="#${this._currentSection}"`));
