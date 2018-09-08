@@ -11,7 +11,7 @@ class _SquadView {
     }
 
     _buildTable() {       
-        this._component.setInvisibleColumns(['Preferred Side']);
+        this._component.setInvisibleColumns(['Club']);
         this._component.build(this._divContent);
     }
 }
