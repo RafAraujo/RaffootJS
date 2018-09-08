@@ -19,10 +19,6 @@ let PlayersTable = (function () {
                 orderProperties: ['name']
             },
             {
-                title: 'Club',
-                orderProperties: ['club.name']
-            },
-            {
                 title: 'OVA',
                 description: 'Overall',
                 orderProperties: ['overall']
@@ -35,6 +31,10 @@ let PlayersTable = (function () {
             {
                 title: 'Energy',
                 orderProperties: ['energy']
+            },
+            {
+                title: 'Club',
+                orderProperties: ['club.name']
             },
             {
                 title: 'Wage',
@@ -87,7 +87,14 @@ let PlayersTable = (function () {
         }
 
         setInvisibleColumns(invisibleColumns) {
-            this._invisibleColumns = invisibleColumns;
+            invisibleColumns.forEach(column => this._invisibleColumns.push(this._getColumnIndexByDescription(column)));
+        }
+
+        _getColumnIndexByDescription(description) {
+            let index = HEADER.items.map(i => i.description).indexOf(description);
+            if (index === -1)
+                index = HEADER.items.map(i => i.title).indexOf(description);
+            return index;
         }
 
         build(container, ...classList) {
@@ -131,12 +138,12 @@ let PlayersTable = (function () {
 
                 HtmlHelper.insertCell(tr, player.id, 'd-none', 'align-middle');
                 HtmlHelper.insertCell(tr, player.position.abbreviation, 'align-middle', 'text-center');
-                HtmlHelper.insertCell(tr, '', 'align-middle', 'text-center');
+                HtmlHelper.insertCell(tr, player.energy, 'align-middle', 'text-center');
                 HtmlHelper.insertCell(tr, player.completeName, 'align-middle');
-                HtmlHelper.insertCell(tr, player.club.name, 'align-middle');
                 HtmlHelper.insertCell(tr, player.overall, 'align-middle', 'text-center');
                 HtmlHelper.insertCell(tr, player.side, 'align-middle', 'text-center');
                 HtmlHelper.insertCell(tr, '', 'align-middle');
+                HtmlHelper.insertCell(tr, player.club.name, 'align-middle');
                 HtmlHelper.insertCell(tr, player.wage.toLocaleString(), 'align-middle', 'text-right');
                 HtmlHelper.insertCell(tr, player.marketValue.toLocaleString(), 'align-middle', 'text-right');
                 HtmlHelper.insertCellWithTooltip(tr, player.skillsAbbreviatedDescription, player.skillsDescription.split('/').join('<br>'), 'align-middle', 'text-center');
@@ -146,9 +153,9 @@ let PlayersTable = (function () {
 
                 this._formatPosition(tr.children[1], player.position);
                 this._formatCountry(tr.children[2], player.country);
-                this._formatOverall(tr.children[5], player);
-                this._formatSide(tr.children[6], player);
-                this._formatEnergy(tr.children[7], player.energy);
+                this._formatOverall(tr.children[4], player);
+                this._formatSide(tr.children[5], player);
+                this._formatEnergy(tr.children[6], player.energy);
                 this._formatAge(tr.children[11], player.age);
                 this._formatContract(tr.children[12], player.currentContract);
                 this._formatCondition(tr.children[13], player.condition);
@@ -180,6 +187,7 @@ let PlayersTable = (function () {
         }
 
         _formatEnergy(td, energy) {
+            td.innerText = '';
             let backgroundClass = `bg-${(energy >= 70 ? 'success' : energy >= 50 ? 'warning' : 'danger')}`;
             let divProgress = HtmlHelper.createProgressBar(energy, backgroundClass);
             td.appendChild(divProgress);
