@@ -1,7 +1,7 @@
 let Match = (function () {
     let _matches = [];
 
-    const pause = 15;
+    const _PAUSE = 15;
 
     return class Match extends Entity {
         constructor(championshipEditionId, date, refereeId) {
@@ -135,7 +135,7 @@ let Match = (function () {
         }
 
         halfTime() {
-            squads.forEach(s => s.squadPlayers.players.rest(pause));
+            squads.forEach(s => s.squadPlayers.players.rest(_PAUSE));
         }
 
         finish() {

@@ -46,6 +46,8 @@ class IndexController {
     }
 
     _deleteGame() {
+        this._view.showMessage('Deleting game...', 'primary');
+
         this._service
             .delete(this._game.name)
             .then(() => {

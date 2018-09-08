@@ -1,7 +1,7 @@
 let Player = (function () {
     let _players = [];
 
-    const _sides = Object.freeze(['Left', 'Center', 'Right']);
+    const _SIDES = Object.freeze(['Left', 'Center', 'Right']);
 
     return class Player extends Entity {
         constructor(name, surname, countryId, birthYear, positionId, side, overall, star, skillIds, condition, injuryProneness) {
@@ -77,7 +77,7 @@ let Player = (function () {
         }
 
         get sideDescription() {
-            return _sides.find(s => s.substr(0, 1) === this.side);
+            return _SIDES.find(s => s.substr(0, 1) === this.side);
         }
 
         get age() {

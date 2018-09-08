@@ -65,6 +65,7 @@ class HomeView extends View {
 
         this._sections.forEach(e => HtmlHelper.hide(e));
         HtmlHelper.show(document.getElementById(this._currentSection));
+        window.scrollTo(0, 0);
     }
 
     _fillFooter() {
