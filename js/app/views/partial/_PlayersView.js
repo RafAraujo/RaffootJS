@@ -3,7 +3,7 @@ class _PlayersView {
         this._game = game;
 
         this._divContent = document.getElementById('players-content');
-        this._component = new PlayersTable(this._searchPlayers());
+        this._component = new PlayersTable('players-table', this._searchPlayers());
 
         document.querySelector('#players form').addEventListener('submit', event => {
             event.preventDefault();

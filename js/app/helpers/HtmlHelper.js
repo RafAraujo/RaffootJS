@@ -33,6 +33,12 @@ class HtmlHelper {
         return element;
     }
 
+    static createLink(href, innerHTML, ...classList) {
+        let link = HtmlHelper.createElement('a', innerHTML, ...classList);
+        link.setAttribute('href', href);
+        return link;
+    }
+
     static createIcon(name, color, ...classList) {
         let span = HtmlHelper.createElement('span', '');
         let i = HtmlHelper.createElement('i', '', 'fas', `fa-${name}`, ...classList);

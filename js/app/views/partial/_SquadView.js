@@ -3,7 +3,7 @@ class _SquadView {
         this._game = game;
 
         this._divContent = document.getElementById('squad-content');
-        this._component = new PlayersTable(this._game.club.squad.players);
+        this._component = new PlayersTable('squad-table', this._game.club.squad.players);
     }
 
     update() {

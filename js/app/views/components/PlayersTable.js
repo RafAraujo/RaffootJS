@@ -2,9 +2,6 @@ let PlayersTable = (function () {
     const HEADER = {
         items: [
             {
-                title: 'Id',
-            },
-            {
                 title: 'POS',
                 description: 'Position',
                 orderProperties: ['position.line', 'position.abbreviation']
@@ -65,11 +62,12 @@ let PlayersTable = (function () {
     }
 
     return class PlayersTable {
-        constructor(players) {
+        constructor(tableId, players) {
+            this._tableId = tableId;
             this._players = players;
 
             this._tableOrder = {
-                properties: HEADER.items[1].orderProperties,
+                properties: HEADER.items[0].orderProperties,
                 direction: 1
             };
 
@@ -102,6 +100,7 @@ let PlayersTable = (function () {
             HtmlHelper.clearElement(this._container);
 
             this._table = HtmlHelper.createTable(null, HEADER.items.map(item => item.title));
+            this._table.setAttribute('id', this._tableId);
             this._table.classList.add('sortable');
 
             this._configHeader(this._table.children[0]);
@@ -113,12 +112,15 @@ let PlayersTable = (function () {
             container.appendChild(this._table);
 
             $('[data-toggle="tooltip"]:not(.d-none)').tooltip();
+
+            Array.from(document.querySelectorAll(`#${this._tableId} a.player`)).forEach(link => {
+                link.addEventListener('click', this._showPlayer.bind(this, link.getAttribute('data-id')));
+                link.removeAttribute('data-id');
+            });
         }
 
         _configHeader(thead) {
             let tr = thead.children[0];
-
-            tr.children[0].classList.add('d-none');
 
             HEADER.items.forEach((item, index) => {
                 if (item.description)
@@ -136,13 +138,12 @@ let PlayersTable = (function () {
             players.forEach(player => {
                 let tr = tbody.insertRow();
 
-                HtmlHelper.insertCell(tr, player.id, 'd-none', 'align-middle');
                 HtmlHelper.insertCell(tr, player.position.abbreviation, 'align-middle', 'text-center');
-                HtmlHelper.insertCell(tr, player.energy, 'align-middle', 'text-center');
+                HtmlHelper.insertCell(tr, player.country.abbreviation, 'align-middle', 'text-center');
                 HtmlHelper.insertCell(tr, player.completeName, 'align-middle');
                 HtmlHelper.insertCell(tr, player.overall, 'align-middle', 'text-center');
                 HtmlHelper.insertCell(tr, player.side, 'align-middle', 'text-center');
-                HtmlHelper.insertCell(tr, '', 'align-middle');
+                HtmlHelper.insertCell(tr, player.energy, 'align-middle');
                 HtmlHelper.insertCell(tr, player.club.name, 'align-middle');
                 HtmlHelper.insertCell(tr, player.wage.toLocaleString(), 'align-middle', 'text-right');
                 HtmlHelper.insertCell(tr, player.marketValue.toLocaleString(), 'align-middle', 'text-right');
@@ -151,14 +152,15 @@ let PlayersTable = (function () {
                 HtmlHelper.insertCell(tr, player.currentContract.endDate.toLocaleDateString(), 'align-middle', 'text-center');
                 HtmlHelper.insertCell(tr, '', 'align-middle', 'text-center');
 
-                this._formatPosition(tr.children[1], player.position);
-                this._formatCountry(tr.children[2], player.country);
-                this._formatOverall(tr.children[4], player);
-                this._formatSide(tr.children[5], player);
-                this._formatEnergy(tr.children[6], player.energy);
-                this._formatAge(tr.children[11], player.age);
-                this._formatContract(tr.children[12], player.currentContract);
-                this._formatCondition(tr.children[13], player.condition);
+                this._formatPosition(tr.children[0], player.position);
+                this._formatCountry(tr.children[1], player.country);
+                this._formatName(tr.children[2], player);
+                this._formatOverall(tr.children[3], player);
+                this._formatSide(tr.children[4], player);
+                this._formatEnergy(tr.children[5], player.energy);
+                this._formatAge(tr.children[10], player.age);
+                this._formatContract(tr.children[11], player.currentContract);
+                this._formatCondition(tr.children[12], player.condition);
             });
         }
 
@@ -174,6 +176,12 @@ let PlayersTable = (function () {
                 td.style.padding = '0';
                 td.style.paddingLeft = '0.5rem';
             }
+        }
+
+        _formatName(td, player) {
+            let link = HtmlHelper.createLink('#', player.completeName, 'player', 'text-dark');
+            link.setAttribute('data-id', player.id);
+            td.innerHTML = link.outerHTML;
         }
 
         _formatOverall(td, player) {
@@ -246,6 +254,11 @@ let PlayersTable = (function () {
             this._tableOrder.properties = orderProperties;
 
             this.build(this._container);
+        }
+
+        _showPlayer(id, event) {
+            event.preventDefault();
+            alert(id);
         }
     }
 })();
