@@ -31,13 +31,13 @@ table.sortable th {
     border-bottom: solid lightgray !important;
 }
 
-.text-main-continental-cup {
-    color: darkblue;
+.text-main-continental-cup-classification-zone {
+    color: blue;
     font-weight: bold;
 }
 
-.text-secondary-continental-cup-zone, .text-promotion-zone {
-    color: dodgerblue;
+.text-secondary-continental-cup-classification-zone, .text-promotion-zone {
+    color: deepskyblue;
     font-weight: bold;
 }
 

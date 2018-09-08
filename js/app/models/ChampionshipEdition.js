@@ -268,16 +268,18 @@ let ChampionshipEdition = (function () {
             return matches;
         }
 
-        hasClub(club) {
-            return this.clubs.includes(club);
+        continentalCupClassificationZonePositions(division) {
+            let positions = [];
+
+            if (this.championship.championshipType.format === 'league' && this.championship.division === 1)
+                for (let position = (NATIONAL_LEAGUE_CONTINENTAL_CUP_QUALIFIED_CLUB_COUNT * (division - 1)) + 1; position <= NATIONAL_LEAGUE_CONTINENTAL_CUP_QUALIFIED_CLUB_COUNT * division; position++)
+                    positions.push(position);
+
+            return positions;
         }
 
-        matchesOf(date) {
-            return this.matches.filter(m => m.date === date);
-        }
-
-        getChampionshipEditionPlayer(player) {
-            return this.championshipEditionPlayers.find(cep => cep.player === player);
+        continentalCupClassificationZoneClubs(division) {
+            return this.table.firstItems(this.continentalCupClassificationZonePositions(division).length);
         }
     }
 })();

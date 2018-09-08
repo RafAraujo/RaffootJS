@@ -73,12 +73,20 @@ class _TablesView {
 
             if (championshipEdition.promotionZonePositions.includes(position)) {
                 td.classList.add('text-promotion-zone');
-                HtmlHelper.setTooltip(td, 'Promotion Zone')
+                HtmlHelper.setTooltip(td, 'Promotion Zone');
+            }
+            else if (championshipEdition.relegationZonePositions.includes(position)) {
+                td.classList.add('text-relegation-zone');
+                HtmlHelper.setTooltip(td, 'Relegation Zone');
             }
 
-            if (championshipEdition.relegationZonePositions.includes(position)) {
-                td.classList.add('text-relegation-zone');
-                HtmlHelper.setTooltip(td, 'Relegation Zone')
+            if (championshipEdition.continentalCupClassificationZonePositions(2).includes(position)) {
+                td.classList.add('text-secondary-continental-cup-classification-zone');
+                HtmlHelper.setTooltip(td, championshipEdition.championship.country.confederation.cupName(2));
+            }
+            else if (championshipEdition.continentalCupClassificationZonePositions(1).includes(position)) {
+                td.classList.add('text-main-continental-cup-classification-zone');
+                HtmlHelper.setTooltip(td, championshipEdition.championship.country.confederation.cupName(1));
             }
 
             if (championshipEditionClub.club === this._game.club)
