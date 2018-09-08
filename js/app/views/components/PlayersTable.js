@@ -170,6 +170,10 @@ let PlayersTable = (function () {
         _formatCountry(td, country) {
             let flag = HtmlHelper.createImage(country.flag, country.name, 'img-miniature', 'border');
             td.innerHTML = flag.outerHTML;
+            if (screen.width <= 480) {
+                td.style.padding = '0';
+                td.style.paddingLeft = '0.5rem';
+            }
         }
 
         _formatOverall(td, player) {

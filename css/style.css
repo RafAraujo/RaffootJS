@@ -59,7 +59,8 @@ table.sortable th {
 }
 
 .img-miniature {
-    max-height: 1.5rem;
+    min-width: 1.5rem;
+    max-width: 2rem;
 }
 
 .td-player-star {
