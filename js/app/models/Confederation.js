@@ -51,7 +51,7 @@ let Confederation = (function () {
         }
 
         cupName(division) {
-            return `${this.name} ${(division === 1 ? 'Champions Cup' : 'Cup')}`;
+            return `${this.name} ${(division === 1 ? 'Champions League' : 'Cup')}`;
         }
     }
 })();

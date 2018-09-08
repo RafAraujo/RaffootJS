@@ -94,7 +94,7 @@ class _TablesView {
         });
 
         this._divContent.appendChild(table);
-        $('td[data-toggle="tooltip"]').tooltip();
+        $('[data-toggle="tooltip"]').tooltip();
     }
 
     _showTableElimination(championshipEdition) {
