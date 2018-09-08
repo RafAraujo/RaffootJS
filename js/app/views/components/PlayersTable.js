@@ -150,7 +150,7 @@ let PlayersTable = (function () {
                 HtmlHelper.insertCellWithTooltip(tr, player.skillsAbbreviatedDescription, player.skillsDescription.split('/').join('<br>'), 'align-middle', 'text-center');
                 HtmlHelper.insertCell(tr, player.age, 'align-middle', 'text-center');
                 HtmlHelper.insertCell(tr, player.currentContract.endDate.toLocaleDateString(), 'align-middle', 'text-center');
-                HtmlHelper.insertCell(tr, '', 'align-middle', 'text-center');
+                HtmlHelper.insertCell(tr, player.condition, 'align-middle', 'text-center');
 
                 this._formatPosition(tr.children[0], player.position);
                 this._formatCountry(tr.children[1], player.country);
@@ -241,6 +241,7 @@ let PlayersTable = (function () {
                     break;
             }
 
+            td.innerText = '';
             td.appendChild(icon);
             HtmlHelper.setTooltip(td, tooltipIcon.outerHTML, 'right', 'fa-lg');
         }
