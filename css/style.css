@@ -31,6 +31,21 @@ table.sortable th {
     border-bottom: solid lightgray !important;
 }
 
+.text-main-continental-cup {
+    color: darkblue;
+    font-weight: bold;
+}
+
+.text-secondary-continental-cup-zone, .text-promotion-zone {
+    color: dodgerblue;
+    font-weight: bold;
+}
+
+.text-relegation-zone {
+    color: red;;
+    font-weight: bold;
+}
+
 .bg-gold {
     background-color: gold;
 }

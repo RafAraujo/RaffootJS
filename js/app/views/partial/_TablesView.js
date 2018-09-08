@@ -19,7 +19,7 @@ class _TablesView {
     _fillSelect() {
         HtmlHelper.clearSelect(this._selectChampionships);
 
-        let championshipEditions = this._game.currentSeason.championshipEditions.orderBy('championship.country.name');
+        let championshipEditions = this._game.currentSeason.championshipEditions.orderBy('championship.country.name', 'championship.division');
 
         championshipEditions.forEach(ce => this._selectChampionships.appendChild(new Option(ce.championship.name, ce.id)));
         this._selectChampionships.value = this._game.club.league.id;
@@ -56,7 +56,9 @@ class _TablesView {
         championshipEdition.table.forEach((championshipEditionClub, index) => {
             let tr = table.children[1].insertRow();
 
-            HtmlHelper.insertCell(tr, index + 1, 'text-center');
+            let position = index + 1;
+
+            HtmlHelper.insertCell(tr, position, 'text-center');
             HtmlHelper.insertCell(tr, championshipEditionClub.club.name, 'text-left');
             HtmlHelper.insertCell(tr, championshipEditionClub.points, 'text-center');
             HtmlHelper.insertCell(tr, championshipEdition.championshipEditionFixturesPlayed, 'text-center');
@@ -67,12 +69,24 @@ class _TablesView {
             HtmlHelper.insertCell(tr, championshipEditionClub.goalsAgainst, 'text-center');
             HtmlHelper.insertCell(tr, championshipEditionClub.goalsDifference, 'text-center');
 
+            let td = tr.children[0];
+
+            if (championshipEdition.promotionZonePositions.includes(position)) {
+                td.classList.add('text-promotion-zone');
+                HtmlHelper.setTooltip(td, 'Promotion Zone')
+            }
+
+            if (championshipEdition.relegationZonePositions.includes(position)) {
+                td.classList.add('text-relegation-zone');
+                HtmlHelper.setTooltip(td, 'Relegation Zone')
+            }
+
             if (championshipEditionClub.club === this._game.club)
                 Array.from(tr.children).forEach(td => td.classList.add('font-weight-bold'));
         });
 
-        
         this._divContent.appendChild(table);
+        $('td[data-toggle="tooltip"]').tooltip();
     }
 
     _showTableElimination(championshipEdition) {

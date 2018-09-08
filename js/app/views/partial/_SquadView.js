@@ -14,5 +14,6 @@ class _SquadView {
         HtmlHelper.clearElement(this._divContent);  
         let table = this._component.build();
         this._divContent.appendChild(table);
+        $('[data-toggle="tooltip"]').tooltip();
     }
 }

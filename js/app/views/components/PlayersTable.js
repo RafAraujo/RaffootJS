@@ -118,13 +118,10 @@ let PlayersTable = (function () {
             players.forEach(player => {
                 let tr = tbody.insertRow();
 
-                let position = HtmlHelper.createElement('span', player.position.abbreviation);
-                position.setAttribute('title', player.position.name);
-
                 let flag = HtmlHelper.createImage(player.country.flag, player.country.name, 'img-miniature', 'border');
 
                 HtmlHelper.insertCell(tr, player.id, 'd-none', 'align-middle');
-                HtmlHelper.insertCell(tr, position.outerHTML, 'align-middle', 'text-center');
+                HtmlHelper.insertCell(tr, player.position.abbreviation, 'align-middle', 'text-center');
                 HtmlHelper.insertCell(tr, flag.outerHTML, 'align-middle', 'text-center');
                 HtmlHelper.insertCell(tr, player.completeName, 'align-middle');
                 HtmlHelper.insertCell(tr, player.club.name, 'align-middle');
@@ -149,6 +146,7 @@ let PlayersTable = (function () {
 
         _formatPosition(td, position) {
             td.classList.add('font-weight-bold', `text-${position.fieldRegion.color}`, 'border', `border-left-${position.fieldRegion.name}`);
+            td.setAttribute('title', position.name);
         }
 
         _formatOverall(td, player) {

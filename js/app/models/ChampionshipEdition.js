@@ -92,12 +92,32 @@ let ChampionshipEdition = (function () {
             return this.championshipEditionClubs.orderBy('-championshipEditionEliminationPhasesWon', '-points', '-won', '-goalsDifference', '-goalsFor', 'club.name');
         }
 
-        get promotionZone() {
-            return this.championship.division > 1 ? this.table().firstItems(NATIONAL_LEAGUE_PROMOTION_RELEGATION_CLUB_COUNT) : [];
+        get promotionZonePositions() {
+            let positions = [];
+
+            if (this.championship.championshipType.format === 'league' && this.championship.division > 1)
+                for (let position = 1; position <= NATIONAL_LEAGUE_PROMOTION_RELEGATION_CLUB_COUNT; position++)
+                    positions.push(position);
+
+            return positions;
         }
 
-        get relegationZone() {
-            return this.championship.division < NATIONAL_MAX_DIVISION_COUNT ? this.table().lastItems(NATIONAL_LEAGUE_PROMOTION_RELEGATION_CLUB_COUNT) : [];
+        get relegationZonePositions() {
+            let positions = [];
+
+            if (this.championship.championshipType.format === 'league' && this.championship.division < NATIONAL_MAX_DIVISION_COUNT)
+                for (let position = this.clubs.length; position > this.clubs.length - NATIONAL_LEAGUE_PROMOTION_RELEGATION_CLUB_COUNT; position--)
+                    positions.push(position);
+
+            return positions;
+        }
+
+        get promotionZoneClubs() {
+            return this.table.firstItems(this.promotionZonePositions.length);
+        }
+
+        get relegationZoneClubs() {
+            return this.table.lastItems(this.relegationZonePositions.length);
         }
 
         get topScorers() {
@@ -209,7 +229,7 @@ let ChampionshipEdition = (function () {
                 for (let j = 0; j < eliminationPhase.clubCount; j = j + 2) {
                     for (let k = 0; k < (this.championship.twoLeggedTie ? 2 : 1); k++) {
                         let date = this.eliminationPhaseDates[i + k];
-                        
+
                         let match = Match.create(this, date);
                         eliminationPhase.addMatch(match);
                     }

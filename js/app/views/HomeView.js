@@ -44,8 +44,6 @@ class HomeView extends View {
 
         this._fillFooter();
 
-        $('[data-toggle="tooltip"]').tooltip();
-
         let t1 = performance.now(); console.log("Interface took " + (t1 - t0) + " milliseconds.");
     }
 
