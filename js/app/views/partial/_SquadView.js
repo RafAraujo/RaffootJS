@@ -10,10 +10,8 @@ class _SquadView {
         this._buildTable();
     }
 
-    _buildTable() {
-        HtmlHelper.clearElement(this._divContent);  
-        let table = this._component.build();
-        this._divContent.appendChild(table);
-        $('[data-toggle="tooltip"]').tooltip();
+    _buildTable() {       
+        this._component.setInvisibleColumns([4]);
+        this._component.build(this._divContent);
     }
 }

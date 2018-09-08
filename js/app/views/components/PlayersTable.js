@@ -67,12 +67,12 @@ let PlayersTable = (function () {
         constructor(players) {
             this._players = players;
 
-            this._header = JSON.parse(JSON.stringify(HEADER));
-
             this._tableOrder = {
                 properties: HEADER.items[1].orderProperties,
                 direction: 1
             };
+
+            this._invisibleColumns = [];
         }
 
         _getSortedPlayers() {
@@ -84,17 +84,25 @@ let PlayersTable = (function () {
             return players;
         }
 
-        configHeaders(headers) {
+        setInvisibleColumns(invisibleColumns) {
+            this._invisibleColumns = invisibleColumns;
         }
 
-        build() {
-            this._table = HtmlHelper.createTable(null, this._header.items.map(item => item.title));
+        build(container) {
+            this._container = container;
+            HtmlHelper.clearElement(this._container);
+
+            this._table = HtmlHelper.createTable(null, HEADER.items.map(item => item.title));
             this._table.classList.add('sortable');
 
             this._fillHeader(this._table.children[0]);
             this._fillBody(this._table.children[1]);
 
-            return this._table;
+            this._invisibleColumns.forEach(index => HtmlHelper.hideColumn(this._table, index));
+
+            container.appendChild(this._table);
+
+            $('[data-toggle="tooltip"]:not(.d-none)').tooltip();
         }
 
         _fillHeader(thead) {
@@ -102,12 +110,12 @@ let PlayersTable = (function () {
 
             tr.children[0].classList.add('d-none');
 
-            this._header.items.forEach((item, index) => {
+            HEADER.items.forEach((item, index) => {
                 if (item.description)
                     HtmlHelper.setTooltip(tr.children[index], item.description);
 
                 tr.children[index].addEventListener('click', this._sort.bind(this, item.orderProperties));
-            })
+            });
         }
 
         _fillBody(tbody) {
@@ -137,6 +145,7 @@ let PlayersTable = (function () {
 
                 this._formatPosition(tr.children[1], player.position);
                 this._formatOverall(tr.children[5], player);
+                this._formatSide(tr.children[6], player);
                 this._formatEnergy(tr.children[7], player.energy);
                 this._formatAge(tr.children[11], player.age);
                 this._formatContract(tr.children[12], player.currentContract);
@@ -157,6 +166,10 @@ let PlayersTable = (function () {
                 HtmlHelper.setTooltip(td, icon.outerHTML, 'left');
                 td.classList.add('td-player-star');
             }
+        }
+
+        _formatSide(td, player) {
+            td.setAttribute('title', player.sideDescription);
         }
 
         _formatEnergy(td, energy) {
@@ -213,7 +226,7 @@ let PlayersTable = (function () {
 
             this._tableOrder.properties = orderProperties;
 
-            this._fillBody(this._table.children[1]);
+            this.build(this._container);
         }
     }
 })();

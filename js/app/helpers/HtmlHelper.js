@@ -107,6 +107,18 @@ class HtmlHelper {
         return HtmlHelper.insertCell(tr, span.outerHTML, ...classList);
     }
 
+    static hideColumn(table, columnIndex) {
+        let thead = table.children[0];
+        let tbody = table.children[1];
+        let tfoot = table.children[2];
+
+        let tableSections = [thead, tbody, tfoot];
+
+        tableSections.filter(section => section != null).forEach(section => {
+            Array.from(section.children).forEach(row => row.children[columnIndex].classList.add('d-none'));
+        });
+    }
+
     static setTooltip(element, innerHTML, position) {
         element.setAttribute('data-toggle', 'tooltip');
         element.setAttribute('data-placement', position || 'bottom');

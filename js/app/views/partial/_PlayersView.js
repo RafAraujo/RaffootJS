@@ -17,13 +17,11 @@ class _PlayersView {
     }
 
     _fillTable() {
-        let table = this._component.build();
-        table.classList.add('mt-3');
-        this._divContent.appendChild(table);
-        $('[data-toggle="tooltip"]').tooltip();
+        this._component.setInvisibleColumns([7, 13]);
+        this._component.build(this._divContent);
     }
 
     _searchPlayers() {
-        return Player.all().orderBy('id').firstItems(500);
+        return Player.all().orderBy('id').firstItems(100);
     }
 }

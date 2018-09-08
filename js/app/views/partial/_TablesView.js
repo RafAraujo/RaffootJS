@@ -69,32 +69,34 @@ class _TablesView {
             HtmlHelper.insertCell(tr, championshipEditionClub.goalsAgainst, 'text-center');
             HtmlHelper.insertCell(tr, championshipEditionClub.goalsDifference, 'text-center');
 
-            let td = tr.children[0];
-
-            if (championshipEdition.promotionZonePositions.includes(position)) {
-                td.classList.add('text-promotion-zone');
-                HtmlHelper.setTooltip(td, 'Promotion Zone');
-            }
-            else if (championshipEdition.relegationZonePositions.includes(position)) {
-                td.classList.add('text-relegation-zone');
-                HtmlHelper.setTooltip(td, 'Relegation Zone');
-            }
-
-            if (championshipEdition.continentalCupClassificationZonePositions(2).includes(position)) {
-                td.classList.add('text-secondary-continental-cup-classification-zone');
-                HtmlHelper.setTooltip(td, championshipEdition.championship.country.confederation.cupName(2));
-            }
-            else if (championshipEdition.continentalCupClassificationZonePositions(1).includes(position)) {
-                td.classList.add('text-main-continental-cup-classification-zone');
-                HtmlHelper.setTooltip(td, championshipEdition.championship.country.confederation.cupName(1));
-            }
+            this._formatPosition(tr.children[0], championshipEdition, position);
 
             if (championshipEditionClub.club === this._game.club)
                 Array.from(tr.children).forEach(td => td.classList.add('font-weight-bold'));
         });
 
         this._divContent.appendChild(table);
-        $('[data-toggle="tooltip"]').tooltip();
+        $('[data-toggle="tooltip"]:not(.d-none)').tooltip();
+    }
+
+    _formatPosition(td, championshipEdition, position) {
+        if (championshipEdition.promotionZonePositions.includes(position)) {
+            td.classList.add('text-promotion-zone');
+            HtmlHelper.setTooltip(td, 'Promotion Zone');
+        }
+        else if (championshipEdition.relegationZonePositions.includes(position)) {
+            td.classList.add('text-relegation-zone');
+            HtmlHelper.setTooltip(td, 'Relegation Zone');
+        }
+
+        if (championshipEdition.continentalCupClassificationZonePositions(2).includes(position)) {
+            td.classList.add('text-secondary-continental-cup-classification-zone');
+            HtmlHelper.setTooltip(td, championshipEdition.championship.country.confederation.cupName(2));
+        }
+        else if (championshipEdition.continentalCupClassificationZonePositions(1).includes(position)) {
+            td.classList.add('text-main-continental-cup-classification-zone');
+            HtmlHelper.setTooltip(td, championshipEdition.championship.country.confederation.cupName(1));
+        }
     }
 
     _showTableElimination(championshipEdition) {
