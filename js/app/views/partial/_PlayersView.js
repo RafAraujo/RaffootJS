@@ -18,7 +18,7 @@ class _PlayersView {
 
     _fillTable() {
         this._component.setInvisibleColumns([7, 13]);
-        this._component.build(this._divContent);
+        this._component.build(this._divContent, 'mt-3');
     }
 
     _searchPlayers() {

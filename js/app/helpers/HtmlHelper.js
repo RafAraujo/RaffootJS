@@ -28,8 +28,7 @@ class HtmlHelper {
         if (innerHTML)
             element.innerHTML = innerHTML;
 
-        if (classList.length > 0)
-            element.classList.add(...classList);
+        element.classList.add(...classList);
 
         return element;
     }

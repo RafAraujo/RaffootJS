@@ -184,9 +184,9 @@ let ChampionshipEdition = (function () {
                 let group = ChampionshipEditionGroup.create(this, i + 1);
 
                 for (let j = 0; j < this.championship.groupClubCount; j++) {
-                    let club = championshipEditionClubs.getRandomItem();
-                    group.addClub(club);
-                    championshipEditionClubs.remove(club);
+                    let championshipEditionClub = championshipEditionClubs.getRandomItem();
+                    group.addChampionshipEditionClub(championshipEditionClub);
+                    championshipEditionClubs.remove(championshipEditionClub);
                 }
 
                 this._championshipEditionGroupIdss.push(group.id);
@@ -268,11 +268,12 @@ let ChampionshipEdition = (function () {
             return matches;
         }
 
-        continentalCupClassificationZonePositions(division) {
+        continentalCupClassificationZonePositions(continentalCupDivision) {
             let positions = [];
+            let vacancies = NATIONAL_LEAGUE_CONTINENTAL_CUP_QUALIFIED_CLUB_COUNT;
 
             if (this.championship.championshipType.format === 'league' && this.championship.division === 1)
-                for (let position = (NATIONAL_LEAGUE_CONTINENTAL_CUP_QUALIFIED_CLUB_COUNT * (division - 1)) + 1; position <= NATIONAL_LEAGUE_CONTINENTAL_CUP_QUALIFIED_CLUB_COUNT * division; position++)
+                for (let position = (vacancies * (continentalCupDivision - 1)) + 1; position <= vacancies * continentalCupDivision; position++)
                     positions.push(position);
 
             return positions;

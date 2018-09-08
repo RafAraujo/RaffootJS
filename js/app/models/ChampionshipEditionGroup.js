@@ -42,7 +42,7 @@ let ChampionshipEditionGroup = (function () {
             return this.championshipEdition.matches.filterById(this._matchIds);
         }
 
-        addClub(championshipEditionClub) {
+        addChampionshipEditionClub(championshipEditionClub) {
             if (this._championshipEditionClubIds.length === GROUP_CLUB_COUNT)
                 throw new Error('ChampionshipEditionGroup.addClub(championshipEditionClub)');
 

@@ -10,7 +10,8 @@ let PlayersTable = (function () {
                 orderProperties: ['position.line', 'position.abbreviation']
             },
             {
-                title: 'Country',
+                title: '',
+                description: 'Country',
                 orderProperties: ['country.name']
             },
             {
@@ -73,6 +74,7 @@ let PlayersTable = (function () {
             };
 
             this._invisibleColumns = [];
+            this._container = null;
         }
 
         _getSortedPlayers() {
@@ -88,24 +90,25 @@ let PlayersTable = (function () {
             this._invisibleColumns = invisibleColumns;
         }
 
-        build(container) {
+        build(container, ...classList) {
             this._container = container;
             HtmlHelper.clearElement(this._container);
 
             this._table = HtmlHelper.createTable(null, HEADER.items.map(item => item.title));
             this._table.classList.add('sortable');
 
-            this._fillHeader(this._table.children[0]);
+            this._configHeader(this._table.children[0]);
             this._fillBody(this._table.children[1]);
 
             this._invisibleColumns.forEach(index => HtmlHelper.hideColumn(this._table, index));
+            this._table.classList.add(...classList);
 
             container.appendChild(this._table);
 
             $('[data-toggle="tooltip"]:not(.d-none)').tooltip();
         }
 
-        _fillHeader(thead) {
+        _configHeader(thead) {
             let tr = thead.children[0];
 
             tr.children[0].classList.add('d-none');
@@ -126,11 +129,9 @@ let PlayersTable = (function () {
             players.forEach(player => {
                 let tr = tbody.insertRow();
 
-                let flag = HtmlHelper.createImage(player.country.flag, player.country.name, 'img-miniature', 'border');
-
                 HtmlHelper.insertCell(tr, player.id, 'd-none', 'align-middle');
                 HtmlHelper.insertCell(tr, player.position.abbreviation, 'align-middle', 'text-center');
-                HtmlHelper.insertCell(tr, flag.outerHTML, 'align-middle', 'text-center');
+                HtmlHelper.insertCell(tr, '', 'align-middle', 'text-center');
                 HtmlHelper.insertCell(tr, player.completeName, 'align-middle');
                 HtmlHelper.insertCell(tr, player.club.name, 'align-middle');
                 HtmlHelper.insertCell(tr, player.overall, 'align-middle', 'text-center');
@@ -144,6 +145,7 @@ let PlayersTable = (function () {
                 HtmlHelper.insertCell(tr, '', 'align-middle', 'text-center');
 
                 this._formatPosition(tr.children[1], player.position);
+                this._formatCountry(tr.children[2], player.country);
                 this._formatOverall(tr.children[5], player);
                 this._formatSide(tr.children[6], player);
                 this._formatEnergy(tr.children[7], player.energy);
@@ -156,6 +158,11 @@ let PlayersTable = (function () {
         _formatPosition(td, position) {
             td.classList.add('font-weight-bold', `text-${position.fieldRegion.color}`, 'border', `border-left-${position.fieldRegion.name}`);
             td.setAttribute('title', position.name);
+        }
+
+        _formatCountry(td, country) {
+            let flag = HtmlHelper.createImage(country.flag, country.name, 'img-miniature', 'border');
+            td.innerHTML = flag.outerHTML;
         }
 
         _formatOverall(td, player) {
