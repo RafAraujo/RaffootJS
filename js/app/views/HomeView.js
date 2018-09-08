@@ -27,7 +27,7 @@ class HomeView extends View {
                 this._setActiveSection.call(this, element);
                 $('.navbar-collapse').collapse('hide');
             })
-        );
+            );
     }
 
     update() {
@@ -65,7 +65,11 @@ class HomeView extends View {
 
         this._sections.forEach(e => HtmlHelper.hide(e));
         HtmlHelper.show(document.getElementById(this._currentSection));
-        window.scrollTo(0, 0);
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+        });
     }
 
     _fillFooter() {
