@@ -1,6 +1,7 @@
 let Player = (function () {
     let _players = [];
 
+    const _CATEGORIES = Object.freeze(['Gold', 'Silver', 'Bronze']);
     const _SIDES = Object.freeze(['Left', 'Center', 'Right']);
 
     return class Player extends Entity {
@@ -20,7 +21,7 @@ let Player = (function () {
             this.injuryProneness = injuryProneness;
             this.energy = 100;
             this._contractIds = [];
-            this.forSell = false;
+            this.forSale = false;
             this.forLoan = false;
         }
 
@@ -47,8 +48,12 @@ let Player = (function () {
             return _players;
         }
 
+        static categories() {
+            return _CATEGORIES;
+        }
+
         static sides() {
-            return ['Center', 'Left', 'Right'];
+            return _SIDES;
         }
 
         static minimumWage() {

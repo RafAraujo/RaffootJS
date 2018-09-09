@@ -37,7 +37,7 @@ let ChampionshipEditionEliminationPhaseDuel = (function () {
         }
 
         get finished() {
-            return !this.matches.some(m => !m.finished);
+            return this.matches.every(m => m.finished);
         }
 
         get aggregate() {

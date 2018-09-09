@@ -22,6 +22,10 @@ class HtmlHelper {
                 select.appendChild(new Option(option));
     }
 
+    static selectedOptions(select) {
+        return Array.from(select.querySelectorAll('option:checked'), o => o.value);
+    }
+
     static createElement(tagName, innerHTML, ...classList) {
         let element = document.createElement(tagName);
 

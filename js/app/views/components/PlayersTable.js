@@ -72,8 +72,7 @@ let PlayersTable = (function () {
     };
 
     return class PlayersTable {
-        constructor(tableId, players) {
-            this._tableId = tableId;
+        constructor(players) {
             this._players = players;
 
             this._tableOrder = {
@@ -85,24 +84,12 @@ let PlayersTable = (function () {
             this._container = null;
         }
 
-        _getSortedPlayers() {
-            let players = this._players.orderBy(...this._tableOrder.properties);
-
-            if (this._tableOrder.direction === -1)
-                players = players.reverse();
-
-            return players;
+        set players(value) {
+            this._players = value;
         }
 
-        setInvisibleColumns(invisibleColumns) {
-            invisibleColumns.forEach(column => this._invisibleColumns.push(this._getColumnIndexByDescription(column)));
-        }
-
-        _getColumnIndexByDescription(description) {
-            let index = _HEADER.items.map(i => i.description).indexOf(description);
-            if (index === -1)
-                index = _HEADER.items.map(i => i.title).indexOf(description);
-            return index;
+        set invisibleColumns(value) {
+            this._invisibleColumns = value.map(column => this._getColumnIndexByDescription(column));
         }
 
         build(container, ...classList) {
@@ -125,10 +112,26 @@ let PlayersTable = (function () {
 
             setTimeout(() => $('[data-toggle="tooltip"]:not(.d-none)').tooltip(), 0);
 
-            Array.from(document.querySelectorAll(`#${this._tableId} a.player`)).forEach(link => {
+            Array.from(this._table.querySelectorAll('a.player')).forEach(link => {
                 link.addEventListener('click', this._showPlayer.bind(this, link.getAttribute('data-id')));
                 link.removeAttribute('data-id');
             });
+        }
+
+        _getSortedPlayers() {
+            let players = this._players.orderBy(...this._tableOrder.properties);
+
+            if (this._tableOrder.direction === -1)
+                players = players.reverse();
+
+            return players;
+        }
+
+        _getColumnIndexByDescription(description) {
+            let index = _HEADER.items.map(i => i.description).indexOf(description);
+            if (index === -1)
+                index = _HEADER.items.map(i => i.title).indexOf(description);
+            return index;
         }
 
         _configHeader(thead) {
