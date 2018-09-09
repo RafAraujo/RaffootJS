@@ -1,5 +1,5 @@
 let PlayersTable = (function () {
-    const _PAGE_SIZE = 100;
+    const _PAGE_SIZE = 50;
 
     const _HEADER = {
         items: [
@@ -123,6 +123,7 @@ let PlayersTable = (function () {
         build() {
             $('[data-toggle="tooltip"]:not(.d-none)').tooltip('dispose');
             HtmlHelper.clearElement(this._container);
+            this._visiblePlayersCount = 0;
 
             this._table = HtmlHelper.createTable(null, _HEADER.items.map(item => item.title), this._classList);
             this._paragraph = HtmlHelper.createParagraph('');
