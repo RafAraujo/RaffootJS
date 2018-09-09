@@ -20,6 +20,8 @@ let Player = (function () {
             this.injuryProneness = injuryProneness;
             this.energy = 100;
             this._contractIds = [];
+            this.forSell = false;
+            this.forLoan = false;
         }
 
         static create(country, birthYear, position) {

@@ -1,5 +1,5 @@
 let PlayersTable = (function () {
-    const HEADER = {
+    const _HEADER = {
         items: [
             {
                 title: 'POS',
@@ -57,9 +57,19 @@ let PlayersTable = (function () {
                 title: 'CON',
                 description: 'Condition',
                 orderProperties: ['condition']
+            },
+            {
+                title: 'S',
+                description: 'For Sell',
+                orderProperties: ['forSell']
+            },
+            {
+                title: 'L',
+                description: 'For Loan',
+                orderProperties: ['forLoan']
             }
         ]
-    }
+    };
 
     return class PlayersTable {
         constructor(tableId, players) {
@@ -67,7 +77,7 @@ let PlayersTable = (function () {
             this._players = players;
 
             this._tableOrder = {
-                properties: HEADER.items[0].orderProperties,
+                properties: _HEADER.items[0].orderProperties,
                 direction: 1
             };
 
@@ -89,17 +99,19 @@ let PlayersTable = (function () {
         }
 
         _getColumnIndexByDescription(description) {
-            let index = HEADER.items.map(i => i.description).indexOf(description);
+            let index = _HEADER.items.map(i => i.description).indexOf(description);
             if (index === -1)
-                index = HEADER.items.map(i => i.title).indexOf(description);
+                index = _HEADER.items.map(i => i.title).indexOf(description);
             return index;
         }
 
         build(container, ...classList) {
             this._container = container;
+
+            setTimeout(() => $('[data-toggle="tooltip"]:not(.d-none)').tooltip('dispose'), 0);
             HtmlHelper.clearElement(this._container);
 
-            this._table = HtmlHelper.createTable(null, HEADER.items.map(item => item.title));
+            this._table = HtmlHelper.createTable(null, _HEADER.items.map(item => item.title));
             this._table.setAttribute('id', this._tableId);
             this._table.classList.add('sortable');
 
@@ -111,7 +123,7 @@ let PlayersTable = (function () {
 
             container.appendChild(this._table);
 
-            $('[data-toggle="tooltip"]:not(.d-none)').tooltip();
+            setTimeout(() => $('[data-toggle="tooltip"]:not(.d-none)').tooltip(), 0);
 
             Array.from(document.querySelectorAll(`#${this._tableId} a.player`)).forEach(link => {
                 link.addEventListener('click', this._showPlayer.bind(this, link.getAttribute('data-id')));
@@ -122,7 +134,7 @@ let PlayersTable = (function () {
         _configHeader(thead) {
             let tr = thead.children[0];
 
-            HEADER.items.forEach((item, index) => {
+            _HEADER.items.forEach((item, index) => {
                 if (item.description)
                     HtmlHelper.setTooltip(tr.children[index], item.description);
 
@@ -151,6 +163,8 @@ let PlayersTable = (function () {
                 HtmlHelper.insertCell(tr, player.age, 'align-middle', 'text-center');
                 HtmlHelper.insertCell(tr, player.currentContract.endDate.toLocaleDateString(), 'align-middle', 'text-center');
                 HtmlHelper.insertCell(tr, player.condition, 'align-middle', 'text-center');
+                HtmlHelper.insertCell(tr, player.forSell, 'align-middle', 'text-center');
+                HtmlHelper.insertCell(tr, player.forLoan, 'align-middle', 'text-center');
 
                 this._formatPosition(tr.children[0], player.position);
                 this._formatCountry(tr.children[1], player.country);
@@ -161,6 +175,8 @@ let PlayersTable = (function () {
                 this._formatAge(tr.children[10], player.age);
                 this._formatContract(tr.children[11], player.currentContract);
                 this._formatCondition(tr.children[12], player.condition);
+                this._formatForSell(tr.children[13], player.forSell);
+                this._formatForLoan(tr.children[14], player.forLoan);
             });
         }
 
@@ -244,6 +260,22 @@ let PlayersTable = (function () {
             td.innerText = '';
             td.appendChild(icon);
             HtmlHelper.setTooltip(td, tooltipIcon.outerHTML, 'right', 'fa-lg');
+        }
+
+        _formatForSell(td, forSell) {
+            td.innerText = '';
+            if (forSell) {
+                let icon = HtmlHelper.createIcon('check-circle', BLUE, 'fa-lg')
+                td.appendChild(icon);
+            }
+        }
+
+        _formatForLoan(td, forLoan) {
+            td.innerText = '';
+            if (forLoan) {
+                let icon = HtmlHelper.createIcon('check-circle', BLUE, 'fa-lg')
+                td.appendChild(icon);
+            }
         }
 
         _sort(orderProperties) {
