@@ -1,5 +1,5 @@
 let ConnectionFactory = (function () {
-    const RAFFOOT_DATABASES = 'RaffootDatabases';
+    const _DATABASES = 'RaffootDatabases';
 
     let connection = null;
     let close = null;
@@ -12,19 +12,19 @@ let ConnectionFactory = (function () {
         static _addDatabaseName(dbName) {
             let databases = ConnectionFactory.getDatabases();
             databases.push(dbName);
-            window.localStorage.setItem(RAFFOOT_DATABASES, JSON.stringify(databases));
+            window.localStorage.setItem(_DATABASES, JSON.stringify(databases));
             return ConnectionFactory.getDatabases();
         }
 
         static _removeDatabaseName(dbName) {
             let databases = ConnectionFactory.getDatabases();
             databases.remove(dbName);
-            window.localStorage.setItem(RAFFOOT_DATABASES, JSON.stringify(databases));
+            window.localStorage.setItem(_DATABASES, JSON.stringify(databases));
             return ConnectionFactory.getDatabases();
         }
 
         static getDatabases() {
-            return JSON.parse(window.localStorage.getItem(RAFFOOT_DATABASES)) || [];
+            return JSON.parse(window.localStorage.getItem(_DATABASES)) || [];
         }
 
         static getConnection(dbName, createIfNotExists = false) {

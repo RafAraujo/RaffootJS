@@ -76,7 +76,7 @@ class HomeView extends View {
         this._aPlayerCount.innerText = this._game.club.squad.squadPlayers.length;
 
         this._aMoney.innerText = `${this._game.club.money.toLocaleString()}`;
-        if (this._game.club.money >= 0) {
+        if (this._game.club.money <= 0) {
             this._aMoney.parentElement.style.color = RED;
             this._aMoney.classList.remove('text-dark', 'text-success', 'text-danger');
             this._aMoney.classList.add(`text-danger`);
