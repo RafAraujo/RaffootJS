@@ -55,7 +55,7 @@ class HomeView extends View {
         this._currentSection = link.getAttribute('href').substr(1);
 
         document.querySelectorAll('header a').forEach(e => e.classList.remove('active'));
-        let span = document.querySelector('header a > span.sr-only')
+        let span = document.querySelector('header a > span.sr-only');
         if (span)
             span.parentElement.removeChild(span);
         link.appendChild(HtmlHelper.createElement('span', '(current)', 'sr-only'));
@@ -76,10 +76,10 @@ class HomeView extends View {
         this._aPlayerCount.innerText = this._game.club.squad.squadPlayers.length;
 
         this._aMoney.innerText = `${this._game.club.money.toLocaleString()}`;
-        if (this._game.club.money <= 0) {
-            aMoney.parentElement.style.color = '#dc3545';
-            aMoney.classList.remove('text-dark', 'text-success', 'text-danger');
-            aMoney.classList.add(`text-danger`);
+        if (this._game.club.money >= 0) {
+            this._aMoney.parentElement.style.color = RED;
+            this._aMoney.classList.remove('text-dark', 'text-success', 'text-danger');
+            this._aMoney.classList.add(`text-danger`);
         }
 
         this._aDate.innerText = this._game.currentSeason.currentDate.toLocaleDateString();
