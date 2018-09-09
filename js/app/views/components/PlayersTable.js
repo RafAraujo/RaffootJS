@@ -117,7 +117,7 @@ let PlayersTable = (function () {
         }
 
         get _info() {
-            return `Showing ${this._visiblePlayersCount} of ${this._players.length}`;            
+            return `Showing ${this._visiblePlayersCount} of ${this._players.length}`;
         }
 
         build() {
@@ -133,15 +133,12 @@ let PlayersTable = (function () {
 
             this._container.appendChild(this._table);
             this._container.appendChild(this._paragraph);
-            
             this._configLoadMore();
-            this._configLinks();
-
-            setTimeout(() => $('[data-toggle="tooltip"]:not(.d-none)').tooltip(), 0);
         }
 
         loadMore() {
             this._fillBody(this._nextPlayers);
+            this._buttonLoadMore.disabled = this._visiblePlayersCount === this._players.length;
         }
 
         _updateOrder(orderProperties) {
@@ -212,7 +209,10 @@ let PlayersTable = (function () {
             });
 
             this._invisibleColumns.forEach(index => HtmlHelper.hideColumn(this._table, index));
-            this._updateInfo();
+            this._paragraph.innerText = this._info;
+            this._configLinks();
+
+            setTimeout(() => $('[data-toggle="tooltip"]:not(.d-none)').tooltip(), 0);
         }
 
         _formatPosition(td, position) {
@@ -300,7 +300,7 @@ let PlayersTable = (function () {
         _formatForSale(td, forSale) {
             td.innerText = '';
             if (forSale) {
-                let icon = HtmlHelper.createIcon('check-circle', BLUE, 'fa-lg')
+                let icon = HtmlHelper.createIcon('check-circle', BLUE, 'fa-lg');
                 td.appendChild(icon);
             }
         }
@@ -308,26 +308,22 @@ let PlayersTable = (function () {
         _formatForLoan(td, forLoan) {
             td.innerText = '';
             if (forLoan) {
-                let icon = HtmlHelper.createIcon('check-circle', BLUE, 'fa-lg')
+                let icon = HtmlHelper.createIcon('check-circle', BLUE, 'fa-lg');
                 td.appendChild(icon);
             }
         }
 
-        _updateInfo() {
-            this._paragraph.innerText = this._info;
-        }
-
         _configLoadMore() {
-            let button = HtmlHelper.createButton('Load more', 'btn-primary');
-            this._container.appendChild(button);
-
-            button.addEventListener('click', this.loadMore.bind(this));
+            this._buttonLoadMore = HtmlHelper.createButton('Load more', 'btn-primary');
+            this._container.appendChild(this._buttonLoadMore);
+            this._buttonLoadMore.addEventListener('click', this.loadMore.bind(this));
         }
 
         _configLinks() {
             Array.from(this._table.querySelectorAll('a.player')).forEach(link => {
                 link.addEventListener('click', this._showPlayer.bind(this, link.getAttribute('data-id')));
                 link.removeAttribute('data-id');
+                link.classList.remove('player');
             });
         }
 
