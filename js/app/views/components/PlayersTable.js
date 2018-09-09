@@ -1,10 +1,12 @@
 let PlayersTable = (function () {
+    const _PAGE_SIZE = 100;
+
     const _HEADER = {
         items: [
             {
                 title: 'POS',
                 description: 'Position',
-                orderProperties: ['position.line', 'position.abbreviation']
+                orderProperties: ['position.line', 'position.abbreviation', 'name']
             },
             {
                 title: '',
@@ -94,8 +96,9 @@ let PlayersTable = (function () {
 
         build(container, ...classList) {
             this._container = container;
+            this._classList = classList;
 
-            setTimeout(() => $('[data-toggle="tooltip"]:not(.d-none)').tooltip('dispose'), 0);
+            $('[data-toggle="tooltip"]:not(.d-none)').tooltip('dispose');
             HtmlHelper.clearElement(this._container);
 
             this._table = HtmlHelper.createTable(null, _HEADER.items.map(item => item.title));
@@ -118,13 +121,27 @@ let PlayersTable = (function () {
             });
         }
 
+        _updateOrder(orderProperties) {
+            orderProperties = orderProperties.concat(_HEADER.items[0].orderProperties);
+
+            this._tableOrder.direction = (JSON.stringify(orderProperties) === JSON.stringify(this._tableOrder.properties)) ? this._tableOrder.direction * -1 : 1;
+
+            if (!orderProperties)
+                orderProperties = this._tableOrder.properties;
+
+            this._tableOrder.properties = orderProperties;
+
+            this.build(this._container, ...this._classList);
+        }
+        
+
         _getSortedPlayers() {
             let players = this._players.orderBy(...this._tableOrder.properties);
 
             if (this._tableOrder.direction === -1)
                 players = players.reverse();
 
-            return players;
+            return players.firstItems(Math.min(players.length, _PAGE_SIZE));
         }
 
         _getColumnIndexByDescription(description) {
@@ -141,7 +158,7 @@ let PlayersTable = (function () {
                 if (item.description)
                     HtmlHelper.setTooltip(tr.children[index], item.description);
 
-                tr.children[index].addEventListener('click', this._sort.bind(this, item.orderProperties));
+                tr.children[index].addEventListener('click', this._updateOrder.bind(this, item.orderProperties));
             });
         }
 
@@ -279,17 +296,6 @@ let PlayersTable = (function () {
                 let icon = HtmlHelper.createIcon('check-circle', BLUE, 'fa-lg')
                 td.appendChild(icon);
             }
-        }
-
-        _sort(orderProperties) {
-            this._tableOrder.direction = (JSON.stringify(orderProperties) === JSON.stringify(this._tableOrder.properties)) ? this._tableOrder.direction * -1 : 1;
-
-            if (!orderProperties)
-                orderProperties = this._tableOrder.properties;
-
-            this._tableOrder.properties = orderProperties;
-
-            this.build(this._container);
         }
 
         _showPlayer(id, event) {

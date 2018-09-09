@@ -99,6 +99,6 @@ class _PlayersView {
         if (this._inputForLoan.checked)
             players = players.filter(p => p.forLoan);
 
-        return players.firstItems(Math.min(players.length, 50));
+        return players;
     }
 }

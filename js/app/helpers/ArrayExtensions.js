@@ -20,9 +20,7 @@ Array.prototype.getRandomItems = function (count) {
     if (count > this.length)
         throw new RangeError('ArrayExtensions.getRandomItems(count)');
 
-    let result = this.slice();
-    result.shuffle();
-    return result.firstItems(count);
+    return this.slice().shuffle().firstItems(count);
 }
 
 Array.prototype.last = function () {
@@ -40,7 +38,7 @@ Array.prototype.max = function () {
 }
 
 Array.prototype.orderBy = function () {
-    return this.sort(dynamicSort(arguments));
+    return this.slice().sort(dynamicSort(arguments));
 }
 
 function dynamicSort(properties) {
