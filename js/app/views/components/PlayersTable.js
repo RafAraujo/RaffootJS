@@ -62,8 +62,8 @@ let PlayersTable = (function () {
             },
             {
                 title: 'S',
-                description: 'For Sell',
-                orderProperties: ['forSell']
+                description: 'For Sale',
+                orderProperties: ['forSale']
             },
             {
                 title: 'L',
@@ -74,8 +74,10 @@ let PlayersTable = (function () {
     };
 
     return class PlayersTable {
-        constructor(players) {
+        constructor(players, container, ...classList) {
             this._players = players;
+            this._container = container;
+            this._classList = classList.concat(['sortable']);
 
             this._tableOrder = {
                 properties: _HEADER.items[0].orderProperties,
@@ -83,7 +85,7 @@ let PlayersTable = (function () {
             };
 
             this._invisibleColumns = [];
-            this._container = null;
+            this._visiblePlayersCount = 0;
         }
 
         set players(value) {
@@ -94,31 +96,51 @@ let PlayersTable = (function () {
             this._invisibleColumns = value.map(column => this._getColumnIndexByDescription(column));
         }
 
-        build(container, ...classList) {
-            this._container = container;
-            this._classList = classList;
+        get _sortedPlayers() {
+            let players = this._players.orderBy(...this._tableOrder.properties);
 
+            if (this._tableOrder.direction === -1)
+                players = players.reverse();
+
+            return players;
+        }
+
+        get _invisiblePlayersCount() {
+            return this._players.length - this._visiblePlayersCount;
+        }
+
+        get _nextPlayers() {
+            let count = Math.min(this._invisiblePlayersCount, _PAGE_SIZE);
+            let players = this._sortedPlayers.slice(this._visiblePlayersCount, this._visiblePlayersCount + count);
+            this._visiblePlayersCount += count;
+            return players;
+        }
+
+        get _info() {
+            return `Showing ${this._visiblePlayersCount} of ${this._players.length}`;            
+        }
+
+        build() {
             $('[data-toggle="tooltip"]:not(.d-none)').tooltip('dispose');
             HtmlHelper.clearElement(this._container);
 
-            this._table = HtmlHelper.createTable(null, _HEADER.items.map(item => item.title));
-            this._table.setAttribute('id', this._tableId);
-            this._table.classList.add('sortable');
+            this._table = HtmlHelper.createTable(null, _HEADER.items.map(item => item.title), this._classList);
+            this._paragraph = HtmlHelper.createParagraph('');
 
-            this._configHeader(this._table.children[0]);
-            this._fillBody(this._table.children[1]);
+            this._configHeader();
+            this._fillBody(this._nextPlayers);
 
-            this._invisibleColumns.forEach(index => HtmlHelper.hideColumn(this._table, index));
-            this._table.classList.add(...classList);
-
-            container.appendChild(this._table);
+            this._container.appendChild(this._table);
+            this._container.appendChild(this._paragraph);
+            
+            this._configLoadMore();
+            this._configLinks();
 
             setTimeout(() => $('[data-toggle="tooltip"]:not(.d-none)').tooltip(), 0);
+        }
 
-            Array.from(this._table.querySelectorAll('a.player')).forEach(link => {
-                link.addEventListener('click', this._showPlayer.bind(this, link.getAttribute('data-id')));
-                link.removeAttribute('data-id');
-            });
+        loadMore() {
+            this._fillBody(this._nextPlayers);
         }
 
         _updateOrder(orderProperties) {
@@ -131,17 +153,8 @@ let PlayersTable = (function () {
 
             this._tableOrder.properties = orderProperties;
 
-            this.build(this._container, ...this._classList);
-        }
-        
-
-        _getSortedPlayers() {
-            let players = this._players.orderBy(...this._tableOrder.properties);
-
-            if (this._tableOrder.direction === -1)
-                players = players.reverse();
-
-            return players.firstItems(Math.min(players.length, _PAGE_SIZE));
+            HtmlHelper.clearElement(this._table.querySelector('tbody'));
+            this._fillBody(this._sortedPlayers);
         }
 
         _getColumnIndexByDescription(description) {
@@ -151,8 +164,8 @@ let PlayersTable = (function () {
             return index;
         }
 
-        _configHeader(thead) {
-            let tr = thead.children[0];
+        _configHeader() {
+            let tr = this._table.querySelector('thead tr');
 
             _HEADER.items.forEach((item, index) => {
                 if (item.description)
@@ -162,10 +175,8 @@ let PlayersTable = (function () {
             });
         }
 
-        _fillBody(tbody) {
-            HtmlHelper.clearElement(tbody);
-
-            let players = this._getSortedPlayers();
+        _fillBody(players) {
+            let tbody = this._table.querySelector('tbody');
 
             players.forEach(player => {
                 let tr = tbody.insertRow();
@@ -183,7 +194,7 @@ let PlayersTable = (function () {
                 HtmlHelper.insertCell(tr, player.age, 'align-middle', 'text-center');
                 HtmlHelper.insertCell(tr, player.currentContract.endDate.toLocaleDateString(), 'align-middle', 'text-center');
                 HtmlHelper.insertCell(tr, player.condition, 'align-middle', 'text-center');
-                HtmlHelper.insertCell(tr, player.forSell, 'align-middle', 'text-center');
+                HtmlHelper.insertCell(tr, player.forSale, 'align-middle', 'text-center');
                 HtmlHelper.insertCell(tr, player.forLoan, 'align-middle', 'text-center');
 
                 this._formatPosition(tr.children[0], player.position);
@@ -195,9 +206,12 @@ let PlayersTable = (function () {
                 this._formatAge(tr.children[10], player.age);
                 this._formatContract(tr.children[11], player.currentContract);
                 this._formatCondition(tr.children[12], player.condition);
-                this._formatForSell(tr.children[13], player.forSell);
+                this._formatForSale(tr.children[13], player.forSale);
                 this._formatForLoan(tr.children[14], player.forLoan);
             });
+
+            this._invisibleColumns.forEach(index => HtmlHelper.hideColumn(this._table, index));
+            this._updateInfo();
         }
 
         _formatPosition(td, position) {
@@ -282,9 +296,9 @@ let PlayersTable = (function () {
             HtmlHelper.setTooltip(td, tooltipIcon.outerHTML, 'right', 'fa-lg');
         }
 
-        _formatForSell(td, forSell) {
+        _formatForSale(td, forSale) {
             td.innerText = '';
-            if (forSell) {
+            if (forSale) {
                 let icon = HtmlHelper.createIcon('check-circle', BLUE, 'fa-lg')
                 td.appendChild(icon);
             }
@@ -296,6 +310,24 @@ let PlayersTable = (function () {
                 let icon = HtmlHelper.createIcon('check-circle', BLUE, 'fa-lg')
                 td.appendChild(icon);
             }
+        }
+
+        _updateInfo() {
+            this._paragraph.innerText = this._info;
+        }
+
+        _configLoadMore() {
+            let button = HtmlHelper.createButton('Load more', 'btn-primary');
+            this._container.appendChild(button);
+
+            button.addEventListener('click', this.loadMore.bind(this));
+        }
+
+        _configLinks() {
+            Array.from(this._table.querySelectorAll('a.player')).forEach(link => {
+                link.addEventListener('click', this._showPlayer.bind(this, link.getAttribute('data-id')));
+                link.removeAttribute('data-id');
+            });
         }
 
         _showPlayer(id, event) {

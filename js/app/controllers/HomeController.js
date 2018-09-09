@@ -10,11 +10,14 @@ class HomeController {
 
     get _gameName() {
         let queryString = window.location.search;
-        return decodeURIComponent(queryString.substring(queryString.indexOf('=') + 1));
+        return decodeURIComponent(queryString.substring(queryString.indexOf('=') + 1).trim());
     }
 
     loadGame() {
         let t0 = performance.now();
+
+        if (this._gameName === '')
+            document.location.href = 'index.html';
 
         this._view.showMessage('Loading game...', 'primary');
 

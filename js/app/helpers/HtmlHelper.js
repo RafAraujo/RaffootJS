@@ -37,6 +37,12 @@ class HtmlHelper {
         return element;
     }
 
+    static createButton(innerHTML, ...classList) {
+        let button = HtmlHelper.createElement('button', innerHTML, 'btn');
+        button.classList.add(...classList);
+        return button;
+    }
+
     static createLink(href, innerHTML, ...classList) {
         let link = HtmlHelper.createElement('a', innerHTML, ...classList);
         link.setAttribute('href', href);
@@ -61,6 +67,11 @@ class HtmlHelper {
         return img;
     }
 
+    static createParagraph(innerHTML, ...classList) {
+        let p = HtmlHelper.createElement('p', innerHTML, ...classList);
+        return p;
+    }
+
     static createProgressBar(value, ...classList) {
         let divProgress = HtmlHelper.createElement('div', '', 'progress');
         let divProgressBar = HtmlHelper.createElement('div', value, 'progress-bar');
@@ -75,8 +86,9 @@ class HtmlHelper {
         return divProgress;
     }
 
-    static createTable(title, headers) {
+    static createTable(title, headers, ...classList) {
         let table = HtmlHelper.createElement('table', '', 'table', 'table-responsive', 'table-hover');
+        table.classList.add(...classList);
 
         let thead = HtmlHelper.createElement('thead');
 
@@ -117,13 +129,7 @@ class HtmlHelper {
     }
 
     static hideColumn(table, columnIndex) {
-        let thead = table.children[0];
-        let tbody = table.children[1];
-        let tfoot = table.children[2];
-
-        let tableSections = [thead, tbody, tfoot];
-
-        tableSections.filter(section => section != null).forEach(section => {
+        Array.from(table.children).filter(section => section != null).forEach(section => {
             Array.from(section.children).forEach(row => row.children[columnIndex].classList.add('d-none'));
         });
     }

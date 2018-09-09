@@ -2,8 +2,6 @@ class _PlayersView {
     constructor(game) {
         this._game = game;
 
-        this._component = new PlayersTable([]);
-
         this._divContent = document.getElementById('players-content');
 
         this._inputName = document.getElementById('player-name');
@@ -22,6 +20,7 @@ class _PlayersView {
         this._inputForLoan = document.getElementById('player-for-loan');
 
         this._fillFields();
+        this._component = new PlayersTable([], this._divContent, 'mt-3');
 
         document.querySelector('#players form').addEventListener('submit', event => {
             event.preventDefault();
@@ -54,7 +53,7 @@ class _PlayersView {
     _fillTable() {
         this._component.players = this._searchPlayers();
         this._component.invisibleColumns = ['Energy', 'Condition'];
-        this._component.build(this._divContent, 'mt-3');
+        this._component.build();
     }
 
     _searchPlayers() {
