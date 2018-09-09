@@ -125,7 +125,7 @@ let PlayersTable = (function () {
             HtmlHelper.clearElement(this._container);
             this._visiblePlayersCount = 0;
 
-            this._table = HtmlHelper.createTable(null, _HEADER.items.map(item => item.title), this._classList);
+            this._table = HtmlHelper.createTable(null, _HEADER.items.map(item => item.title), ...this._classList);
             this._paragraph = HtmlHelper.createParagraph('');
 
             this._configHeader();
@@ -155,7 +155,7 @@ let PlayersTable = (function () {
             this._tableOrder.properties = orderProperties;
 
             HtmlHelper.clearElement(this._table.querySelector('tbody'));
-            this._fillBody(this._sortedPlayers);
+            this._fillBody(this._sortedPlayers.slice(0, this._visiblePlayersCount));
         }
 
         _getColumnIndexByDescription(description) {
