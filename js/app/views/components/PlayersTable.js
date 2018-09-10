@@ -144,7 +144,7 @@ let PlayersTable = (function () {
 
             this._table = HtmlHelper.createTable(null, _HEADER.items.map(item => item.title), ...this._classList);
             this._pInfo = HtmlHelper.createParagraph('');
-            this._buttonLoadMore = HtmlHelper.createButton('Load more', 'btn-primary');
+            this._buttonLoadMore = HtmlHelper.createButton('Load more', 'btn-primary', 'mb-3');
 
             this._configHeader();
             this._fillBody(this._nextPlayers);
