@@ -86,6 +86,8 @@ let PlayersTable = (function () {
 
             this._invisibleColumns = [];
             this._visiblePlayersCount = 0;
+            this._showInfo = true;
+            this._showLoadMore = true;
         }
 
         set players(value) {
@@ -94,6 +96,14 @@ let PlayersTable = (function () {
 
         set invisibleColumns(value) {
             this._invisibleColumns = value.map(column => this._getColumnIndexByDescription(column));
+        }
+
+        set showInfo(value) {
+            this._showInfo = value;
+        }
+
+        set showLoadMore(value) {
+            this._showLoadMore = value;
         }
 
         get _sortedPlayers() {
@@ -126,19 +136,22 @@ let PlayersTable = (function () {
             this._visiblePlayersCount = 0;
 
             this._table = HtmlHelper.createTable(null, _HEADER.items.map(item => item.title), ...this._classList);
-            this._paragraph = HtmlHelper.createParagraph('');
+            this._pInfo = HtmlHelper.createParagraph('');
+            this._buttonLoadMore = HtmlHelper.createButton('Load more', 'btn-primary');
 
             this._configHeader();
             this._fillBody(this._nextPlayers);
 
             this._container.appendChild(this._table);
-            this._container.appendChild(this._paragraph);
+            this._container.appendChild(this._pInfo);
             this._configLoadMore();
+
+            this._showInfo ? HtmlHelper.show(this._pInfo) : HtmlHelper.hide(this._pInfo);
+            this._showLoadMore ? HtmlHelper.show(this._buttonLoadMore) : HtmlHelper.hide(this._buttonLoadMore);
         }
 
         loadMore() {
             this._fillBody(this._nextPlayers);
-            this._buttonLoadMore.disabled = this._visiblePlayersCount === this._players.length;
         }
 
         _updateOrder(orderProperties) {
@@ -209,7 +222,8 @@ let PlayersTable = (function () {
             });
 
             this._invisibleColumns.forEach(index => HtmlHelper.hideColumn(this._table, index));
-            this._paragraph.innerText = this._info;
+            this._pInfo.innerText = this._info;
+            this._buttonLoadMore.disabled = this._visiblePlayersCount === this._players.length;
             this._configLinks();
 
             setTimeout(() => $('[data-toggle="tooltip"]:not(.d-none)').tooltip(), 0);
@@ -314,7 +328,6 @@ let PlayersTable = (function () {
         }
 
         _configLoadMore() {
-            this._buttonLoadMore = HtmlHelper.createButton('Load more', 'btn-primary');
             this._container.appendChild(this._buttonLoadMore);
             this._buttonLoadMore.addEventListener('click', this.loadMore.bind(this));
         }
