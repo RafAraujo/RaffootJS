@@ -134,7 +134,7 @@ let PlayersTable = (function () {
         }
 
         get _info() {
-            return `Showing ${this._visiblePlayersCount} of ${this._players.length}`;
+            return `Showing ${this._visiblePlayersCount.toLocaleString()} of ${this._players.length.toLocaleString()}`;
         }
 
         build() {
