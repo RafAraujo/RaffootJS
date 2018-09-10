@@ -52,6 +52,9 @@ class HomeView extends View {
     }
 
     _setActiveSection(link) {
+        if (Array.from(link.classList).includes('navbar-brand'))
+            return;
+
         this._currentSection = link.getAttribute('href').substr(1);
 
         document.querySelectorAll('header a').forEach(e => e.classList.remove('active'));
