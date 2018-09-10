@@ -4,10 +4,6 @@ class HomeController {
         this._view = new View();
     }
 
-    get _queryString() {
-        return window.location.search;
-    }
-
     get _gameName() {
         let queryString = window.location.search;
         return decodeURIComponent(queryString.substring(queryString.indexOf('=') + 1).trim());
@@ -33,9 +29,5 @@ class HomeController {
                 console.log(error);
                 this._view.showMessage('Error on loading game', 'danger');
             });
-    }
-
-    sortSquad(orderProperties) {
-        this._view.sortSquad(orderProperties);
     }
 }

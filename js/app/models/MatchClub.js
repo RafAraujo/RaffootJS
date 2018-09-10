@@ -39,5 +39,9 @@ let MatchClub = (function () {
         get matchClubStats() {
             return MatchClubStats.all()[this._matchClubStatsId - 1];
         }
+
+        get goals() {
+            return this.match.finished ? this.matchClubStats.goals : null;
+        }
     }
 })();

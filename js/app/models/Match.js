@@ -15,6 +15,7 @@ let Match = (function () {
             this.audience = null;
             this.income = null;
             this.time = 0;
+            this.finished = false;
         }
 
         static create(championshipEdition, date) {

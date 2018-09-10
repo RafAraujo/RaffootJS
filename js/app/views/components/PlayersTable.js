@@ -1,6 +1,4 @@
 let PlayersTable = (function () {
-    const _PAGE_SIZE = 50;
-
     const _HEADER = {
         items: [
             {
@@ -86,6 +84,7 @@ let PlayersTable = (function () {
 
             this._invisibleColumns = [];
             this._visiblePlayersCount = 0;
+            this._pageSize = 50;
             this._showInfo = true;
             this._showLoadMore = true;
         }
@@ -96,6 +95,10 @@ let PlayersTable = (function () {
 
         set invisibleColumns(value) {
             this._invisibleColumns = value.map(column => this._getColumnIndexByDescription(column));
+        }
+
+        set pageSize(value) {
+            this._pageSize = value;
         }
 
         set showInfo(value) {
@@ -115,12 +118,16 @@ let PlayersTable = (function () {
             return players;
         }
 
+        get _visiblePlayers() {
+            return this._sortedPlayers.slice(0, this._visiblePlayersCount);
+        }
+
         get _invisiblePlayersCount() {
             return this._players.length - this._visiblePlayersCount;
         }
 
         get _nextPlayers() {
-            let count = Math.min(this._invisiblePlayersCount, _PAGE_SIZE);
+            let count = Math.min(this._invisiblePlayersCount, this._pageSize);
             let players = this._sortedPlayers.slice(this._visiblePlayersCount, this._visiblePlayersCount + count);
             this._visiblePlayersCount += count;
             return players;
@@ -165,7 +172,7 @@ let PlayersTable = (function () {
             this._tableOrder.properties = orderProperties;
 
             HtmlHelper.clearElement(this._table.querySelector('tbody'));
-            this._fillBody(this._sortedPlayers.slice(0, this._visiblePlayersCount));
+            this._fillBody(this._visiblePlayers);
         }
 
         _getColumnIndexByDescription(description) {

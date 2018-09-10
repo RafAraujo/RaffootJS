@@ -12,7 +12,9 @@ class _CalendarView {
             HtmlHelper.insertCell(tr, match.id, 'd-none');
             HtmlHelper.insertCell(tr, match.date.toLocaleDateString(), 'text-center');
             HtmlHelper.insertCell(tr, match.matchClubHome.club.name, 'text-left');
-            HtmlHelper.insertCell(tr, match.score, 'text-center');
+            HtmlHelper.insertCell(tr, match.matchClubHome.goals, 'text-center');
+            HtmlHelper.insertCell(tr, 'x', 'text-center');
+            HtmlHelper.insertCell(tr, match.matchClubAway.goals, 'text-center');
             HtmlHelper.insertCell(tr, match.matchClubAway.club.name, 'text-right');
             HtmlHelper.insertCell(tr, match.championshipEdition.championship.name, 'text-right');
             HtmlHelper.insertCell(tr, match.audience, 'text-center');
