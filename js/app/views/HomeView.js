@@ -52,10 +52,11 @@ class HomeView extends View {
     }
 
     _setActiveSection(link) {
-        if (Array.from(link.classList).includes('navbar-brand'))
+        let href = link.getAttribute('href').substr(1);
+        if (!href)
             return;
 
-        this._currentSection = link.getAttribute('href').substr(1);
+        this._currentSection = href;
 
         document.querySelectorAll('header a').forEach(e => e.classList.remove('active'));
         let span = document.querySelector('header a > span.sr-only');
@@ -63,7 +64,7 @@ class HomeView extends View {
             span.parentElement.removeChild(span);
         link.appendChild(HtmlHelper.createElement('span', '(current)', 'sr-only'));
 
-        let active = link.classList.contains('dropdown-item') ? link.parentElement.parentElement.children[0] : document.querySelector(`header a[href='#${this._currentSection}']`);
+        let active = link.classList.contains('dropdown-item') ? link.parentElement.parentElement.children[0] : link;
         active.classList.add('active');
 
         this._sections.forEach(e => HtmlHelper.hide(e));

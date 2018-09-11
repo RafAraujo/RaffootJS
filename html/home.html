@@ -84,7 +84,7 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <table id="table-calendar" class="table table-responsive table-hover">
+                        <table id="calendar-table" class="table table-responsive table-hover">
                             <thead>
                                 <tr>
                                     <th class="d-none">Id</th>
@@ -140,6 +140,16 @@
                         <h5 class="text-secondary">Clubs</h5>
                     </div>
                 </div>
+                <div class="row form-group">
+                    <div class="col-6 col-sm-4">
+                        <label for="clubs-country">Country</label>
+                        <select id="clubs-country" class="form-control" required></select>
+                    </div>
+                    <div class="col-6 col-sm-4">
+                        <label for="clubs-club">Club</label>
+                        <select id="clubs-club" class="form-control" required></select>
+                    </div>
+                </div>
             </section>
             <section id="players" class="section-anchor d-none">
                 <div class="row">
@@ -152,66 +162,66 @@
                         <legend>Search Players</legend>
                         <div class="row form-group">
                             <div class="col-12 col-sm-4">
-                                <label for="player-name">Name</label>
-                                <input id="player-name" type="text" class="form-control">
-                            </div>
-      
-                            <div class="col-6 col-sm-3">
-                                <label for="player-country">Nationality</label>
-                                <select id="player-country" class="form-control"></select>
+                                <label for="players-name">Name</label>
+                                <input id="players-name" type="text" class="form-control">
                             </div>
 
                             <div class="col-6 col-sm-3">
-                                <label for="player-age">Age</label>
-                                <select id="player-age" class="form-control"></select>
+                                <label for="players-country">Nationality</label>
+                                <select id="players-country" class="form-control"></select>
+                            </div>
+
+                            <div class="col-6 col-sm-3">
+                                <label for="players-age">Age</label>
+                                <select id="players-age" class="form-control"></select>
                             </div>
                         </div>
                         <div class="row form-group">
                             <div class="col-12 col-sm-4">
-                                <label for="player-position">Position</label>
-                                <select id="player-position" class="form-control" multiple></select>
+                                <label for="players-position">Position</label>
+                                <select id="players-position" class="form-control" multiple></select>
                             </div>
 
                             <div class="col-6 col-sm-3">
-                                <label for="player-side">Preferred Side</label>
-                                <select id="player-side" class="form-control" multiple></select>
+                                <label for="players-side">Preferred Side</label>
+                                <select id="players-side" class="form-control" multiple></select>
                             </div>
 
                             <div class="col-6 col-sm-3">
-                                <label for="player-skill">Skill</label>
-                                <select id="player-skill" class="form-control" multiple></select>
+                                <label for="players-skill">Skill</label>
+                                <select id="players-skill" class="form-control" multiple></select>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-6 col-sm-3">
-                                <label for="player-category">Category</label>
-                                <select id="player-category" class="form-control"></select>
+                                <label for="players-category">Category</label>
+                                <select id="players-category" class="form-control"></select>
                             </div>
 
                             <div class="col-6 col-sm-3">
-                                <label for="player-overall">Overall</label>
-                                <select id="player-overall" class="form-control"></select>
+                                <label for="players-overall">Overall</label>
+                                <select id="players-overall" class="form-control"></select>
                             </div>
                         </div>
                         <div class="row mt-3 mb-3">
                             <div class="col">
                                 <div class="form-check-inline">
-                                    <input id="player-star" type="checkbox" class="form-check-input">
-                                    <label for="player-star" class="form-check-label">Star</label>
+                                    <input id="players-star" type="checkbox" class="form-check-input">
+                                    <label for="players-star" class="form-check-label">Star</label>
                                 </div>
                                 <div class="form-check-inline">
-                                    <input id="player-for-sale" type="checkbox" class="form-check-input">
-                                    <label for="player-for-sale" class="form-check-label">For Sale</label>
+                                    <input id="players-for-sale" type="checkbox" class="form-check-input">
+                                    <label for="players-for-sale" class="form-check-label">For Sale</label>
                                 </div>
                                 <div class="form-check-inline">
-                                    <input id="player-for-loan" type="checkbox" class="form-check-input">
-                                    <label for="player-for-loan" class="form-check-label">For Loan</label>
+                                    <input id="players-for-loan" type="checkbox" class="form-check-input">
+                                    <label for="players-for-loan" class="form-check-label">For Loan</label>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-6 col-sm-3 col-md-2">
-                                <button id="search-players" class="btn btn-block btn-primary">Search</button>
+                                <button id="players-search" class="btn btn-block btn-primary">Search</button>
                             </div>
                             <div class="col-6 col-sm-3 col-md-2">
                                 <input type="reset" value="Clear" class="btn btn-block btn-secondary">

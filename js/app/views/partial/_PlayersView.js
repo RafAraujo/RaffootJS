@@ -4,20 +4,20 @@ class _PlayersView {
 
         this._divContent = document.getElementById('players-content');
 
-        this._inputName = document.getElementById('player-name');
-        this._selectCountry = document.getElementById('player-country');
-        this._selectAge = document.getElementById('player-age');
+        this._inputName = document.getElementById('players-name');
+        this._selectCountry = document.getElementById('players-country');
+        this._selectAge = document.getElementById('players-age');
 
-        this._selectPosition = document.getElementById('player-position');
-        this._selectSide = document.getElementById('player-side');
-        this._selectSkill = document.getElementById('player-skill');
+        this._selectPosition = document.getElementById('players-position');
+        this._selectSide = document.getElementById('players-side');
+        this._selectSkill = document.getElementById('players-skill');
 
-        this._selectCategory = document.getElementById('player-category');
-        this._selectOverall = document.getElementById('player-overall');
+        this._selectCategory = document.getElementById('players-category');
+        this._selectOverall = document.getElementById('players-overall');
 
-        this._inputStar = document.getElementById('player-star');
-        this._inputForSale = document.getElementById('player-for-sale');
-        this._inputForLoan = document.getElementById('player-for-loan');
+        this._inputStar = document.getElementById('players-star');
+        this._inputForSale = document.getElementById('players-for-sale');
+        this._inputForLoan = document.getElementById('players-for-loan');
 
         this._fillFields();
         this._component = new PlayersTable([], this._divContent, 'mt-3');

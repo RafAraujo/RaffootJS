@@ -2,7 +2,7 @@ class _CalendarView {
     constructor(game) {
         this._game = game;
 
-        this._tbody = document.querySelector('#table-calendar tbody');
+        this._tbody = document.querySelector('#calendar-table tbody');
     }
 
     update() {
