@@ -5,8 +5,8 @@ class NewGameView extends View {
         this._game = game;
 
         this._form = document.getElementById('form');
-        this._selectCountries = document.getElementById('countries');
-        this._selectClubs = document.getElementById('clubs');
+        this._selectCountry = document.getElementById('country');
+        this._selectClub = document.getElementById('club');
         this._imgFlag = document.getElementById('flag');
         this._aBack = document.getElementById('back');
         this._buttonStart = document.getElementById('start');
@@ -43,19 +43,19 @@ class NewGameView extends View {
     }
 
     _fillCountries() {
-        if (this._selectCountries.options.length > 0)
+        if (this._selectCountry.options.length > 0)
             return;
 
-        HtmlHelper.fillSelect(this._selectCountries, this._game.countries.orderBy('name'));
-        this._selectCountries.focus();
+        HtmlHelper.fillSelect(this._selectCountry, this._game.countries.orderBy('name'));
+        this._selectCountry.focus();
     }
 
     _fillClubs() {
-        if (this._game.country == null || this._country == this._selectCountries.value)
+        if (this._game.country == null || this._country == this._selectCountry.value)
             return;
 
-        HtmlHelper.clearSelect(this._selectClubs);
-        this._selectClubs.appendChild(new Option());
+        HtmlHelper.clearSelect(this._selectClub);
+        this._selectClub.appendChild(new Option());
 
         let leagues = this._game.currentSeason.nationalLeagues.filter(ce => ce.championship.country === this._game.country).orderBy('championship.division');
 
@@ -66,7 +66,7 @@ class NewGameView extends View {
             for (let club of league.clubs.orderBy('name'))
                 optionGroup.appendChild(new Option(club.name, club.id));
 
-            this._selectClubs.appendChild(optionGroup);
+            this._selectClub.appendChild(optionGroup);
         }
     }
 }
