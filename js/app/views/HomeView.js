@@ -17,6 +17,7 @@ class HomeView extends View {
         this._partialSquad = new _SquadView(this._game);
         this._partialCalendar = new _CalendarView(this._game);
         this._partialTables = new _TablesView(this._game);
+        this._partialClubs = new _ClubsView(this._game);
         this._partialPlayers = new _PlayersView(this._game);
     }
 

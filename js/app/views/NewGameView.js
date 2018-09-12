@@ -34,7 +34,7 @@ class NewGameView extends View {
         this._fillCountries();
         this._fillClubs();
 
-        this._country = document.getElementById('countries').value;
+        this._country = this._selectCountry.value;
     }
 
     _starting() {
@@ -62,10 +62,7 @@ class NewGameView extends View {
         for (let league of leagues) {
             let optionGroup = document.createElement('optgroup');
             optionGroup.label = `Division ${league.championship.division}`;
-
-            for (let club of league.clubs.orderBy('name'))
-                optionGroup.appendChild(new Option(club.name, club.id));
-
+            league.clubs.orderBy('name').forEach(c => optionGroup.appendChild(new Option(c.name, c.id)));
             this._selectClub.appendChild(optionGroup);
         }
     }

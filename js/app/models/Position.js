@@ -70,7 +70,7 @@ let Position = (function () {
         }
 
         get side() {
-            return ['L', 'L', 'C', 'R', 'R'][Math.min(...this.fieldLocalizations.map(fl => fl.column))];
+            return FieldLocalization.sides()[Math.min(...this.fieldLocalizations.map(fl => fl.column))];
         }
 
         get skills() {
