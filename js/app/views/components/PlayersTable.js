@@ -138,9 +138,7 @@ let PlayersTable = (function () {
         }
 
         build() {
-            $('[data-toggle="tooltip"]:not(.d-none)').tooltip('dispose');
-            HtmlHelper.clearElement(this._container);
-            this._visiblePlayersCount = 0;
+            this.destroy();
 
             this._table = HtmlHelper.createTable(null, _HEADER.items.map(item => item.title), ...this._classList);
             this._pInfo = HtmlHelper.createParagraph('');
@@ -159,6 +157,12 @@ let PlayersTable = (function () {
 
         loadMore() {
             this._fillBody(this._nextPlayers);
+        }
+
+        destroy() {
+            $('[data-toggle="tooltip"]:not(.d-none)').tooltip('dispose');
+            HtmlHelper.clearElement(this._container);
+            this._visiblePlayersCount = 0;
         }
 
         _updateOrder(orderProperties) {

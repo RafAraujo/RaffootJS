@@ -4,21 +4,28 @@ class _ClubsView {
 
         this._selectCountry = document.getElementById('clubs-country');
         this._selectClub = document.getElementById('clubs-club');
+        this._divSquad = document.getElementById('clubs-squad');
 
         this._fillCountries();
-        this._selectCountry.value = this._game.club.country.id;
-        this._fillClubs();
-        this._selectClub.value = this._game.club.id;
 
-        this._selectCountry.addEventListener('change', this._fillClubs.bind(this));
+        this._component = new PlayersTable([], this._divSquad);
+
+        this._selectCountry.addEventListener('change', this._changeCountry.bind(this));
+        this._selectClub.addEventListener('change', this._fillSquad.bind(this));
     }
 
     _fillCountries() {
-        this._game.countries.forEach(c => this._selectCountry.appendChild(new Option(c.name, c.id)));
+        HtmlHelper.fillSelect(this._selectCountry, this._game.countries);
+    }
+
+    _changeCountry() {
+        this._fillClubs();
+        this._component.destroy();
     }
 
     _fillClubs() {
         HtmlHelper.clearSelect(this._selectClub);
+        this._selectClub.appendChild(new Option());
 
         let leagues = this._game.currentSeason.nationalLeagues.filter(ce => ce.championship.country.id == this._selectCountry.value).orderBy('championship.division');
 
@@ -28,5 +35,13 @@ class _ClubsView {
             league.clubs.orderBy('name').forEach(c => optionGroup.appendChild(new Option(c.name, c.id)));
             this._selectClub.appendChild(optionGroup);
         }
+    }
+
+    _fillSquad() {
+        this._component.players = Club.all()[this._selectClub.value - 1].squad.players;
+        this._component.invisibleColumns = ['Club', 'Energy', 'Condition'];
+        this._component.showInfo = false;
+        this._component.showLoadMore = false;
+        this._component.build();
     }
 }
