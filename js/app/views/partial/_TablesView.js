@@ -3,7 +3,7 @@ class _TablesView {
         this._game = game;
 
         this._section = document.getElementById('tables');
-        this._selectChampionships = document.getElementById('select-championships');
+        this._selectChampionships = document.getElementById('tables-championships');
         this._divContent = document.getElementById('tables-content');
 
         this._fillSelect();
