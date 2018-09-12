@@ -7,7 +7,7 @@ let Stadium = (function () {
 
             this.name = name;
             this._countryId = countryId;
-            this.capacity = Random.numberBetween(20000, 80000);
+            this.capacity = Random.numberBetween(10000, 50000);
         }
 
         static create(name, country) {

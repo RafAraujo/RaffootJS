@@ -9,7 +9,6 @@ class _CalendarView {
         for (let match of this._game.currentSeason.getMatchesByClub(this._game.club)) {
             let tr = this._tbody.insertRow();
 
-            HtmlHelper.insertCell(tr, match.id, 'd-none');
             HtmlHelper.insertCell(tr, match.date.toLocaleDateString(), 'text-center');
             HtmlHelper.insertCell(tr, match.matchClubHome.club.name, 'text-left');
             HtmlHelper.insertCell(tr, match.matchClubHome.goals, 'text-center');
