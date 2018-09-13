@@ -18,6 +18,10 @@ class _StadiumView {
 
         tr = this._tbody.insertRow();
         HtmlHelper.insertCell(tr, 'Capacity', 'font-weight-bold', 'text-right');
-        HtmlHelper.insertCell(tr, stadium.capacity);
+        HtmlHelper.insertCell(tr, stadium.capacity.toLocaleString());
+        
+        tr = this._tbody.insertRow();
+        HtmlHelper.insertCell(tr, 'Ticket Price', 'font-weight-bold', 'text-right');
+        HtmlHelper.insertCell(tr, `$ ${stadium.ticketPrice.toLocaleString()}`);
     }
 }

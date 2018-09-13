@@ -11,6 +11,7 @@ let Club = (function () {
             this._coachId = 0;
             this._squadId = 0;
             this.playable = false;
+            this.initialDivision = 0;
             this.money = 0;
         }
 
@@ -2118,16 +2119,23 @@ let Club = (function () {
             Club.create("Xerez", spain);
             Club.create("Yeclano Deportivo", spain);
             Club.create("Zamora CF", spain);
+            
+            for (let country of Country.playable()) {
+                let clubs = country.clubs.slice().shuffle();
+                let divisionCount = country.divisionCount;
 
-            for (let country of Country.playable())
-                country.clubs.getRandomItems(country.playableClubsCount).forEach(c => c.playable = true);
+                for (let i = 0; i < divisionCount; i++) {
+                    for (let j = 0; j < country.leagueClubCount; j++) {
+                        let club = clubs[i * country.leagueClubCount + j];
 
-            Club.playable().forEach(c => {
-                c._stadiumId = c.country.stadiums.getRandomItem().id;
-                c._coachId = Coach.create(c.country).id;
-                c._generateSquad();
-                c.receive(c.squad.wage * Random.numberBetween(6, 9));
-            });
+                        club.playable = true;
+                        club.initialDivision = i + 1;
+                        club._stadiumId = Stadium.create(`${club.name} Stadium`, Stadium.baseTicketPrice(club.initialDivision)).id;
+                        club._generateSquad();
+                        club.receive(club.squad.wage * Random.numberBetween(6, 9));
+                    }
+                }
+            }
 
             Object.freeze(_clubs);
         }
@@ -2176,7 +2184,7 @@ let Club = (function () {
 
                 for (let i = 0; i < count; i++) {
                     let country = Random.number(10) < 9 ? this.country : Country.all().getRandomItem();
-                    let player = Player.create(country, year - Random.numberBetween(16, 38), fieldRegion.positions.getRandomItem());
+                    let player = Player.create(country, year - Random.numberBetween(16, 38), fieldRegion.positions.getRandomItem(), this.initialDivision);
                     let contract = Contract.create(this, player, 'definitive', 0, player.baseWage, date, date.addMonths(Random.numberBetween(6, 24)));
                     contract.sign();
                 }

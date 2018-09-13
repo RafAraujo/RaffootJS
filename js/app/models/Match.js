@@ -82,14 +82,14 @@ let Match = (function () {
 
         get score() {
             if (this.finished)
-                return `${this.homeClub.matchClubStats.goals} x ${this.awayClub.matchClubStats.goals}`;
+                return `${this.homeClub.goals} x ${this.awayClub.goals}`;
             else
                 return ' x ';
         }
 
         get scoreReverse() {
             if (this.finished)
-                return `${this.awayClub.matchClubStats.goals} x ${this.homeClub.matchClubStats.goals}`;
+                return `${this.awayClub.goals} x ${this.homeClub.goals}`;
             else
                 return ' x ';
         }
@@ -110,7 +110,7 @@ let Match = (function () {
         }
 
         getGoalsByClub(club) {
-            return this.matchClubs.find(mc => mc.club === club).matchClubStats.goals;
+            return this.matchClubs.find(mc => mc.club === club).goals;
         }
 
         play() {

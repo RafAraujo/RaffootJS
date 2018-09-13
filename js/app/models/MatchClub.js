@@ -8,14 +8,12 @@ let MatchClub = (function () {
             this._matchId = matchId;
             this._clubId = clubId;
             this.situation = situation;
+            this._goals = 0;
         }
 
         static create(match, club, situation) {
             let matchClub = new MatchClub(match.id, club.id, situation);
             matchClub.id = _matchClubs.push(matchClub);
-            
-            let matchClubStats = MatchClubStats.create(matchClub);
-            matchClub._matchClubStatsId = matchClubStats.id;
 
             return matchClub;
         }
@@ -41,7 +39,11 @@ let MatchClub = (function () {
         }
 
         get goals() {
-            return this.match.finished ? this.matchClubStats.goals : null;
+            return this.match.finished ? this._goals : null;
+        }
+
+        addGoal() {
+            this._goals++;
         }
     }
 })();

@@ -25,11 +25,11 @@ let Player = (function () {
             this.forLoan = false;
         }
 
-        static create(country, birthYear, position) {
+        static create(country, birthYear, position, clubDivision) {
             let side = position.fieldLocalizations.getRandomItem().side;
             let name = country.names.getRandomItem();
             let surname = country.surnames.getRandomItem();
-            let overall = Random.numberBetween(1, 99);
+            let overall = Player.randomOverall(clubDivision);
             let star = overall > 90 ? Random.numberBetween(1, 10) === 10 : false;
             let skillIds = position.skills.getRandomItems(star ? 3 : 2).map(s => s.id);
             let condition = Random.numberBetween(1, 5);
@@ -54,6 +54,10 @@ let Player = (function () {
 
         static sides() {
             return _SIDES;
+        }
+
+        static randomOverall(clubDivision) {
+            return Random.numberBetween((NATIONAL_MAX_DIVISION_COUNT - clubDivision) * 10, 99 - (clubDivision - 1) * 10);
         }
 
         static minimumWage() {

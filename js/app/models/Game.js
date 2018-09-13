@@ -56,9 +56,6 @@ let Game = (function () {
             Skill.seed();
             t1 = performance.now(); console.log("Call took " + (t1 - t0) + " milliseconds.");
 
-            Stadium.seed();
-            t1 = performance.now(); console.log("Call took " + (t1 - t0) + " milliseconds.");
-
             Club.seed();
             t1 = performance.now(); console.log("Call took " + (t1 - t0) + " milliseconds.");
 

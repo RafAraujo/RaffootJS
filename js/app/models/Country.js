@@ -11,7 +11,6 @@ let Country = (function () {
             this._countryLanguageId = countryLanguageId;
             this.playable = playable;
             this._clubIds = [];
-            this._stadiumIds = [];
         }
 
         static create(name, abbreviation, confederation, countryLanguage, playable) {
@@ -115,10 +114,6 @@ let Country = (function () {
         addClub(club) {
             this._clubIds.push(club.id);
             this.confederation.addClub(club);
-        }
-
-        addStadium(stadium) {
-            this._stadiumIds.push(stadium.id);
         }
     }
 })();
