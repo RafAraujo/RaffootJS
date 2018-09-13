@@ -49,6 +49,12 @@ class HtmlHelper {
         return link;
     }
 
+    static createLinkForModal(modal, innerHTML, ...classList) {
+        let link = HtmlHelper.createLink(`#${modal}`, innerHTML, ...classList);
+        link.setAttribute('data-toggle', 'modal');
+        return link;
+    }
+
     static createIcon(name, color, ...classList) {
         let span = HtmlHelper.createElement('span', '');
         let i = HtmlHelper.createElement('i', '', 'fas', `fa-${name}`, ...classList);

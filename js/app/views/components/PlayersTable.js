@@ -235,7 +235,6 @@ let PlayersTable = (function () {
             this._invisibleColumns.forEach(index => HtmlHelper.hideColumn(this._table, index));
             this._pInfo.innerText = this._info;
             this._buttonLoadMore.disabled = this._visiblePlayersCount === this._players.length;
-            this._configLinks();
 
             setTimeout(() => $('[data-toggle="tooltip"]:not(.d-none)').tooltip(), 0);
         }
@@ -255,8 +254,8 @@ let PlayersTable = (function () {
         }
 
         _formatName(td, player) {
-            let link = HtmlHelper.createLink('#', player.completeName, 'player', 'text-dark');
-            link.setAttribute('data-id', player.id);
+            let link = HtmlHelper.createLinkForModal('player-modal', player.completeName, 'player', 'text-dark');
+            link.setAttribute('data-player-id', player.id);
             td.innerHTML = link.outerHTML;
         }
 
@@ -341,19 +340,6 @@ let PlayersTable = (function () {
         _configLoadMore() {
             this._container.appendChild(this._buttonLoadMore);
             this._buttonLoadMore.addEventListener('click', this.loadMore.bind(this));
-        }
-
-        _configLinks() {
-            Array.from(this._table.querySelectorAll('a.player')).forEach(link => {
-                link.addEventListener('click', this._showPlayer.bind(this, link.getAttribute('data-id')));
-                link.removeAttribute('data-id');
-                link.classList.remove('player');
-            });
-        }
-
-        _showPlayer(id, event) {
-            event.preventDefault();
-            alert(id);
         }
     }
 })();

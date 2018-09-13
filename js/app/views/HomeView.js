@@ -11,6 +11,7 @@ class HomeView extends View {
         this._aPlayerCount = document.getElementById('player-count');
         this._aMoney = document.getElementById('money');
         this._aDate = document.getElementById('date');
+        this._modalPlayer = document.getElementById('player-modal');
 
         this._configLinks();
 
@@ -20,6 +21,8 @@ class HomeView extends View {
         this._partialStadium = new _StadiumView(this._game);
         this._partialClubs = new _ClubsView(this._game);
         this._partialPlayers = new _PlayersView(this._game);
+
+        $(`#${this._modalPlayer.id}`).on('show.bs.modal', event => this._showPlayer($(event.relatedTarget).data('player-id')));
     }
 
     _configLinks() {
@@ -90,5 +93,11 @@ class HomeView extends View {
         }
 
         this._aDate.innerText = this._game.currentSeason.currentDate.toLocaleDateString();
+    }
+
+    _showPlayer(id) {
+        let player = Player.all()[id - 1];
+
+        this._modalPlayer.querySelector('#player-modal-label').innerText = player.completeName;
     }
 }
