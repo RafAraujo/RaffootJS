@@ -139,16 +139,6 @@ let PlayersTable = (function () {
         _configTable() {
             this._configHeader();
             this._fillBody(this._nextPlayers);
-
-            Array.from(this.table.children).filter(section => section != null).forEach(section => {
-                Array.from(section.children).forEach(row => {
-                    Array.from(row.children).forEach((cell, index) => {
-                        if (index > 4)
-                            cell.classList.add('d-none', 'd-sm-table-cell');
-                    });
-                });
-            });
-
             this.container.appendChild(this.table);
         }
 
@@ -212,6 +202,14 @@ let PlayersTable = (function () {
                 this._formatForLoan(tr.children[14], player.forLoan);
             });
 
+            Array.from(this.table.children).filter(section => section != null).forEach(section => {
+                Array.from(section.children).forEach(row => {
+                    Array.from(row.children).forEach((cell, index) => {
+                        if (index > 4)
+                            cell.classList.add('d-none', 'd-sm-table-cell');
+                    });
+                });
+            });
             this.pInfo.innerText = this.info;
             this.buttonLoadMore.disabled = this._visiblePlayersCount === this.players.length;
 

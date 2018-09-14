@@ -111,7 +111,11 @@ class HomeView extends View {
 
         tr = tbody.insertRow();
         Html.insertCell(tr, 'Overall', 'font-weight-bold', 'text-right');
-        Html.insertCell(tr, player.overall);
+        Html.insertCell(tr, player.overall.toLocaleString() + (player.star ? ' ' + Html.createIcon('star', YELLOW).outerHTML : ''));
+
+        tr = tbody.insertRow();
+        Html.insertCell(tr, 'Skills', 'font-weight-bold', 'text-right');
+        Html.insertCell(tr, player.skillsDescription);
 
         tr = tbody.insertRow();
         Html.insertCell(tr, 'Country', 'font-weight-bold', 'text-right');
@@ -122,7 +126,7 @@ class HomeView extends View {
         Html.insertCell(tr, player.age);
 
         tr = tbody.insertRow();
-        Html.insertCell(tr, 'Market Value ($)', 'font-weight-bold', 'text-right');
+        Html.insertCell(tr, 'Value ($)', 'font-weight-bold', 'text-right');
         Html.insertCell(tr, player.marketValue.toLocaleString());
 
         tr = tbody.insertRow();
