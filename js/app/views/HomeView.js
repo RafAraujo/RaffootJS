@@ -68,13 +68,13 @@ class HomeView extends View {
         let span = document.querySelector('header a > span.sr-only');
         if (span)
             span.parentElement.removeChild(span);
-        link.appendChild(HtmlHelper.createElement('span', '(current)', 'sr-only'));
+        link.appendChild(Html.createElement('span', '(current)', 'sr-only'));
 
         let active = link.classList.contains('dropdown-item') ? link.parentElement.parentElement.children[0] : link;
         active.classList.add('active');
 
-        this._sections.forEach(e => HtmlHelper.hide(e));
-        HtmlHelper.show(document.getElementById(this._currentSection));
+        this._sections.forEach(e => Html.hide(e));
+        Html.show(document.getElementById(this._currentSection));
         window.scrollTo({
             top: 0,
             left: 0,
@@ -102,32 +102,32 @@ class HomeView extends View {
         title.innerText = player.completeName;
 
         let tbody = this._modalPlayer.querySelector('table tbody');
-        HtmlHelper.clearElement(tbody);
+        Html.clearElement(tbody);
         let tr = null;
 
         tr = tbody.insertRow();
-        HtmlHelper.insertCell(tr, 'Position', 'font-weight-bold', 'text-right');
-        HtmlHelper.insertCell(tr, player.completePosition);
+        Html.insertCell(tr, 'Position', 'font-weight-bold', 'text-right');
+        Html.insertCell(tr, player.completePosition);
 
         tr = tbody.insertRow();
-        HtmlHelper.insertCell(tr, 'Overall', 'font-weight-bold', 'text-right');
-        HtmlHelper.insertCell(tr, player.overall);
+        Html.insertCell(tr, 'Overall', 'font-weight-bold', 'text-right');
+        Html.insertCell(tr, player.overall);
 
         tr = tbody.insertRow();
-        HtmlHelper.insertCell(tr, 'Country', 'font-weight-bold', 'text-right');
-        HtmlHelper.insertCell(tr, player.country.name);
+        Html.insertCell(tr, 'Country', 'font-weight-bold', 'text-right');
+        Html.insertCell(tr, player.country.name);
         
         tr = tbody.insertRow();
-        HtmlHelper.insertCell(tr, 'Age', 'font-weight-bold', 'text-right');
-        HtmlHelper.insertCell(tr, player.age);
+        Html.insertCell(tr, 'Age', 'font-weight-bold', 'text-right');
+        Html.insertCell(tr, player.age);
 
         tr = tbody.insertRow();
-        HtmlHelper.insertCell(tr, 'Market Value ($)', 'font-weight-bold', 'text-right');
-        HtmlHelper.insertCell(tr, player.marketValue.toLocaleString());
+        Html.insertCell(tr, 'Market Value ($)', 'font-weight-bold', 'text-right');
+        Html.insertCell(tr, player.marketValue.toLocaleString());
 
         tr = tbody.insertRow();
-        HtmlHelper.insertCell(tr, 'Wage ($)', 'font-weight-bold', 'text-right');
-        HtmlHelper.insertCell(tr, player.wage.toLocaleString());
+        Html.insertCell(tr, 'Wage ($)', 'font-weight-bold', 'text-right');
+        Html.insertCell(tr, player.wage.toLocaleString());
 
     }
 }

@@ -10,18 +10,18 @@ class _StadiumView {
     }
 
     _fillInfo(stadium) {
-        HtmlHelper.clearElement(this._tbody);
+        Html.clearElement(this._tbody);
 
         let tr = this._tbody.insertRow();
-        HtmlHelper.insertCell(tr, 'Name', 'font-weight-bold', 'text-right');
-        HtmlHelper.insertCell(tr, stadium.name);
+        Html.insertCell(tr, 'Name', 'font-weight-bold', 'text-right');
+        Html.insertCell(tr, stadium.name);
 
         tr = this._tbody.insertRow();
-        HtmlHelper.insertCell(tr, 'Capacity', 'font-weight-bold', 'text-right');
-        HtmlHelper.insertCell(tr, stadium.capacity.toLocaleString());
+        Html.insertCell(tr, 'Capacity', 'font-weight-bold', 'text-right');
+        Html.insertCell(tr, stadium.capacity.toLocaleString());
         
         tr = this._tbody.insertRow();
-        HtmlHelper.insertCell(tr, 'Ticket Price', 'font-weight-bold', 'text-right');
-        HtmlHelper.insertCell(tr, `$ ${stadium.ticketPrice.toLocaleString()}`);
+        Html.insertCell(tr, 'Ticket Price', 'font-weight-bold', 'text-right');
+        Html.insertCell(tr, `$ ${stadium.ticketPrice.toLocaleString()}`);
     }
 }

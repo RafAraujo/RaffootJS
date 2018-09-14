@@ -29,12 +29,12 @@ class _PlayersView {
     }
 
     update() {
-        HtmlHelper.clearElement(this._divContent);
+        Html.clearElement(this._divContent);
     }
 
     _fillFields() {
         Position.all().forEach(p => this._selectPosition.appendChild(new Option(p.name, p.id)));
-        HtmlHelper.fillSelect(this._selectCountry, Country.all().orderBy('name'));
+        Html.fillSelect(this._selectCountry, Country.all().orderBy('name'));
 
         this._selectAge.appendChild(new Option());
         for (let age = 16; age <= 40; age += 6)
@@ -71,13 +71,13 @@ class _PlayersView {
         }
 
         if (this._selectPosition.value)
-            players = players.filter(p => HtmlHelper.selectedOptions(this._selectPosition).some(positionId => p.position.id == positionId));
+            players = players.filter(p => Html.selectedOptions(this._selectPosition).some(positionId => p.position.id == positionId));
 
         if (this._selectSide.value)
-            players = players.filter(p => HtmlHelper.selectedOptions(this._selectSide).includes(p.side));
+            players = players.filter(p => Html.selectedOptions(this._selectSide).includes(p.side));
 
         if (this._selectSkill.value) {
-            let skillIds = HtmlHelper.selectedOptions(this._selectSkill).map(id => parseInt(id));
+            let skillIds = Html.selectedOptions(this._selectSkill).map(id => parseInt(id));
             players = players.filter(p => skillIds.some(id => p.skills.map(ps => ps.id).includes(id)));
         }
 

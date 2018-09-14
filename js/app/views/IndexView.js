@@ -22,6 +22,6 @@ class IndexView extends View {
     }
 
     _fillDatabases() {
-        HtmlHelper.fillSelect(this._selectDatabases, ConnectionFactory.getDatabases());
+        Html.fillSelect(this._selectDatabases, ConnectionFactory.getDatabases());
     }
 }

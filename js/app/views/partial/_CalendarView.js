@@ -9,15 +9,15 @@ class _CalendarView {
         for (let match of this._game.currentSeason.getMatchesByClub(this._game.club)) {
             let tr = this._tbody.insertRow();
 
-            HtmlHelper.insertCell(tr, match.date.toLocaleDateString(), 'text-center');
-            HtmlHelper.insertCell(tr, match.matchClubHome.club.name, 'text-left');
-            HtmlHelper.insertCell(tr, match.matchClubHome.goals, 'text-center');
-            HtmlHelper.insertCell(tr, 'x', 'text-center');
-            HtmlHelper.insertCell(tr, match.matchClubAway.goals, 'text-center');
-            HtmlHelper.insertCell(tr, match.matchClubAway.club.name, 'text-right');
-            HtmlHelper.insertCell(tr, match.championshipEdition.championship.name, 'text-right');
-            HtmlHelper.insertCell(tr, match.audience, 'text-center');
-            HtmlHelper.insertCell(tr, match.income, 'text-center');
+            Html.insertCell(tr, match.date.toLocaleDateString(), 'text-center');
+            Html.insertCell(tr, match.matchClubHome.club.name, 'text-left');
+            Html.insertCell(tr, match.matchClubHome.goals, 'text-center');
+            Html.insertCell(tr, 'x', 'text-center');
+            Html.insertCell(tr, match.matchClubAway.goals, 'text-center');
+            Html.insertCell(tr, match.matchClubAway.club.name, 'text-right');
+            Html.insertCell(tr, match.championshipEdition.championship.name, 'text-right');
+            Html.insertCell(tr, match.audience, 'text-center');
+            Html.insertCell(tr, match.income, 'text-center');
         }
     }
 }

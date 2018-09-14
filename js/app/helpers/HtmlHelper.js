@@ -1,4 +1,4 @@
-class HtmlHelper {
+class Html {
     static show(element) {
         element.classList.remove('d-none');
     }
@@ -12,7 +12,7 @@ class HtmlHelper {
     }
 
     static fillSelect(select, options) {
-        HtmlHelper.clearSelect(select);
+        Html.clearSelect(select);
         select.appendChild(new Option());
 
         for (let option of options)
@@ -38,33 +38,33 @@ class HtmlHelper {
     }
 
     static createButton(innerHTML, ...classList) {
-        let button = HtmlHelper.createElement('button', innerHTML, 'btn');
+        let button = Html.createElement('button', innerHTML, 'btn');
         button.classList.add(...classList);
         return button;
     }
 
     static createLink(href, innerHTML, ...classList) {
-        let link = HtmlHelper.createElement('a', innerHTML, ...classList);
+        let link = Html.createElement('a', innerHTML, ...classList);
         link.setAttribute('href', href);
         return link;
     }
 
     static createLinkForModal(modal, innerHTML, ...classList) {
-        let link = HtmlHelper.createLink(`#${modal}`, innerHTML, ...classList);
+        let link = Html.createLink(`#${modal}`, innerHTML, ...classList);
         link.setAttribute('data-toggle', 'modal');
         return link;
     }
 
     static createIcon(name, color, ...classList) {
-        let span = HtmlHelper.createElement('span', '');
-        let i = HtmlHelper.createElement('i', '', 'fas', `fa-${name}`, ...classList);
+        let span = Html.createElement('span', '');
+        let i = Html.createElement('i', '', 'fas', `fa-${name}`, ...classList);
         span.style.color = color;
         span.appendChild(i);
         return span;
     }
 
     static createImage(path, alt, ...classList) {
-        let img = HtmlHelper.createElement('img', '', ...classList);
+        let img = Html.createElement('img', '', ...classList);
         img.setAttribute('src', path);
         img.setAttribute('alt', alt);
         img.setAttribute('title', alt);
@@ -74,13 +74,13 @@ class HtmlHelper {
     }
 
     static createParagraph(innerHTML, ...classList) {
-        let p = HtmlHelper.createElement('p', innerHTML, ...classList);
+        let p = Html.createElement('p', innerHTML, ...classList);
         return p;
     }
 
     static createProgressBar(value, ...classList) {
-        let divProgress = HtmlHelper.createElement('div', '', 'progress');
-        let divProgressBar = HtmlHelper.createElement('div', value, 'progress-bar');
+        let divProgress = Html.createElement('div', '', 'progress');
+        let divProgressBar = Html.createElement('div', value, 'progress-bar');
         divProgressBar.classList.add(...classList);
         divProgressBar.setAttribute('role', 'progressbar');
         divProgressBar.style.width = `${value}%`;
@@ -93,30 +93,30 @@ class HtmlHelper {
     }
 
     static createTable(title, headers, ...classList) {
-        let table = HtmlHelper.createElement('table', '', 'table', 'table-responsive', 'table-hover');
+        let table = Html.createElement('table', '', 'table', 'table-responsive', 'table-hover');
         table.classList.add(...classList);
 
-        let thead = HtmlHelper.createElement('thead');
+        let thead = Html.createElement('thead');
 
         if (title) {
-            let tr = HtmlHelper.createElement('tr');
+            let tr = Html.createElement('tr');
             thead.appendChild(tr);
 
-            let th = HtmlHelper.createElement('th', title, 'text-center');
+            let th = Html.createElement('th', title, 'text-center');
             th.setAttribute('colspan', headers.length);
             tr.appendChild(th);
         }
 
-        let tr = HtmlHelper.createElement('tr');
+        let tr = Html.createElement('tr');
         thead.appendChild(tr);
         for (let header of headers) {
-            let th = HtmlHelper.createElement('th', header, 'text-center');
+            let th = Html.createElement('th', header, 'text-center');
             tr.appendChild(th);
         }
 
         table.appendChild(thead);
-        table.appendChild(HtmlHelper.createElement('tbody'));
-        table.appendChild(HtmlHelper.createElement('tfoot'));
+        table.appendChild(Html.createElement('tbody'));
+        table.appendChild(Html.createElement('tfoot'));
 
         return table;
     }
@@ -129,9 +129,9 @@ class HtmlHelper {
     }
 
     static insertCellWithTooltip(tr, innerHTML, tooltip, ...classList) {
-        let span = HtmlHelper.createElement('span', innerHTML);
-        HtmlHelper.setTooltip(span, tooltip);
-        return HtmlHelper.insertCell(tr, span.outerHTML, ...classList);
+        let span = Html.createElement('span', innerHTML);
+        Html.setTooltip(span, tooltip);
+        return Html.insertCell(tr, span.outerHTML, ...classList);
     }
 
     static hideColumn(table, columnIndex) {

@@ -120,9 +120,9 @@ let PlayersTable = (function () {
         build() {
             this.destroy();
 
-            this._table = HtmlHelper.createTable(null, _HEADER.items.map(item => item.title), ...this._classList);
-            this._pInfo = HtmlHelper.createParagraph('');
-            this._buttonLoadMore = HtmlHelper.createButton('Load more', 'btn-primary', 'mb-3');
+            this._table = Html.createTable(null, _HEADER.items.map(item => item.title), ...this._classList);
+            this._pInfo = Html.createParagraph('');
+            this._buttonLoadMore = Html.createButton('Load more', 'btn-primary', 'mb-3');
 
             this._configTable();
             this._configInfo();
@@ -135,7 +135,7 @@ let PlayersTable = (function () {
 
         destroy() {
             $('[data-toggle="tooltip"]:not(.d-none)').tooltip('dispose');
-            HtmlHelper.clearElement(this.container);
+            Html.clearElement(this.container);
             this._visiblePlayersCount = 0;
         }
 
@@ -150,7 +150,7 @@ let PlayersTable = (function () {
 
             _HEADER.items.forEach((item, index) => {
                 if (item.description)
-                    HtmlHelper.setTooltip(tr.children[index], item.description);
+                    Html.setTooltip(tr.children[index], item.description);
 
                 tr.children[index].addEventListener('click', this._updateOrder.bind(this, item.orderProperties));
             });
@@ -166,7 +166,7 @@ let PlayersTable = (function () {
 
             this._tableOrder.properties = orderProperties;
 
-            HtmlHelper.clearElement(this._table.querySelector('tbody'));
+            Html.clearElement(this._table.querySelector('tbody'));
             this._fillBody(this._visiblePlayers);
         }
 
@@ -176,21 +176,21 @@ let PlayersTable = (function () {
             players.forEach(player => {
                 let tr = tbody.insertRow();
 
-                HtmlHelper.insertCell(tr, player.position.abbreviation, 'align-middle', 'text-center');
-                HtmlHelper.insertCell(tr, player.country.abbreviation, 'align-middle', 'text-center');
-                HtmlHelper.insertCell(tr, player.completeName, 'align-middle');
-                HtmlHelper.insertCell(tr, player.overall, 'align-middle', 'text-center');
-                HtmlHelper.insertCell(tr, player.side, 'align-middle', 'text-center');
-                HtmlHelper.insertCell(tr, player.energy, 'align-middle');
-                HtmlHelper.insertCell(tr, player.club.name, 'align-middle');
-                HtmlHelper.insertCell(tr, player.wage.toLocaleString(), 'align-middle', 'text-right');
-                HtmlHelper.insertCell(tr, player.marketValue.toLocaleString(), 'align-middle', 'text-right');
-                HtmlHelper.insertCellWithTooltip(tr, player.skillsAbbreviatedDescription, player.skillsDescription.split('/').join('<br>'), 'align-middle', 'text-center');
-                HtmlHelper.insertCell(tr, player.age, 'align-middle', 'text-center');
-                HtmlHelper.insertCell(tr, player.currentContract.endDate.toLocaleDateString(), 'align-middle', 'text-center');
-                HtmlHelper.insertCell(tr, player.condition, 'align-middle', 'text-center');
-                HtmlHelper.insertCell(tr, player.forSale, 'align-middle', 'text-center');
-                HtmlHelper.insertCell(tr, player.forLoan, 'align-middle', 'text-center');
+                Html.insertCell(tr, player.position.abbreviation, 'align-middle', 'text-center');
+                Html.insertCell(tr, player.country.abbreviation, 'align-middle', 'text-center');
+                Html.insertCell(tr, player.completeName, 'align-middle');
+                Html.insertCell(tr, player.overall, 'align-middle', 'text-center');
+                Html.insertCell(tr, player.side, 'align-middle', 'text-center');
+                Html.insertCell(tr, player.energy, 'align-middle');
+                Html.insertCell(tr, player.club.name, 'align-middle');
+                Html.insertCell(tr, player.wage.toLocaleString(), 'align-middle', 'text-right');
+                Html.insertCell(tr, player.marketValue.toLocaleString(), 'align-middle', 'text-right');
+                Html.insertCellWithTooltip(tr, player.skillsAbbreviatedDescription, player.skillsDescription.split('/').join('<br>'), 'align-middle', 'text-center');
+                Html.insertCell(tr, player.age, 'align-middle', 'text-center');
+                Html.insertCell(tr, player.currentContract.endDate.toLocaleDateString(), 'align-middle', 'text-center');
+                Html.insertCell(tr, player.condition, 'align-middle', 'text-center');
+                Html.insertCell(tr, player.forSale, 'align-middle', 'text-center');
+                Html.insertCell(tr, player.forLoan, 'align-middle', 'text-center');
 
                 this._formatPosition(tr.children[0], player.position);
                 this._formatCountry(tr.children[1], player.country);
@@ -217,7 +217,7 @@ let PlayersTable = (function () {
         }
 
         _formatCountry(td, country) {
-            let flag = HtmlHelper.createImage(country.flag, country.name, 'img-miniature', 'border');
+            let flag = Html.createImage(country.flag, country.name, 'img-miniature', 'border');
             td.innerHTML = flag.outerHTML;
             if (screen.width <= 480) {
                 td.style.padding = '0';
@@ -226,7 +226,7 @@ let PlayersTable = (function () {
         }
 
         _formatName(td, player) {
-            let link = HtmlHelper.createLinkForModal('player-modal', player.completeName, 'player', 'text-dark');
+            let link = Html.createLinkForModal('player-modal', player.completeName, 'player', 'text-dark');
             link.setAttribute('data-player-id', player.id);
             td.innerHTML = link.outerHTML;
         }
@@ -235,8 +235,8 @@ let PlayersTable = (function () {
             td.classList.add('border', `bg-${player.category}`);
 
             if (player.star) {
-                let icon = HtmlHelper.createIcon('star', YELLOW);
-                HtmlHelper.setTooltip(td, icon.outerHTML, 'left');
+                let icon = Html.createIcon('star', YELLOW);
+                Html.setTooltip(td, icon.outerHTML, 'left');
                 td.classList.add('player-star');
             }
         }
@@ -248,7 +248,7 @@ let PlayersTable = (function () {
         _formatEnergy(td, energy) {
             td.innerText = '';
             let backgroundClass = `bg-${(energy >= 70 ? 'success' : energy >= 50 ? 'warning' : 'danger')}`;
-            let divProgress = HtmlHelper.createProgressBar(energy, backgroundClass);
+            let divProgress = Html.createProgressBar(energy, backgroundClass);
             td.appendChild(divProgress);
         }
 
@@ -267,36 +267,36 @@ let PlayersTable = (function () {
 
             switch (condition) {
                 case 1:
-                    icon = HtmlHelper.createIcon('angle-double-down', PURPLE, 'fa-lg');
-                    tooltipIcon = HtmlHelper.createIcon('tired', 'gold', 'fa-2x');
+                    icon = Html.createIcon('angle-double-down', PURPLE, 'fa-lg');
+                    tooltipIcon = Html.createIcon('tired', 'gold', 'fa-2x');
                     break;
                 case 2:
-                    icon = HtmlHelper.createIcon('angle-down', BLUE, 'fa-lg');
-                    tooltipIcon = HtmlHelper.createIcon('frown', 'gold', 'fa-2x');
+                    icon = Html.createIcon('angle-down', BLUE, 'fa-lg');
+                    tooltipIcon = Html.createIcon('frown', 'gold', 'fa-2x');
                     break;
                 case 3:
-                    icon = HtmlHelper.createIcon('angle-right', GREEN, 'fa-lg');
-                    tooltipIcon = HtmlHelper.createIcon('meh-blank', 'gold', 'fa-2x');
+                    icon = Html.createIcon('angle-right', GREEN, 'fa-lg');
+                    tooltipIcon = Html.createIcon('meh-blank', 'gold', 'fa-2x');
                     break;
                 case 4:
-                    icon = HtmlHelper.createIcon('angle-up', ORANGE, 'fa-lg');
-                    tooltipIcon = HtmlHelper.createIcon('smile', 'gold', 'fa-2x');
+                    icon = Html.createIcon('angle-up', ORANGE, 'fa-lg');
+                    tooltipIcon = Html.createIcon('smile', 'gold', 'fa-2x');
                     break;
                 case 5:
-                    icon = HtmlHelper.createIcon('angle-double-up', RED, 'fa-lg');
-                    tooltipIcon = HtmlHelper.createIcon('grin-squint', 'gold', 'fa-2x');
+                    icon = Html.createIcon('angle-double-up', RED, 'fa-lg');
+                    tooltipIcon = Html.createIcon('grin-squint', 'gold', 'fa-2x');
                     break;
             }
 
             td.innerText = '';
             td.appendChild(icon);
-            HtmlHelper.setTooltip(td, tooltipIcon.outerHTML, 'right', 'fa-lg');
+            Html.setTooltip(td, tooltipIcon.outerHTML, 'right', 'fa-lg');
         }
 
         _formatForSale(td, forSale) {
             td.innerText = '';
             if (forSale) {
-                let icon = HtmlHelper.createIcon('check-circle', BLUE, 'fa-lg');
+                let icon = Html.createIcon('check-circle', BLUE, 'fa-lg');
                 td.appendChild(icon);
             }
         }
@@ -304,20 +304,20 @@ let PlayersTable = (function () {
         _formatForLoan(td, forLoan) {
             td.innerText = '';
             if (forLoan) {
-                let icon = HtmlHelper.createIcon('check-circle', BLUE, 'fa-lg');
+                let icon = Html.createIcon('check-circle', BLUE, 'fa-lg');
                 td.appendChild(icon);
             }
         }
 
         _configInfo() {
             this.container.appendChild(this._pInfo);
-            this.showInfo ? HtmlHelper.show(this._pInfo) : HtmlHelper.hide(this._pInfo);
+            this.showInfo ? Html.show(this._pInfo) : Html.hide(this._pInfo);
         }
 
         _configLoadMore() {
             this.container.appendChild(this._buttonLoadMore);
             this._buttonLoadMore.addEventListener('click', this.loadMore.bind(this));
-            this.showLoadMore ? HtmlHelper.show(this._buttonLoadMore) : HtmlHelper.hide(this._buttonLoadMore);
+            this.showLoadMore ? Html.show(this._buttonLoadMore) : Html.hide(this._buttonLoadMore);
         }
     }
 })();

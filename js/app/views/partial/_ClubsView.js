@@ -15,7 +15,7 @@ class _ClubsView {
     }
 
     _fillCountries() {
-        HtmlHelper.fillSelect(this._selectCountry, this._game.countries);
+        Html.fillSelect(this._selectCountry, this._game.countries);
     }
 
     _changeCountry() {
@@ -24,7 +24,7 @@ class _ClubsView {
     }
 
     _fillClubs() {
-        HtmlHelper.clearSelect(this._selectClub);
+        Html.clearSelect(this._selectClub);
         this._selectClub.appendChild(new Option());
 
         let leagues = this._game.currentSeason.nationalLeagues.filter(ce => ce.championship.country.id == this._selectCountry.value).orderBy('championship.division');
