@@ -32,7 +32,8 @@ class Html {
         if (innerHTML)
             element.innerHTML = innerHTML;
 
-        element.classList.add(...classList);
+        if (classList.length > 0)
+            element.classList.add(...classList);
 
         return element;
     }
@@ -124,7 +125,8 @@ class Html {
     static insertCell(tr, innerHTML, ...classList) {
         let td = tr.insertCell();
         td.innerHTML = innerHTML;
-        td.classList.add(...classList);
+        if (classList.length > 0)
+            td.classList.add(...classList);
         return td;
     }
 
@@ -160,6 +162,6 @@ class Html {
     }
 
     static clearElement(element) {
-        Array.from(element.children).forEach(child => element.removeChild(child));
+        element.innerHTML = '';
     }
 }

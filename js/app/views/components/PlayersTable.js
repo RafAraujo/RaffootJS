@@ -131,7 +131,7 @@ let PlayersTable = (function () {
         }
 
         destroy() {
-            $('[data-toggle="tooltip"]:not(.d-none)').tooltip('dispose');
+            $('[data-toggle="tooltip"]').tooltip('dispose');
             Html.clearElement(this.container);
             this._visiblePlayersCount = 0;
         }
@@ -173,21 +173,21 @@ let PlayersTable = (function () {
             players.forEach(player => {
                 let tr = tbody.insertRow();
 
-                Html.insertCell(tr, player.position.abbreviation, 'align-middle', 'text-center');
-                Html.insertCell(tr, player.country.abbreviation, 'align-middle', 'text-center');
-                Html.insertCell(tr, player.completeName, 'align-middle');
-                Html.insertCell(tr, player.overall, 'align-middle', 'text-center');
-                Html.insertCell(tr, player.side, 'align-middle', 'text-center');
-                Html.insertCell(tr, player.energy, 'align-middle');
-                Html.insertCell(tr, player.club.name, 'align-middle');
-                Html.insertCell(tr, player.wage.toLocaleString(), 'align-middle', 'text-right');
-                Html.insertCell(tr, player.marketValue.toLocaleString(), 'align-middle', 'text-right');
-                Html.insertCellWithTooltip(tr, player.skillsAbbreviatedDescription, player.skillsDescription.split('/').join('<br>'), 'align-middle', 'text-center');
-                Html.insertCell(tr, player.age, 'align-middle', 'text-center');
-                Html.insertCell(tr, player.currentContract.endDate.toLocaleDateString(), 'align-middle', 'text-center');
-                Html.insertCell(tr, player.condition, 'align-middle', 'text-center');
-                Html.insertCell(tr, player.forSale, 'align-middle', 'text-center');
-                Html.insertCell(tr, player.forLoan, 'align-middle', 'text-center');
+                Html.insertCell(tr, player.position.abbreviation, 'text-center');
+                Html.insertCell(tr, player.country.abbreviation, 'text-center');
+                Html.insertCell(tr, player.completeName);
+                Html.insertCell(tr, player.overall, 'text-center');
+                Html.insertCell(tr, player.side, 'text-center');
+                Html.insertCell(tr, player.energy);
+                Html.insertCell(tr, player.club.name);
+                Html.insertCell(tr, player.wage.toLocaleString(), 'text-right');
+                Html.insertCell(tr, player.marketValue.toLocaleString(), 'text-right');
+                Html.insertCell(tr, player.skillsAbbreviatedDescription, 'text-center');
+                Html.insertCell(tr, player.age, 'text-center');
+                Html.insertCell(tr, player.currentContract.endDate.toLocaleDateString(), 'text-center');
+                Html.insertCell(tr, player.condition, 'text-center');
+                Html.insertCell(tr, player.forSale, 'text-center');
+                Html.insertCell(tr, player.forLoan, 'text-center');
 
                 this._formatPosition(tr.children[0], player.position);
                 this._formatCountry(tr.children[1], player.country);
@@ -195,6 +195,7 @@ let PlayersTable = (function () {
                 this._formatOverall(tr.children[3], player);
                 this._formatSide(tr.children[4], player);
                 this._formatEnergy(tr.children[5], player.energy);
+                this._formatSkills(tr.children[9], player);
                 this._formatAge(tr.children[10], player.age);
                 this._formatContract(tr.children[11], player.currentContract);
                 this._formatCondition(tr.children[12], player.condition);
@@ -210,10 +211,11 @@ let PlayersTable = (function () {
                     });
                 });
             });
+
+            setTimeout(() => $('[data-toggle="tooltip"]').tooltip(), 0);
+
             this.pInfo.innerText = this.info;
             this.buttonLoadMore.disabled = this._visiblePlayersCount === this.players.length;
-
-            setTimeout(() => $('[data-toggle="tooltip"]:not(.d-none)').tooltip(), 0);
         }
 
         _formatPosition(td, position) {
@@ -237,13 +239,16 @@ let PlayersTable = (function () {
         }
 
         _formatOverall(td, player) {
-            td.classList.add('border', `bg-${player.category}`);
+            Html.clearElement(td);
+            let span = Html.createElement('span', player.overall, `bg-${player.category}`, 'overall');
 
             if (player.star) {
                 let icon = Html.createIcon('star', YELLOW);
-                Html.setTooltip(td, icon.outerHTML, 'left');
-                td.classList.add('player-star');
+                Html.setTooltip(span, icon.outerHTML, 'left');
+                span.classList.add('player-star');
             }
+
+            td.appendChild(span);
         }
 
         _formatSide(td, player) {
@@ -255,6 +260,10 @@ let PlayersTable = (function () {
             let backgroundClass = `bg-${(energy >= 70 ? 'success' : energy >= 50 ? 'warning' : 'danger')}`;
             let divProgress = Html.createProgressBar(energy, backgroundClass);
             td.appendChild(divProgress);
+        }
+
+        _formatSkills(td, player) {
+            td.setAttribute('title', player.skillsDescription);
         }
 
         _formatAge(td, age) {

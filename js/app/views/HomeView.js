@@ -111,7 +111,7 @@ class HomeView extends View {
 
         tr = tbody.insertRow();
         Html.insertCell(tr, 'Overall', 'font-weight-bold', 'text-right');
-        Html.insertCell(tr, player.overall.toLocaleString() + (player.star ? ' ' + Html.createIcon('star', YELLOW).outerHTML : ''));
+        Html.insertCell(tr, this._divOverall(player).outerHTML);
 
         tr = tbody.insertRow();
         Html.insertCell(tr, 'Skills', 'font-weight-bold', 'text-right');
@@ -119,7 +119,7 @@ class HomeView extends View {
 
         tr = tbody.insertRow();
         Html.insertCell(tr, 'Country', 'font-weight-bold', 'text-right');
-        Html.insertCell(tr, player.country.name);
+        Html.insertCell(tr, this._divCountry(player.country).outerHTML);
         
         tr = tbody.insertRow();
         Html.insertCell(tr, 'Age', 'font-weight-bold', 'text-right');
@@ -133,5 +133,26 @@ class HomeView extends View {
         Html.insertCell(tr, 'Wage ($)', 'font-weight-bold', 'text-right');
         Html.insertCell(tr, player.wage.toLocaleString());
 
+    }
+
+    _divCountry(country) {
+        let div = Html.createElement('div', '');
+        let span = Html.createImage(country.flag, country.name, 'img-miniature', 'mr-2');
+        div.appendChild(span);
+        span = Html.createElement('span', country.name);
+        div.appendChild(span);
+        return div;
+    }
+
+    _divOverall(player) {
+        let div = Html.createElement('div', '');
+        let span = Html.createElement('span', player.overall, 'overall', `bg-${player.category}`);
+        div.appendChild(span);
+        if (player.star) {
+            let span = Html.createIcon('star', YELLOW);
+            span.classList.add('overall', 'player-star', 'ml-1');
+            div.appendChild(span);
+        }
+        return div;
     }
 }

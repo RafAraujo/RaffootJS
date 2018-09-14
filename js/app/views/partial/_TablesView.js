@@ -76,7 +76,6 @@ class _TablesView {
         });
 
         this._divContent.appendChild(table);
-        $('[data-toggle="tooltip"]:not(.d-none)').tooltip();
     }
 
     _formatPosition(td, championshipEdition, position) {

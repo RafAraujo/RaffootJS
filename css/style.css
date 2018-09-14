@@ -6,6 +6,10 @@ main {
     padding-bottom: 4rem;
 }
 
+th, td {
+    vertical-align: middle !important;
+}
+
 table.sortable th {
     cursor: pointer;
 }
@@ -70,7 +74,11 @@ table.sortable th {
 
 .table-borderless th, .table-borderless td {
     border: none;
-    padding: .375rem;
+    padding: .5rem;
+}
+
+.overall {
+    padding: .6rem .9rem .6rem .9rem;
 }
 
 .tooltip {
