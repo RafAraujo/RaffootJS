@@ -58,14 +58,19 @@ table.sortable th {
     background-color: tan;
 }
 
+.player-star {
+    background-color: black;
+    color: gold;
+}
+
 .img-miniature {
     min-width: 1.25rem;
     max-width: 2rem;
 }
 
-.td-player-star {
-    background-color: black;
-    color: gold;
+.table-borderless th, .table-borderless td {
+    border: none;
+    padding: .375rem;
 }
 
 .tooltip {

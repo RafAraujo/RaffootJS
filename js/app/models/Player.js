@@ -91,6 +91,10 @@ let Player = (function () {
             return _SIDES.find(s => s.substr(0, 1) === this.side);
         }
 
+        get completePosition() {
+            return `${this.position.name} ${(this.position.hasMultipleSides ? '(' + this.sideDescription + ')' : '')}`;
+        }
+
         get age() {
             return Season.current().year - this._birthYear;
         }

@@ -265,7 +265,7 @@ let PlayersTable = (function () {
             if (player.star) {
                 let icon = HtmlHelper.createIcon('star', YELLOW);
                 HtmlHelper.setTooltip(td, icon.outerHTML, 'left');
-                td.classList.add('td-player-star');
+                td.classList.add('player-star');
             }
         }
 

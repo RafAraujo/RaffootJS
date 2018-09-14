@@ -98,6 +98,36 @@ class HomeView extends View {
     _showPlayer(id) {
         let player = Player.all()[id - 1];
 
-        this._modalPlayer.querySelector('#player-modal-label').innerText = player.completeName;
+        let title = this._modalPlayer.querySelector('.modal-title');
+        title.innerText = player.completeName;
+
+        let tbody = this._modalPlayer.querySelector('table tbody');
+        HtmlHelper.clearElement(tbody);
+        let tr = null;
+
+        tr = tbody.insertRow();
+        HtmlHelper.insertCell(tr, 'Position', 'font-weight-bold', 'text-right');
+        HtmlHelper.insertCell(tr, player.completePosition);
+
+        tr = tbody.insertRow();
+        HtmlHelper.insertCell(tr, 'Overall', 'font-weight-bold', 'text-right');
+        HtmlHelper.insertCell(tr, HtmlHelper.createElement('span', player.overall, 'bg-gold', 'pt-2', 'pb-2', 'pl-3', 'pr-3').outerHTML, 'mt-2', 'mb-2');
+
+        tr = tbody.insertRow();
+        HtmlHelper.insertCell(tr, 'Country', 'font-weight-bold', 'text-right');
+        HtmlHelper.insertCell(tr, player.country.name);
+        
+        tr = tbody.insertRow();
+        HtmlHelper.insertCell(tr, 'Age', 'font-weight-bold', 'text-right');
+        HtmlHelper.insertCell(tr, player.age);
+
+        tr = tbody.insertRow();
+        HtmlHelper.insertCell(tr, 'Market Value ($)', 'font-weight-bold', 'text-right');
+        HtmlHelper.insertCell(tr, player.marketValue.toLocaleString());
+
+        tr = tbody.insertRow();
+        HtmlHelper.insertCell(tr, 'Wage ($)', 'font-weight-bold', 'text-right');
+        HtmlHelper.insertCell(tr, player.wage.toLocaleString());
+
     }
 }

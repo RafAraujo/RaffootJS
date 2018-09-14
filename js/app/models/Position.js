@@ -66,11 +66,11 @@ let Position = (function () {
         }
 
         get line() {
-            return Math.min(...this.fieldLocalizations.map(fl => fl.line));
+            return this.fieldLocalizations.map(fl => fl.line)[0];
         }
 
-        get side() {
-            return FieldLocalization.sides()[Math.min(...this.fieldLocalizations.map(fl => fl.column))];
+        get hasMultipleSides() {
+            return this.fieldLocalizations.map(fl => fl.column).length > 1;
         }
 
         get skills() {
