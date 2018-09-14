@@ -41,7 +41,7 @@ class _ClubsView {
         this._component.players = Club.all()[this._selectClub.value - 1].squad.players;
         this._component.build();
         Html.deleteColumn(this._component.table, 6);
-        this._divContent.removeChild(this._component.pInfo);
-        this._divContent.removeChild(this._component.buttonLoadMore);
+        Html.hide(this._component.pInfo);
+        Html.hide(this._component.buttonLoadMore);
     }
 }
