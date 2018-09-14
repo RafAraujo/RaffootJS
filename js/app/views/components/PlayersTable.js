@@ -73,8 +73,8 @@ let PlayersTable = (function () {
 
     return class PlayersTable {
         constructor(players, container, ...classList) {
-            this._players = players;
-            this._container = container;
+            this.players = players;
+            this.container = container;
             this._classList = classList.concat(['sortable']);
 
             this._tableOrder = {
@@ -82,35 +82,15 @@ let PlayersTable = (function () {
                 direction: 1
             };
 
-            this._invisibleColumns = [];
+            this.pageSize = 50;
+            this.showInfo = true;
+            this.showLoadMore = true;
+
             this._visiblePlayersCount = 0;
-            this._pageSize = 50;
-            this._showInfo = true;
-            this._showLoadMore = true;
-        }
-
-        set players(value) {
-            this._players = value;
-        }
-
-        set invisibleColumns(value) {
-            this._invisibleColumns = value.map(column => this._getColumnIndexByDescription(column));
-        }
-
-        set pageSize(value) {
-            this._pageSize = value;
-        }
-
-        set showInfo(value) {
-            this._showInfo = value;
-        }
-
-        set showLoadMore(value) {
-            this._showLoadMore = value;
         }
 
         get _sortedPlayers() {
-            let players = this._players.orderBy(...this._tableOrder.properties);
+            let players = this.players.orderBy(...this._tableOrder.properties);
 
             if (this._tableOrder.direction === -1)
                 players = players.reverse();
@@ -123,18 +103,18 @@ let PlayersTable = (function () {
         }
 
         get _invisiblePlayersCount() {
-            return this._players.length - this._visiblePlayersCount;
+            return this.players.length - this._visiblePlayersCount;
         }
 
         get _nextPlayers() {
-            let count = Math.min(this._invisiblePlayersCount, this._pageSize);
+            let count = Math.min(this._invisiblePlayersCount, this.pageSize);
             let players = this._sortedPlayers.slice(this._visiblePlayersCount, this._visiblePlayersCount + count);
             this._visiblePlayersCount += count;
             return players;
         }
 
         get _info() {
-            return `Showing ${this._visiblePlayersCount.toLocaleString()} of ${this._players.length.toLocaleString()}`;
+            return `Showing ${this._visiblePlayersCount.toLocaleString()} of ${this.players.length.toLocaleString()}`;
         }
 
         build() {
@@ -144,15 +124,9 @@ let PlayersTable = (function () {
             this._pInfo = HtmlHelper.createParagraph('');
             this._buttonLoadMore = HtmlHelper.createButton('Load more', 'btn-primary', 'mb-3');
 
-            this._configHeader();
-            this._fillBody(this._nextPlayers);
-
-            this._container.appendChild(this._table);
-            this._container.appendChild(this._pInfo);
+            this._configTable();
+            this._configInfo();
             this._configLoadMore();
-
-            this._showInfo ? HtmlHelper.show(this._pInfo) : HtmlHelper.hide(this._pInfo);
-            this._showLoadMore ? HtmlHelper.show(this._buttonLoadMore) : HtmlHelper.hide(this._buttonLoadMore);
         }
 
         loadMore() {
@@ -161,8 +135,25 @@ let PlayersTable = (function () {
 
         destroy() {
             $('[data-toggle="tooltip"]:not(.d-none)').tooltip('dispose');
-            HtmlHelper.clearElement(this._container);
+            HtmlHelper.clearElement(this.container);
             this._visiblePlayersCount = 0;
+        }
+
+        _configTable() {
+            this._configHeader();
+            this._fillBody(this._nextPlayers);
+            this.container.appendChild(this._table);
+        }
+
+        _configHeader() {
+            let tr = this._table.querySelector('thead tr');
+
+            _HEADER.items.forEach((item, index) => {
+                if (item.description)
+                    HtmlHelper.setTooltip(tr.children[index], item.description);
+
+                tr.children[index].addEventListener('click', this._updateOrder.bind(this, item.orderProperties));
+            });
         }
 
         _updateOrder(orderProperties) {
@@ -177,24 +168,6 @@ let PlayersTable = (function () {
 
             HtmlHelper.clearElement(this._table.querySelector('tbody'));
             this._fillBody(this._visiblePlayers);
-        }
-
-        _getColumnIndexByDescription(description) {
-            let index = _HEADER.items.map(i => i.description).indexOf(description);
-            if (index === -1)
-                index = _HEADER.items.map(i => i.title).indexOf(description);
-            return index;
-        }
-
-        _configHeader() {
-            let tr = this._table.querySelector('thead tr');
-
-            _HEADER.items.forEach((item, index) => {
-                if (item.description)
-                    HtmlHelper.setTooltip(tr.children[index], item.description);
-
-                tr.children[index].addEventListener('click', this._updateOrder.bind(this, item.orderProperties));
-            });
         }
 
         _fillBody(players) {
@@ -232,9 +205,8 @@ let PlayersTable = (function () {
                 this._formatForLoan(tr.children[14], player.forLoan);
             });
 
-            this._invisibleColumns.forEach(index => HtmlHelper.hideColumn(this._table, index));
             this._pInfo.innerText = this._info;
-            this._buttonLoadMore.disabled = this._visiblePlayersCount === this._players.length;
+            this._buttonLoadMore.disabled = this._visiblePlayersCount === this.players.length;
 
             setTimeout(() => $('[data-toggle="tooltip"]:not(.d-none)').tooltip(), 0);
         }
@@ -337,9 +309,15 @@ let PlayersTable = (function () {
             }
         }
 
+        _configInfo() {
+            this.container.appendChild(this._pInfo);
+            this.showInfo ? HtmlHelper.show(this._pInfo) : HtmlHelper.hide(this._pInfo);
+        }
+
         _configLoadMore() {
-            this._container.appendChild(this._buttonLoadMore);
+            this.container.appendChild(this._buttonLoadMore);
             this._buttonLoadMore.addEventListener('click', this.loadMore.bind(this));
+            this.showLoadMore ? HtmlHelper.show(this._buttonLoadMore) : HtmlHelper.hide(this._buttonLoadMore);
         }
     }
 })();

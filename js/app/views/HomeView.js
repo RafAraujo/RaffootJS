@@ -111,7 +111,7 @@ class HomeView extends View {
 
         tr = tbody.insertRow();
         HtmlHelper.insertCell(tr, 'Overall', 'font-weight-bold', 'text-right');
-        HtmlHelper.insertCell(tr, HtmlHelper.createElement('span', player.overall, 'bg-gold', 'pt-2', 'pb-2', 'pl-3', 'pr-3').outerHTML, 'mt-2', 'mb-2');
+        HtmlHelper.insertCell(tr, player.overall);
 
         tr = tbody.insertRow();
         HtmlHelper.insertCell(tr, 'Country', 'font-weight-bold', 'text-right');
