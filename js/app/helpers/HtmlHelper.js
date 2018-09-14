@@ -140,6 +140,17 @@ class Html {
         });
     }
 
+    static deleteColumn(table, columnIndex) {
+        Array.from(table.children).filter(section => section != null).forEach(section => {
+            Array.from(section.children).forEach(row => {
+                Array.from(row.children).forEach((cell, index) => {
+                    if (index === columnIndex)
+                        row.removeChild(cell);
+                });
+            });
+        });
+    }
+
     static setTooltip(element, innerHTML, position) {
         element.setAttribute('data-toggle', 'tooltip');
         element.setAttribute('data-placement', position || 'bottom');

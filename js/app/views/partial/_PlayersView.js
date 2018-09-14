@@ -52,7 +52,6 @@ class _PlayersView {
 
     _fillTable() {
         this._component.players = this._searchPlayers();
-        this._component.invisibleColumns = ['Energy', 'Condition'];
         this._component.build();
     }
 

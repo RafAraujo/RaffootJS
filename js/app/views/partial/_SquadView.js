@@ -15,5 +15,8 @@ class _SquadView {
         this._component.showInfo = false;
         this._component.showLoadMore = false;
         this._component.build();
+        Html.deleteColumn(this._component.table, 6);
+        this._divContent.removeChild(this._component.pInfo);
+        this._divContent.removeChild(this._component.buttonLoadMore);
     }
 }

@@ -39,9 +39,9 @@ class _ClubsView {
 
     _fillSquad() {
         this._component.players = Club.all()[this._selectClub.value - 1].squad.players;
-        this._component.invisibleColumns = ['Club', 'Energy', 'Condition'];
-        this._component.showInfo = false;
-        this._component.showLoadMore = false;
         this._component.build();
+        Html.deleteColumn(this._component.table, 6);
+        this._divContent.removeChild(this._component.pInfo);
+        this._divContent.removeChild(this._component.buttonLoadMore);
     }
 }

@@ -83,9 +83,6 @@ let PlayersTable = (function () {
             };
 
             this.pageSize = 50;
-            this.showInfo = true;
-            this.showLoadMore = true;
-
             this._visiblePlayersCount = 0;
         }
 
@@ -113,16 +110,16 @@ let PlayersTable = (function () {
             return players;
         }
 
-        get _info() {
+        get info() {
             return `Showing ${this._visiblePlayersCount.toLocaleString()} of ${this.players.length.toLocaleString()}`;
         }
 
         build() {
             this.destroy();
 
-            this._table = Html.createTable(null, _HEADER.items.map(item => item.title), ...this._classList);
-            this._pInfo = Html.createParagraph('');
-            this._buttonLoadMore = Html.createButton('Load more', 'btn-primary', 'mb-3');
+            this.table = Html.createTable(null, _HEADER.items.map(item => item.title), ...this._classList);
+            this.pInfo = Html.createParagraph('');
+            this.buttonLoadMore = Html.createButton('Load more', 'btn-primary', 'mb-3');
 
             this._configTable();
             this._configInfo();
@@ -142,11 +139,11 @@ let PlayersTable = (function () {
         _configTable() {
             this._configHeader();
             this._fillBody(this._nextPlayers);
-            this.container.appendChild(this._table);
+            this.container.appendChild(this.table);
         }
 
         _configHeader() {
-            let tr = this._table.querySelector('thead tr');
+            let tr = this.table.querySelector('thead tr');
 
             _HEADER.items.forEach((item, index) => {
                 if (item.description)
@@ -166,12 +163,12 @@ let PlayersTable = (function () {
 
             this._tableOrder.properties = orderProperties;
 
-            Html.clearElement(this._table.querySelector('tbody'));
+            Html.clearElement(this.table.querySelector('tbody'));
             this._fillBody(this._visiblePlayers);
         }
 
         _fillBody(players) {
-            let tbody = this._table.querySelector('tbody');
+            let tbody = this.table.querySelector('tbody');
 
             players.forEach(player => {
                 let tr = tbody.insertRow();
@@ -205,8 +202,8 @@ let PlayersTable = (function () {
                 this._formatForLoan(tr.children[14], player.forLoan);
             });
 
-            this._pInfo.innerText = this._info;
-            this._buttonLoadMore.disabled = this._visiblePlayersCount === this.players.length;
+            this.pInfo.innerText = this.info;
+            this.buttonLoadMore.disabled = this._visiblePlayersCount === this.players.length;
 
             setTimeout(() => $('[data-toggle="tooltip"]:not(.d-none)').tooltip(), 0);
         }
@@ -310,14 +307,12 @@ let PlayersTable = (function () {
         }
 
         _configInfo() {
-            this.container.appendChild(this._pInfo);
-            this.showInfo ? Html.show(this._pInfo) : Html.hide(this._pInfo);
+            this.container.appendChild(this.pInfo);
         }
 
         _configLoadMore() {
-            this.container.appendChild(this._buttonLoadMore);
-            this._buttonLoadMore.addEventListener('click', this.loadMore.bind(this));
-            this.showLoadMore ? Html.show(this._buttonLoadMore) : Html.hide(this._buttonLoadMore);
+            this.container.appendChild(this.buttonLoadMore);
+            this.buttonLoadMore.addEventListener('click', this.loadMore.bind(this));
         }
     }
 })();
