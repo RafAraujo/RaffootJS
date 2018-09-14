@@ -126,6 +126,10 @@ class HomeView extends View {
         Html.insertCell(tr, player.age);
 
         tr = tbody.insertRow();
+        Html.insertCell(tr, 'Club', 'font-weight-bold', 'text-right');
+        Html.insertCell(tr, player.club.name);
+
+        tr = tbody.insertRow();
         Html.insertCell(tr, 'Value ($)', 'font-weight-bold', 'text-right');
         Html.insertCell(tr, player.marketValue.toLocaleString());
 
@@ -137,7 +141,7 @@ class HomeView extends View {
 
     _divCountry(country) {
         let div = Html.createElement('div', '');
-        let span = Html.createImage(country.flag, country.name, 'img-miniature', 'mr-2');
+        let span = Html.createImage(country.flag, country.name, 'img-miniature', 'border', 'mr-2');
         div.appendChild(span);
         span = Html.createElement('span', country.name);
         div.appendChild(span);

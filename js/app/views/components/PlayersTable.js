@@ -226,10 +226,8 @@ let PlayersTable = (function () {
         _formatCountry(td, country) {
             let flag = Html.createImage(country.flag, country.name, 'img-miniature', 'border');
             td.innerHTML = flag.outerHTML;
-            if (screen.width <= 480) {
+            if (screen.width <= 480)
                 td.style.padding = '0';
-                td.style.paddingLeft = '0.5rem';
-            }
         }
 
         _formatName(td, player) {
