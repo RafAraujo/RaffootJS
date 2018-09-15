@@ -16,7 +16,7 @@ let PlayersTable = (function () {
                 orderProperties: ['name']
             },
             {
-                title: 'OVA',
+                title: 'OV',
                 description: 'Overall',
                 orderProperties: ['overall']
             },
@@ -75,7 +75,7 @@ let PlayersTable = (function () {
         constructor(players, container, ...classList) {
             this.players = players;
             this.container = container;
-            this._classList = classList.concat(['sortable']);
+            this._classList = classList.concat(['players', 'sortable']);
 
             this._tableOrder = {
                 properties: _HEADER.items[0].orderProperties,
@@ -203,15 +203,7 @@ let PlayersTable = (function () {
                 this._formatForLoan(tr.children[14], player.forLoan);
             });
 
-            Array.from(this.table.children).filter(section => section != null).forEach(section => {
-                Array.from(section.children).forEach(row => {
-                    Array.from(row.children).forEach((cell, index) => {
-                        if (index > 4)
-                            cell.classList.add('d-none', 'd-sm-table-cell');
-                    });
-                });
-            });
-
+            this._optimizeTableForMobile();
             setTimeout(() => $('[data-toggle="tooltip"]').tooltip(), 0);
 
             this.pInfo.innerText = this.info;
@@ -225,9 +217,8 @@ let PlayersTable = (function () {
 
         _formatCountry(td, country) {
             let flag = Html.createImage(country.flag, country.name, 'img-miniature', 'border');
+            td.classList.add('pr-0');
             td.innerHTML = flag.outerHTML;
-            if (screen.width <= 480)
-                td.style.padding = '0';
         }
 
         _formatName(td, player) {
@@ -245,6 +236,9 @@ let PlayersTable = (function () {
                 Html.setTooltip(span, icon.outerHTML, 'left');
                 span.classList.add('player-star');
             }
+
+            td.classList.add('pl-0');
+            td.classList.add('pr-0');
 
             td.appendChild(span);
         }
@@ -319,6 +313,17 @@ let PlayersTable = (function () {
                 let icon = Html.createIcon('check-circle', BLUE, 'fa-lg');
                 td.appendChild(icon);
             }
+        }
+
+        _optimizeTableForMobile() {
+            Array.from(this.table.children).filter(section => section != null).forEach(section => {
+                Array.from(section.children).forEach(row => {
+                    Array.from(row.children).forEach((cell, index) => {
+                        if (index > 4)
+                            cell.classList.add('d-none', 'd-sm-table-cell');
+                    });
+                });
+            });
         }
 
         _configInfo() {

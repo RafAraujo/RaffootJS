@@ -6,13 +6,22 @@ main {
     padding-bottom: 4rem;
 }
 
-th, td {
-    vertical-align: middle !important;
-    padding: 0.5rem !important;
+.table th, .table td {
+    vertical-align: middle;
+    padding: 0.5rem;
 }
 
-table.sortable th {
+.players td {
+    padding-bottom: 0.115rem;
+    padding-top: 0.115rem;
+}
+
+.sortable th {
     cursor: pointer;
+}
+
+.borderless th, .borderless td {
+    border: none;
 }
 
 .border-left-goal {
@@ -73,13 +82,12 @@ table.sortable th {
     max-width: 2rem;
 }
 
-.table-borderless th, .table-borderless td {
-    border: none;
-    padding: .4rem;
-}
-
 .overall {
-    padding: .5rem .8rem .5rem .8rem;
+    display: inline-block;
+    height: 2.25rem;
+    width: 2.25rem;
+    line-height: 2.25rem;
+    text-align: center;
 }
 
 .tooltip {
