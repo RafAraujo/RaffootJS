@@ -37,10 +37,10 @@ class CountryService {
         try {
             let response = await fetch(`http://c3420952.r52.cf0.rackcdn.com/${this._getAbbreviationSoccerWiki(country)}playerbasicdata.xml`);
             let text = await response.text();
-            let xml = new window.DOMParser().parseFromString(text, 'text/xml');
+            let xml = new DOMParser().parseFromString(text, 'text/xml');
             let tags = Array.from(xml.getElementsByTagName('P'));
-            let values = tags.map(t => t.getAttribute('f'));
-            values = values.concat(tags.map(t => t.getAttribute('s').toTitleCase()));
+            let values = tags.map(t => t.getAttribute('f').htmlDecode());
+            values = values.concat(tags.map(t => t.getAttribute('s').htmlDecode().toTitleCase()));
             values = [...new Set(values)];
             return values;
         }
@@ -53,9 +53,10 @@ class CountryService {
         try {
             let response = await fetch(`http://c3420952.r52.cf0.rackcdn.com/${this._getAbbreviationSoccerWiki(country)}clubdata.xml`);
             let text = await response.text();
-            let xml = new window.DOMParser().parseFromString(text, 'text/xml');
+            let xml = new DOMParser().parseFromString(text, 'text/xml');
             let tags = Array.from(xml.getElementsByTagName('C'));
-            let values = tags.map(t => t.getAttribute('n'));
+            let values = tags.map(t => t.getAttribute('n').htmlDecode());
+            values = values.filter(v => !(v.startsWith('Jong ') || v.endsWith(' B') || v.endsWith(' II')));
             return values;
         }
         catch (error) {
