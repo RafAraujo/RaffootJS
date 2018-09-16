@@ -30,7 +30,7 @@ let Club = (function () {
             return _clubs;
         }
 
-        static seed() {
+        static async seedAsync() {
             let countries = Country.all();
 
             let argentina = countries[0];
@@ -51,29 +51,32 @@ let Club = (function () {
             let russia = countries[14];
             let spain = countries[15];
 
-            Country.playable().forEach(c => {
-                for (let i = 0; i < 64; i++)
-                    Club.create(`${c.name} Club ${i}`, c);
-            });
-            
-            for (let country of Country.playable()) {
-                let clubs = country.clubs.slice().shuffle();
-                let divisionCount = country.divisionCount;
+            try {
+                for (let country of Country.playable()) {
+                    let names = await country.getClubNamesAsync();
+                    names.forEach(n => Club.create(n, country));
 
-                for (let i = 0; i < divisionCount; i++) {
-                    for (let j = 0; j < country.leagueClubCount; j++) {
-                        let club = clubs[i * country.leagueClubCount + j];
+                    let clubs = country.clubs.slice().shuffle();
+                    let divisionCount = country.divisionCount;
 
-                        club.playable = true;
-                        club.initialDivision = i + 1;
-                        club._stadiumId = Stadium.create(`${club.name} Stadium`, Stadium.baseTicketPrice(club.initialDivision)).id;
-                        club._generateSquad();
-                        club.receive(club.squad.wage * Random.numberBetween(6, 9));
+                    for (let i = 0; i < divisionCount; i++) {
+                        for (let j = 0; j < country.leagueClubCount; j++) {
+                            let club = clubs[i * country.leagueClubCount + j];
+
+                            club.playable = true;
+                            club.initialDivision = i + 1;
+                            club._stadiumId = Stadium.create(`${club.name} Stadium`, Stadium.baseTicketPrice(club.initialDivision)).id;
+                            await club._generateSquadAsync();
+                            club.receive(club.squad.wage * Random.numberBetween(6, 9));
+                        }
                     }
                 }
+                
+                Object.freeze(_clubs);
             }
-
-            Object.freeze(_clubs);
+            catch (error) {
+                throw error;
+            }
         }
 
         static playable() {
@@ -108,22 +111,27 @@ let Club = (function () {
             return this.league.championship.division;
         }
 
-        _generateSquad() {
-            let formation = Formation.all().getRandomItem();
-            this._squadId = Squad.create(formation).id;
+        async _generateSquadAsync() {
+            try {
+                let formation = Formation.all().getRandomItem();
+                this._squadId = Squad.create(formation).id;
 
-            let date = Date.firstDayCurrentYear();
-            let year = date.getFullYear();
+                let date = Date.firstDayCurrentYear();
+                let year = date.getFullYear();
 
-            for (let fieldRegion of FieldRegion.all()) {
-                let count = formation.randomPlayersCount(fieldRegion);
+                for (let fieldRegion of FieldRegion.all()) {
+                    let count = formation.randomPlayersCount(fieldRegion);
 
-                for (let i = 0; i < count; i++) {
-                    let country = Random.number(10) < 9 ? this.country : Country.all().getRandomItem();
-                    let player = Player.create(country, year - Random.numberBetween(16, 38), fieldRegion.positions.getRandomItem(), this.initialDivision);
-                    let contract = Contract.create(this, player, 'definitive', 0, player.baseWage, date, date.addMonths(Random.numberBetween(6, 24)));
-                    contract.sign();
+                    for (let i = 0; i < count; i++) {
+                        let country = Random.number(10) < 9 ? this.country : Country.all().getRandomItem();
+                        let player = await Player.createAsync(country, year - Random.numberBetween(16, 38), fieldRegion.positions.getRandomItem(), this.initialDivision);
+                        let contract = Contract.create(this, player, 'definitive', 0, player.baseWage, date, date.addMonths(Random.numberBetween(6, 24)));
+                        contract.sign();
+                    }
                 }
+            }
+            catch (error) {
+                throw error;
             }
         }
 

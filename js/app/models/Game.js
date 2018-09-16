@@ -30,43 +30,48 @@ let Game = (function () {
             return _games.first();
         }
 
-        seed() {
-            let t0 = performance.now();
-            Confederation.seed();
-            console.log("Call took " + (performance.now() - t0) + " milliseconds.");
+        async seedAsync() {
+            try {
+                let t0 = performance.now();
+                Confederation.seed();
+                console.log("Call took " + (performance.now() - t0) + " milliseconds.");
 
-            Country.seed();
-            console.log("Call took " + (performance.now() - t0) + " milliseconds.");
+                Country.seed();
+                console.log("Call took " + (performance.now() - t0) + " milliseconds.");
 
-            FieldRegion.seed();
-            console.log("Call took " + (performance.now() - t0) + " milliseconds.");
+                FieldRegion.seed();
+                console.log("Call took " + (performance.now() - t0) + " milliseconds.");
 
-            Position.seed();
-            console.log("Call took " + (performance.now() - t0) + " milliseconds.");
+                Position.seed();
+                console.log("Call took " + (performance.now() - t0) + " milliseconds.");
 
-            FieldLocalization.seed();
-            console.log("Call took " + (performance.now() - t0) + " milliseconds.");
+                FieldLocalization.seed();
+                console.log("Call took " + (performance.now() - t0) + " milliseconds.");
 
-            Formation.seed();
-            console.log("Call took " + (performance.now() - t0) + " milliseconds.");
+                Formation.seed();
+                console.log("Call took " + (performance.now() - t0) + " milliseconds.");
 
-            Skill.seed();
-            console.log("Call took " + (performance.now() - t0) + " milliseconds.");
+                Skill.seed();
+                console.log("Call took " + (performance.now() - t0) + " milliseconds.");
 
-            Club.seed();
-            console.log("Call took " + (performance.now() - t0) + " milliseconds.");
+                await Club.seedAsync();
+                console.log("Call took " + (performance.now() - t0) + " milliseconds.");
 
-            Referee.seed();
-            console.log("Call took " + (performance.now() - t0) + " milliseconds.");
+                await Referee.seedAsync();
+                console.log("Call took " + (performance.now() - t0) + " milliseconds.");
 
-            ChampionshipType.seed();
-            console.log("Call took " + (performance.now() - t0) + " milliseconds.");
+                ChampionshipType.seed();
+                console.log("Call took " + (performance.now() - t0) + " milliseconds.");
 
-            Championship.seed();
-            console.log("Call took " + (performance.now() - t0) + " milliseconds.");
+                Championship.seed();
+                console.log("Call took " + (performance.now() - t0) + " milliseconds.");
 
-            this.newSeason();
-            console.log("Call took " + (performance.now() - t0) + " milliseconds.");
+                this.newSeason();
+                console.log("Call took " + (performance.now() - t0) + " milliseconds.");
+            }
+            catch (error) {
+                throw error;
+            }
         }
 
         get country() {

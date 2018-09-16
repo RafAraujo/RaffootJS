@@ -73,6 +73,11 @@
     <script src="../js/app/helpers/Random.js"></script>
     <script src="../js/app/helpers/StringExtensions.js"></script>
 
+    <script src="../js/app/services/ConnectionFactory.js"></script>
+    <script src="../js/app/services/CountryService.js"></script>
+    <script src="../js/app/services/GameService.js"></script>
+    <script src="../js/app/services/ProxyFactory.js"></script>
+
     <script src="../js/app/models/Entity.js"></script>
     <script src="../js/app/models/Game.js"></script>
 
@@ -108,10 +113,6 @@
     <script src="../js/app/models/SquadPlayer.js"></script>
     <script src="../js/app/models/Stadium.js"></script>
 
-    <script src="../js/app/services/ConnectionFactory.js"></script>
-    <script src="../js/app/services/GameService.js"></script>
-    <script src="../js/app/services/ProxyFactory.js"></script>
-
     <script src="../js/app/dao/GenericDAO.js"></script>
 
     <script src="../js/app/controllers/NewGameController.js"></script>
@@ -123,5 +124,5 @@
 </html>
 <script>
     let controller = new NewGameController();
-    controller.createGame();
+    controller.createGameAsync();
 </script>

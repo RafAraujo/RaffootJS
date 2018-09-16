@@ -25,21 +25,27 @@ let Player = (function () {
             this.forLoan = false;
         }
 
-        static create(country, birthYear, position, clubDivision) {
-            let names = country.names;
+        static async createAsync(country, birthYear, position, clubDivision) {
+            try {
+                let names = await country.getPlayerNamesAsync();
 
-            let side = position.fieldLocalizations.getRandomItem().side;
-            let name = names.getRandomItem();
-            let surname = names.getRandomItem();
-            let overall = Player.randomOverall(clubDivision);
-            let star = overall > 90 ? Random.numberBetween(1, 10) === 10 : false;
-            let skillIds = position.skills.getRandomItems(star ? 3 : 2).map(s => s.id);
-            let condition = Random.numberBetween(1, 5);
-            let injuryProneness = Random.numberBetween(1, 3);
+                let side = position.fieldLocalizations.getRandomItem().side;
+                let name = names.getRandomItem();
+                let surname = names.getRandomItem();
+                let overall = Player.randomOverall(clubDivision);
+                let star = overall > 90 ? Random.numberBetween(1, 10) === 10 : false;
+                let skillIds = position.skills.getRandomItems(star ? 3 : 2).map(s => s.id);
+                let condition = Random.numberBetween(1, 5);
+                let injuryProneness = Random.numberBetween(1, 3);
 
-            let player = new Player(name, surname, country.id, birthYear, position.id, side, overall, star, skillIds, condition, injuryProneness);
-            player.id = _players.push(player);
-            return player;
+                let player = new Player(name, surname, country.id, birthYear, position.id, side, overall, star, skillIds, condition, injuryProneness);
+                player.id = _players.push(player);
+
+                return player;
+            }
+            catch (error) {
+                throw error;
+            }
         }
 
         static load(objects) {

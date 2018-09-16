@@ -18,7 +18,7 @@ class IndexController {
 
         this._selectDatabases.addEventListener('change', this._setName.bind(this));
         this._buttonLoadGame.addEventListener('click', this._loadGame.bind(this));
-        this._buttonDeleteGame.addEventListener('click', this._deleteGame.bind(this));
+        this._buttonDeleteGame.addEventListener('click', this._deleteGameAsync.bind(this));
 
         this._buttonNewGame.addEventListener('click', this._newGame);
         this._buttonShowSaves.addEventListener('click', this._showSaves.bind(this));
@@ -26,42 +26,40 @@ class IndexController {
         this._view.update();
     }
 
-    _showInfo() {
-        this._service
-            .info(this._game.name)
-            .then(info => {
-                this._game.clubName = info.clubName;
-                this._game.seasonYear = info.seasonYear;
-                this._game.name = info.name;
-            })
-            .catch(error => {
-                console.log(error);
-                this._view.showMessage('Error on showing game info', 'danger');
-            })
-            .then(() => this._view.update())
+    async _showInfoAsync() {
+        try {
+            let info = await this._service.getInfoAsync(this._game.name);
+            this._game.clubName = info.clubName;
+            this._game.seasonYear = info.seasonYear;
+            this._game.name = info.name;
+        }
+        catch (error) {
+            console.log(error);
+            this._view.showMessage('Error on showing game info', 'danger');
+        }
+        this._view.update();
     }
 
     _loadGame() {
         window.location.href = `home.html?game=${this._game.name}`;
     }
 
-    _deleteGame() {
+    async _deleteGameAsync() {
         this._view.showMessage('Deleting game...', 'primary');
 
-        this._service
-            .delete(this._game.name)
-            .then(() => {
-                this._game.clubName = '';
-                this._game.seasonYear = '';
-                this._game.name = '';
+        try {
+            await this._service.deleteAsync(this._game.name);
+            this._game.clubName = '';
+            this._game.seasonYear = '';
+            this._game.name = '';
 
-                this._view.showMessage('Game deleted with success', 'success');
-            })
-            .catch(error => {
-                console.log(error);
-                this._view.showMessage('Error on deleting game', 'danger');
-            })
-            .then(() => this._view.update());
+            this._view.showMessage('Game deleted with success', 'success');
+        }
+        catch (error) {
+            console.log(error);
+            this._view.showMessage('Error on deleting game', 'danger');
+        }
+        this._view.update();
     }
 
     _newGame() {
@@ -74,6 +72,6 @@ class IndexController {
 
     _setName() {
         this._game.name = this._selectDatabases.value;
-        this._showInfo();
+        this._showInfoAsync();
     }
 }

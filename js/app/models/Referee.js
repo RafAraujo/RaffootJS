@@ -11,9 +11,8 @@ let Referee = (function () {
             this.rigor = rigor;
         }
 
-        static create(country) {
-            let names = country.names.getRandomItems(2);
-
+        static async createAsync(country) {
+            let names = await country.getPlayerNamesAsync();
             let referee = new Referee(country.id, names[0], names[1], Random.numberBetween(1, 3));
             referee.id = _referees.push(referee);
             return referee;
@@ -27,8 +26,11 @@ let Referee = (function () {
             return _referees;
         }
 
-        static seed() {
-            Club.playable().forEach(c => _referees.push(Referee.create(c.country)));
+        static async seedAsync() {
+            for (let club of Club.playable()) {
+                let referee = await Referee.createAsync(club.country);
+                _referees.push(referee);
+            }
 
             Object.freeze(_referees);
         }

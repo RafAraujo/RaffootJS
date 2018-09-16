@@ -8,22 +8,28 @@ class NewGameController {
         this._service = new GameService();
         this._view = new View();
 
-        this._form.addEventListener('submit', this._save.bind(this));
+        this._form.addEventListener('submit', this._saveAsync.bind(this));
         this._selectCountry.addEventListener('change', this._setCountry.bind(this));
         this._selectClub.addEventListener('change', this._setClub.bind(this));
     }
 
-    createGame() {
-        this._game = Game.create();
-        this._view = new NewGameView(this._game);
-        this._game.seed();
-        this._view.update();
+    async createGameAsync() {
+        try {
+            this._game = Game.create();
+            this._view = new NewGameView(this._game);
+            await this._game.seedAsync();
+            this._view.update();
+        }
+        catch (error) {
+            console.log(error);
+            this._view.showMessage('Error on creating game', 'danger');
+        }
     }
 
     _setCountry() {
         this._game.country = this._game.countries.find(c => c.id == this._selectCountry.value);
         this._view.update();
-        
+
     }
 
     _setClub() {
@@ -38,7 +44,7 @@ class NewGameController {
         this._game.name = this._inputName.value;
     }
 
-    _save(event) {
+    async _saveAsync(event) {
         event.preventDefault();
 
         this._setCoach();
@@ -46,12 +52,13 @@ class NewGameController {
 
         this._view.showMessage('Starting game...', 'primary');
 
-        this._service
-            .create(this._game.name)
-            .then(() => window.location.href = `home.html?game=${this._game.name}`)
-            .catch(error => {
-                console.log(error);
-                this._view.showMessage('Error on saving game', 'danger');
-            });
+        try {
+            await this._service.createAsync(this._game.name);
+            window.location.href = `home.html?game=${this._game.name}`;
+        }
+        catch (error) {
+            console.log(error);
+            this._view.showMessage('Error on saving game', 'danger');
+        };
     }
 }
