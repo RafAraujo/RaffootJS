@@ -20,7 +20,7 @@ class HomeController {
         this._service
             .load(this._gameName)
             .then(game => {
-                let t1 = performance.now(); console.log("Call took " + (t1 - t0) + " milliseconds.");
+                console.log("Call took " + (performance.now() - t0) + " milliseconds.");
                 this._game = game;
                 this._view = new HomeView(this._game);
                 this._view.update();

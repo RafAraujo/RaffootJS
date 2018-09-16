@@ -23,8 +23,26 @@ let Confederation = (function () {
             return _confederations;
         }
 
+        static africa() {
+            return _confederations[0];
+        }
+
+        static america() {
+            return _confederations[1];
+        }
+
+        static asia() {
+            return _confederations[2];
+        }
+
+        static europe() {
+            return _confederations[3];
+        }
+
         static seed() {
+            Confederation.create('Africa');
             Confederation.create('America');
+            Confederation.create('Asia');
             Confederation.create('Europe');
 
             Object.freeze(_confederations);

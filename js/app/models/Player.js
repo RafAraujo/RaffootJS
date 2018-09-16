@@ -26,9 +26,11 @@ let Player = (function () {
         }
 
         static create(country, birthYear, position, clubDivision) {
+            let names = country.names;
+
             let side = position.fieldLocalizations.getRandomItem().side;
-            let name = country.names.getRandomItem();
-            let surname = country.surnames.getRandomItem();
+            let name = names.getRandomItem();
+            let surname = names.getRandomItem();
             let overall = Player.randomOverall(clubDivision);
             let star = overall > 90 ? Random.numberBetween(1, 10) === 10 : false;
             let skillIds = position.skills.getRandomItems(star ? 3 : 2).map(s => s.id);

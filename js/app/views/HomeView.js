@@ -50,7 +50,7 @@ class HomeView extends View {
 
         this._fillFooter();
 
-        let t1 = performance.now(); console.log("Interface took " + (t1 - t0) + " milliseconds.");
+        console.log("Interface took " + (performance.now() - t0) + " milliseconds.");
     }
 
     sortSquad(orderProperties) {

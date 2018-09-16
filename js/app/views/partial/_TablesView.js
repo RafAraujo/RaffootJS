@@ -5,15 +5,24 @@ class _TablesView {
         this._section = document.getElementById('tables');
         this._selectChampionships = document.getElementById('tables-championships');
         this._divContent = document.getElementById('tables-content');
+        this._tables = [];
 
         this._fillSelect();
         this._selectChampionships.addEventListener('change', this.update.bind(this));
     }
 
+    get _championshipEdition() {
+        return ChampionshipEdition.all().find(ce => ce.id == this._selectChampionships.value);
+    }
+
+    get _regulation() {
+        return this._championshipEdition.championship.championshipType.regulation;
+    }
+
     update() {
         Html.clearElement(this._divContent);
 
-        this._showTable();
+        this._createTables();
     }
 
     _fillSelect() {
@@ -25,43 +34,56 @@ class _TablesView {
         this._selectChampionships.value = this._game.club.league.id;
     }
 
-    _showTable() {
-        if (!this._selectChampionships.value)
+    _createTables() {
+        this._tables = [];
+
+        if (!this._championshipEdition)
             return;
 
-        let championshipEdition = ChampionshipEdition.all().find(ce => ce.id == this._selectChampionships.value);
-        switch (championshipEdition.championship.championshipType.regulation) {
+        switch (this._regulation) {
             case 'elimination':
-                this._showTableElimination(championshipEdition);
+                this._createTableElimination();
                 break;
             case 'groups':
-                this._showTableGroups(championshipEdition);
+                this._createTableGroups();
                 break;
             case 'round-robin':
-                this._showTableRoundRobin(championshipEdition);
+                this._createTableRoundRobin();
                 break;
         }
+
+        this._tables.forEach(t => this._divContent.appendChild(t));
+
+        this._optimizeTablesForMobile();
     }
 
-    _showTableRoundRobin(championshipEdition) {
-        let table = Html.createTable(null, ['#', 'Club', 'Points', 'M', 'W', 'D', 'L', 'GF', 'GA', 'GD']);
-        Html.setTooltip(table.children[0].children[0].children[3], 'Matches');
-        Html.setTooltip(table.children[0].children[0].children[4], 'Wins');
-        Html.setTooltip(table.children[0].children[0].children[5], 'Draws');
-        Html.setTooltip(table.children[0].children[0].children[6], 'Losses');
-        Html.setTooltip(table.children[0].children[0].children[7], 'Goals For');
-        Html.setTooltip(table.children[0].children[0].children[8], 'Goals Against');
-        Html.setTooltip(table.children[0].children[0].children[9], 'Goals Difference');
+    _createTableRoundRobin() {
+        let table = Html.createTable(null, ['#', 'Club', 'P', 'M', 'W', 'D', 'L', 'GF', 'GA', 'GD']);
+        this._tables.push(table);
 
-        championshipEdition.table.forEach((championshipEditionClub, index) => {
-            let tr = table.children[1].insertRow();
+        let thead = table.querySelector('thead');
+        let tbody = table.querySelector('tbody');
+
+        let tr = thead.querySelector('tr');
+
+        Html.setTooltip(tr.children[3], 'Points');
+        Html.setTooltip(tr.children[3], 'Matches');
+        Html.setTooltip(tr.children[4], 'Wins');
+        Html.setTooltip(tr.children[5], 'Draws');
+        Html.setTooltip(tr.children[6], 'Losses');
+        Html.setTooltip(tr.children[7], 'Goals For');
+        Html.setTooltip(tr.children[8], 'Goals Against');
+        Html.setTooltip(tr.children[9], 'Goals Difference');
+
+        this._championshipEdition.table.forEach((championshipEditionClub, index) => {
+            let tr = tbody.insertRow();
 
             let position = index + 1;
 
             Html.insertCell(tr, position, 'text-center');
             Html.insertCell(tr, championshipEditionClub.club.name, 'text-left');
             Html.insertCell(tr, championshipEditionClub.points, 'text-center');
-            Html.insertCell(tr, championshipEdition.championshipEditionFixturesPlayed, 'text-center');
+            Html.insertCell(tr, this._championshipEdition.championshipEditionFixturesPlayed, 'text-center');
             Html.insertCell(tr, championshipEditionClub.won, 'text-center');
             Html.insertCell(tr, championshipEditionClub.drawn, 'text-center');
             Html.insertCell(tr, championshipEditionClub.lost, 'text-center');
@@ -69,41 +91,41 @@ class _TablesView {
             Html.insertCell(tr, championshipEditionClub.goalsAgainst, 'text-center');
             Html.insertCell(tr, championshipEditionClub.goalsDifference, 'text-center');
 
-            this._formatPosition(tr.children[0], championshipEdition, position);
+            this._formatPosition(tr.children[0], position);
 
             if (championshipEditionClub.club === this._game.club)
                 Array.from(tr.children).forEach(td => td.classList.add('font-weight-bold'));
         });
-
-        this._divContent.appendChild(table);
     }
 
-    _formatPosition(td, championshipEdition, position) {
-        if (championshipEdition.promotionZonePositions.includes(position)) {
+    _formatPosition(td, position) {
+        if (this._championshipEdition.promotionZonePositions.includes(position)) {
             td.classList.add('text-promotion-zone');
             Html.setTooltip(td, 'Promotion Zone');
         }
-        else if (championshipEdition.relegationZonePositions.includes(position)) {
+        else if (this._championshipEdition.relegationZonePositions.includes(position)) {
             td.classList.add('text-relegation-zone');
             Html.setTooltip(td, 'Relegation Zone');
         }
 
-        if (championshipEdition.continentalCupClassificationZonePositions(2).includes(position)) {
+        if (this._championshipEdition.continentalCupClassificationZonePositions(2).includes(position)) {
             td.classList.add('text-secondary-continental-cup-classification-zone');
-            Html.setTooltip(td, championshipEdition.championship.country.confederation.cupName(2));
+            Html.setTooltip(td, this._championshipEdition.championship.country.confederation.cupName(2));
         }
-        else if (championshipEdition.continentalCupClassificationZonePositions(1).includes(position)) {
+        else if (this._championshipEdition.continentalCupClassificationZonePositions(1).includes(position)) {
             td.classList.add('text-main-continental-cup-classification-zone');
-            Html.setTooltip(td, championshipEdition.championship.country.confederation.cupName(1));
+            Html.setTooltip(td, this._championshipEdition.championship.country.confederation.cupName(1));
         }
     }
 
-    _showTableElimination(championshipEdition) {
-        championshipEdition.championshipEditionEliminationPhases.forEach(eliminationPhase => {
+    _createTableElimination() {
+        this._championshipEdition.championshipEditionEliminationPhases.forEach(eliminationPhase => {
 
             if (eliminationPhase.championshipEditionEliminationPhaseDuels.length === 0)
                 return;
-            let table = Html.createTable(eliminationPhase.name, ['Club 1', 'Aggregate', 'Club 2', '1st Leg', '2nd Leg']);
+
+            let table = Html.createTable(eliminationPhase.name, ['Club 1', 'Agg.', 'Club 2', '1st Leg', '2nd Leg']);
+            this._tables.push(table);
 
             eliminationPhase.championshipEditionEliminationPhaseDuels.forEach(duel => {
                 let tr = table.children[1].insertRow();
@@ -117,8 +139,32 @@ class _TablesView {
                 if (duel.clubs.includes(this._game.club))
                     tr.classList.add('border-my-club');
             });
+        });
+    }
 
-            this._divContent.appendChild(table);
+    _optimizeTablesForMobile() {
+        this._tables.forEach(table => {
+            Array.from(table.children).filter(section => section != null).forEach(section => {
+                Array.from(section.children).forEach(row => {
+                    Array.from(row.children).forEach((cell, index) => {
+
+                        switch (this._regulation) {
+                            case 'elimination':
+                                if (index > 2)
+                                    cell.classList.add('d-none', 'd-sm-table-cell');
+                                break;
+                            case 'groups':
+                                if (false) // TO-DO
+                                    cell.classList.add('d-none', 'd-sm-table-cell');
+                                break;
+                            case 'round-robin':
+                                if (index > 4 && index < 9)
+                                    cell.classList.add('d-none', 'd-sm-table-cell');
+                                break;
+                        }
+                    });
+                });
+            });
         });
     }
 }

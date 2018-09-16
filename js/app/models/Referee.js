@@ -12,7 +12,9 @@ let Referee = (function () {
         }
 
         static create(country) {
-            let referee = new Referee(country.id, country.names.getRandomItem(), country.surnames.getRandomItem(), Random.numberBetween(1, 3));
+            let names = country.names.getRandomItems(2);
+
+            let referee = new Referee(country.id, names[0], names[1], Random.numberBetween(1, 3));
             referee.id = _referees.push(referee);
             return referee;
         }

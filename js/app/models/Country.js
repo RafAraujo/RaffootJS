@@ -1,20 +1,21 @@
 let Country = (function () {
     let _countries = [];
 
+    let _names = [];
+
     return class Country extends Entity {
-        constructor(name, abbreviation, confederationId, countryLanguageId, playable) {
+        constructor(name, abbreviation, confederationId, playable) {
             super();
 
             this.name = name;
             this.abbreviation = abbreviation;
             this._confederationId = confederationId;
-            this._countryLanguageId = countryLanguageId;
             this.playable = playable;
             this._clubIds = [];
         }
 
-        static create(name, abbreviation, confederation, countryLanguage, playable) {
-            let country = new Country(name, abbreviation, confederation.id, countryLanguage.id, playable);
+        static create(name, abbreviation, confederation, playable) {
+            let country = new Country(name, abbreviation, confederation.id, playable);
             country.id = _countries.push(country);
             return country;
         }
@@ -24,30 +25,62 @@ let Country = (function () {
         }
 
         static seed() {
-            let confederations = Confederation.all();
+            Country.create('Argentina', 'ARG', Confederation.america(), true);
+            Country.create('Brazil', 'BRA', Confederation.america(), true);
+            Country.create('Chile', 'CHI', Confederation.america(), true);
+            Country.create('Colombia', 'COL', Confederation.america(), true);
+            Country.create('Ecuador', 'ECU', Confederation.america(), true);
+            Country.create('Mexico', 'MEX', Confederation.america(), true);
+            Country.create('Paraguay', 'PAR', Confederation.america(), true);
+            Country.create('Uruguay', 'URU', Confederation.america(), true);
 
-            let america = confederations[0];
-            let europe = confederations[1];
+            Country.create('England', 'ENG', Confederation.europe(), true);
+            Country.create('France', 'FRA', Confederation.europe(), true);
+            Country.create('Germany', 'GER', Confederation.europe(), true);
+            Country.create('Italy', 'ITA', Confederation.europe(), true);
+            Country.create('Netherlands', 'NED', Confederation.europe(), true);
+            Country.create('Portugal', 'POR', Confederation.europe(), true);
+            Country.create('Russia', 'RUS', Confederation.europe(), true);
+            Country.create('Spain', 'ESP', Confederation.europe(), true);
 
-            let countryLanguages = CountryLanguage.all();
-
-            Country.create('Argentina', 'ARG', america, countryLanguages.find(cl => cl.name === 'spanish'), true);
-            Country.create('Brazil', 'BRA', america, countryLanguages.find(cl => cl.name === 'portuguese'), true);
-            Country.create('Chile', 'CHI', america, countryLanguages.find(cl => cl.name === 'spanish'), true);
-            Country.create('Colombia', 'COL', america, countryLanguages.find(cl => cl.name === 'spanish'), true);
-            Country.create('Ecuador', 'ECU', america, countryLanguages.find(cl => cl.name === 'spanish'), true);
-            Country.create('Mexico', 'MEX', america, countryLanguages.find(cl => cl.name === 'spanish'), true);
-            Country.create('Paraguay', 'PAR', america, countryLanguages.find(cl => cl.name === 'spanish'), true);
-            Country.create('Uruguay', 'URU', america, countryLanguages.find(cl => cl.name === 'spanish'), true);
-
-            Country.create('England', 'ENG', europe, countryLanguages.find(cl => cl.name === 'english'), true);
-            Country.create('France', 'FRA', europe, countryLanguages.find(cl => cl.name === 'french'), true);
-            Country.create('Germany', 'GER', europe, countryLanguages.find(cl => cl.name === 'deutsche'), true);
-            Country.create('Italy', 'ITA', europe, countryLanguages.find(cl => cl.name === 'italian'), true);
-            Country.create('Netherlands', 'NED', europe, countryLanguages.find(cl => cl.name === 'dutch'), true);
-            Country.create('Portugal', 'POR', europe, countryLanguages.find(cl => cl.name === 'portuguese'), true);
-            Country.create('Russia', 'RUS', europe, countryLanguages.find(cl => cl.name === 'russian'), true);
-            Country.create('Spain', 'ESP', europe, countryLanguages.find(cl => cl.name === 'spanish'), true);
+            Country.create('Australia', 'AUS', Confederation.asia(), false);
+            Country.create('Austria', 'AUT', Confederation.europe(), false);
+            Country.create('Belgium', 'BEL', Confederation.europe(), false);
+            Country.create('Bolivia', 'BOL', Confederation.america(), false);
+            Country.create('Bulgaria', 'BGR', Confederation.europe(), false);
+            Country.create('Canada', 'CAN', Confederation.europe(), false);
+            Country.create('Cameroon', 'CMR', Confederation.africa(), false);
+            Country.create('China', 'CHN', Confederation.asia(), false);
+            Country.create('Costa Rica', 'CRI', Confederation.america(), false);
+            Country.create('Cote d\'Ivoire', 'CIV', Confederation.africa(), false)
+            Country.create('Croatia', 'HRV', Confederation.europe(), false);
+            Country.create('Czech Republic', 'CZE', Confederation.europe(), false);
+            Country.create('Denmark', 'DEN', Confederation.europe(), false);
+            Country.create('Egypt', 'EGY', Confederation.africa(), false);
+            Country.create('Finland', 'FIN', Confederation.europe(), false);
+            Country.create('Greece', 'GRC', Confederation.europe(), false);
+            Country.create('Iceland', 'ISL', Confederation.europe(), false);
+            Country.create('Ireland', 'IRL', Confederation.africa(), false);
+            Country.create('Hungary', 'HUN', Confederation.europe(), false);
+            Country.create('Japan', 'JAP', Confederation.asia(), false);
+            Country.create('Nigeria', 'NGA', Confederation.africa(), false);
+            Country.create('Norway', 'NOR', Confederation.europe(), false);
+            Country.create('Peru', 'PER', Confederation.america(), false);
+            Country.create('Poland', 'POL', Confederation.europe(), false);
+            Country.create('Romania', 'ROU', Confederation.europe(), false);
+            Country.create('Saudi Arabia', 'SAU', Confederation.europe(), false);
+            Country.create('Senegal', 'SEN', Confederation.africa(), false);
+            Country.create('Serbia', 'SER', Confederation.europe(), false);
+            Country.create('Slovenia', 'SVN', Confederation.europe(), false);
+            Country.create('South Africa', 'ZAF', Confederation.africa(), false);
+            Country.create('South Korea', 'KOR', Confederation.asia(), false);
+            Country.create('Sweden', 'SWE', Confederation.europe(), false);
+            Country.create('Switzerland', 'CHE', Confederation.europe(), false);
+            Country.create('Turkey', 'TUR', Confederation.europe(), false);
+            Country.create('Ukraine', 'UKR', Confederation.europe(), false);
+            Country.create('United States', 'USA', Confederation.america(), false);
+            Country.create('Venezuela', 'VEN', Confederation.america(), false);
+            Country.create('Wales', 'VEN', Confederation.america(), false);
 
             Object.freeze(_countries);
         }
@@ -64,16 +97,20 @@ let Country = (function () {
             return Confederation.all()[this._confederationId - 1];
         }
 
-        get countryLanguage() {
-            return CountryLanguage.all()[this._countryLanguageId - 1];
-        }
-
         get names() {
-            return this.countryLanguage.names;
-        }
+            return ['Rafael', 'Araujo', 'Costa', 'Oliveira'];
 
-        get surnames() {
-            return this.countryLanguage.surnames;
+            return fetch(`http://c3420952.r52.cf0.rackcdn.com/${this.abbreviation}playerdata.xml`)
+                .then(response => response.text())
+                .then(text => {
+                    let xml = new window.DOMParser().parseFromString(text, 'text/xml');
+                    let tags = Array.from(xml.getElementsByTagName('P'));
+                    _names = tags.map(t => t.getAttribute('f'));
+                    _names = _names.concat(tags.map(t => t.getAttribute('s')));
+                    _names = [...new Set(_names)];
+                    return _names.sort();
+                })
+                .catch(error => console.log(error));
         }
 
         get playableClubsCount() {
