@@ -71,7 +71,6 @@ let Country = (function () {
             Country.create('Saudi Arabia', 'SAU', Confederation.europe(), false);
             Country.create('Senegal', 'SEN', Confederation.africa(), false);
             Country.create('Serbia', 'SER', Confederation.europe(), false);
-            Country.create('Slovenia', 'SVN', Confederation.europe(), false);
             Country.create('South Africa', 'ZAF', Confederation.africa(), false);
             Country.create('South Korea', 'KOR', Confederation.asia(), false);
             Country.create('Sweden', 'SWE', Confederation.europe(), false);
