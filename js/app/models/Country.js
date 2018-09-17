@@ -67,9 +67,10 @@ let Country = (function () {
             Country.create('Egypt', 'EGY', africa, false);
             Country.create('Finland', 'FIN', europe, false);
             Country.create('Greece', 'GRC', europe, false);
-            Country.create('Iceland', 'ISL', europe, false);
-            Country.create('Ireland', 'IRL', africa, false);
             Country.create('Hungary', 'HUN', europe, false);
+            Country.create('Iceland', 'ISL', europe, false);
+            Country.create('Iran', 'IRN', asia, false);
+            Country.create('Ireland', 'IRL', africa, false);
             Country.create('Japan', 'JAP', asia, false);
             Country.create('Nigeria', 'NGA', africa, false);
             Country.create('Norway', 'NOR', europe, false);
@@ -77,6 +78,7 @@ let Country = (function () {
             Country.create('Poland', 'POL', europe, false);
             Country.create('Romania', 'ROU', europe, false);
             Country.create('Saudi Arabia', 'SAU', europe, false);
+            Country.create('Scotland', 'SCO', europe, false);
             Country.create('Senegal', 'SEN', africa, false);
             Country.create('Serbia', 'SER', europe, false);
             Country.create('South Africa', 'ZAF', africa, false);
