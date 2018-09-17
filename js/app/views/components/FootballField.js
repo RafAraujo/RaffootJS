@@ -43,7 +43,7 @@ let FootballField = (function () {
             let playerHeight = playerWidth;
 
             this._context.strokeRect(
-                columnWidth * fieldLocalization.column + (columnWidth / 2) - (playerWidth / 2),
+                columnWidth * fieldLocalization.column + ((columnWidth - playerWidth) / 2),
                 lineHeight * (11 - fieldLocalization.line) + ((lineHeight - playerHeight) / 2),
                 playerWidth,
                 playerHeight);
