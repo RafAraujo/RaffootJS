@@ -13,7 +13,7 @@ let Referee = (function () {
 
         static async createAsync(country) {
             let names = await country.getPlayerNamesAsync();
-            let referee = new Referee(country.id, names[0], names[1], Random.numberBetween(1, 3));
+            let referee = new Referee(country.id, names.getRandomItem(), names.getRandomItem(), Random.numberBetween(1, 3));
             referee.id = _referees.push(referee);
             return referee;
         }
