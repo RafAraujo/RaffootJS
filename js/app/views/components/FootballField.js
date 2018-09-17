@@ -28,7 +28,7 @@ let FootballField = (function () {
             this._canvas.setAttribute('width', window.innerHeight > window.innerWidth * 1.5 ? window.innerWidth * 0.9 : this._canvas.height * 0.7);
 
             let formation = this._club.squad.formation;
-            formation = Formation.all().filter(f => f.name.startsWith('5-2-2')).getRandomItem();
+            formation = Formation.all().getRandomItem();
 
             formation.fieldLocalizations.forEach(fl => {
                 this._drawPlayer(fl);
