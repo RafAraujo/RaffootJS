@@ -82,6 +82,7 @@ let PlayersTable = (function () {
                 direction: 1
             };
 
+            this.invisibleColumns = [];
             this.pageSize = 50;
             this._visiblePlayersCount = 0;
         }
@@ -204,6 +205,7 @@ let PlayersTable = (function () {
             });
 
             this._optimizeTableForMobile();
+            this.invisibleColumns.forEach(c => Html.hideColumn(this.table, c));
             setTimeout(() => $('[data-toggle="tooltip"]').tooltip(), 0);
 
             this.pInfo.innerText = this.info;
@@ -237,9 +239,7 @@ let PlayersTable = (function () {
                 span.classList.add('player-star');
             }
 
-            td.classList.add('pl-0');
-            td.classList.add('pr-0');
-
+            td.classList.add('pl-0', 'pr-0');
             td.appendChild(span);
         }
 

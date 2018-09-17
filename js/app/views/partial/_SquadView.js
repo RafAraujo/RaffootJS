@@ -11,11 +11,8 @@ class _SquadView {
     }
 
     _buildTable() {       
-        this._component.invisibleColumns = ['Club'];
-        this._component.showInfo = false;
-        this._component.showLoadMore = false;
+        this._component.invisibleColumns = [6];
         this._component.build();
-        Html.deleteColumn(this._component.table, 6);
         Html.hide(this._component.pInfo);
         Html.hide(this._component.buttonLoadMore);
     }

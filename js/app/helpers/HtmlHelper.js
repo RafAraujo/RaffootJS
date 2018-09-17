@@ -138,7 +138,14 @@ class Html {
 
     static hideColumn(table, columnIndex) {
         Array.from(table.children).filter(section => section != null).forEach(section => {
-            Array.from(section.children).forEach(row => row.children[columnIndex].classList.add('d-none'));
+            Array.from(section.children).forEach(row => {
+                let cell = row.children[columnIndex];
+                Array.from(cell.classList).forEach(className => {
+                    if (className.startsWith('d-'))
+                        cell.classList.remove(className);
+                });
+                cell.classList.add('d-none');
+            });
         });
     }
 
