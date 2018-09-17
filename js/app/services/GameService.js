@@ -46,7 +46,7 @@ class GameService {
             ConnectionFactory.closeConnection();
             return info;
         }
-        catch (erorr) {
+        catch (error) {
             throw error;
         }
     }

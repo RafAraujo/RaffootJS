@@ -19,7 +19,7 @@ class HomeController {
 
         try {
             let game = await this._service.loadAsync(this._gameName);
-            console.log("Call took " + (performance.now() - t0) + " milliseconds.");
+            console.log('Call took ' + (performance.now() - t0) + ' milliseconds.');
             this._game = game;
             this._view = new HomeView(this._game);
             this._view.update();
@@ -27,6 +27,6 @@ class HomeController {
         catch (error) {
             console.log(error);
             this._view.showMessage('Error on loading game', 'danger');
-        };
+        }
     }
 }
