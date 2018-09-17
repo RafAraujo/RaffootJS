@@ -3,7 +3,7 @@ class HomeView extends View {
         super();
 
         this._game = game;
-        this._currentSection = 'squad';
+        this._currentSection = 'play';
 
         document.getElementById('club-name').innerHTML = this._game.club.name;
 
@@ -15,6 +15,7 @@ class HomeView extends View {
 
         this._configLinks();
 
+        this._partialPlay = new _PlayView(this._game);
         this._partialSquad = new _SquadView(this._game);
         this._partialCalendar = new _CalendarView(this._game);
         this._partialTables = new _TablesView(this._game);
@@ -42,6 +43,7 @@ class HomeView extends View {
 
         this._setActiveSection(document.querySelector(`a[href="#${this._currentSection}"`));
 
+        this._partialPlay.update();
         this._partialSquad.update();
         this._partialCalendar.update();
         this._partialTables.update();

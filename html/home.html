@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/football-field.css">
 </head>
 
 <body>
@@ -58,6 +59,9 @@
                 <div class="collapse navbar-collapse" id="main-menu">
                     <ul class="navbar-nav">
                         <li class="nav-item">
+                            <a class="nav-link" href="#play">Play</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="#squad">Squad</a>
                         </li>
                         <li class="nav-item">
@@ -101,6 +105,11 @@
                     <div id="message" class="alert d-none" role="alert"></div>
                 </div>
             </div>
+            <section id="play" class="section-anchor d-none">
+                <div class="row">
+                    <div id="play-content" class="col"></div>
+                </div>
+            </section>
             <section id="squad" class="section-anchor d-none">
                 <div class="row">
                     <div class="col">
@@ -396,9 +405,11 @@
 
     <script src="../js/app/views/View.js"></script>
     <script src="../js/app/views/HomeView.js"></script>
+    <script src="../js/app/views/components/FootballField.js"></script>
     <script src="../js/app/views/components/PlayersTable.js"></script>
     <script src="../js/app/views/partial/_CalendarView.js"></script>
     <script src="../js/app/views/partial/_ClubsView.js"></script>
+    <script src="../js/app/views/partial/_PlayView.js"></script>
     <script src="../js/app/views/partial/_PlayersView.js"></script>
     <script src="../js/app/views/partial/_SquadView.js"></script>
     <script src="../js/app/views/partial/_StadiumView.js"></script>
