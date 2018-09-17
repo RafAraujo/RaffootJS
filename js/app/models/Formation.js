@@ -49,7 +49,7 @@ let Formation = (function () {
             Formation.create('4-5-1 (2)',      fl(['LCB ', 'RCB ', 'LB  ', 'RB  ', 'LCM ', 'CM  ', 'RCM ', 'LM  ', 'RM  ', 'CF  ']));
             
             Formation.create('5-2-1-2',        fl(['LCB ', 'CB  ', 'RCB ', 'LWB ', 'RWB ', 'LCM ', 'RCM ', 'CAM ', 'LST ', 'RST ']));
-            Formation.create('5-2-2-1',        fl(['LCB ', 'CB  ', 'RCB ', 'LWB ', 'RWB ', 'LM  ', 'RM  ', 'LW  ', 'RW  ', 'CF  ']));
+            Formation.create('5-2-2-1',        fl(['LCB ', 'CB  ', 'RCB ', 'LWB ', 'RWB ', 'LCM ', 'RCM ', 'LW  ', 'RW  ', 'CF  ']));
             Formation.create('5-3-2',          fl(['LCB ', 'CB  ', 'RCB ', 'LWB ', 'RWB ', 'LCM ', 'CM  ', 'RCM ', 'LST ', 'RST ']));
 
             function fl(names) {

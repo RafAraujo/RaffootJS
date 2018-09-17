@@ -4,6 +4,8 @@ class _PlayView {
 
         this._divContent = document.getElementById('play-content');
         this._component = new FootballField(this._game.club, this._divContent);
+
+        window.addEventListener('resize', this._component.draw.bind(this._component));
     }
 
     update() {

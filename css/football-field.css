@@ -1,5 +1,6 @@
 .football-field {
-    padding: 0;
+    background-color: mediumaquamarine;
+    border: 3px solid green;
     margin: auto;
     display: block;
 }
