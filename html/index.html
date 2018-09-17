@@ -8,6 +8,7 @@
     <title>Raffoot</title>
 
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 
 <body>
@@ -26,17 +27,24 @@
                             <select id="databases" class="form-control"></select>
                         </div>
                     </div>
-
                     <div class="row">
-                        <label for="club" class="col-2 text-right">Club: </label>
-                        <span id="club" class="col-10 font-weight-bold"></span>
+                        <div class="col">
+                            <table class="table table-responsive borderless">
+                                <thead></thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="font-weight-bold text-right">Club</td>
+                                        <td id="club"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-bold text-right">Year</td>
+                                        <td id="year"></td>
+                                    </tr>
+                                </tbody>
+                                <tfoot></tfoot>
+                            </table>
+                        </div>
                     </div>
-
-                    <div class="row">
-                        <label for="year" class="col-2 text-right">Year: </label>
-                        <span id="year" class="col-10 font-weight-bold"></span>
-                    </div>
-
                     <div class="row">
                         <div class="col">
                             <div id="message" class="alert d-none" role="alert"></div>
@@ -62,7 +70,9 @@
     <div class="container">
         <h1 class="text-center">Raffoot 2018</h1>
         <button id="new-game" class="btn btn-outline-dark btn-block btn-lg">NEW GAME</button>
-        <button id="show-saves" class="btn btn-outline-dark btn-block btn-lg" data-toggle="modal" data-target="#saves">LOAD GAME</button>
+        <button id="show-saves" class="btn btn-outline-dark btn-block btn-lg" data-toggle="modal" data-target="#saves">LOAD
+            GAME
+        </button>
     </div>
 
     <script src="../js/ui/jquery/jquery-3.3.1.min.js"></script>
@@ -89,7 +99,7 @@
     <script src="../js/app/dao/GenericDAO.js"></script>
 
     <script src="../js/app/controllers/IndexController.js"></script>
-    
+
     <script src="../js/app/views/View.js"></script>
     <script src="../js/app/views/IndexView.js"></script>
 </body>
