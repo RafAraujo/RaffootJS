@@ -24,33 +24,51 @@ let FootballField = (function () {
             this._canvas.setAttribute('width', this._canvas.height * 0.7);
 
             this._club.squad.setAutomaticLineUp();
-            this._club.squad.starting11().forEach(sp => this._drawSquadPlayer(sp));
+            this._club.squad.starting11().forEach(sp => this._drawSquadPlayer(sp, sp.fieldLocalization.position.abbreviation));
         }
 
-        _drawSquadPlayer(squadPlayer) {
-            let fieldLocalization = squadPlayer.fieldLocalization;
+        _drawSquadPlayer(squadPlayer, text) {
+            let fl = squadPlayer.fieldLocalization;
 
             let columnWidth = this._canvas.width / 5;
             let lineHeight = this._canvas.height / 12;
 
-            this._context.font = `bold 20px monospace`;
+            let fontSize = 20;
+            this._context.font = `bold ${20}px monospace`;
 
             let playerWidth = columnWidth * 0.6;
             let playerHeight = playerWidth;
 
-            this._context.strokeStyle = fieldLocalization.position.fieldRegion.color.value;
-            this._context.fillStyle = fieldLocalization.position.fieldRegion.color.value;
+            this._context.strokeStyle = fl.position.fieldRegion.color.value;
+            this._context.fillStyle = fl.position.fieldRegion.color.value;
             this._context.lineWidth = 2;
 
             this._context.strokeRect(
-                columnWidth * fieldLocalization.column + ((columnWidth - playerWidth) / 2),
-                lineHeight * (11 - fieldLocalization.line) + ((lineHeight - playerHeight) / 2),
+                columnWidth * fl.column + ((columnWidth - playerWidth) / 2),
+                lineHeight * (11 - fl.line) + ((lineHeight - playerHeight) / 2),
                 playerWidth,
-                playerHeight);
+                playerHeight
+            );
 
-            this._context.fillText(fieldLocalization.position.abbreviation,
-                columnWidth * fieldLocalization.column + ((columnWidth - this._context.measureText(fieldLocalization.position.abbreviation).width) / 2),
-                lineHeight * (11 - fieldLocalization.line) + ((lineHeight - playerHeight) / 2) + (playerHeight / 2)
+            this._context.fillText(
+                text,
+                columnWidth * fl.column + ((columnWidth - this._context.measureText(text).width) / 2),
+                lineHeight * (11 - fl.line) + ((lineHeight - playerHeight) / 2) + (playerHeight / 2)
+            );
+
+            this._context.fillStyle = 'white';
+            this._context.fillRect(
+                columnWidth * fl.column + ((columnWidth - Math.max(playerWidth + this._context.lineWidth * 2, this._context.measureText(squadPlayer.player.name).width)) / 2),
+                lineHeight * (12 - fl.line) - fontSize,
+                Math.max(playerWidth + this._context.lineWidth * 2, this._context.measureText(squadPlayer.player.name).width),
+                fontSize + this._context.lineWidth
+            );
+
+            this._context.fillStyle  = 'black';
+            this._context.fillText(
+                squadPlayer.player.name,
+                columnWidth * fl.column + ((columnWidth - this._context.measureText(squadPlayer.player.name).width) / 2),
+                lineHeight * (12 - fl.line)
             );
         }
 
