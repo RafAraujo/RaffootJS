@@ -39,13 +39,13 @@ let FieldRegion = (function () {
         get color() {
             switch (this.name) {
                 case 'goal':
-                    return 'warning';
+                    return { value: YELLOW, class: 'warning' };
                 case 'defense':
-                    return 'primary';
+                    return { value: BLUE, class: 'primary' };
                 case 'midfield':
-                    return 'success';
+                    return { value: GREEN, class: 'success' };
                 case 'attack':
-                    return 'danger';
+                    return { value: RED, class: 'danger' };
             }
         }
 

@@ -213,7 +213,7 @@ let PlayersTable = (function () {
         }
 
         _formatPosition(td, position) {
-            td.classList.add('font-weight-bold', `text-${position.fieldRegion.color}`, 'border', `border-left-${position.fieldRegion.name}`);
+            td.classList.add('font-weight-bold', `text-${position.fieldRegion.color.class}`, 'border', `border-left-${position.fieldRegion.name}`);
             td.setAttribute('title', position.name);
         }
 
