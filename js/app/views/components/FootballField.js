@@ -5,10 +5,20 @@ let FootballField = (function () {
             this._container = container;
 
             this._canvas = Html.createElement('canvas', '', 'football-field');
+            this._canvasFontSize = 20;
         }
 
         get _context() {
             return this._canvas.getContext('2d');
+        }
+
+        get _fontSize() {
+            return this._canvasFontSize;
+        }
+
+        set _fontSize(value) {
+            this._canvasFontSize = value;
+            this._context.font = `bold ${value}px monospace`;
         }
 
         build() {
@@ -33,8 +43,7 @@ let FootballField = (function () {
             let columnWidth = this._canvas.width / 5;
             let lineHeight = this._canvas.height / 12;
 
-            let fontSize = 20;
-            this._context.font = `bold ${20}px monospace`;
+            this._fontSize = 20;
 
             let playerWidth = columnWidth * 0.6;
             let playerHeight = playerWidth;
@@ -56,12 +65,14 @@ let FootballField = (function () {
                 lineHeight * (11 - fl.line) + ((lineHeight - playerHeight) / 2) + (playerHeight / 2)
             );
 
+            this._fontSize = 18;
+
             this._context.fillStyle = 'white';
             this._context.fillRect(
                 columnWidth * fl.column + ((columnWidth - Math.max(playerWidth + this._context.lineWidth * 2, this._context.measureText(squadPlayer.player.name).width)) / 2),
-                lineHeight * (12 - fl.line) - fontSize,
+                lineHeight * (12 - fl.line) - this._fontSize,
                 Math.max(playerWidth + this._context.lineWidth * 2, this._context.measureText(squadPlayer.player.name).width),
-                fontSize + this._context.lineWidth
+                this._fontSize + this._context.lineWidth
             );
 
             this._context.fillStyle  = 'black';
