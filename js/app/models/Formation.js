@@ -54,7 +54,7 @@ let Formation = (function () {
 
             function fl(names) {
                 let fieldLocalizations = FieldLocalization.all();
-                return [fieldLocalizations[0]].concat(fieldLocalizations.filter(fl => names.some(n => n.trim() === fl.name)));
+                return [fieldLocalizations.first()].concat(fieldLocalizations.filter(fl => names.some(n => n.trim() === fl.name)));
             }
 
             Object.freeze(_formations);
@@ -66,6 +66,10 @@ let Formation = (function () {
 
         get fieldLocalizations() {
             return FieldLocalization.all().filterById(this._fieldLocalizationIds);
+        }
+
+        get positions() {
+            return this.fieldLocalizations.map(fl => fl.position);
         }
 
         randomPlayersCount(fieldRegion) {

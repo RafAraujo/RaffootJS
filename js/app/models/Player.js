@@ -108,7 +108,7 @@ let Player = (function () {
         }
 
         get name() {
-            return this._name;
+            return `${this._surname.toUpperCase()}`;
         }
 
         get completeName() {

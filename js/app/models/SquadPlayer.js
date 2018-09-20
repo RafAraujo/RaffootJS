@@ -7,7 +7,8 @@ let SquadPlayer = (function () {
 
             this._squadId = squadId;
             this._playerId = playerId;
-            this.fieldLocalization = null;
+            this._fieldLocalizationId = null;
+            this.substituteIndex = null;
         }
 
         static create(squad, player) {
@@ -32,11 +33,12 @@ let SquadPlayer = (function () {
             return Player.all()[this._playerId - 1];
         }
 
-        get distanceToIdealFieldLocalization() {
-            let x = this.player.idealFieldLocalization.line - this.fieldLocalization.line;
-            let y = this.player.idealFieldLocalization.column - this.fieldLocalization.column;
+        get fieldLocalization() {
+            return this._fieldLocalizationId ? FieldLocalization.all()[this._fieldLocalizationId - 1] : null;
+        }
 
-            return Math.hypot(x, y);
+        set fieldLocalization(value) {
+            this._fieldLocalizationId = value ? value.id : null;
         }
 
         get baseOverall() {
@@ -44,11 +46,12 @@ let SquadPlayer = (function () {
         }
 
         get overall() {
-            if (!this.fieldLocalization)
-                return this.baseOverall;
+            return this.fieldLocalization ? this.calculateOverallAt(this.fieldLocalization) : this.baseOverall;
+        }
 
+        calculateOverallAt(fieldLocalization) {
             let factor = this.baseOverall * this.player.hasSkill('Versatility') ? 0.0325 : 0.075;
-            let overall = this.baseOverall - (this.baseOverall * factor * this.distanceToIdealFieldLocalization);
+            let overall = this.baseOverall - (this.baseOverall * factor * this.player.idealFieldLocalization.distanceTo(fieldLocalization));
 
             return Math.round(overall);
         }

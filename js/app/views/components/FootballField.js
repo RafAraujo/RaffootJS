@@ -25,21 +25,22 @@ let FootballField = (function () {
 
         draw() {
             this._canvas.setAttribute('height', window.innerHeight * 0.7);
-            this._canvas.setAttribute('width', window.innerHeight > window.innerWidth * 1.5 ? window.innerWidth * 0.9 : this._canvas.height * 0.7);
+            this._canvas.setAttribute('width', window.innerHeight > window.innerWidth * 1.5 ? window.innerWidth * 0.9 : this._canvas.height * 0.65);
 
-            let formation = this._club.squad.formation;
-            formation = Formation.all().getRandomItem();
-
-            formation.fieldLocalizations.forEach(fl => {
-                this._drawPlayer(fl);
-            });
+            this._club.squad.setAutomaticLineUp();
+            this._club.squad.starting11().forEach(sp => this._drawSquadPlayer(sp));
         }
 
-        _drawPlayer(fieldLocalization) {
+        _drawSquadPlayer(squadPlayer) {
+            let fieldLocalization = squadPlayer.fieldLocalization;
+
             let columnWidth = this._canvas.width / 5;
             let lineHeight = this._canvas.height / 12;
 
-            let playerWidth = columnWidth * 0.5;
+            this._context.font = '16px monospace';
+            let textWidth = this._context.measureText('000').width;
+
+            let playerWidth = textWidth;
             let playerHeight = playerWidth;
 
             this._context.strokeRect(
@@ -47,10 +48,20 @@ let FootballField = (function () {
                 lineHeight * (11 - fieldLocalization.line) + ((lineHeight - playerHeight) / 2),
                 playerWidth,
                 playerHeight);
+
+            this._context.fillText(squadPlayer.player.name,
+                columnWidth * fieldLocalization.column,
+                lineHeight * (12 - fieldLocalization.line)
+            );
+
+            this._context.fillText(squadPlayer.overall,
+                columnWidth * fieldLocalization.column + ((columnWidth - textWidth) / 2),
+                lineHeight * (11 - fieldLocalization.line) + (lineHeight / 2)
+            );
         }
 
-        destroy() {
-            this._context.clearRect(0, 0, this._canvas.width, this._canvas.height);
-        }
+destroy() {
+    this._context.clearRect(0, 0, this._canvas.width, this._canvas.height);
+}
     }
-})();
+}) ();

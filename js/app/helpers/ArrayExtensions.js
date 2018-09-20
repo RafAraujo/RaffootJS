@@ -76,7 +76,8 @@ function dynamicSort(properties) {
 Array.prototype.remove = function (item) {
     let index = this.indexOf(item);
     if (index != -1)
-        return this.splice(index, 1);
+        this.splice(index, 1);
+    return this;
 }
 
 Array.prototype.rotate = function () {

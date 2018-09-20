@@ -103,5 +103,12 @@ let FieldLocalization = (function () {
         get side() {
             return _SIDES[this.column];
         }
+
+        distanceTo(fieldLocalization) {
+            let x = this.line - fieldLocalization.line;
+            let y = this.column - fieldLocalization.column;
+
+            return Math.hypot(x, y);
+        }
     }
 })();

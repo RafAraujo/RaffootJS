@@ -7,6 +7,7 @@ let Squad = (function () {
 
             this._formationId = formationId;
             this._squadPlayerIds = [];
+            this.starting = false;
             this._freeKickTaker = null;
             this._penaltyTaker = null;
         }
@@ -34,7 +35,7 @@ let Squad = (function () {
         }
 
         get players() {
-            return this.squadPlayers.map(sp => sp.player).orderBy('position.line', 'position.abbreviation', '-overall');
+            return this.squadPlayers.map(sp => sp.player);
         }
 
         set freeKickTaker(squadPlayer) {
@@ -73,6 +74,55 @@ let Squad = (function () {
 
         findSquadPlayer(squadPlayer) {
             return this.squadPlayers.find(sp => sp.squadPlayer === squadPlayer);
+        }
+
+        starting11() {
+            return this.squadPlayers.filter(sp => sp.fieldLocalization);
+        }
+
+        substitutes() {
+            return this.squadPlayers.filter(sp => sp.substituteIndex);
+        }
+
+        setAutomaticLineUp() {
+            let results = [];
+
+            this.squadPlayers.forEach(sp => sp.fieldLocalization = null);
+
+            this.formation.fieldLocalizations.forEach(fl => {
+                this.squadPlayers.forEach(sp => {
+                    results.push({
+                        fieldLocalization: fl,
+                        squadPlayer: sp,
+                        overall: sp.calculateOverallAt(fl),
+                        distance: sp.player.idealFieldLocalization.distanceTo(fl)
+                    });
+                });
+            });
+
+            this.formation.fieldLocalizations.forEach(fl => {
+                let squadPlayer = results.filter(r => r.fieldLocalization === fl)
+                    .orderBy('distance', '-overall', '-squadPlayer.player.energy', '-squadPlayer.player.condtiion')
+                    .first().squadPlayer;
+                    
+                squadPlayer.fieldLocalization = fl;
+                results = results.filter(r => r.squadPlayer !== squadPlayer);
+            });
+        }
+
+        swapRoles(squadPlayer1, squadPlayer2) {
+            let auxSubstituteIndex = squadPlayer1.substituteIndex;
+            let auxFieldLocalization = squadPlayer1.fieldLocalization;
+
+            squadPlayer1.substituteIndex = squadPlayer2.substituteIndex;
+            squadPlayer1.fieldLocalization = squadPlayer2.fieldLocalization;
+
+            squadPlayer2.substituteIndex = auxSubstituteIndex;
+            squadPlayer2.fieldLocalization = auxFieldLocalization;
+        }
+
+        getSquadPlayerByName(name) {
+            return this.squadPlayers.find(sp => sp.player.name === name);
         }
 
         rest(time) {

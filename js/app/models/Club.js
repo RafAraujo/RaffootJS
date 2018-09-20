@@ -129,6 +129,8 @@ let Club = (function () {
                         contract.sign();
                     }
                 }
+
+                this.squad.setAutomaticLineUp();
             }
             catch (error) {
                 throw error;
