@@ -1,13 +1,13 @@
 class HomeController {
     constructor() {
         this._selectFormations = document.getElementById('play-formations');
-        this._selectsPlayers = document.getElementsByClassName('play-starting11-player-name');
+        this._selectsPlayers = document.querySelectorAll('#play-starting11 tbody select');
 
         this._service = new GameService();
         this._view = new View();
 
         this._selectFormations.addEventListener('change', this._setFormation.bind(this));
-        Array.from(this._selectsPlayers).forEach(select => select.addEventListener('change', this._changeStarting11.bind(this, select)));
+        Array.from(this._selectsPlayers).forEach((select, index) => select.addEventListener('change', this._changeStarting11.bind(this, select, index)));
     }
 
     get _gameName() {
@@ -41,9 +41,9 @@ class HomeController {
         this._view.partialPlay.update();
     }
 
-    _changeStarting11(select) {
+    _changeStarting11(select, index) {
         let squadPlayer = SquadPlayer.all()[select.value - 1];
-        let fieldLocalization = fieldLocalization.all()[parseInt(select.getAttribute('data-field-localization-id'))];
+        let fieldLocalization = this._game.club.squad.formation.fieldLocalizations.orderBy('line', 'column')[index];
 
         this._game.club.squad.setSquadPlayerFieldLocalization(squadPlayer, fieldLocalization);
         this._view.partialPlay.update();

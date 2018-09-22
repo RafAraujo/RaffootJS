@@ -116,7 +116,7 @@ let Player = (function () {
         }
 
         get category() {
-            return this.overall >= 80 ? 'gold' : this.overall >= 60 ? 'silver' : 'bronze';
+            return this.getCategory(this.overall);
         }
 
         get skills() {
@@ -169,6 +169,10 @@ let Player = (function () {
 
         get wage() {
             return this.inForceContracts.last().wage;
+        }
+
+        getCategory(overall) {
+            return overall >= 80 ? 'gold' : overall >= 60 ? 'silver' : 'bronze';
         }
 
         addContract(contract) {

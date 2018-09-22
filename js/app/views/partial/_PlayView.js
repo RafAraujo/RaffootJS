@@ -30,31 +30,60 @@ class _PlayView {
             
             let fieldLocalization = sp.fieldLocalization;
 
-            tr.children[0].innerText = fieldLocalization.name;
+            this._formatFieldLocalization(tr.children[0], sp.fieldLocalization);
 
             let select = tr.children[1].querySelector('select');
             this._fillSelectSquadPlayersByFieldLocalization(select, fieldLocalization);
             select.value = sp.id;
 
             let span = tr.children[2].querySelector('span.overall');
-            this._updateOverall(span, sp);
+            this._formatOverall(span, sp);
         });
     }
 
-    _updateOverall(span, squadPlayer) {
+    _formatFieldLocalization(td, fieldLocalization) {
+        td.innerText = fieldLocalization.name;
+        Array.from(td.classList).forEach(className => td.classList.remove(className));
+        td.classList.add('font-weight-bold', `text-${fieldLocalization.position.fieldRegion.color.class}`, 'text-center', 'border', `border-left-${fieldLocalization.position.fieldRegion.name}`);
+        td.setAttribute('title', fieldLocalization.name);
+    }
+
+    _formatOverall(span, squadPlayer) {
         span.innerText = squadPlayer.overall;
         Array.from(span.classList).forEach(className => span.classList.remove(className));
-        span.classList.add('overall', `bg-${squadPlayer.player.category}`);
+        span.classList.add('overall', `bg-${squadPlayer.category}`);
     }
 
     _fillSelectSquadPlayersByFieldLocalization(select, fieldLocalization) {
         Html.clearSelect(select);
 
-        for (let league of leagues) {
+        let squadPlayer = this._game.club.squad.squadPlayers.find(sp => sp.fieldLocalization === fieldLocalization);
+
+        select.appendChild(new Option(squadPlayer.player.name, squadPlayer.id));
+
+        let substitutes = this._game.club.squad.substitutes;
+
+        let recommended = substitutes.filter(sp => sp.player.position === fieldLocalization.position);
+        let other = substitutes.filter(sp => !recommended.includes(sp));
+
+        if (recommended.length > 0) {
             let optionGroup = document.createElement('optgroup');
-            optionGroup.label = `Division ${league.championship.division}`;
-            league.clubs.orderBy('name').forEach(c => optionGroup.appendChild(new Option(c.name, c.id)));
-            this._selectClub.appendChild(optionGroup);
+            optionGroup.label = 'Recommended';
+            recommended.forEach(sp => optionGroup.appendChild(new Option(sp.player.name, sp.id)));
+            select.appendChild(optionGroup);
+
+            optionGroup = document.createElement('optgroup');
+            optionGroup.label = 'Other';
+            other.forEach(sp => optionGroup.appendChild(new Option(sp.player.name, sp.id)));
+            select.appendChild(optionGroup);
         }
+        else
+        {
+            substitutes.forEach(sp => {
+                select.appendChild(new Option(sp.player.name, sp.id));
+            });
+        }
+
+        select.value = squadPlayer.id;
     }
 }
