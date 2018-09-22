@@ -15,13 +15,13 @@ class HomeView extends View {
 
         this._configLinks();
 
-        this._partialPlay = new _PlayView(this._game);
-        this._partialSquad = new _SquadView(this._game);
-        this._partialCalendar = new _CalendarView(this._game);
-        this._partialTables = new _TablesView(this._game);
-        this._partialStadium = new _StadiumView(this._game);
-        this._partialClubs = new _ClubsView(this._game);
-        this._partialPlayers = new _PlayersView(this._game);
+        this.partialPlay = new _PlayView(this._game);
+        this.partialSquad = new _SquadView(this._game);
+        this.partialCalendar = new _CalendarView(this._game);
+        this.partialTables = new _TablesView(this._game);
+        this.partialStadium = new _StadiumView(this._game);
+        this.partialClubs = new _ClubsView(this._game);
+        this.partialPlayers = new _PlayersView(this._game);
 
         $(`#${this._modalPlayer.id}`).on('show.bs.modal', event => this._showPlayer($(event.relatedTarget).data('player-id')));
     }
@@ -43,12 +43,12 @@ class HomeView extends View {
 
         this._setActiveSection(document.querySelector(`a[href="#${this._currentSection}"`));
 
-        this._partialPlay.update();
-        this._partialSquad.update();
-        this._partialCalendar.update();
-        this._partialTables.update();
-        this._partialStadium.update();
-        this._partialPlayers.update();
+        this.partialPlay.update();
+        this.partialSquad.update();
+        this.partialCalendar.update();
+        this.partialTables.update();
+        this.partialStadium.update();
+        this.partialPlayers.update();
 
         this._fillFooter();
 
@@ -56,7 +56,7 @@ class HomeView extends View {
     }
 
     sortSquad(orderProperties) {
-        this._partialSquad.update(orderProperties);
+        this.partialSquad.update(orderProperties);
     }
 
     _setActiveSection(link) {

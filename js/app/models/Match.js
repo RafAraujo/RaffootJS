@@ -9,7 +9,7 @@ let Match = (function () {
 
             this._championshipEditionId = championshipEditionId;
             this.date = date;
-            this._stadiumId = 0;
+            this._stadiumId = null;
             this._matchClubIds = [];
             this._refereeId = refereeId;
             this.audience = null;

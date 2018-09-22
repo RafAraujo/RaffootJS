@@ -8,8 +8,8 @@ let Squad = (function () {
             this._formationId = formationId;
             this._squadPlayerIds = [];
             this.starting = false;
-            this._freeKickTaker = null;
-            this._penaltyTaker = null;
+            this._freeKickTakerId = null;
+            this._penaltyTakerId = null;
         }
 
         static create(formation) {
@@ -30,6 +30,11 @@ let Squad = (function () {
             return Formation.all()[this._formationId - 1];
         }
 
+        set formation(value) {
+            this._formationId = value == null ? null : value.id;
+            this.setAutomaticLineUp();
+        }
+
         get squadPlayers() {
             return SquadPlayer.all().filterById(this._squadPlayerIds);
         }
@@ -38,20 +43,36 @@ let Squad = (function () {
             return this.squadPlayers.map(sp => sp.player);
         }
 
-        set freeKickTaker(squadPlayer) {
-            this._freeKickTaker = this.findSquadPlayer(squadPlayer);
+        get starting11() {
+            return this.squadPlayers.filter(sp => sp.fieldLocalization);
+        }
+
+        get substitutes() {
+            return this.squadPlayers.filter(sp => !sp.fieldLocalization);
         }
 
         get freeKickTaker() {
-            return this._freeKickTaker;
+            return this.squadPlayers.find(sp => sp.id === this._freeKickTakerId);
         }
 
-        set penaltyTaker(squadPlayer) {
-            this._penaltyTaker = this.findSquadPlayer(squadPlayer);
+        set freeKickTaker(squadPlayer) {
+            this._freeKickTakerId = squadPlayer.id;
         }
 
         get penaltyTaker() {
-            return this._penaltyTaker;
+            return this.squadPlayers.find(sp => sp.id === this._penaltyTakerId);
+        }
+
+        set penaltyTaker(squadPlayer) {
+            this._penaltyTakerId = squadPlayer.id;
+        }
+
+        setSquadPlayerFieldLocalization(squadPlayer, fieldLocalization) {
+            let currentSquadPlayer = this.starting11.find(sp => sp.fieldLocalization === fieldLocalization);
+            if (currentSquadPlayer)
+                this.swapRoles(currentSquadPlayer, squadPlayer);
+            else
+                squadPlayer.fieldLocalization = fieldLocalization;
         }
 
         get overall() {
@@ -70,18 +91,6 @@ let Squad = (function () {
         remove(player) {
             let squadPlayer = this.squadPlayers.find(sp => sp.player === player);
             this._squadPlayerIds.remove(squadPlayer);
-        }
-
-        findSquadPlayer(squadPlayer) {
-            return this.squadPlayers.find(sp => sp.squadPlayer === squadPlayer);
-        }
-
-        starting11() {
-            return this.squadPlayers.filter(sp => sp.fieldLocalization);
-        }
-
-        substitutes() {
-            return this.squadPlayers.filter(sp => sp.substituteIndex);
         }
 
         setAutomaticLineUp() {
@@ -111,14 +120,9 @@ let Squad = (function () {
         }
 
         swapRoles(squadPlayer1, squadPlayer2) {
-            let auxSubstituteIndex = squadPlayer1.substituteIndex;
-            let auxFieldLocalization = squadPlayer1.fieldLocalization;
-
-            squadPlayer1.substituteIndex = squadPlayer2.substituteIndex;
+            let aux = squadPlayer1.fieldLocalization;
             squadPlayer1.fieldLocalization = squadPlayer2.fieldLocalization;
-
-            squadPlayer2.substituteIndex = auxSubstituteIndex;
-            squadPlayer2.fieldLocalization = auxFieldLocalization;
+            squadPlayer2.fieldLocalization = aux;
         }
 
         getSquadPlayerByName(name) {

@@ -7,11 +7,11 @@ let Club = (function () {
 
             this.name = name;
             this._countryId = countryId;
-            this._stadiumId = 0;
-            this._coachId = 0;
-            this._squadId = 0;
+            this._stadiumId = null;
+            this._coachId = null;
+            this._squadId = null;
             this.playable = false;
-            this.initialDivision = 0;
+            this.initialDivision = null;
             this.money = 0;
         }
 

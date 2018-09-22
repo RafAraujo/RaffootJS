@@ -33,8 +33,7 @@ let FootballField = (function () {
             this._canvas.setAttribute('height', window.innerHeight * 0.7);
             this._canvas.setAttribute('width', this._canvas.height * 0.7);
 
-            this._club.squad.setAutomaticLineUp();
-            this._club.squad.starting11().forEach(sp => this._drawSquadPlayer(sp, sp.fieldLocalization.position.abbreviation));
+            this._club.squad.starting11.forEach(sp => this._drawSquadPlayer(sp, sp.fieldLocalization.position.abbreviation));
         }
 
         _drawSquadPlayer(squadPlayer, text) {

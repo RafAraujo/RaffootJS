@@ -6,9 +6,9 @@ let Game = (function () {
             super();
 
             this.name = '';
-            this._countryId = 0;
-            this._clubId = 0;
-            this._coachId = 0;
+            this._countryId = null;
+            this._clubId = null;
+            this._coachId = null;
             this._seasonIds = [];
         }
 
