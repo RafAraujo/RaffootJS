@@ -79,7 +79,7 @@ let FootballField = (function () {
                 lineHeight * (11 - fl.line) + ((lineHeight - playerHeight) / 2) + (playerHeight / 2)
             );
             
-            this._fontSize = 14;
+            this._fontSize = 12;
 
             this._context.strokeRect(
                 columnWidth * fl.column + ((columnWidth - playerWidth) / 2),

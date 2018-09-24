@@ -18,7 +18,7 @@ class _PlayView {
     }
 
     _fillFormations() {
-        Html.fillSelect(this._selectFormations, Formation.all());
+        Formation.all().map(f => this._selectFormations.appendChild(new Option(f.name, f.id)));
         this._selectFormations.value = this._game.club.squad.formation.id;
     }
 
@@ -42,7 +42,7 @@ class _PlayView {
     }
 
     _formatFieldLocalization(td, fieldLocalization) {
-        td.innerText = fieldLocalization.name;
+        td.innerText = fieldLocalization.position.abbreviation;
         Array.from(td.classList).forEach(className => td.classList.remove(className));
         td.classList.add('font-weight-bold', `text-${fieldLocalization.position.fieldRegion.color.class}`, 'text-center', `border-left-${fieldLocalization.position.fieldRegion.name}`);
         td.setAttribute('title', fieldLocalization.name);

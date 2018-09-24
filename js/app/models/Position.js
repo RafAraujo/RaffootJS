@@ -27,6 +27,10 @@ let Position = (function () {
             return _positions;
         }
 
+        static allProportional() {
+            return Formation.all().map(f => f.fieldLocalizations.map(fl => fl.position)).reduce((a, b) => a.concat(b));
+        }
+
         static seed() {
             let fieldRegions = FieldRegion.all();
 
