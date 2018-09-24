@@ -46,10 +46,6 @@ let Match = (function () {
         }
 
         set stadium(value) {
-            for (let matchClub of this.matchClubs)
-                if (matchClub.situation !== 'neutral')
-                    throw new Error('Match.setStadium(value)');
-
             this._stadium = value;
         }
 

@@ -31,26 +31,6 @@ let Club = (function () {
         }
 
         static async seedAsync() {
-            let countries = Country.all();
-
-            let argentina = countries[0];
-            let brazil = countries[1];
-            let chile = countries[2];
-            let colombia = countries[3];
-            let ecuador = countries[4];
-            let mexico = countries[5];
-            let paraguay = countries[6];
-            let uruguay = countries[7];
-
-            let england = countries[8];
-            let france = countries[9];
-            let germany = countries[10];
-            let italy = countries[11];
-            let netherlands = countries[12];
-            let portugal = countries[13];
-            let russia = countries[14];
-            let spain = countries[15];
-
             try {
                 for (let country of Country.playable()) {
                     let names = await country.getClubNamesAsync();

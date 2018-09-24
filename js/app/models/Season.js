@@ -131,11 +131,11 @@ let Season = (function () {
         advanceDate() {
             this._currentSeasonDateIndex++;
 
-            for (let club of Club.playable()) {
+            Club.playable().forEach(club => {
                 club.squad.rest();
                 if (this._currentSeasonDateIndex > 0 && this.currentDate.getMonth() > this.previousSeasonDate.date.getMonth())
                     club.payWages();
-            }
+            });
 
             this.finished = this._currentSeasonDateIndex === this.seasonDates.length;
         }

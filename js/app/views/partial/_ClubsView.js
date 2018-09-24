@@ -29,12 +29,12 @@ class _ClubsView {
 
         let leagues = this._game.currentSeason.nationalLeagues.filter(ce => ce.championship.country.id == this._selectCountry.value).orderBy('championship.division');
 
-        for (let league of leagues) {
+        leagues.forEach(league => {
             let optionGroup = document.createElement('optgroup');
             optionGroup.label = `Division ${league.championship.division}`;
             league.clubs.orderBy('name').forEach(c => optionGroup.appendChild(new Option(c.name, c.id)));
             this._selectClub.appendChild(optionGroup);
-        }
+        });
     }
 
     _fillSquad() {

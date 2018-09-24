@@ -15,11 +15,12 @@ class Html {
         Html.clearSelect(select);
         select.appendChild(new Option());
 
-        for (let option of options)
+        options.forEach(option => {
             if (option instanceof Entity)
                 select.appendChild(new Option(option.name, option.id));
             else
                 select.appendChild(new Option(option));
+        });
     }
 
     static selectedOptions(select) {
@@ -110,10 +111,10 @@ class Html {
 
         let tr = Html.createElement('tr');
         thead.appendChild(tr);
-        for (let header of headers) {
+        headers.forEach(header => {
             let th = Html.createElement('th', header, 'text-center');
             tr.appendChild(th);
-        }
+        });
 
         table.appendChild(thead);
         table.appendChild(Html.createElement('tbody'));

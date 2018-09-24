@@ -34,7 +34,7 @@ let Player = (function () {
                 let surname = names.getRandomItem();
                 let overall = Player.randomOverall(clubDivision);
                 let star = overall > 90 ? Random.numberBetween(1, 10) === 10 : false;
-                let skillIds = position.skills.getRandomItems(star ? 3 : 2).map(s => s.id);
+                let skillIds = position.skills.getRandomItems(star ? 2 : 1).map(s => s.id);
                 let condition = Random.numberBetween(1, 5);
                 let injuryProneness = Random.numberBetween(1, 3);
 

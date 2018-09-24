@@ -27,7 +27,7 @@ class _PlayView {
 
         this._game.club.squad.starting11.orderBy('fieldLocalization.line', 'fieldLocalization.column').forEach((sp, index) => {
             let tr = rows[index];
-            
+
             let fieldLocalization = sp.fieldLocalization;
 
             this._formatFieldLocalization(tr.children[0], sp.fieldLocalization);
@@ -57,33 +57,25 @@ class _PlayView {
     _fillSelectSquadPlayersByFieldLocalization(select, fieldLocalization) {
         Html.clearSelect(select);
 
+        let optionGroups = [];
+
+        FieldRegion.all().forEach(fieldRegion => {
+            let optionGroup = document.createElement('optgroup');
+            optionGroup.label = fieldRegion.name.toTitleCase();
+            optionGroups.push(optionGroup);
+            select.appendChild(optionGroup);
+        });
+
+        this._game.club.squad.substitutes.forEach(sp => {
+            let optionGroup = optionGroups.find(og => og.label === sp.player.position.fieldRegion.name.toTitleCase());
+            optionGroup.appendChild(new Option(sp.player.name, sp.id));
+        });
+
         let squadPlayer = this._game.club.squad.squadPlayers.find(sp => sp.fieldLocalization === fieldLocalization);
 
-        select.appendChild(new Option(squadPlayer.player.name, squadPlayer.id));
-
-        let substitutes = this._game.club.squad.substitutes;
-
-        let recommended = substitutes.filter(sp => sp.player.position === fieldLocalization.position);
-        let other = substitutes.filter(sp => !recommended.includes(sp));
-
-        if (recommended.length > 0) {
-            let optionGroup = document.createElement('optgroup');
-            optionGroup.label = 'Recommended';
-            recommended.forEach(sp => optionGroup.appendChild(new Option(sp.player.name, sp.id)));
-            select.appendChild(optionGroup);
-
-            optionGroup = document.createElement('optgroup');
-            optionGroup.label = 'Other';
-            other.forEach(sp => optionGroup.appendChild(new Option(sp.player.name, sp.id)));
-            select.appendChild(optionGroup);
-        }
-        else
-        {
-            substitutes.forEach(sp => {
-                select.appendChild(new Option(sp.player.name, sp.id));
-            });
-        }
-
+        let optionGroup = optionGroups.find(og => og.label === squadPlayer.player.position.fieldRegion.name.toTitleCase());
+        optionGroup.appendChild(new Option(squadPlayer.player.name, squadPlayer.id));
+        
         select.value = squadPlayer.id;
     }
 }
