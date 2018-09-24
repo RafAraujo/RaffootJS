@@ -138,7 +138,7 @@ let Country = (function () {
         }
 
         get flag() {
-            return `${window.location.pathname}/../../res/flags/${this.name.toLowerCase()}.svg`;
+            return `${location.pathname}/../../res/flags/${this.name.toLowerCase()}.svg`;
         }
 
         addClub(club) {

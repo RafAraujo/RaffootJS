@@ -11,7 +11,7 @@ class HomeController {
     }
 
     get _gameName() {
-        let queryString = window.location.search;
+        let queryString = location.search;
         return decodeURIComponent(queryString.substring(queryString.indexOf('=') + 1).trim());
     }
 

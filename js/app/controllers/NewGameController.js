@@ -54,7 +54,7 @@ class NewGameController {
 
         try {
             await this._service.createAsync(this._game.name);
-            window.location.href = `home.html?game=${this._game.name}`;
+            location.href = `home.html?game=${this._game.name}`;
         }
         catch (error) {
             console.log(error);

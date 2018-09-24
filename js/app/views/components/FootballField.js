@@ -51,8 +51,8 @@ let FootballField = (function () {
         }
 
         draw() {
-            this._canvas.setAttribute('height', window.innerHeight * 0.7);
-            this._canvas.setAttribute('width', this._canvas.height * 0.7);
+            this._canvas.setAttribute('width', innerHeight > innerWidth * 1.5 ? innerWidth * 0.9 : innerWidth / 4);
+            this._canvas.setAttribute('height', this._canvas.width * 1.5);
 
             this._club.squad.starting11.forEach(sp => this._drawSquadPlayer(sp, sp.fieldLocalization.position.abbreviation));
         }

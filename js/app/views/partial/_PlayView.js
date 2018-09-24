@@ -44,7 +44,7 @@ class _PlayView {
     _formatFieldLocalization(td, fieldLocalization) {
         td.innerText = fieldLocalization.name;
         Array.from(td.classList).forEach(className => td.classList.remove(className));
-        td.classList.add('font-weight-bold', `text-${fieldLocalization.position.fieldRegion.color.class}`, 'text-center', 'border', `border-left-${fieldLocalization.position.fieldRegion.name}`);
+        td.classList.add('font-weight-bold', `text-${fieldLocalization.position.fieldRegion.color.class}`, 'text-center', `border-left-${fieldLocalization.position.fieldRegion.name}`);
         td.setAttribute('title', fieldLocalization.name);
     }
 

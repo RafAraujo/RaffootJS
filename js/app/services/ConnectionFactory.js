@@ -12,26 +12,26 @@ let ConnectionFactory = (function () {
         static _addDatabaseName(dbName) {
             let databases = ConnectionFactory.getDatabases();
             databases.push(dbName);
-            window.localStorage.setItem(_DATABASES, JSON.stringify(databases));
+            localStorage.setItem(_DATABASES, JSON.stringify(databases));
             return ConnectionFactory.getDatabases();
         }
 
         static _removeDatabaseName(dbName) {
             let databases = ConnectionFactory.getDatabases();
             databases.remove(dbName);
-            window.localStorage.setItem(_DATABASES, JSON.stringify(databases));
+            localStorage.setItem(_DATABASES, JSON.stringify(databases));
             return ConnectionFactory.getDatabases();
         }
 
         static getDatabases() {
-            return JSON.parse(window.localStorage.getItem(_DATABASES)) || [];
+            return JSON.parse(localStorage.getItem(_DATABASES)) || [];
         }
 
         static getConnection(dbName, createIfNotExists = false) {
 
             return new Promise((resolve, reject) => {
 
-                let request = window.indexedDB.open(dbName, VERSION);
+                let request = indexedDB.open(dbName, VERSION);
 
                 request.onupgradeneeded = e => {
                     if (createIfNotExists) {
@@ -57,7 +57,7 @@ let ConnectionFactory = (function () {
 
         static dropDatabase(dbName) {
             return new Promise((resolve, reject) => {
-                let request = window.indexedDB.deleteDatabase(dbName);
+                let request = indexedDB.deleteDatabase(dbName);
 
                 request.onsuccess = e => {
                     ConnectionFactory._removeDatabaseName(dbName);

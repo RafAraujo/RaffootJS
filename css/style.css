@@ -6,6 +6,11 @@ main {
     padding-bottom: 4rem;
 }
 
+table#play-starting11 td {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
 .table th, .table td {
     vertical-align: middle;
     padding: 0.5rem;

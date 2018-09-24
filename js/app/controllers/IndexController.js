@@ -41,7 +41,7 @@ class IndexController {
     }
 
     _loadGame() {
-        window.location.href = `home.html?game=${this._game.name}`;
+        location.href = `home.html?game=${this._game.name}`;
     }
 
     async _deleteGameAsync() {
@@ -63,7 +63,7 @@ class IndexController {
     }
 
     _newGame() {
-        window.location.href = "new-game.html";
+        location.href = "new-game.html";
     }
 
     _showSaves() {

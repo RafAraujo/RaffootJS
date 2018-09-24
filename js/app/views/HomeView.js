@@ -13,6 +13,8 @@ class HomeView extends View {
         this._aDate = document.getElementById('date');
         this._modalPlayer = document.getElementById('player-modal');
 
+        this._footer = document.querySelector('footer');
+
         this._configLinks();
 
         this.partialPlay = new _PlayView(this._game);
@@ -66,7 +68,11 @@ class HomeView extends View {
 
         this._currentSection = href;
 
-        document.querySelectorAll('header a').forEach(e => e.classList.remove('active'));
+        document.querySelectorAll('header a').forEach(e => {
+            e.classList.remove('active');
+            if (link.href === e.href)
+                link = e;
+        });
         let span = document.querySelector('header a > span.sr-only');
         if (span)
             span.parentElement.removeChild(span);
@@ -75,13 +81,14 @@ class HomeView extends View {
         let active = link.classList.contains('dropdown-item') ? link.parentElement.parentElement.children[0] : link;
         active.classList.add('active');
 
+        if (this._currentSection === 'play')
+            Html.hide(this._footer);
+        else
+            Html.show(this._footer);
+
         this._sections.forEach(e => Html.hide(e));
         Html.show(document.getElementById(this._currentSection));
-        window.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: 'smooth'
-        });
+        scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     }
 
     _fillFooter() {
