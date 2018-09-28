@@ -114,9 +114,29 @@
             </section>
             <section id="play" class="d-none">
                 <div class="row">
-                    <div id="play-squad" class="col-md-4">
+                    <div class="col">
+                        <h5 class="text-secondary">Next Match</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div id="play-next-match" class="jumbotron jumbotron-fluid">
+                            <div class="container">
+                                <h1 class="display-5"></h1>
+                                <p class="lead"></p>
+                                <div class="row">
+                                    <div class="col-6 col-sm-2">
+                                        <button class="btn btn-block btn-primary">Play</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
                         <div class="row">
-                            <div class="form-group col-sm-6">
+                            <div class="col form-group">
                                 <label for="play-formations">Formation</label>
                                 <select id="play-formations" class="form-control"></select>
                             </div>
@@ -231,7 +251,10 @@
                             </div>
                         </div>
                     </div>
-                    <div id="play-canvas" class="col-md-4"></div>
+                    <div id="play-canvas-my-club" class="col-md-4">
+                    </div>
+                    <div id="play-canvas-opponent" class="col-md-4">
+                    </div>
                 </div>
             </section>
             <section id="squad" class="d-none">

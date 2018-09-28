@@ -147,5 +147,9 @@ let Season = (function () {
         getMatchesByClub(club) {
             return this.matches.filter(m => m.matchClubs.map(mc => mc.club).includes(club));
         }
+
+        nextMatch(club) {
+            return this.getMatchesByClub(club).find(m => m.date >= this.currentDate);
+        }
     }
 })();

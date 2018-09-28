@@ -2,19 +2,38 @@ class _PlayView {
     constructor(game) {
         this._game = game;
 
+        this._divNextMatch = document.getElementById('play-next-match');
         this._selectFormations = document.getElementById('play-formations');
         this._table = document.getElementById('play-starting11');
-        this._divCanvas = document.getElementById('play-canvas');
-        this._component = new FootballField(this._game.club, this._divCanvas);
 
         this._fillFormations();
-        this._fillTable();
-        window.addEventListener('resize', this._component.draw.bind(this._component));
     }
 
     update() {
-        this._component.build();
+        let nextMatch = this._game.currentSeason.nextMatch(this._game.club);
+
+        this._fillJumbotron(nextMatch);
+        this._buildCanvas(nextMatch);
         this._fillTable();
+    }
+
+    _fillJumbotron(match) {
+        let h1 = this._divNextMatch.querySelector('h1');
+        let p = this._divNextMatch.querySelector('p');
+
+        h1.innerText = match.description;
+        p.innerHTML = `${match.championshipEdition.name}<br>${match.date.toLocaleDateString()}`;
+    }
+
+    _buildCanvas(match) {
+        let divContainerMyClub = document.getElementById('play-canvas-my-club');
+        let divContainerOpponent = document.getElementById('play-canvas-opponent');
+
+        this._canvasMyClub = new FootballField(match.matchClubHome.club, divContainerMyClub);
+        this._canvasOpponent = new FootballField(match.matchClubHome.club, divContainerOpponent);
+
+        this._canvasMyClub.build();
+        this._canvasOpponent.build();
     }
 
     _fillFormations() {

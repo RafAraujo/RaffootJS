@@ -1,4 +1,4 @@
 .football-field {
     border: 2px solid;
-    display: block;
+    display: inline-block;
 }
