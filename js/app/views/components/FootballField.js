@@ -1,10 +1,17 @@
 let FootballField = (function () {
     return class FootballField {
-        constructor(club, container) {
-            this._club = club;
+        constructor(container) {
             this._container = container;
 
             this._canvas = Html.createElement('canvas', '', 'football-field');
+        }
+
+        get club() {
+            return this._club;
+        }
+
+        set club(value) {
+            this._club = value;
         }
 
         get _context() {
@@ -51,7 +58,7 @@ let FootballField = (function () {
         }
 
         draw() {
-            this._canvas.setAttribute('height', this._container.clientHeight);
+            this._canvas.setAttribute('height', this._container.clientHeight * 0.9);
             this._canvas.setAttribute('width',this._canvas.height * 0.8);
 
             this._club.squad.starting11.forEach(sp => this._drawSquadPlayer(sp, sp.fieldLocalization.position.abbreviation));

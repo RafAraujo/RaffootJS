@@ -5,6 +5,11 @@ class _PlayView {
         this._divNextMatch = document.getElementById('play-next-match');
         this._selectFormations = document.getElementById('play-formations');
         this._table = document.getElementById('play-starting11');
+        this._divContainerMyClub = document.getElementById('play-canvas-my-club');
+        this._divContainerOpponent = document.getElementById('play-canvas-opponent');
+
+        this._canvasMyClub = new FootballField(this._divContainerMyClub);
+        this._canvasOpponent = new FootballField(this._divContainerOpponent);
 
         this._fillFormations();
     }
@@ -25,17 +30,6 @@ class _PlayView {
         p.innerHTML = `${match.championshipEdition.name}<br>${match.date.toLocaleDateString()}`;
     }
 
-    _buildCanvas(match) {
-        let divContainerMyClub = document.getElementById('play-canvas-my-club');
-        let divContainerOpponent = document.getElementById('play-canvas-opponent');
-
-        this._canvasMyClub = new FootballField(match.matchClubHome.club, divContainerMyClub);
-        this._canvasOpponent = new FootballField(match.matchClubHome.club, divContainerOpponent);
-
-        this._canvasMyClub.build();
-        this._canvasOpponent.build();
-    }
-
     _fillFormations() {
         Formation.all().map(f => this._selectFormations.appendChild(new Option(f.name, f.id)));
         this._selectFormations.value = this._game.club.squad.formation.id;
@@ -50,30 +44,23 @@ class _PlayView {
             let fieldLocalization = sp.fieldLocalization;
 
             this._formatFieldLocalization(tr.children[0], sp.fieldLocalization);
-
-            let select = tr.children[1].querySelector('select');
-            this._fillSelectSquadPlayersByFieldLocalization(select, fieldLocalization);
-            select.value = sp.id;
-
-            let span = tr.children[2].querySelector('span.overall');
-            this._formatOverall(span, sp);
+            this._formatSquadPlayer(tr.children[1], fieldLocalization);
+            this._formatOverall(tr.children[2], sp);
+            this._formatEnergy(tr.children[3], sp.player.energy);
+            this._formatCondition(tr.children[4], sp.player.condition);
         });
     }
 
     _formatFieldLocalization(td, fieldLocalization) {
         td.innerText = fieldLocalization.position.abbreviation;
         Array.from(td.classList).forEach(className => td.classList.remove(className));
-        td.classList.add('font-weight-bold', `text-${fieldLocalization.position.fieldRegion.color.class}`, 'text-center', `border-left-${fieldLocalization.position.fieldRegion.name}`);
+        td.classList.add('font-weight-bold', `text-${fieldLocalization.position.fieldRegion.color.class}`, 'text-center', `border-left-${fieldLocalization.position.fieldRegion.name}`, 'pr-0');
         td.setAttribute('title', fieldLocalization.name);
     }
 
-    _formatOverall(span, squadPlayer) {
-        span.innerText = squadPlayer.overall;
-        Array.from(span.classList).forEach(className => span.classList.remove(className));
-        span.classList.add('overall', `bg-${squadPlayer.category}`);
-    }
+    _formatSquadPlayer(td, fieldLocalization) {
+        let select = td.querySelector('select');
 
-    _fillSelectSquadPlayersByFieldLocalization(select, fieldLocalization) {
         Html.clearSelect(select);
 
         let optionGroups = [];
@@ -94,7 +81,40 @@ class _PlayView {
 
         let optionGroup = optionGroups.find(og => og.label === squadPlayer.player.position.fieldRegion.name.toTitleCase());
         optionGroup.appendChild(new Option(squadPlayer.player.name, squadPlayer.id));
-        
+
         select.value = squadPlayer.id;
+    }
+
+    _formatOverall(td, squadPlayer) {
+        td.classList.add('pl-0', 'pr-0');
+        
+        let span = td.querySelector('span');
+        span.innerText = squadPlayer.overall;
+        Array.from(span.classList).forEach(className => span.classList.remove(className));
+        span.classList.add('overall', `bg-${squadPlayer.category}`, 'pl-0', 'pr-0');
+    }
+
+    _formatEnergy(td, energy) {
+        td.innerText = '';
+        td.style.width = '15%';
+        let backgroundClass = `bg-${(energy >= 70 ? 'success' : energy >= 50 ? 'warning' : 'danger')}`;
+        let divProgress = Html.createProgressBar(energy, backgroundClass);
+        td.appendChild(divProgress);
+    }
+
+    _formatCondition(td, condition) {
+        Html.formatCellPlayerCondition(td, condition);
+        td.classList.add('pr-0');
+    }
+
+    _buildCanvas(match) {
+        let myClub = this._game.club;
+        let opponent = match.clubs.find(c => c !== this._game.club);
+
+        this._canvasMyClub.club = myClub;
+        this._canvasMyClub.build();
+
+        this._canvasOpponent.club = opponent;
+        this._canvasOpponent.build();
     }
 }

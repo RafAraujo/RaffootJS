@@ -172,4 +172,36 @@ class Html {
     static clearElement(element) {
         element.innerHTML = '';
     }
+
+    static formatCellPlayerCondition(td, condition){
+        let icon = null;
+        let tooltipIcon = null;
+
+        switch (condition) {
+            case 1:
+                icon = Html.createIcon('angle-double-down', PURPLE, 'fa-lg');
+                tooltipIcon = Html.createIcon('tired', 'gold', 'fa-2x');
+                break;
+            case 2:
+                icon = Html.createIcon('angle-down', BLUE, 'fa-lg');
+                tooltipIcon = Html.createIcon('frown', 'gold', 'fa-2x');
+                break;
+            case 3:
+                icon = Html.createIcon('angle-right', GREEN, 'fa-lg');
+                tooltipIcon = Html.createIcon('meh-blank', 'gold', 'fa-2x');
+                break;
+            case 4:
+                icon = Html.createIcon('angle-up', ORANGE, 'fa-lg');
+                tooltipIcon = Html.createIcon('smile', 'gold', 'fa-2x');
+                break;
+            case 5:
+                icon = Html.createIcon('angle-double-up', RED, 'fa-lg');
+                tooltipIcon = Html.createIcon('grin-squint', 'gold', 'fa-2x');
+                break;
+        }
+
+        td.innerText = '';
+        td.appendChild(icon);
+        Html.setTooltip(td, tooltipIcon.outerHTML, 'right', 'fa-lg');
+    }
 }
