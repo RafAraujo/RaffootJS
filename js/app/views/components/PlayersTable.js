@@ -231,7 +231,7 @@ let PlayersTable = (function () {
 
         _formatOverall(td, player) {
             Html.clearElement(td);
-            let span = Html.createElement('span', player.overall, `bg-${player.category}`, 'overall');
+            let span = Html.createElement('span', player.overall, `bg-${player.category}`, 'overall', 'mx-auto');
 
             if (player.star) {
                 let icon = Html.createIcon('star', YELLOW);

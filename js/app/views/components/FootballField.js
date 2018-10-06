@@ -58,8 +58,14 @@ let FootballField = (function () {
         }
 
         draw() {
-            this._canvas.setAttribute('height', this._container.clientHeight * 0.9);
-            this._canvas.setAttribute('width',this._canvas.height * 0.8);
+            if (window.innerHeight > window.innerWidth * 1.5) {
+                this._canvas.setAttribute('width', window.innerWidth * 0.9);
+                this._canvas.setAttribute('height', window.innerWidth * 1.25);
+            }
+            else {
+                this._canvas.setAttribute('height', 480);
+                this._canvas.setAttribute('width', this._canvas.height * 0.75);
+            }
 
             this._club.squad.starting11.forEach(sp => this._drawSquadPlayer(sp, sp.fieldLocalization.position.abbreviation));
         }

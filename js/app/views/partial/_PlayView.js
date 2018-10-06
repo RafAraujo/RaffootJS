@@ -86,12 +86,10 @@ class _PlayView {
     }
 
     _formatOverall(td, squadPlayer) {
-        td.classList.add('pl-0');
-
         let span = td.querySelector('span');
         span.innerText = squadPlayer.overall;
         Array.from(span.classList).forEach(className => span.classList.remove(className));
-        span.classList.add('overall', `bg-${squadPlayer.category}`, 'pl-0', 'pr-0');
+        span.classList.add('overall', `bg-${squadPlayer.category}`, 'pl-0', 'pr-0', 'mx-auto');
     }
 
     _formatEnergy(td, energy) {
@@ -109,13 +107,7 @@ class _PlayView {
     }
 
     _buildCanvas(match) {
-        let myClub = this._game.club;
-        let opponent = match.clubs.find(c => c !== this._game.club);
-
-        this._canvasMyClub.club = myClub;
+        this._canvasMyClub.club = this._game.club;
         this._canvasMyClub.build();
-
-        this._canvasOpponent.club = opponent;
-        this._canvasOpponent.build();
     }
 }
