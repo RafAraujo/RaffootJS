@@ -173,13 +173,13 @@ class Html {
         element.innerHTML = '';
     }
 
-    static formatCellPlayerCondition(td, condition){
+    static formatCellPlayerCondition(td, condition) {
         let icon = null;
         let tooltipIcon = null;
 
         switch (condition) {
             case 1:
-                icon = Html.createIcon('angle-double-down', PURPLE, 'fa-lg', 'd-inline-block');
+                icon = Html.createIcon('angle-double-down', PURPLE, 'fa-lg');
                 tooltipIcon = Html.createIcon('tired', 'gold', 'fa-2x');
                 break;
             case 2:
@@ -200,7 +200,7 @@ class Html {
                 break;
         }
 
-        td.innerText = '';
+        td.innerHTML = '';
         td.appendChild(icon);
         Html.setTooltip(td, tooltipIcon.outerHTML, 'right', 'fa-lg');
     }

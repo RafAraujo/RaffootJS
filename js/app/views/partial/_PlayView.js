@@ -47,6 +47,7 @@ class _PlayView {
             this._formatEnergy(tr.children[3], sp.player.energy);
             this._formatCondition(tr.children[4], sp.player.condition);
         });
+        setTimeout(() => $('[data-toggle="tooltip"]').tooltip(), 0);
     }
 
     _formatFieldLocalization(td, fieldLocalization) {
