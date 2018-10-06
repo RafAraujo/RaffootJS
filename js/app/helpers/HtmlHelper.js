@@ -179,7 +179,7 @@ class Html {
 
         switch (condition) {
             case 1:
-                icon = Html.createIcon('angle-double-down', PURPLE, 'fa-lg');
+                icon = Html.createIcon('angle-double-down', PURPLE, 'fa-lg', 'd-inline-block');
                 tooltipIcon = Html.createIcon('tired', 'gold', 'fa-2x');
                 break;
             case 2:

@@ -86,15 +86,16 @@ class _PlayView {
     }
 
     _formatOverall(td, squadPlayer) {
+        td.classList.add('pl-0');
         let span = td.querySelector('span');
         span.innerText = squadPlayer.overall;
         Array.from(span.classList).forEach(className => span.classList.remove(className));
-        span.classList.add('overall', `bg-${squadPlayer.category}`, 'pl-0', 'pr-0', 'mx-auto');
+        span.classList.add('overall', `bg-${squadPlayer.category}`, 'pl-0', 'pr-0');
     }
 
     _formatEnergy(td, energy) {
         td.innerText = '';
-        td.style.width = '15%';
+        td.classList.add('pl-0');
 
         let backgroundClass = `bg-${(energy >= 70 ? 'success' : energy >= 50 ? 'warning' : 'danger')}`;
         let divProgress = Html.createProgressBar(energy, backgroundClass);

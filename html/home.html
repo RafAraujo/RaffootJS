@@ -26,7 +26,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col">
-                            <table class="table borderless">
+                            <table class="table table-responsive borderless">
                                 <thead></thead>
                                 <tbody></tbody>
                                 <tfoot></tfoot>
@@ -98,7 +98,7 @@
                 </div>
             </nav>
             <div class="border-bottom mb-2">
-                <h2 id="club-name"></h2>
+                <h3 id="club-name"></h3>
             </div>
         </header>
         <main>
@@ -135,7 +135,14 @@
                                 <table id="play-starting11" class="table">
                                     <thead>
                                         <th colspan="5">
-                                            <select id="play-formations" class="form-control"></select>
+                                            <div class="container-fluid">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <span class="col-5">Formation</span>
+                                                        <select id="play-formations" class="form-control col-7 d-inline"></select>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </th>
                                     </thead>
                                     <tbody>
@@ -259,8 +266,8 @@
                                             </td>
                                             <td>
                                                 <div class="progress" title="100">
-                                                    <div class="progress-bar" role="progressbar"
-                                                        aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">100</div>
+                                                    <div class="progress-bar" role="progressbar" aria-valuenow="100"
+                                                        aria-valuemin="0" aria-valuemax="100" style="width: 100%;">100</div>
                                                 </div>
                                             </td>
                                             <td></td>
@@ -486,30 +493,6 @@
                 </section>
             </section>
         </main>
-        <footer class="footer fixed-bottom bg-light border-top border-secondary">
-            <div class="container-fluid">
-                <div class="row p-3">
-                    <div class="col-sm-3 d-none d-sm-block">
-                        <span>
-                            <i class="fas fa-users"></i>
-                        </span>
-                        <a id="player-count" href="#squad" class="text-dark"></a>
-                    </div>
-                    <div class="col-6 col-sm-3">
-                        <span>
-                            <i class="fas fa-dollar-sign"></i>
-                        </span>
-                        <a id="money" href="#finance" class="text-dark"></a>
-                    </div>
-                    <div class="col-6 col-sm-3 align-right">
-                        <span>
-                            <i class="fas fa-clock"></i>
-                        </span>
-                        <a id="date" href="#calendar" class="text-dark"></a>
-                    </div>
-                </div>
-            </div>
-        </footer>
     </div>
 
     <script src="../js/ui/jquery/jquery-3.3.1.min.js"></script>

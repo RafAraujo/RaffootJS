@@ -13,8 +13,6 @@ class HomeView extends View {
         this._aDate = document.getElementById('date');
         this._modalPlayer = document.getElementById('player-modal');
 
-        this._footer = document.querySelector('footer');
-
         this._configLinks();
 
         this.partialPlay = new _PlayView(this._game);
@@ -29,7 +27,7 @@ class HomeView extends View {
     }
 
     _configLinks() {
-        document.querySelectorAll('header a:not(.dropdown-toggle), footer a')
+        document.querySelectorAll('header a:not(.dropdown-toggle)')
             .forEach(element => element.addEventListener('click', event => {
                 event.preventDefault();
                 this._setActiveSection.call(this, element);
@@ -51,8 +49,6 @@ class HomeView extends View {
         this.partialTables.update();
         this.partialStadium.update();
         this.partialPlayers.update();
-
-        this._fillFooter();
 
         console.log("Interface took " + (performance.now() - t0) + " milliseconds.");
     }
@@ -81,27 +77,9 @@ class HomeView extends View {
         let active = link.classList.contains('dropdown-item') ? link.parentElement.parentElement.children[0] : link;
         active.classList.add('active');
 
-        if (this._currentSection === 'play')
-            Html.hide(this._footer);
-        else
-            Html.show(this._footer);
-
         this._sections.forEach(e => Html.hide(e));
         Html.show(document.getElementById(this._currentSection));
         scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-    }
-
-    _fillFooter() {
-        this._aPlayerCount.innerText = this._game.club.squad.squadPlayers.length;
-
-        this._aMoney.innerText = `${this._game.club.money.toLocaleString()}`;
-        if (this._game.club.money <= 0) {
-            this._aMoney.parentElement.style.color = RED;
-            this._aMoney.classList.remove('text-dark', 'text-success', 'text-danger');
-            this._aMoney.classList.add(`text-danger`);
-        }
-
-        this._aDate.innerText = this._game.currentSeason.currentDate.toLocaleDateString();
     }
 
     _showPlayer(id) {
