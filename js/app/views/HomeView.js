@@ -64,11 +64,7 @@ class HomeView extends View {
 
         this._currentSection = href;
 
-        document.querySelectorAll('header a').forEach(e => {
-            e.classList.remove('active');
-            if (link.href === e.href)
-                link = e;
-        });
+        document.querySelectorAll('header a').forEach(e => e.classList.remove('active'));
         let span = document.querySelector('header a > span.sr-only');
         if (span)
             span.parentElement.removeChild(span);

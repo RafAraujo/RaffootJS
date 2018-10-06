@@ -1,6 +1,8 @@
 let FootballField = (function () {
-    return class FootballField {
+    return class FootballField extends Canvas {
         constructor(container) {
+            super();
+
             this._container = container;
 
             this._canvas = Html.createElement('canvas', '', 'football-field');
@@ -12,41 +14,6 @@ let FootballField = (function () {
 
         set club(value) {
             this._club = value;
-        }
-
-        get _context() {
-            return this._canvas.getContext('2d');
-        }
-
-        get _fontFamily() {
-            return this._canvasFontFamily;
-        }
-
-        set _fontFamily(value) {
-            this._canvasFontFamily = value;
-            this._configFont();
-        }
-
-        get _fontSize() {
-            return this._canvasFontSize;
-        }
-
-        set _fontSize(value) {
-            this._canvasFontSize = value;
-            this._configFont();
-        }
-
-        get _bold() {
-            return this._canvasFontBold;
-        }
-
-        set _bold(value) {
-            this._canvasFontBold = value;
-            this._configFont();
-        }
-
-        _configFont() {
-            this._context.font = `${this._canvasFontBold ? 'bold' : ''} ${this._canvasFontSize}px ${this._canvasFontFamily}`;
         }
 
         build() {
@@ -78,6 +45,8 @@ let FootballField = (function () {
 
             this._fontFamily = 'Segoe UI';
             this._fontSize = 20;
+            this._context.shadowColor = 'black';
+            this._context.shadowBlur = 0;
 
             let playerWidth = columnWidth * 0.8;
             let playerHeight = lineHeight;
@@ -109,7 +78,7 @@ let FootballField = (function () {
                 this._fontSize + this._context.lineWidth
             );
 
-            this._context.fillStyle  = 'black';
+            this._context.fillStyle = squadPlayer.improvised ? 'darkorange' : 'black';
             this._context.fillText(
                 squadPlayer.player.name,
                 columnWidth * fl.column + ((columnWidth - this._context.measureText(squadPlayer.player.name).width) / 2),

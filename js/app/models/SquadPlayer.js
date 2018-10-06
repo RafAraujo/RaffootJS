@@ -41,6 +41,10 @@ let SquadPlayer = (function () {
             this._fieldLocalizationId = value ? value.id : null;
         }
 
+        get improvised() {
+            return this._fieldLocalizationId !== this.player.idealFieldLocalization.id;
+        }
+
         get baseOverall() {
             return this.player.overall;
         }

@@ -5,11 +5,9 @@ class _PlayView {
         this._divNextMatch = document.getElementById('play-next-match');
         this._selectFormations = document.getElementById('play-formations');
         this._table = document.getElementById('play-starting11');
-        this._divContainerMyClub = document.getElementById('play-canvas-my-club');
-        this._divContainerOpponent = document.getElementById('play-canvas-opponent');
+        this._divCanvas = document.getElementById('play-canvas-my-club');
 
-        this._canvasMyClub = new FootballField(this._divContainerMyClub);
-        this._canvasOpponent = new FootballField(this._divContainerOpponent);
+        this._component = new FootballField(this._divCanvas);
 
         this._fillFormations();
     }
@@ -18,7 +16,7 @@ class _PlayView {
         let nextMatch = this._game.currentSeason.nextMatch(this._game.club);
 
         this._fillJumbotron(nextMatch);
-        this._buildCanvas(nextMatch);
+        this._buildCanvas();
         this._fillTable();
     }
 
@@ -95,7 +93,7 @@ class _PlayView {
 
     _formatEnergy(td, energy) {
         td.innerText = '';
-        td.classList.add('pl-0');
+        td.classList.add('pl-0', 'pr-0');
 
         let backgroundClass = `bg-${(energy >= 70 ? 'success' : energy >= 50 ? 'warning' : 'danger')}`;
         let divProgress = Html.createProgressBar(energy, backgroundClass);
@@ -107,8 +105,8 @@ class _PlayView {
         td.classList.add('pr-0');
     }
 
-    _buildCanvas(match) {
-        this._canvasMyClub.club = this._game.club;
-        this._canvasMyClub.build();
+    _buildCanvas() {
+        this._component.club = this._game.club;
+        this._component.build();
     }
 }
