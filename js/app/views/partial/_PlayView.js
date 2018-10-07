@@ -44,7 +44,7 @@ class _PlayView {
             this._formatFieldLocalization(tr.children[0], sp.fieldLocalization);
             this._formatSquadPlayer(tr.children[1], fieldLocalization);
             this._formatOverall(tr.children[2], sp);
-            this._formatEnergy(tr.children[3], sp.player.energy);
+            this._formatEnergy(tr.children[1], sp.player.energy);
             this._formatCondition(tr.children[4], sp.player.condition);
         });
         setTimeout(() => $('[data-toggle="tooltip"]').tooltip(), 0);
@@ -93,12 +93,13 @@ class _PlayView {
     }
 
     _formatEnergy(td, energy) {
-        td.innerText = '';
-        td.classList.add('pl-0', 'pr-0');
-
-        let backgroundClass = `bg-${(energy >= 70 ? 'success' : energy >= 50 ? 'warning' : 'danger')}`;
-        let divProgress = Html.createProgressBar(energy, backgroundClass);
-        td.appendChild(divProgress);
+        let divProgress = td.querySelector('div.progress');
+        let backgroundClass = `bg-${(energy >= 67 ? 'success' : energy >= 34 ? 'warning' : 'danger')}`;
+        divProgress.children[0].classList.remove('bg-success', 'bg-warning', 'bg-danger');
+        divProgress.children[0].classList.add(backgroundClass);
+        divProgress.children[0].style.width = `${energy}%`;
+        divProgress.children[0].innerText = '';
+        divProgress.style.height = '0.25rem';
     }
 
     _formatCondition(td, condition) {

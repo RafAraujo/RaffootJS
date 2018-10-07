@@ -3,8 +3,8 @@ header {
 }
 
 table#play-starting11 td {
-    padding-top: 0;
-    padding-bottom: 0;
+    padding-top: 0.25rem;
+    padding-bottom: 0rem;
 }
 
 .table th, .table td {

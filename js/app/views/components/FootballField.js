@@ -30,7 +30,7 @@ let FootballField = (function () {
                 this._canvas.setAttribute('height', window.innerWidth * 1.25);
             }
             else {
-                this._canvas.setAttribute('height', 480);
+                this._canvas.setAttribute('height', 567);
                 this._canvas.setAttribute('width', this._canvas.height * 0.75);
             }
 

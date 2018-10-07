@@ -249,7 +249,7 @@ let PlayersTable = (function () {
 
         _formatEnergy(td, energy) {
             td.innerText = '';
-            let backgroundClass = `bg-${(energy >= 70 ? 'success' : energy >= 50 ? 'warning' : 'danger')}`;
+            let backgroundClass = `bg-${(energy >= 67 ? 'success' : energy >= 34 ? 'warning' : 'danger')}`;
             let divProgress = Html.createProgressBar(energy, backgroundClass);
             td.appendChild(divProgress);
         }
