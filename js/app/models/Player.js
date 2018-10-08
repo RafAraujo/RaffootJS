@@ -18,8 +18,9 @@ let Player = (function () {
             this.star = star;
             this._skillIds = skillIds;
             this.condition = condition;
-            this.injuryProneness = injuryProneness;
             this.energy = 100;
+            this.injuryProneness = injuryProneness;
+            this._playerInjuries = [];
             this._contractIds = [];
             this.forSale = false;
             this.forLoan = false;
@@ -169,6 +170,14 @@ let Player = (function () {
 
         get wage() {
             return this.inForceContracts.last().wage;
+        }
+
+        get injuries() {
+            return PlayerInjury.all().filterById(this._playerInjuries);
+        }
+
+        get injuried() {
+            return Random.number(2) > 1;
         }
 
         getCategory(overall) {

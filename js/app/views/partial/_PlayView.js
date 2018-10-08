@@ -45,7 +45,8 @@ class _PlayView {
             this._formatSquadPlayer(tr.children[1], fieldLocalization);
             this._formatOverall(tr.children[2], sp);
             this._formatEnergy(tr.children[1], sp.player.energy);
-            this._formatCondition(tr.children[4], sp.player.condition);
+            this._formatCondition(tr.children[3], sp.player.condition);
+            this._formatStatus(tr.children[4], sp.player);
         });
         setTimeout(() => $('[data-toggle="tooltip"]').tooltip(), 0);
     }
@@ -104,6 +105,16 @@ class _PlayView {
 
     _formatCondition(td, condition) {
         Html.formatCellPlayerCondition(td, condition);
+        td.classList.add('pr-0');
+    }
+
+    _formatStatus(td, player) {
+        Html.clearElement(td);
+
+        if (player.injuried) {
+            let icon = Html.createIcon('ambulance', RED);
+            td.appendChild(icon);
+        }
         td.classList.add('pr-0');
     }
 
