@@ -19,6 +19,7 @@ let Player = (function () {
             this._skillIds = skillIds;
             this.condition = condition;
             this.injuryProneness = injuryProneness;
+            this._playerInjuryIds = [];
             this._energy = 100;
             this._contractIds = [];
             this.forSale = false;
@@ -66,6 +67,10 @@ let Player = (function () {
 
         static randomOverall(clubDivision) {
             return Random.numberBetween((NATIONAL_MAX_DIVISION_COUNT - clubDivision) * 10, 99 - (clubDivision - 1) * 10);
+        }
+
+        static getCategory(overall) {
+            return overall >= 80 ? 'gold' : overall >= 60 ? 'silver' : 'bronze';
         }
 
         static minimumWage() {
@@ -116,7 +121,7 @@ let Player = (function () {
         }
 
         get category() {
-            return this.getCategory(this.overall);
+            return Player.getCategory(this.overall);
         }
 
         get skills() {
@@ -175,8 +180,12 @@ let Player = (function () {
             return this.inForceContracts.last().wage;
         }
 
-        getCategory(overall) {
-            return overall >= 80 ? 'gold' : overall >= 60 ? 'silver' : 'bronze';
+        get playerInjuries() {
+            return PlayerInjury.all().filterById(this._playerInjuryIds);
+        }
+
+        get injuried() {
+            return this.playerInjuries.length > 0 && this.playerInjuries.last().isActive();
         }
 
         hasSkill(skillName) {

@@ -54,7 +54,7 @@ let SquadPlayer = (function () {
         }
 
         get category() {
-            return this.player.getCategory(this.overall);
+            return Player.getCategory(this.overall);
         }
 
         calculateOverallAt(fieldLocalization) {
