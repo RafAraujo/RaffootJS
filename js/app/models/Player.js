@@ -18,9 +18,8 @@ let Player = (function () {
             this.star = star;
             this._skillIds = skillIds;
             this.condition = condition;
-            this.energy = 100;
             this.injuryProneness = injuryProneness;
-            this._playerInjuries = [];
+            this.energy = 100;
             this._contractIds = [];
             this.forSale = false;
             this.forLoan = false;
@@ -172,24 +171,20 @@ let Player = (function () {
             return this.inForceContracts.last().wage;
         }
 
-        get injuries() {
-            return PlayerInjury.all().filterById(this._playerInjuries);
-        }
-
-        get injuried() {
-            return Random.number(2) > 1;
-        }
-
         getCategory(overall) {
             return overall >= 80 ? 'gold' : overall >= 60 ? 'silver' : 'bronze';
+        }
+
+        hasSkill(skillName) {
+            return this.skillsDescription.includes(skillName);
         }
 
         addContract(contract) {
             this._contractIds.push(contract.id);
         }
 
-        hasSkill(skillName) {
-            return this.skillsDescription.includes(skillName);
+        addPlayerInjury(playerInjury) {
+            this._playerInjuries.push(playerInjury.id);
         }
     }
 })();

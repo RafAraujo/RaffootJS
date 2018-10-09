@@ -90,7 +90,7 @@ class _PlayView {
         let span = td.querySelector('span');
         span.innerText = squadPlayer.overall;
         Array.from(span.classList).forEach(className => span.classList.remove(className));
-        span.classList.add('overall', `bg-${squadPlayer.category}`, 'pl-0', 'pr-0');
+        span.classList.add('overall', `bg-${squadPlayer.category}`, 'pl-0', 'pr-0', 'mx-auto');
     }
 
     _formatEnergy(td, energy) {

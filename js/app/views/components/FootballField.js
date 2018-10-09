@@ -45,6 +45,7 @@ let FootballField = (function () {
 
             this._fontFamily = 'Segoe UI';
             this._fontSize = 20;
+            this._bold = false;
             this._context.shadowColor = 'black';
             this._context.shadowBlur = 0;
 
@@ -78,6 +79,7 @@ let FootballField = (function () {
                 this._fontSize + this._context.lineWidth
             );
 
+            this._bold = true;
             this._context.fillStyle = squadPlayer.improvised ? 'darkorange' : 'black';
             this._context.fillText(
                 squadPlayer.player.name,
