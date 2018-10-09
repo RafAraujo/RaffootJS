@@ -139,6 +139,16 @@ let Player = (function () {
             return Math.max(Player._calculateBaseWage(this.overall, this.star), Player.minimumWage());
         }
 
+        get energyStatus() {
+            if (this.energy > 66)
+                return { description: 'high', color: { value: GREEN, class: 'success' } };
+            else if (this.energy > 33)
+                return { description: 'medium', color: { value: YELLOW, class: 'warning' } };
+            else {
+                return { description: 'low', color: { value: RED, class: 'danger' } };
+            }
+        }
+
         get marketValue() {
             return Player._calculateMarketValue(this.overall, this.star, this.age);
         }

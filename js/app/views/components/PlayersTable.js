@@ -195,7 +195,7 @@ let PlayersTable = (function () {
                 this._formatName(tr.children[2], player);
                 this._formatOverall(tr.children[3], player);
                 this._formatSide(tr.children[4], player);
-                this._formatEnergy(tr.children[5], player.energy);
+                this._formatEnergy(tr.children[5], player);
                 this._formatSkills(tr.children[9], player);
                 this._formatAge(tr.children[10], player.age);
                 this._formatContract(tr.children[11], player.currentContract);
@@ -247,10 +247,9 @@ let PlayersTable = (function () {
             td.setAttribute('title', player.sideDescription);
         }
 
-        _formatEnergy(td, energy) {
+        _formatEnergy(td, player) {
             td.innerText = '';
-            let backgroundClass = `bg-${(energy >= 67 ? 'success' : energy >= 34 ? 'warning' : 'danger')}`;
-            let divProgress = Html.createProgressBar(energy, backgroundClass);
+            let divProgress = Html.createProgressBar(player.energy, `bg-${player.energyStatus.color.class}`);
             td.appendChild(divProgress);
         }
 
