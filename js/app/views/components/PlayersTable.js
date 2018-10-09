@@ -179,7 +179,7 @@ let PlayersTable = (function () {
                 Html.insertCell(tr, player.completeName);
                 Html.insertCell(tr, player.overall, 'text-center');
                 Html.insertCell(tr, player.side, 'text-center');
-                Html.insertCell(tr, player.energy);
+                Html.insertCell(tr, player.energy.value);
                 Html.insertCell(tr, player.club.name);
                 Html.insertCell(tr, player.wage.toLocaleString(), 'text-right');
                 Html.insertCell(tr, player.marketValue.toLocaleString(), 'text-right');
@@ -195,7 +195,7 @@ let PlayersTable = (function () {
                 this._formatName(tr.children[2], player);
                 this._formatOverall(tr.children[3], player);
                 this._formatSide(tr.children[4], player);
-                this._formatEnergy(tr.children[5], player);
+                this._formatEnergy(tr.children[5], player.energy);
                 this._formatSkills(tr.children[9], player);
                 this._formatAge(tr.children[10], player.age);
                 this._formatContract(tr.children[11], player.currentContract);
@@ -247,9 +247,9 @@ let PlayersTable = (function () {
             td.setAttribute('title', player.sideDescription);
         }
 
-        _formatEnergy(td, player) {
+        _formatEnergy(td, energy) {
             td.innerText = '';
-            let divProgress = Html.createProgressBar(player.energy, `bg-${player.energyStatus.color.class}`);
+            let divProgress = Html.createProgressBar(energy.value, `bg-${energy.color.class}`);
             td.appendChild(divProgress);
         }
 

@@ -19,7 +19,7 @@ let Player = (function () {
             this._skillIds = skillIds;
             this.condition = condition;
             this.injuryProneness = injuryProneness;
-            this.energy = 100;
+            this._energy = 100;
             this._contractIds = [];
             this.forSale = false;
             this.forLoan = false;
@@ -139,14 +139,8 @@ let Player = (function () {
             return Math.max(Player._calculateBaseWage(this.overall, this.star), Player.minimumWage());
         }
 
-        get energyStatus() {
-            if (this.energy > 66)
-                return { description: 'high', color: { value: GREEN, class: 'success' } };
-            else if (this.energy > 33)
-                return { description: 'medium', color: { value: YELLOW, class: 'warning' } };
-            else {
-                return { description: 'low', color: { value: RED, class: 'danger' } };
-            }
+        get energy() {
+            return new PlayerEnergy(this._energy);
         }
 
         get marketValue() {

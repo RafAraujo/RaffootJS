@@ -44,7 +44,7 @@ class _PlayView {
             this._formatFieldLocalization(tr.children[0], sp.fieldLocalization);
             this._formatSquadPlayer(tr.children[1], fieldLocalization);
             this._formatOverall(tr.children[2], sp);
-            this._formatEnergy(tr.children[1], sp.player);
+            this._formatEnergy(tr.children[1], sp.player.energy);
             this._formatCondition(tr.children[3], sp.player.condition);
             this._formatStatus(tr.children[4], sp.player);
         });
@@ -93,11 +93,11 @@ class _PlayView {
         span.classList.add('overall', `bg-${squadPlayer.category}`, 'pl-0', 'pr-0', 'mx-auto');
     }
 
-    _formatEnergy(td, player) {
+    _formatEnergy(td, energy) {
         let divProgress = td.querySelector('div.progress');
         divProgress.children[0].classList.remove('bg-success', 'bg-warning', 'bg-danger');
-        divProgress.children[0].classList.add(`bg-${player.energyStatus.color.class}`);
-        divProgress.children[0].style.width = `${player.energy}%`;
+        divProgress.children[0].classList.add(`bg-${energy.color.class}`);
+        divProgress.children[0].style.width = `${energy.value}%`;
         divProgress.children[0].innerText = '';
         divProgress.style.height = '0.25rem';
     }
