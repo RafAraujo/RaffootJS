@@ -118,7 +118,7 @@ let PlayersTable = (function () {
         build() {
             this.destroy();
 
-            this.table = Html.createTable(null, _HEADER.items.map(item => item.title), ...this._classList);
+            this.table = Html.createTable(null, _HEADER.items.map(item => item.title), ...this._classList.concat('table-hover'));
             this.pInfo = Html.createParagraph('');
             this.buttonLoadMore = Html.createButton('Load more', 'btn-primary', 'mb-3');
 

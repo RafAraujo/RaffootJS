@@ -68,10 +68,6 @@ let Season = (function () {
             return this.selectMany('championshipEditions.matches');
         }
 
-        get today() {
-            return this._currentSeasonDate.date;
-        }
-
         schedule() {
             this._defineChampionshipEditions();
             this._defineCalendar();
@@ -141,7 +137,7 @@ let Season = (function () {
         }
 
         getMatchesByDate(date) {
-            return this.matches.filter(m => m.date === date);
+            return this.matches.filter(m => m.date.getTime() === date.getTime());
         }
 
         getMatchesByClub(club) {

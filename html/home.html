@@ -112,9 +112,6 @@
             </div>
             <section id="matches" class="d-none">
                 <div class="row">
-                    <div id="matches-content" class="col"></div>
-                </div>
-                <div class="row">
                     <div class="col-sm-3 offset-sm-9">
                         <table class="table borderless">
                             <thead></thead>
@@ -135,6 +132,9 @@
                         </table>
                     </div>
                 </div>
+                <div class="row">
+                    <div id="matches-content" class="col"></div>
+                </div>
             </section>
             <section id="play" class="d-none">
                 <div class="row">
@@ -145,7 +145,7 @@
                                 <p class="lead"></p>
                                 <div class="row">
                                     <div class="col-6 col-sm-2">
-                                        <button class="btn btn-block btn-primary">Play</button>
+                                        <button id="play-matches" class="btn btn-block btn-primary">Play</button>
                                     </div>
                                 </div>
                             </div>
@@ -625,6 +625,7 @@
     <script src="../js/app/views/components/PlayersTable.js"></script>
     <script src="../js/app/views/partial/_CalendarView.js"></script>
     <script src="../js/app/views/partial/_ClubsView.js"></script>
+    <script src="../js/app/views/partial/_MatchesView.js"></script>
     <script src="../js/app/views/partial/_PlayView.js"></script>
     <script src="../js/app/views/partial/_PlayersView.js"></script>
     <script src="../js/app/views/partial/_SquadView.js"></script>

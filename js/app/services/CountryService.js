@@ -31,7 +31,7 @@ class CountryService {
             let tags = Array.from(xml.getElementsByTagName('P'));
             let values = tags.map(t => t.getAttribute('f').htmlDecode());
             values = values.concat(tags.map(t => t.getAttribute('s').htmlDecode().toTitleCase()));
-            values = [...new Set(values)];
+            values = values.distinct();
             return values;
         }
         catch (error) {

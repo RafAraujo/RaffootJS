@@ -15,6 +15,7 @@ class HomeView extends View {
 
         this._configLinks();
 
+        this.partialMatches = new _MatchesView(this._game);
         this.partialPlay = new _PlayView(this._game);
         this.partialSquad = new _SquadView(this._game);
         this.partialCalendar = new _CalendarView(this._game);
@@ -28,9 +29,9 @@ class HomeView extends View {
 
     _configLinks() {
         document.querySelectorAll('header a:not(.dropdown-toggle)')
-            .forEach(element => element.addEventListener('click', event => {
+            .forEach(link => link.addEventListener('click', event => {
                 event.preventDefault();
-                this._setActiveSection.call(this, element);
+                this.setActiveSection.call(this, link.getAttribute('href').substr(1));
                 $('.navbar-collapse').collapse('hide');
             })
             );
@@ -41,7 +42,7 @@ class HomeView extends View {
 
         super.update();
 
-        this._setActiveSection(document.querySelector(`a[href="#${this._currentSection}"`));
+        this.setActiveSection(this._currentSection);
 
         this.partialPlay.update();
         this.partialSquad.update();
@@ -57,13 +58,10 @@ class HomeView extends View {
         this.partialSquad.update(orderProperties);
     }
 
-    _setActiveSection(link) {
-        let href = link.getAttribute('href').substr(1);
-        if (!href)
-            return;
+    setActiveSection(section) {
+        this._currentSection = section;
 
-        this._currentSection = href;
-
+        let link = document.querySelector(`header a[href="#${section}"]`);
         document.querySelectorAll('header a').forEach(e => e.classList.remove('active'));
         let span = document.querySelector('header a > span.sr-only');
         if (span)

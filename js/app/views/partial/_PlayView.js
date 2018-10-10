@@ -13,7 +13,7 @@ class _PlayView {
     }
 
     update() {
-        let nextMatch = this._game.currentSeason.nextMatch(this._game.club);
+        let nextMatch = this._game.nextMatch();
 
         this._fillJumbotron(nextMatch);
         this._buildCanvas();

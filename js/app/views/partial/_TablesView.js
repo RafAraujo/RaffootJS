@@ -58,7 +58,7 @@ class _TablesView {
     }
 
     _createTableRoundRobin() {
-        let table = Html.createTable(null, ['#', 'Club', 'P', 'M', 'W', 'D', 'L', 'GF', 'GA', 'GD']);
+        let table = Html.createTable(null, ['#', 'Club', 'P', 'M', 'W', 'D', 'L', 'GF', 'GA', 'GD'], 'table-hover');
         this._tables.push(table);
 
         let thead = table.querySelector('thead');
@@ -124,7 +124,7 @@ class _TablesView {
             if (eliminationPhase.championshipEditionEliminationPhaseDuels.length === 0)
                 return;
 
-            let table = Html.createTable(eliminationPhase.name, ['Club 1', 'Agg.', 'Club 2', '1st Leg', '2nd Leg']);
+            let table = Html.createTable(eliminationPhase.name, ['Club 1', 'Agg.', 'Club 2', '1st Leg', '2nd Leg'], 'table-hover');
             this._tables.push(table);
 
             eliminationPhase.championshipEditionEliminationPhaseDuels.forEach(duel => {

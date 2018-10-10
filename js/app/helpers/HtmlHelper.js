@@ -95,7 +95,7 @@ class Html {
     }
 
     static createTable(title, headers, ...classList) {
-        let table = Html.createElement('table', '', 'table', 'table-hover');
+        let table = Html.createElement('table', '', 'table');
         table.classList.add(...classList);
 
         let thead = Html.createElement('thead');

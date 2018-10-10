@@ -199,5 +199,9 @@ let Player = (function () {
         addPlayerInjury(playerInjury) {
             this._playerInjuries.push(playerInjury.id);
         }
+
+        ableToPlay(championshipEdition) {
+            // TO-DO
+        }
     }
 })();

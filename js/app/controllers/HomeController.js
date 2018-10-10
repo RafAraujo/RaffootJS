@@ -1,11 +1,13 @@
 class HomeController {
     constructor() {
+        this._buttonPlay = document.getElementById('play-matches');
         this._selectFormations = document.getElementById('play-formations');
         this._selectsPlayers = document.querySelectorAll('#play-starting11 tbody select');
 
         this._service = new GameService();
         this._view = new View();
 
+        this._buttonPlay.addEventListener('click', this._play.bind(this));
         this._selectFormations.addEventListener('change', this._setFormation.bind(this));
         Array.from(this._selectsPlayers).forEach((select, index) => select.addEventListener('change', this._changeStarting11.bind(this, select, index)));
     }
@@ -34,6 +36,17 @@ class HomeController {
             console.log(error);
             this._view.showMessage('Error on loading game', 'danger');
         }
+    }
+
+    _play() {
+        let matches = this._game.matchesOfTheDay();
+
+        matches.forEach(m => {
+            m.start();
+        });
+
+        this._view.setActiveSection('matches');
+        this._view.partialMatches.update();
     }
 
     _setFormation() {

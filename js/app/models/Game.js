@@ -115,6 +115,14 @@ let Game = (function () {
             return season.championshipEditions.find(ce => ce.championship.championshipType === season.currentSeasonDate.championshipType);
         }
 
+        nextMatch() {
+            return this.currentSeason.nextMatch(this.club)
+        }
+
+        matchesOfTheDay() {
+            return this.currentSeason.getMatchesByDate(this.currentSeason.currentDate);
+        }
+
         advanceDate() {
             this.currentSeason.advanceDate();
             if (this.currentSeason.finished)

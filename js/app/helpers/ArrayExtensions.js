@@ -2,8 +2,8 @@ Array.prototype.average = function () {
     return this.sum() / this.length;
 }
 
-Array.prototype.getRandomItem = function () {
-    return this[Random.number(this.length - 1)];
+Array.prototype.distinct = function () {
+    return [...new Set(this)];
 }
 
 Array.prototype.first = function () {
@@ -14,6 +14,10 @@ Array.prototype.firstItems = function (count) {
     if (count > this.length)
         throw new RangeError('ArrayExtensions.firstItems(count)');
     return this.slice(0, count);
+}
+
+Array.prototype.getRandomItem = function () {
+    return this[Random.number(this.length - 1)];
 }
 
 Array.prototype.getRandomItems = function (count) {

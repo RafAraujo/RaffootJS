@@ -12,7 +12,7 @@ let Match = (function () {
             this._stadiumId = null;
             this._matchClubIds = [];
             this._refereeId = refereeId;
-            this.audience = null;
+            this.attendance = null;
             this.income = null;
             this.time = 0;
             this.finished = false;
@@ -101,12 +101,16 @@ let Match = (function () {
             let matchClub = MatchClub.create(this, club, situation);
             this._matchClubIds.push(matchClub.id);
 
-            if (this._stadiumId === 0 && matchClub.situation === 'home')
+            if (!this._stadiumId && matchClub.situation === 'home')
                 this._stadiumId = matchClub.club.stadium.id;
         }
 
         getGoalsByClub(club) {
             return this.matchClubs.find(mc => mc.club === club).goals;
+        }
+
+        start() {
+            this.attendance = Random.number(this.stadium.capacity);
         }
 
         play() {
