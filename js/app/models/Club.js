@@ -2,11 +2,12 @@ let Club = (function () {
     let _clubs = [];
 
     return class Club extends Entity {
-        constructor(name, countryId) {
+        constructor(name, countryId, clubColorsId) {
             super();
 
             this.name = name;
             this._countryId = countryId;
+            this._clubColorsId = clubColorsId;
             this._stadiumId = null;
             this._coachId = null;
             this._squadId = null;
@@ -16,7 +17,8 @@ let Club = (function () {
         }
 
         static create(name, country) {
-            let club = new Club(name, country.id);
+            let clubColors = ClubColors.all().getRandomItem();
+            let club = new Club(name, country.id, clubColors.id);
             club.id = _clubs.push(club);
             country.addClub(club);
             return club;
@@ -65,6 +67,10 @@ let Club = (function () {
 
         get country() {
             return Country.all()[this._countryId - 1];
+        }
+
+        get colors() {
+            return ClubColors.all()[this._clubColorsId - 1];
         }
 
         get stadium() {
