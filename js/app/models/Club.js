@@ -98,12 +98,10 @@ let Club = (function () {
             Club.create('Independiente Del Valle', ecuador, ['Black', 'White'], 'Rumiñahui', 1);
             Club.create('LDU', ecuador, ['White', 'DarkBlue'], 'Rodrigo Paz Delgado', 1);
 
-            let clubs = Club.all().filter(c => c.country === brazil);
+            let clubs = Club.all();
             for (let i = 0; i < clubs.length; i++) {
                 let c = clubs[i];
                 c.playable = true;
-                c.initialDivision = i + 1;
-                c.stadium.ticketPrice = Stadium.baseTicketPrice(c.initialDivision).id;
                 await c._generateSquadAsync();
                 c.receive(c.squad.wage * Random.numberBetween(6, 9));
             }
