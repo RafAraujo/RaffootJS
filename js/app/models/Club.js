@@ -69,7 +69,7 @@ let Club = (function () {
             Club.create('Cobreloa', chile, ['Orange', 'White'], 'Zorros del Desierto', 1);
             Club.create('Cobresal', chile, ['White', 'Orange'], 'El Cobre', 1);
             Club.create('Colo-Colo', chile, ['White', 'Black'], 'Monumental David Arellano', 1);
-            Club.create('Everton de Viña del Mar', chile, ['DarkBlue', 'Gold'], 'Sausalito', 1);
+            Club.create('Everton de Viña del Mar', chile, ['Blue', 'Gold'], 'Sausalito', 1);
             Club.create('Huachipato', chile, ['Black', 'DodgerBlue'], 'Huachipato-CAP Acero', 1);
             Club.create("O' Higgin's", chile, ['DodgerBlue', 'White'], 'El Teniente', 1);
             Club.create('Palestino', chile, ['White', 'Green'], 'La Cisterna', 1);
@@ -94,9 +94,13 @@ let Club = (function () {
 
             let ecuador = countries[4];
             Club.create('Barcelona Guayaquil', ecuador, ['LightYellow', 'DarkBlue'], 'Monumental Isidro Romero Carbo', 1);
-            Club.create('Emelec', ecuador, ['DodgerBlue', 'White'], 'George Capwell', 1);
+            Club.create('Delfín', ecuador, ['Blue', 'Gold'], 'Jocay', 1);
+            Club.create('Deportivo Cuenca', ecuador, ['Red', 'White'], 'Alejandro Serrano Aguilar', 1);
+            Club.create('El Nacional', ecuador, ['Red', 'White'], 'Olimpico Atahualpa', 1);
+            Club.create('Emelec', ecuador, ['Blue', 'White'], 'George Capwell', 1);
             Club.create('Independiente Del Valle', ecuador, ['Black', 'White'], 'Rumiñahui', 1);
             Club.create('LDU', ecuador, ['White', 'DarkBlue'], 'Rodrigo Paz Delgado', 1);
+            Club.create('Universidad Católica del Ecuador', ecuador, ['DodgerBlue', 'White'], 'Olimpico Atahualpa', 1);
 
             let clubs = Club.all();
             for (let i = 0; i < clubs.length; i++) {
