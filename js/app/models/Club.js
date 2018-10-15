@@ -232,7 +232,7 @@ let Club = (function () {
             Club.create('Vitória Guimarães', portugal, ['White', 'Black'], 'D. Afonso Henriques', 1);
             Club.create('Vitória Setúbal', portugal, ['Green', 'White'], 'Bonfim', 1);
 
-            let russia = countries[15];
+            let russia = countries[14];
             Club.create('Alania Vladikavkaz', russia, ['Gold', 'Red'], 'Republican Spartak', 1);
             Club.create('Anzhi Makhachkala', russia, ['Gold', 'Black'], 'Anzhi-Arena', 1);
             Club.create('CSKA', russia, ['Red', 'DarkBlue'], 'Arena CSKA', 1);
