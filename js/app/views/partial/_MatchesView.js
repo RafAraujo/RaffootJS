@@ -27,7 +27,7 @@ class _MatchesView {
             this._matches.filter(m => m.championshipEdition === ce).forEach(m => {
                 let tr = tbody.insertRow();
                 
-                Html.insertCell(tr, `${m.stadium.name} | ${m.attendance || 0}`, 'text-center').style.width = '25%';
+                Html.insertCell(tr, `${m.stadium.name} | ${m.attendance || 0}`, 'text-center', 'd-none', 'd-sm-table-cell').style.width = '25%';
                 Html.insertCell(tr, m.matchClubHome.club.name, 'text-center', 'border').style.cssText = `width: 20%; background-color: ${m.matchClubHome.club.colors.background}; color: ${m.matchClubHome.club.colors.foreground}`;
                 Html.insertCell(tr, m.matchClubHome.goals, 'text-center').style.width = '4%';
                 Html.insertCell(tr, 'x', 'text-center').style.width = '3%';

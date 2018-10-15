@@ -47,9 +47,9 @@ let Country = (function () {
             Country.create('Germany', 'GER', europe, true);
             Country.create('Italy', 'ITA', europe, true);
             Country.create('Netherlands', 'NED', europe, true);
-            Country.create('Portugal', 'POR', europe, true);
-            Country.create('Russia', 'RUS', europe, true);
-            Country.create('Spain', 'ESP', europe, true);
+            Country.create('Portugal', 'POR', europe, false);
+            Country.create('Russia', 'RUS', europe, false);
+            Country.create('Spain', 'ESP', europe, false);
 
             Country.create('Australia', 'AUS', asia, false);
             Country.create('Austria', 'AUT', europe, false);
