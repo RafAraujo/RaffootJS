@@ -232,6 +232,34 @@ let Club = (function () {
             Club.create('Vitória Guimarães', portugal, ['White', 'Black'], 'D. Afonso Henriques', 1);
             Club.create('Vitória Setúbal', portugal, ['Green', 'White'], 'Bonfim', 1);
 
+            let russia = countries[15];
+            Club.create('Alania Vladikavkaz', russia, ['Gold', 'Red'], 'Republican Spartak', 1);
+            Club.create('Anzhi Makhachkala', russia, ['Gold', 'Black'], 'Anzhi-Arena', 1);
+            Club.create('CSKA', russia, ['Red', 'DarkBlue'], 'Arena CSKA', 1);
+            Club.create('Dynamo', russia, ['Blue', 'White'], 'Arena-Khimki', 1);
+            Club.create('Krasnodar', russia, ['Green', 'White'], 'Krasnodar Stadium', 1);
+            Club.create('Lokomotiv', russia, ['Green', 'Red'], 'Lokomotiv Stadium', 1);
+            Club.create('Rostov', russia, ['Gold', 'Blue'], 'Rostov Arena', 1);
+            Club.create('Rubin Kazan', russia, ['DarkRed', 'LightGreen'], 'Kazan Arena', 1);
+            Club.create('Spartak', russia, ['Red', 'White'], 'Otkrytiye Arena', 1);
+            Club.create('Torpedo', russia, ['White', 'Black'], 'Eduard Streltsov', 1);
+            Club.create('Volga', russia, ['Black', 'Gold'], 'Trud', 1);
+            Club.create('Zenit', russia, ['DodgerBlue', 'White'], 'Krestovsky Stadium', 1);
+
+            let spain = countries[15];
+            Club.create('Athletic Bilbao', spain, ['White', 'Red'], 'San Mamés', 1);
+            Club.create('Atlético Madrid', spain, ['Red', 'White'], 'Wanda Metropolitano', 1);
+            Club.create('Barcelona', spain, ['DarkBlue', 'Red'], 'Camp Nou', 1);
+            Club.create('Espanyol', spain, ['White', 'DarkBlue'], 'Estadi Olímpic', 1);
+            Club.create('La Coruña', spain, ['Blue', 'White'], 'Municipal de Riazor', 1);
+            Club.create('Real Bétis', spain, ['White', 'Green'], 'Benito Villamarín', 1);
+            Club.create('Real Madrid', spain, ['White', 'Black'], 'Santiago Bernabéu', 1);
+            Club.create('Real Sociedad', spain, ['White', 'Blue'], 'Anoeta', 1);
+            Club.create('Sevilla', spain, ['White', 'Red'], 'Ramón Pizjuán', 1);
+            Club.create('Valencia', spain, ['White', 'Black'], 'Mestalla', 1);
+            Club.create('Villarreal', spain, ['Gold', 'DarkBlue'], 'El Madrigal', 1);
+            Club.create('Zaragoza', spain, ['White', 'Blue'], 'La Romareda', 1);
+
             let clubs = Club.all();
             for (let i = 0; i < clubs.length; i++) {
                 let c = clubs[i];
