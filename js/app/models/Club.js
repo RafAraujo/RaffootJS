@@ -179,7 +179,7 @@ let Club = (function () {
             let germany = countries[10];
             Club.create('Bayer Leverkusen', germany, ['Black', 'Red'], 'BayArena', 1);
             Club.create('Bayern', germany, ['Red', 'White'], 'Allianz Arena', 1);
-            Club.create('Borussia Dortmund', germany, ['Black', 'Gold'], 'Signal Iduna Park', 1);
+            Club.create('Borussia Dortmund', germany, ['Gold', 'Black'], 'Signal Iduna Park', 1);
             Club.create('B. Mönchengladbach', germany, ['Black', 'White'], 'Borussia-Park', 1);
             Club.create('Hamburger', germany, ['White', 'Blue'], 'Imtech Arena', 1);
             Club.create('Hannover 96', germany, ['Red', 'White'], 'AWD Arena', 1);
@@ -217,6 +217,20 @@ let Club = (function () {
             Club.create('Twente', netherlands, ['Red', 'White'], 'De Grolsch Veste', 1);
             Club.create('Utrecht', netherlands, ['Red', 'White'], 'Stadion Galgenwaard', 1);
             Club.create('Vitesse', netherlands, ['Black', 'Gold'], 'Gelredome', 1);
+
+            let portugal = countries[13];
+            Club.create('Académica de Coimbra', portugal, ['Black', 'White'], 'Cidade de Coimbra', 1);
+            Club.create('Belenenses', portugal, ['White', 'Blue'], 'Estádio do Restelo', 1);
+            Club.create('Benfica', portugal, ['Red', 'White'], 'Estádio da Luz', 1);
+            Club.create('Boavista', portugal, ['White', 'Black'], 'Estádio do Bessa', 1);
+            Club.create('Braga', portugal, ['Red', 'White'], 'Municipal de Braga', 1);
+            Club.create('Chaves', portugal, ['Blue', 'White'], 'Municipal Eng. Manuel Branco Teixeira', 1);
+            Club.create('Nacional', portugal, ['White', 'Black'], 'Estádio da Madeira', 1);
+            Club.create('Porto', portugal, ['Blue', 'White'], 'Estádio do Dragão', 1);
+            Club.create('Rio Ave', portugal, ['Green', 'White'], 'Estádio dos Arcos', 1);
+            Club.create('Sporting', portugal, ['Green', 'White'], 'José Alvalade', 1);
+            Club.create('Vitória Guimarães', portugal, ['White', 'Black'], 'D. Afonso Henriques', 1);
+            Club.create('Vitória Setúbal', portugal, ['Green', 'White'], 'Bonfim', 1);
 
             let clubs = Club.all();
             for (let i = 0; i < clubs.length; i++) {
