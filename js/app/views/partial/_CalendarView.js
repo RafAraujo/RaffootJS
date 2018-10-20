@@ -18,7 +18,7 @@ class _CalendarView {
             Html.insertCell(tr, match.matchClubAway.goals, 'text-center');
             Html.insertCell(tr, match.matchClubAway.club.name, 'text-right');
             Html.insertCell(tr, match.championshipEdition.championship.name, 'text-right');
-            Html.insertCell(tr, match.audience || '', 'text-center');
+            Html.insertCell(tr, match.audience, 'text-center');
             Html.insertCell(tr, match.income, 'text-center');
         }
 

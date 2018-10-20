@@ -57,7 +57,7 @@ let Club = (function () {
             let brazil = countries[1];
             Club.create('Atlético-MG', brazil, ['Black', 'White'], 'Independência', 1);
             Club.create('Atlético-PR', brazil, ['Black', 'Red'], 'Arena da Baixada', 1);
-            Club.create('Bahia', brazil, ['SkyBlue', 'Red'], 'Fonte Nova', 1);
+            Club.create('Bahia', brazil, ['DodgerBlue', 'Red'], 'Fonte Nova', 1);
             Club.create('Botafogo', brazil, ['DarkGray', 'Black'], 'Engenhão', 1);
             Club.create('Corinthians', brazil, ['White', 'Black'], 'Arena Corinthians', 1);
             Club.create('Coritiba', brazil, ['White', 'Green'], 'Couto Pereira', 1);
@@ -84,7 +84,7 @@ let Club = (function () {
             Club.create('Juventude', brazil, ['White', 'Green'], 'Alfredo Jaconi', 2);
             Club.create('Náutico', brazil, ['Red', 'White'], 'Arena Pernambuco', 2);
             Club.create('Paraná', brazil, ['Blue', 'Red'], 'Durival de Britto', 2);
-            Club.create('Paysandu', brazil, ['White', 'DodgerBlue'], 'Mangueirão', 2);
+            Club.create('Paysandu', brazil, ['SkyBlue', 'Blue'], 'Mangueirão', 2);
             Club.create('Ponte Preta', brazil, ['White', 'Black'], 'Moisés Lucarelli', 2);
             Club.create('Santa Cruz', brazil, ['White', 'Red'], 'Arruda', 2);
             Club.create('Vitória', brazil, ['Black', 'Red'], 'Barradão', 2);
@@ -141,7 +141,7 @@ let Club = (function () {
             Club.create('Macará', ecuador, ['DodgerBlue', 'White'], 'Bellavista', 1);
             Club.create('Olmedo', ecuador, ['DarkBlue', 'White'], 'Olimpico de Riobamba', 1);
             Club.create('Técnico Universitario', ecuador, ['Red', 'White'], 'Bellavista', 1);
-            Club.create('Universidad Católica del Ecuador', ecuador, ['DodgerBlue', 'White'], 'Olimpico Atahualpa', 1);
+            Club.create('Universidad Católica Ecuador', ecuador, ['DodgerBlue', 'White'], 'Olimpico Atahualpa', 1);
 
             let mexico = countries[5];
             Club.create('Atlas', mexico, ['Black', 'Red'], 'Jalisco', 1);
@@ -173,7 +173,7 @@ let Club = (function () {
             Club.create('Libertad', paraguay, ['White', 'Black'], 'Dr. Nicolás Leoz', 1);
             Club.create('Nacional', paraguay, ['White', 'Blue'], 'Arsenio Erico', 1);
             Club.create('Olimpia', paraguay, ['White', 'Black'], 'Manuel Ferreira', 1);
-            Club.create('River Plate', paraguay, ['White', 'Red'], 'River Plate', 1);
+            Club.create('River Plate Paraguay', paraguay, ['White', 'Red'], 'River Plate', 1);
             Club.create('Rubio Ñu', paraguay, ['White', 'Green'], 'La Arboleda', 1);
             Club.create('Sol de América', paraguay, ['Blue', 'White'], 'Luis Alfonso Giagni', 1);
             Club.create('Sportivo Luqueño', paraguay, ['DarkBlue', 'Gold'], 'Feliciano Caceres', 1);

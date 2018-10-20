@@ -12,7 +12,7 @@ let Match = (function () {
             this._stadiumId = null;
             this._matchClubIds = [];
             this._refereeId = refereeId;
-            this.attendance = null;
+            this.audience = null;
             this.income = null;
             this.time = 0;
             this.finished = false;
@@ -110,7 +110,7 @@ let Match = (function () {
         }
 
         start() {
-            this.attendance = Random.number(this.stadium.capacity);
+            this.audience = Random.number(this.stadium.capacity);
         }
 
         play() {
