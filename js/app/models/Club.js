@@ -68,14 +68,31 @@ let Club = (function () {
             Club.create('Internacional', brazil, ['Red', 'White'], 'Beira Rio', 1);
             Club.create('Palmeiras', brazil, ['Green', 'White'], 'Allianz Parque', 1);
             Club.create('Santos', brazil, ['White', 'Black'], 'Vila Belmiro', 1);
-            Club.create('São Paulo', brazil, ['White', 'DarkRed'], 'Morumbi', 1);
+            Club.create('São Paulo', brazil, ['White', 'Red'], 'Morumbi', 1);
             Club.create('Sport', brazil, ['Black', 'Red'], 'Ilha do Retiro', 1);
             Club.create('Vasco da Gama', brazil, ['White', 'Black'], 'São Januário', 1);
 
+            Club.create('Avaí', brazil, ['White', 'Blue'], 'Ressacada', 2);
+            Club.create('Ceará', brazil, ['Black', 'White'], 'Castelão', 2);
+            Club.create('Chapecoense', brazil, ['Green', 'White'], 'Arena Condá', 2);
+            Club.create('Criciúma', brazil, ['Gold', 'Black'], 'Heriberto Hülse', 2);
+            Club.create('Figueirense', brazil, ['Black', 'White'], 'Orlando Scarpelli', 2);
+            Club.create('Fortaleza', brazil, ['SkyBlue', 'Red'], 'Castelão', 2);
+            Club.create('Goiás', brazil, ['Green', 'White'], 'Serra Dourada', 2);
+            Club.create('Guarani', brazil, ['Green', 'White'], 'Brinco de Ouro da Princesa', 2);
+            Club.create('Joinville', brazil, ['White', 'Red'], 'Arena Joinville', 2);
+            Club.create('Juventude', brazil, ['White', 'Green'], 'Alfredo Jaconi', 2);
+            Club.create('Náutico', brazil, ['Red', 'White'], 'Arena Pernambuco', 2);
+            Club.create('Paraná', brazil, ['Blue', 'Red'], 'Durival de Britto', 2);
+            Club.create('Paysandu', brazil, ['White', 'DodgerBlue'], 'Mangueirão', 2);
+            Club.create('Ponte Preta', brazil, ['White', 'Black'], 'Moisés Lucarelli', 2);
+            Club.create('Santa Cruz', brazil, ['White', 'Red'], 'Arruda', 2);
+            Club.create('Vitória', brazil, ['Black', 'Red'], 'Barradão', 2);
+
             let chile = countries[2];
             Club.create('Audax Italiano', chile, ['Green', 'White'], 'La Florida', 1);
-            Club.create('Cobreloa', chile, ['Orange', 'White'], 'Zorros del Desierto', 1);
-            Club.create('Cobresal', chile, ['White', 'Orange'], 'El Cobre', 1);
+            Club.create('Cobreloa', chile, ['DarkOrange', 'White'], 'Zorros del Desierto', 1);
+            Club.create('Cobresal', chile, ['White', 'DarkOrange'], 'El Cobre', 1);
             Club.create('Colo-Colo', chile, ['White', 'Black'], 'Monumental David Arellano', 1);
             Club.create('Deportes Iquique', chile, ['DodgerBlue', 'Black'], 'Tierra de Campeones', 1);
             Club.create('Everton de Viña del Mar', chile, ['DarkBlue', 'Gold'], 'Sausalito', 1);
@@ -196,7 +213,24 @@ let Club = (function () {
             Club.create('Sunderland', england, ['Red', 'White'], "Stadium of Light", 1);
             Club.create('Tottenham', england, ['White', 'DarkBlue'], 'Tottenham Hotspur Stadium', 1);
             Club.create('West Ham', england, ['DarkRed', 'DodgerBlue'], 'Olympic Stadium', 1);
-            Club.create('Wolverhampton', england, ['Orange', 'Black'], 'Molineux', 1);
+            Club.create('Wolverhampton', england, ['DarkOrange', 'Black'], 'Molineux', 1);
+
+            Club.create('Birmingham', england, ['Blue', 'White'], 'St Andrews', 2);
+            Club.create('Blackburn Rovers', england, ['White', 'Black'], 'Ewood Park', 2);
+            Club.create('Bolton Wanderers', england, ['White', 'DodgerBlue'], 'Macron Stadium', 2);
+            Club.create('Burnley', england, ['DarkRed', 'DodgerBlue'], 'Turf Moor', 2);
+            Club.create('Charlton Athletic', england, ['Red', 'White'], 'The Valley', 2);
+            Club.create('Crystal Palace', england, ['DarkBlue', 'Red'], 'Selhurst Park', 2);
+            Club.create('Fulham', england, ['White', 'Black'], 'Craven Cottage', 2);
+            Club.create('Hull City', england, ['DarkOrange', 'Black'], 'KCOM Stadium', 2);
+            Club.create('Middlesbrough', england, ['Red', 'White'], 'Riverside Stadium', 2);
+            Club.create('Queens Park Rangers', england, ['White', 'Blue'], 'Loftus Road', 2);
+            Club.create('Reading', england, ['White', 'Blue'], 'Madejski', 2);
+            Club.create('Sheffield Wednesday', england, ['DodgerBlue', 'Black'], 'Hillsborough', 2);
+            Club.create('Sheffield United', england, ['White', 'Red'], 'Bramall Lane', 2);
+            Club.create('Stoke City', england, ['White', 'Red'], 'Britannia Stadium', 2);
+            Club.create('Watford', england, ['Gold', 'Red'], 'Vicarage Road', 2);
+            Club.create('West Bromwich Albion', england, ['White', 'DarkBlue'], 'The Hawthorns', 2);
 
             let france = countries[9];
             Club.create('Auxerre', france, ['White', 'DodgerBlue'], 'Abbé-Deschamps', 1);
@@ -313,16 +347,35 @@ let Club = (function () {
             Club.create('Celta de Vigo', spain, ['DodgerBlue', 'White'], 'Balaídos', 1);
             Club.create('Espanyol', spain, ['White', 'DarkBlue'], 'Estadi Olímpic', 1);
             Club.create('La Coruña', spain, ['Blue', 'White'], 'Municipal de Riazor', 1);
-            Club.create('Las Palmas', spain, ['Gold', 'Blue'], 'Gran Canaria', 1);
-            Club.create('Mallorca', spain, ['Red', 'Black'], 'Iberostar Estadio', 1);
+            Club.create('Málaga', spain, ['DodgerBlue', 'White'], 'La Rosaleda', 1);
             Club.create('Osasuna', spain, ['Red', 'DarkBlue'], 'El Sadar', 1);
             Club.create('Real Bétis', spain, ['White', 'Green'], 'Benito Villamarín', 1);
             Club.create('Real Madrid', spain, ['White', 'Black'], 'Santiago Bernabéu', 1);
             Club.create('Real Sociedad', spain, ['White', 'Blue'], 'Anoeta', 1);
             Club.create('Sevilla', spain, ['White', 'Red'], 'Ramón Pizjuán', 1);
+            Club.create('Sporting Gijón', spain, ['White', 'Red'], 'El Molinón', 1);
             Club.create('Valencia', spain, ['White', 'Black'], 'Mestalla', 1);
             Club.create('Villarreal', spain, ['Gold', 'DarkBlue'], 'El Madrigal', 1);
             Club.create('Zaragoza', spain, ['White', 'Blue'], 'La Romareda', 1);
+
+            Club.create('Alavés', spain, ['Blue', 'White'], 'Mendizorroza', 2);
+            Club.create('Albacete', spain, ['White', 'Black'], 'Carlos Belmonte', 2);
+            Club.create('Almeria', spain, ['Red', 'White'], 'Estadio del Mediterráneo', 2);
+            Club.create('Eibar', spain, ['DarkRed', 'DodgerBlue'], 'Ipurúa Municipal Stadium', 2);
+            Club.create('Elche', spain, ['White', 'Green'], 'Martínez Valeros', 2);
+            Club.create('Getafe', spain, ['Blue', 'White'], 'Coliseum Alfonso Pérez', 2);
+            Club.create('Girona', spain, ['Red', 'White'], 'Estadi Montilivi', 2);
+            Club.create('Granada', spain, ['Red', 'WHite'], 'Nuevo Los Cármenes', 2);
+            Club.create('Huesca', spain, ['DarkBlue', 'Red'], 'El Alcoraz', 2);
+            Club.create('Racing Santander', spain, ['LimeGreen', 'Black'], 'El Sardinero', 2);
+            Club.create('Las Palmas', spain, ['Gold', 'Blue'], 'Gran Canaria', 1);
+            Club.create('Levante', spain, ['DodgerBlue', 'Red'], 'Ciudad de Valencia', 2);
+            Club.create('Mallorca', spain, ['Red', 'Black'], 'Iberostar Estadio', 2);
+            Club.create('Numancia', spain, ['Red', 'White'], 'Nuevo Los Pajaritos', 2);
+            Club.create('Rayo Vallecano', spain, ['White', 'Red'], 'Campo de Fútbol de Vallecas', 2);
+            Club.create('Valladolid', spain, ['White', 'Purple'], 'Nuevo José Zorrilla', 2);
+
+
 
             let clubs = Club.all();
             for (let i = 0; i < clubs.length; i++) {
