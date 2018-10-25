@@ -70,7 +70,7 @@ let Match = (function () {
             let club1 = this.matchClubHome ? this.matchClubHome.club : this.matchClubs[0].club;
             let club2 = this.matchClubAway ? this.matchClubAway.club : this.matchClubs[1].club;
 
-            return club1.name + " x " + club2.name;
+            return `${club1.name} x ${club2.name}`;
         }
 
         get score() {
@@ -85,10 +85,6 @@ let Match = (function () {
                 return `${this.matchClubAway.goals} x ${this.matchClubHome.goals}`;
             else
                 return ' x ';
-        }
-
-        get isDecision() {
-
         }
 
         addClub(club, situation) {

@@ -278,7 +278,7 @@ let Club = (function () {
             Club.create('Juventus', italy, ['White', 'Black'], 'Juventus Stadium', 1);
             Club.create('Lazio', italy, ['SkyBlue', 'White'], 'Olimpico', 1);
             Club.create('Milan', italy, ['Black', 'Red'], 'San Siro', 1);
-            Club.create('Napoli', italy, ['DodgerBlue', 'White'], 'San Paolo', 1);
+            Club.create('Napoli', italy, ['DodgerBlue', 'DarkBlue'], 'San Paolo', 1);
             Club.create('Palermo', italy, ['Pink', 'Black'], 'Renzo Barbera', 1);
             Club.create('Parma', italy, ['White', 'Black'], 'Ennio Tardini', 1);
             Club.create('Roma', italy, ['DarkRed', 'Orange'], 'Olimpico', 1);

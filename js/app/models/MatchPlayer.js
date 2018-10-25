@@ -2,16 +2,17 @@ let MatchPlayer = (function () {
     let _matchPlayers = [];
 
     return class MatchPlayer extends Entity {
-        constructor(matchId, squadPlayerId) {
+        constructor(matchId, squadPlayerId, fieldLocalizationId) {
             super();
 
             this._matchId = matchId;
             this._squadPlayerId = squadPlayerId;
+            this._fieldLocalizationId = fieldLocalizationId;
             this._matchPlayerStatsIds = [];
         }
 
         static create(match, squadPlayer) {
-            let matchPlayer = new MatchPlayer(match.id, squadPlayer.id);
+            let matchPlayer = new MatchPlayer(match.id, squadPlayer.id, squadPlayer.fieldLocalization.id);
             matchPlayer.id = _matchPlayers.push(matchPlayer);
             return matchPlayer;
         }
@@ -32,12 +33,16 @@ let MatchPlayer = (function () {
             return SquadPlayer.all()[this._squadPlayerId - 1];
         }
 
-        get matchPlayerStats() {
-            return MatchPlayerStats.all().filterById(this._matchPlayerStatsIds);
+        get fieldLocalization() {
+            return FieldLocalization.all()[this._fieldLocalizationId - 1];
         }
 
         get overall() {
-            return this.squadPlayer.player.overall;
+            return this.squadPlayer.overall;
+        }
+        
+        get matchPlayerStats() {
+            return MatchPlayerStats.all().filterById(this._matchPlayerStatsIds);
         }
     }
 })();
