@@ -43,7 +43,7 @@ let Match = (function () {
         }
 
         set stadium(value) {
-            this._stadium = value;
+            this._stadiumId = value.id;
         }
 
         get matchClubs() {
@@ -106,17 +106,9 @@ let Match = (function () {
             return this.matchClubs.find(mc => mc.club === club).goals;
         }
 
-        start() {
+        prepare() {
             this.audience = Random.number(this.stadium.capacity);
-        }
-
-        play() {
-            while (this.time++ <= 90 && !this.paused) {
-                nextMove();
-            }
-
-            this.finished = true;
-            this.save();
+            this.matchClubs.forEach(mc => mc.squad.starting11.forEach(sp => mc.addMatchPlayer(sp)));
         }
     }
 })();

@@ -21,11 +21,6 @@ let MatchPlaying = (function () {
             return this._matchClubAway.club.squad;
         }
 
-        prepare() {
-            this._matchClubHome.squadPlayers.forEach(sp => this._matchClubHome.addMatchPlayer(sp));
-            this._matchClubAway.squadPlayers.forEach(sp => this._matchClubAway.addMatchPlayer(sp));
-        }
-
         play() {
             let action = actions.getRandomItem();
         }
