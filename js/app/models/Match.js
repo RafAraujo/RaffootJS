@@ -75,14 +75,14 @@ let Match = (function () {
 
         get score() {
             if (this.finished)
-                return `${this.homeClub.goals} x ${this.awayClub.goals}`;
+                return `${this.matchClubHome.goals} x ${this.matchClubAway.goals}`;
             else
                 return ' x ';
         }
 
         get scoreReverse() {
             if (this.finished)
-                return `${this.awayClub.goals} x ${this.homeClub.goals}`;
+                return `${this.matchClubAway.goals} x ${this.matchClubHome.goals}`;
             else
                 return ' x ';
         }
