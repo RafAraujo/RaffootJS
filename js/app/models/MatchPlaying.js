@@ -1,5 +1,5 @@
 let MatchPlaying = (function () {
-    let options = ['cross', 'dribble', 'finish', 'pass', 'run'];
+    let actions = ['cross', 'dribble', 'finish', 'pass', 'run'];
 
     return class MatchPlaying {
         constructor(matchClubHome, matchClubAway) {
@@ -7,6 +7,10 @@ let MatchPlaying = (function () {
             this._matchClubAway = matchClubAway;
 
             this._ballPossessor = this._squadHome.starting11[0];
+        }
+
+        get match() {
+            return this._matchClubHome.match;
         }
 
         get _squadHome() {
@@ -17,8 +21,13 @@ let MatchPlaying = (function () {
             return this._matchClubAway.club.squad;
         }
 
+        prepare() {
+            this._matchClubHome.squadPlayers.forEach(sp => this._matchClubHome.addMatchPlayer(sp));
+            this._matchClubAway.squadPlayers.forEach(sp => this._matchClubAway.addMatchPlayer(sp));
+        }
+
         play() {
-            let option = options.getRandomItem();
+            let action = actions.getRandomItem();
         }
 
         _chooseOption() {
