@@ -6,10 +6,6 @@ Array.prototype.distinct = function () {
     return [...new Set(this)];
 }
 
-Array.prototype.first = function () {
-    return this[0];
-}
-
 Array.prototype.firstItems = function (count) {
     if (count > this.length)
         throw new RangeError('ArrayExtensions.firstItems(count)');

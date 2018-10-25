@@ -63,7 +63,7 @@ let Club = (function () {
             Club.create('Coritiba', brazil, ['White', 'Green'], 'Couto Pereira', 1);
             Club.create('Cruzeiro', brazil, ['Blue', 'White'], 'Mineirão', 1);
             Club.create('Flamengo', brazil, ['Red', 'Black'], 'Maracanã', 1);
-            Club.create('Fluminense', brazil, ['DarkRed', 'LightGreen'], 'Laranjeiras', 1);
+            Club.create('Fluminense', brazil, ['DarkRed', 'LimeGreen'], 'Laranjeiras', 1);
             Club.create('Grêmio', brazil, ['DodgerBlue', 'Black'], 'Arena do Grêmio', 1);
             Club.create('Internacional', brazil, ['Red', 'White'], 'Beira Rio', 1);
             Club.create('Palmeiras', brazil, ['Green', 'White'], 'Allianz Parque', 1);
@@ -72,7 +72,7 @@ let Club = (function () {
             Club.create('Sport', brazil, ['Black', 'Red'], 'Ilha do Retiro', 1);
             Club.create('Vasco da Gama', brazil, ['White', 'Black'], 'São Januário', 1);
 
-            Club.create('Avaí', brazil, ['White', 'Blue'], 'Ressacada', 2);
+            Club.create('Avaí', brazil, ['DodgerBlue', 'White'], 'Ressacada', 2);
             Club.create('Ceará', brazil, ['Black', 'White'], 'Castelão', 2);
             Club.create('Chapecoense', brazil, ['Green', 'White'], 'Arena Condá', 2);
             Club.create('Criciúma', brazil, ['Gold', 'Black'], 'Heriberto Hülse', 2);

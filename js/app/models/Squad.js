@@ -111,8 +111,7 @@ let Squad = (function () {
 
             this.formation.fieldLocalizations.forEach(fl => {
                 let squadPlayer = results.filter(r => r.fieldLocalization === fl)
-                    .orderBy('distance', '-overall', '-squadPlayer.player.energy', '-squadPlayer.player.condtiion')
-                    .first().squadPlayer;
+                    .orderBy('distance', '-overall', '-squadPlayer.player.energy', '-squadPlayer.player.condtiion')[0].squadPlayer;
                     
                 squadPlayer.fieldLocalization = fl;
                 results = results.filter(r => r.squadPlayer !== squadPlayer);

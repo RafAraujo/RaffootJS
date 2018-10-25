@@ -27,7 +27,7 @@ let Game = (function () {
         }
 
         static current() {
-            return _games.first();
+            return _games[0];
         }
 
         async seedAsync() {

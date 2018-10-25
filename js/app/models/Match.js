@@ -1,8 +1,6 @@
 let Match = (function () {
     let _matches = [];
 
-    const _PAUSE = 15;
-
     return class Match extends Entity {
         constructor(championshipEditionId, date, refereeId) {
             super();
@@ -14,7 +12,6 @@ let Match = (function () {
             this._refereeId = refereeId;
             this.audience = null;
             this.income = null;
-            this.time = 0;
             this.finished = false;
         }
 
@@ -120,35 +117,6 @@ let Match = (function () {
 
             this.finished = true;
             this.save();
-        }
-
-        nextMove() {
-            switch (this.time) {
-                case 0:
-                    break;
-                case this.duration / 2:
-                    halfTime();
-                    break;
-                case this.duration:
-                    finish();
-                    break;
-            }
-        }
-
-        halfTime() {
-            squads.forEach(s => s.squadPlayers.players.rest(_PAUSE));
-        }
-
-        finish() {
-
-        }
-
-        pause() {
-
-        }
-
-        save() {
-
         }
     }
 })();

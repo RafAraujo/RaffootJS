@@ -130,11 +130,11 @@ class _TablesView {
             eliminationPhase.championshipEditionEliminationPhaseDuels.forEach(duel => {
                 let tr = table.children[1].insertRow();
 
-                Html.insertCell(tr, duel.clubs.first().name, 'text-right');
+                Html.insertCell(tr, duel.clubs[0].name, 'text-right');
                 Html.insertCell(tr, duel.aggregate, 'text-center');
-                Html.insertCell(tr, duel.clubs.last().name, 'text-left');
-                Html.insertCell(tr, duel.matches.first().score, 'text-center');
-                Html.insertCell(tr, duel.matches.last().scoreReverse, 'text-center');
+                Html.insertCell(tr, duel.clubs[1].name, 'text-left');
+                Html.insertCell(tr, duel.matches[0].score, 'text-center');
+                Html.insertCell(tr, duel.matches[1].scoreReverse, 'text-center');
 
                 if (duel.clubs.includes(this._game.club))
                     tr.classList.add('border-my-club');
