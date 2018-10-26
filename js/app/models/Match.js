@@ -102,9 +102,11 @@ let Match = (function () {
             return this.matchClubs.find(mc => mc.club === club).goals;
         }
 
-        prepare() {
+        play() {
             this.audience = Random.number(this.stadium.capacity);
-            this.matchClubs.forEach(mc => mc.squad.starting11.forEach(sp => mc.addMatchPlayer(sp)));
+            this.matchClubs.forEach(mc => mc.club.squad.starting11.forEach(sp => mc.addMatchPlayer(sp)));
+            this.matchPlaying = new MatchPlaying(this);
+            this.matchPlaying.play();
         }
     }
 })();

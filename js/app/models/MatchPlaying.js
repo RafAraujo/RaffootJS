@@ -1,24 +1,33 @@
 let MatchPlaying = (function () {
-    let actions = ['cross', 'dribble', 'finish', 'pass', 'run'];
+    var matchFinish = new Event('MatchFinish');
+
+    let _actions = ['cross', 'dribble', 'finish', 'pass', 'run'];
 
     return class MatchPlaying {
-        constructor(matchClubHome, matchClubAway) {
-            this._matchClubHome = matchClubHome;
-            this._matchClubAway = matchClubAway;
-
-            this._ballPossessor = this._matchClubHome.matchPlayers[0];
+        constructor(match) {
+            this._match = match;
+            this._time = 0;
+            this._stoppageTime = 0;
+            this._ballPossessor = this._match.matchClubHome.matchPlayers[0];
         }
 
-        get match() {
-            return this._matchClubHome.match;
+        get _distanceToGoal() {
+            return this._ballPossessor.fieldLocalization.distanceToOpponent(FieldLocalization.goalkeeper());
+        }
+
+        get _finished() {
+            return this._time > 90 + this._stoppageTime;
         }
 
         play() {
-            let action = actions.getRandomItem();
+            while (!this._finished) {
+                this._nextMove();
+            }
+            this._match.finished = true;
         }
 
-        _chooseOption() {
-            let distanceToGoal = this._ballPossessor.fieldLocalization.distanceToOpponent(FieldLocalization.goalkeeper());
+        _nextMove() {
+            this._time++;
         }
     }
 })();

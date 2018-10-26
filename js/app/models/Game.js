@@ -115,11 +115,11 @@ let Game = (function () {
             return season.championshipEditions.find(ce => ce.championship.championshipType === season.currentSeasonDate.championshipType);
         }
 
-        nextMatch() {
-            return this.currentSeason.nextMatch(this.club)
+        get nextMatch() {
+            return this.currentSeason.nextMatch(this.club);
         }
 
-        matchesOfTheDay() {
+        get matchesOfTheDay() {
             return this.currentSeason.getMatchesByDate(this.currentSeason.currentDate);
         }
 

@@ -2,7 +2,7 @@ class _MatchesView {
     constructor(game) {
         this._game = game;
 
-        this._matches = this._game.matchesOfTheDay();
+        this._matches = this._game.matchesOfTheDay;
 
         this._divContent = document.getElementById('matches-content');
 
