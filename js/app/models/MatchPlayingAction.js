@@ -23,16 +23,15 @@ let MatchPlayingAction = (function () {
         }
 
         static seed() {
-            MatchPlayingAction.create('Crossing', 'Attacking');
-            MatchPlayingAction.create('Dribbling', 'Attacking');
-            MatchPlayingAction.create('Finishing', 'Attacking');
-            MatchPlayingAction.create('Heading', 'Attacking');
-            MatchPlayingAction.create('Passing', 'Attacking');
-            MatchPlayingAction.create('Running', 'Attacking');
+            MatchPlayingAction.create('Crossing', 'Attacking', Skill.find('Crossing'));
+            MatchPlayingAction.create('Dribbling', 'Attacking', Skill.find('Dribbling'));
+            MatchPlayingAction.create('Finishing', 'Attacking', Skill.find('Finishing'));
+            MatchPlayingAction.create('Heading', 'Attacking', Skill.find('Heading'));
+            MatchPlayingAction.create('Passing', 'Attacking', Skill.find('Passing'));
 
-            MatchPlayingAction.create('Heading', 'Defending');
-            MatchPlayingAction.create('Marking', 'Defending');
-            MatchPlayingAction.create('Tackling', 'Defending');
+            MatchPlayingAction.create('Heading', 'Defending', Skill.find('Heading'));
+            MatchPlayingAction.create('Marking', 'Defending', Skill.find('Marking'));
+            MatchPlayingAction.create('Tackling', 'Defending', Skill.find('Tackling'));
 
             Object.freeze(_confederations);
         }

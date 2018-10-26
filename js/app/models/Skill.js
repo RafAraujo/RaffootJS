@@ -51,6 +51,10 @@ let Skill = (function () {
             Object.freeze(_skills);
         }
 
+        static find(name) {
+            return _skills.find(s => s.name === name);
+        }
+
         get positions() {
             return Position.all().filterById(this._positionIds);
         }
