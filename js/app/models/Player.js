@@ -34,7 +34,7 @@ let Player = (function () {
                 let name = names.getRandomItem();
                 let surname = names.getRandomItem();
                 let overall = Player.randomOverall(clubDivision);
-                let star = overall > 90 ? Random.numberBetween(1, 10) === 10 : false;
+                let star = overall > 90 ? Random.number(2) === 2 : false;
                 let skillIds = position.skills.getRandomItems(star ? 2 : 1).map(s => s.id);
                 let condition = Random.numberBetween(1, 5);
                 let injuryProneness = Random.numberBetween(1, 3);
@@ -66,7 +66,9 @@ let Player = (function () {
         }
 
         static randomOverall(clubDivision) {
-            return Random.numberBetween((NATIONAL_MAX_DIVISION_COUNT - clubDivision) * 10, 99 - (clubDivision - 1) * 10);
+            let min = (NATIONAL_MAX_DIVISION_COUNT - clubDivision) * 10;
+            let max = Random.numberBetween(1, 5) === 5 ? 99 : 89 - (clubDivision - 1) * 10
+            return Random.numberBetween(min, max);
         }
 
         static getCategory(overall) {

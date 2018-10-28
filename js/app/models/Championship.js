@@ -34,13 +34,11 @@ let Championship = (function () {
         }
 
         static seed() {
-            let championshipTypes = ChampionshipType.all();
-
-            let nationalCup = championshipTypes.find(ct => ct.scope === 'national' && ct.format === 'cup');
-            let nationalLeague = championshipTypes.find(ct => ct.scope === 'national' && ct.format === 'league');
-            let continentalCup = championshipTypes.find(ct => ct.scope === 'continental' && ct.format === 'cup');
-            let continentalSuperCup = championshipTypes.find(ct => ct.scope === 'continental' && ct.format === 'superCup');
-            let worldwideSuperCup = championshipTypes.find(ct => ct.scope === 'worldwide' && ct.format === 'superCup');
+            let nationalCup = ChampionshipType.find('national', 'cup');
+            let nationalLeague = ChampionshipType.find('national', 'league');
+            let continentalCup = ChampionshipType.find('continental', 'cup');
+            let continentalSuperCup = ChampionshipType.find('continental', 'superCup');
+            let worldwideSuperCup = ChampionshipType.find('worldwide', 'superCup');
 
             Country.playable().forEach(country => {
                 Championship.create(`${country.name} Cup`, nationalCup, country, null, null, country.cupClubCount);
@@ -56,7 +54,6 @@ let Championship = (function () {
                     let division = j + 1;
                     Championship.create(confederation.cupName(division), continentalCup, null, confederation, division, confederation.cupClubCount);
                 }
-
                 Championship.create(`${confederation.name} Super Cup`, continentalSuperCup, null, confederation, null, 2);
             });
 

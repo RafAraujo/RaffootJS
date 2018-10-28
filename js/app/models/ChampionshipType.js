@@ -36,8 +36,8 @@ let ChampionshipType = (function () {
             Object.freeze(_championshipTypes);
         }
 
-        static all() {
-            return _championshipTypes;
+        static find(scope, format) {
+            return _championshipTypes.find(ct => ct.scope === scope && ct.format === format);
         }
 
         get championships() {

@@ -50,7 +50,7 @@ let Club = (function () {
             Club.create("Newell's Old Boys", argentina, ['Black', 'Red'], 'La Independencia', 1);
             Club.create('Racing', argentina, ['DodgerBlue', 'White'], 'Juan Perón', 1);
             Club.create('River Plate', argentina, ['White', 'Red'], 'Monumental de Núñez', 1);
-            Club.create('Rosario Central', argentina, ['DarkBlue', 'Gold'], 'Arroyito', 1);
+            Club.create('Rosario Central', argentina, ['Gold', 'DarkBlue'], 'Arroyito', 1);
             Club.create('San Lorenzo', argentina, ['DarkBlue', 'Red'], 'Nuevo Gasómetro', 1);
             Club.create('Talleres', argentina, ['White', 'Black'], 'Nuevo Gasómetro', 1);
 
@@ -385,8 +385,6 @@ let Club = (function () {
         }
 
         static async seedAsyncFromWeb() {
-            await Club.seedBrazil();
-
             try {
                 for (let country of Country.playable()) {
                     let names = await country.getClubNamesAsync();
@@ -455,6 +453,7 @@ let Club = (function () {
             try {
                 let formation = Formation.all().getRandomItem();
                 this._squadId = Squad.create(formation).id;
+                let positions = Position.allProportional();
 
                 let date = Date.firstDayCurrentYear();
                 let year = date.getFullYear();
@@ -464,7 +463,8 @@ let Club = (function () {
 
                     for (let i = 0; i < count; i++) {
                         let country = Random.number(10) < 9 ? this.country : Country.all().getRandomItem();
-                        let player = await Player.createAsync(country, year - Random.numberBetween(16, 38), fieldRegion.positions.getRandomItem(), this.initialDivision);
+                        let position = positions.filter(p => p.fieldRegion === fieldRegion).getRandomItem();
+                        let player = await Player.createAsync(country, year - Random.numberBetween(16, 38), position, this.initialDivision);
                         let contract = Contract.create(this, player, 'definitive', 0, player.baseWage, date, date.addMonths(Random.numberBetween(6, 24)));
                         contract.sign();
                     }

@@ -116,7 +116,11 @@ let FieldLocalization = (function () {
             let x = this.line - fieldLocalization.line;
             let y = this.column - fieldLocalization.column;
 
-            return Math.hypot(x, y);
+            let distance = Math.hypot(x, y);
+            if (this.position !== fieldLocalization.position)
+                distance *= 2;
+            
+            return distance;
         }
 
         distanceToOpponent(fieldLocalization) {
