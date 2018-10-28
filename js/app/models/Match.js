@@ -1,8 +1,6 @@
 let Match = (function () {
     let _matches = [];
 
-    const _PAUSE = 15;
-
     return class Match extends Entity {
         constructor(championshipEditionId, date, refereeId) {
             super();
@@ -12,9 +10,8 @@ let Match = (function () {
             this._stadiumId = null;
             this._matchClubIds = [];
             this._refereeId = refereeId;
-            this.attendance = null;
+            this.audience = null;
             this.income = null;
-            this.time = 0;
             this.finished = false;
         }
 
@@ -46,7 +43,7 @@ let Match = (function () {
         }
 
         set stadium(value) {
-            this._stadium = value;
+            this._stadiumId = value.id;
         }
 
         get matchClubs() {
@@ -73,25 +70,21 @@ let Match = (function () {
             let club1 = this.matchClubHome ? this.matchClubHome.club : this.matchClubs[0].club;
             let club2 = this.matchClubAway ? this.matchClubAway.club : this.matchClubs[1].club;
 
-            return club1.name + " x " + club2.name;
+            return `${club1.name} x ${club2.name}`;
         }
 
         get score() {
             if (this.finished)
-                return `${this.homeClub.goals} x ${this.awayClub.goals}`;
+                return `${this.matchClubHome.goals} x ${this.matchClubAway.goals}`;
             else
                 return ' x ';
         }
 
         get scoreReverse() {
             if (this.finished)
-                return `${this.awayClub.goals} x ${this.homeClub.goals}`;
+                return `${this.matchClubAway.goals} x ${this.matchClubHome.goals}`;
             else
                 return ' x ';
-        }
-
-        get isDecision() {
-
         }
 
         addClub(club, situation) {
@@ -109,46 +102,11 @@ let Match = (function () {
             return this.matchClubs.find(mc => mc.club === club).goals;
         }
 
-        start() {
-            this.attendance = Random.number(this.stadium.capacity);
-        }
-
         play() {
-            while (this.time++ <= 90 && !this.paused) {
-                nextMove();
-            }
-
-            this.finished = true;
-            this.save();
-        }
-
-        nextMove() {
-            switch (this.time) {
-                case 0:
-                    break;
-                case this.duration / 2:
-                    halfTime();
-                    break;
-                case this.duration:
-                    finish();
-                    break;
-            }
-        }
-
-        halfTime() {
-            squads.forEach(s => s.squadPlayers.players.rest(_PAUSE));
-        }
-
-        finish() {
-
-        }
-
-        pause() {
-
-        }
-
-        save() {
-
+            this.audience = Random.number(this.stadium.capacity);
+            this.matchClubs.forEach(mc => mc.club.squad.starting11.forEach(sp => mc.addMatchPlayer(sp)));
+            this.matchPlaying = new MatchPlaying(this);
+            this.matchPlaying.play();
         }
     }
 })();

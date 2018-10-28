@@ -105,7 +105,7 @@ let Player = (function () {
         }
 
         get completePosition() {
-            return `${this.position.name} ${(this.position.hasMultipleSides ? '(' + this.sideDescription + ')' : '')}`;
+            return `${this.position.name} ${(this.position.hasMultipleSides ? `(${this.sideDescription})` : '')}`;
         }
 
         get age() {

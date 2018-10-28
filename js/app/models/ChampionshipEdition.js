@@ -237,7 +237,7 @@ let ChampionshipEdition = (function () {
             }
 
             if (this.championship.championshipType.regulation === 'elimination')
-                eliminationPhases.first().qualify(this.championshipEditionClubs);
+                eliminationPhases[0].qualify(this.championshipEditionClubs);
         }
 
         _scheduleMatchesRoundRobin() {

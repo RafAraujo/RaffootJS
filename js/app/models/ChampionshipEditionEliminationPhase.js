@@ -43,7 +43,7 @@ let ChampionshipEditionEliminationPhase = (function() {
         }
 
         get firstDate() {
-            return this.matches.first().date;
+            return this.matches[0].date;
         }
         
         get lastDate() {

@@ -96,6 +96,10 @@ let FieldLocalization = (function () {
             return _SIDES;
         }
 
+        static goalkeeper() {
+            return _fieldLocalizations[0];
+        }
+
         get position() {
             return Position.all()[this._positionId - 1];
         }
@@ -104,11 +108,19 @@ let FieldLocalization = (function () {
             return _SIDES[this.column];
         }
 
+        get inverse() {
+            return new FieldLocalization(this.position.id, 11 - this.line, this.column === 2 ? 2 : 5 - this.column, this.name);
+        }
+
         distanceTo(fieldLocalization) {
             let x = this.line - fieldLocalization.line;
             let y = this.column - fieldLocalization.column;
 
             return Math.hypot(x, y);
+        }
+
+        distanceToOpponent(fieldLocalization) {
+            return this.distanceTo(fieldLocalization.inverse);
         }
     }
 })();

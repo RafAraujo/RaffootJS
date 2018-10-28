@@ -33,7 +33,7 @@ let ChampionshipEditionEliminationPhaseDuel = (function () {
         }
 
         get clubs() {
-            return this.matches.first().clubs;
+            return this.matches[0].clubs;
         }
 
         get finished() {
@@ -42,8 +42,8 @@ let ChampionshipEditionEliminationPhaseDuel = (function () {
 
         get aggregate() {
             if (this.finished) {
-                let club1 = this.clubs.first();
-                let club2 = this.clubs.last();
+                let club1 = this.clubs[0];
+                let club2 = this.clubs[1];
     
                 let club1Goals = this.matches.map(m => m.getGoalsByClub(club1)).sum();
                 let club2Goals = this.matches.map(m => m.getGoalsByClub(club2)).sum();

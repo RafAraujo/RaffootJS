@@ -39,9 +39,7 @@ class HomeController {
     }
 
     _play() {
-        let matches = this._game.matchesOfTheDay();
-
-        matches.forEach(m => {
+        this._game.matchesOfTheDay.forEach(m => {
             m.start();
         });
 

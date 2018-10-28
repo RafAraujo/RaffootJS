@@ -28,19 +28,14 @@ let Skill = (function () {
         static seed() {
             let positions = Position.all();
 
-            Skill.create('Positioning', 'POS', positions);
-            Skill.create('Mentality', 'MEN', positions);
-            Skill.create('Teamwork', 'TWK', positions);
-
             let goalkeeper = positions.filter(p => p.isGoalkeeper);
             Skill.create('Throwing', 'THR', goalkeeper);
             Skill.create('Penalty Saves', 'PEN', goalkeeper);
+            Skill.create('Positioning', 'POS', goalkeeper);
             Skill.create('Reflexes', 'REF', goalkeeper);
-            Skill.create('Rushing Out', 'RUS', goalkeeper);
 
             let outfieldPlayers = positions.filter(p => !p.isGoalkeeper);
             Skill.create('Ambidextrous', 'AMB', outfieldPlayers);
-            Skill.create('Ball Control', 'BAC', outfieldPlayers);
             Skill.create('Crossing', 'CRO', outfieldPlayers);
             Skill.create('Dead Ball', 'DBA', outfieldPlayers);
             Skill.create('Dribbling', 'DRI', outfieldPlayers);
@@ -50,12 +45,14 @@ let Skill = (function () {
             Skill.create('Passing', 'PAS', outfieldPlayers);
             Skill.create('Physical', 'PHY', outfieldPlayers);
             Skill.create('Speed', 'SPD', outfieldPlayers);
-            Skill.create('Technique', 'TEC', outfieldPlayers);
             Skill.create('Tackling', 'TAC', outfieldPlayers);
             Skill.create('Versatility', 'VER', outfieldPlayers);
-            Skill.create('Vision', 'VIS', outfieldPlayers);
 
             Object.freeze(_skills);
+        }
+
+        static find(name) {
+            return _skills.find(s => s.name === name);
         }
 
         get positions() {

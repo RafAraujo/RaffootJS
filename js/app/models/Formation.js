@@ -54,7 +54,7 @@ let Formation = (function () {
 
             function fl(names) {
                 let fieldLocalizations = FieldLocalization.all();
-                return [fieldLocalizations.first()].concat(fieldLocalizations.filter(fl => names.some(n => n.trim() === fl.name)));
+                return [fieldLocalizations[0]].concat(fieldLocalizations.filter(fl => names.some(n => n.trim() === fl.name)));
             }
 
             Object.freeze(_formations);

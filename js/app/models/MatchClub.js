@@ -9,6 +9,7 @@ let MatchClub = (function () {
             this._clubId = clubId;
             this.situation = situation;
             this._goals = 0;
+            this._matchPlayersIds = [];
         }
 
         static create(match, club, situation) {
@@ -38,8 +39,16 @@ let MatchClub = (function () {
             return MatchClubStats.all()[this._matchClubStatsId - 1];
         }
 
+        get matchPlayers() {
+            return MatchPlayer.all().filterById(this._matchPlayersIds);
+        }
+
         get goals() {
             return this.match.finished ? this._goals : null;
+        }
+
+        addMatchPlayer(squadPlayer) {
+            this._matchPlayersIds.push(MatchPlayer.create(this.match, squadPlayer));
         }
 
         addGoal() {
