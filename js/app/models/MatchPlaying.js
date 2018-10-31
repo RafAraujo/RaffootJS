@@ -1,8 +1,4 @@
 let MatchPlaying = (function () {
-    var matchFinish = new Event('MatchFinish');
-
-    let _actions = ['cross', 'dribble', 'finish', 'pass', 'run'];
-
     return class MatchPlaying {
         constructor(match) {
             this._match = match;

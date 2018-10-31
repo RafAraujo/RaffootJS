@@ -242,7 +242,7 @@ let Club = (function () {
             Club.create('Montpellier', france, ['DarkBlue', 'Orange'], 'Stade de la Mosson', 1);
             Club.create('Nantes', france, ['Gold', 'Green'], 'La Beaujoire', 1);
             Club.create('Nice', france, ['Black', 'Red'], 'Allianz Riviera', 1);
-            Club.create('Olympique Marseille', france, ['White', 'DodgerBlue'], 'Vélodrome', 1);
+            Club.create('Olympique Marseille', france, ['SkyBlue', 'White'], 'Vélodrome', 1);
             Club.create('PSG', france, ['DarkBlue', 'White'], 'Parc des Princes', 1);
             Club.create('Saint Etienne', france, ['Green', 'White'], 'Geoffroy-Guichard', 1);
             Club.create('Sochaux', france, ['Blue', 'Gold'], 'Auguste-Bonal', 1);
