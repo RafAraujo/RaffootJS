@@ -2,15 +2,16 @@ let FieldRegion = (function () {
     let _fieldRegions = [];
 
     return class FieldRegion extends Entity {
-        constructor(name) {
+        constructor(name, color) {
             super();
 
             this.name = name;
+            this.color = color;
             this._positionIds = [];
         }
 
-        static create(name) {
-            let fieldRegion = new FieldRegion(name);
+        static create(name, color) {
+            let fieldRegion = new FieldRegion(name, color);
             fieldRegion.id = _fieldRegions.push(fieldRegion);
             return fieldRegion;
         }
@@ -20,10 +21,10 @@ let FieldRegion = (function () {
         }
 
         static seed() {
-            FieldRegion.create('goal');
-            FieldRegion.create('defense');
-            FieldRegion.create('midfield');
-            FieldRegion.create('attack');
+            FieldRegion.create('goal', { value: YELLOW, class: 'warning' });
+            FieldRegion.create('defense', { value: BLUE, class: 'primary' });
+            FieldRegion.create('midfield', { value: GREEN, class: 'success' });
+            FieldRegion.create('attack', { value: RED, class: 'danger' });
 
             Object.freeze(_fieldRegions);
         }
@@ -34,19 +35,6 @@ let FieldRegion = (function () {
 
         get positions() {
             return Position.all().filterById(this._positionIds);
-        }
-
-        get color() {
-            switch (this.name) {
-                case 'goal':
-                    return { value: YELLOW, class: 'warning' };
-                case 'defense':
-                    return { value: BLUE, class: 'primary' };
-                case 'midfield':
-                    return { value: GREEN, class: 'success' };
-                case 'attack':
-                    return { value: RED, class: 'danger' };
-            }
         }
 
         addPosition(value) {
