@@ -2,15 +2,16 @@ let MatchPlayingAction = (function () {
     let _matchPlayingActions = [];
 
     return class MatchPlayingAction extends Entity {
-        constructor(name, skillId) {
+        constructor(name, skillId, highBall) {
             super();
 
             this.name = name;
             this._skillId = skillId;
+            this.highBall = highBall;
         }
 
-        static create(name, skill) {
-            let matchPlayingAction = new MatchPlayingAction(name, skill.id);
+        static create(name, skill, highBall) {
+            let matchPlayingAction = new MatchPlayingAction(name, skill.id, highBall);
             matchPlayingAction.id = _matchPlayingActions.push(matchPlayingAction);
             return matchPlayingAction;
         }
@@ -24,15 +25,15 @@ let MatchPlayingAction = (function () {
         }
 
         static seed() {
-            MatchPlayingAction.create('Defending', Skill.find('Reflexes'));
+            MatchPlayingAction.create('Defending', Skill.find('Reflexes'), false);
 
-            MatchPlayingAction.create('Crossing', Skill.find('Crossing'));
-            MatchPlayingAction.create('Dribbling', Skill.find('Crossing'));
-            MatchPlayingAction.create('Heading', Skill.find('Heading'));
-            MatchPlayingAction.create('Finishing', Skill.find('Finishing'));
-            MatchPlayingAction.create('Marking', Skill.find('Marking'));
-            MatchPlayingAction.create('Passing', Skill.find('Passing'));
-            MatchPlayingAction.create('Tackling', Skill.find('Tackling'));
+            MatchPlayingAction.create('Crossing', Skill.find('Crossing'), false);
+            MatchPlayingAction.create('Dribbling', Skill.find('Dribbling'), false);
+            MatchPlayingAction.create('Heading', Skill.find('Heading'), true);
+            MatchPlayingAction.create('Finishing', Skill.find('Finishing'), false);
+            MatchPlayingAction.create('Marking', Skill.find('Marking'), false);
+            MatchPlayingAction.create('Passing', Skill.find('Passing'), true);
+            MatchPlayingAction.create('Tackling', Skill.find('Tackling'), false);
 
             Object.freeze(_matchPlayingActions);
         }

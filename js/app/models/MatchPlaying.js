@@ -1,10 +1,15 @@
 let MatchPlaying = (function () {
+    let _defenderActions = [];
+
     return class MatchPlaying {
         constructor(match) {
             this._match = match;
             this._time = 0;
             this._stoppageTime = 0;
-            this._ballPossessor = this._match.matchClubHome.matchPlayers[0];
+            
+            this._attacker = this._match.matchClubHome.matchPlayers[0];
+            this._defender = this._match.matchClubHome.matchPlayers.last();
+            this._highBall = false;
         }
 
         get _distanceToGoal() {
@@ -23,7 +28,9 @@ let MatchPlaying = (function () {
         }
 
         _nextMove() {
-            this._time++;
+            let action = this._attacker.fieldLocalization.position.attackingActions.filter(mpa => mpa.highBall = this._highBall);
+
+            let success = Random.number(this._attacker.overallFor(action))
         }
     }
 })();

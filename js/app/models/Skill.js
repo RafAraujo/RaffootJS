@@ -32,16 +32,17 @@ let Skill = (function () {
             Skill.create('Throwing', 'THR', 'action', true);
 
             Skill.create('Crossing', 'CRO', 'action', false);
-            Skill.create('Dribbling', 'DRI', 'action', false);
             Skill.create('Finishing', 'FIN', 'action', false);
             Skill.create('Heading', 'HEA', 'action', false);
-            Skill.create('Marking', 'MAR', 'action', false);
             Skill.create('Passing', 'PAS', 'action', false);
             Skill.create('Tackling', 'TAC', 'action', false);
 
-            Skill.create('Physical', 'PHY', 'attribute', true);
-            Skill.create('Speed', 'SPD', 'attribute', true);
-            Skill.create('Versatility', 'VER', 'attribute', true);
+            Skill.create('Dribbling', 'DRI', 'attribute', false);
+            Skill.create('Marking', 'MAR', 'attribute', false);
+            Skill.create('Physical', 'PHY', 'attribute', false);
+            Skill.create('Speed', 'SPD', 'attribute', false);
+            Skill.create('Technique', 'TEC', 'attribute', false);
+            Skill.create('Versatility', 'VER', 'attribute', false);
 
             Object.freeze(_skills);
         }
