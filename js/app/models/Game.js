@@ -42,6 +42,12 @@ let Game = (function () {
                 FieldRegion.seed();
                 console.log('Call took ' + (performance.now() - t0) + ' milliseconds.');
 
+                Skill.seed();
+                console.log('Call took ' + (performance.now() - t0) + ' milliseconds.');
+
+                MatchPlayingAction.seed();
+                console.log('Call took ' + (performance.now() - t0) + ' milliseconds.');
+
                 Position.seed();
                 console.log('Call took ' + (performance.now() - t0) + ' milliseconds.');
 
@@ -49,9 +55,6 @@ let Game = (function () {
                 console.log('Call took ' + (performance.now() - t0) + ' milliseconds.');
 
                 Formation.seed();
-                console.log('Call took ' + (performance.now() - t0) + ' milliseconds.');
-
-                Skill.seed();
                 console.log('Call took ' + (performance.now() - t0) + ' milliseconds.');
 
                 await Club.seedAsync();

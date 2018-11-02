@@ -2,18 +2,19 @@ let Skill = (function () {
     let _skills = [];
 
     return class Skill extends Entity {
-        constructor(name, abbreviation, positionIds) {
+        constructor(name, abbreviation, type, goalkeeperOnly) {
             super();
 
             this.name = name;
             this.abbreviation = abbreviation;
-            this._positionIds = positionIds;
+            this.type = type;
+            this.goalkeeperOnly = goalkeeperOnly;
         }
 
-        static create(name, abbreviation, positions) {
-            let skill = new Skill(name, abbreviation, positions.map(p => p.id));
+        static create(name, abbreviation, type, goalkeeperOnly) {
+            let skill = new Skill(name, abbreviation, type, goalkeeperOnly);
             skill.id = _skills.push(skill);
-            positions.forEach(p => p.addSkill(skill));
+
             return skill;
         }
 
@@ -26,25 +27,21 @@ let Skill = (function () {
         }
 
         static seed() {
-            let positions = Position.all();
+            Skill.create('Penalty Saves', 'PEN', 'action', true);
+            Skill.create('Reflexes', 'REF', 'action', true);
+            Skill.create('Throwing', 'THR', 'action', true);
 
-            let goalkeeper = positions.filter(p => p.isGoalkeeper);
-            Skill.create('Throwing', 'THR', goalkeeper);
-            Skill.create('Penalty Saves', 'PEN', goalkeeper);
-            Skill.create('Reflexes', 'REF', goalkeeper);
+            Skill.create('Crossing', 'CRO', 'action', false);
+            Skill.create('Dribbling', 'DRI', 'action', false);
+            Skill.create('Finishing', 'FIN', 'action', false);
+            Skill.create('Heading', 'HEA', 'action', false);
+            Skill.create('Marking', 'MAR', 'action', false);
+            Skill.create('Passing', 'PAS', 'action', false);
+            Skill.create('Tackling', 'TAC', 'action', false);
 
-            let outfieldPlayers = positions.filter(p => !p.isGoalkeeper);
-            Skill.create('Crossing', 'CRO', outfieldPlayers);
-            Skill.create('Dribbling', 'DRI', outfieldPlayers);
-            Skill.create('Finishing', 'FIN', outfieldPlayers);
-            Skill.create('Free Kick', 'FRK', outfieldPlayers);
-            Skill.create('Heading', 'HEA', outfieldPlayers);
-            Skill.create('Marking', 'MAR', outfieldPlayers);
-            Skill.create('Passing', 'PAS', outfieldPlayers);
-            Skill.create('Physical', 'PHY', outfieldPlayers);
-            Skill.create('Speed', 'SPD', outfieldPlayers);
-            Skill.create('Tackling', 'TAC', outfieldPlayers);
-            Skill.create('Versatility', 'VER', outfieldPlayers);
+            Skill.create('Physical', 'PHY', 'attribute', true);
+            Skill.create('Speed', 'SPD', 'attribute', true);
+            Skill.create('Versatility', 'VER', 'attribute', true);
 
             Object.freeze(_skills);
         }
@@ -53,8 +50,12 @@ let Skill = (function () {
             return _skills.find(s => s.name === name);
         }
 
-        get positions() {
-            return Position.all().filterById(this._positionIds);
+        static goalkeeperSkills() {
+            return _skills.filter(s => s.goalkeeperOnly);
+        }
+
+        static attributeSkills() {
+            return _skills.filter(s => s.type === 'attribute');
         }
     }
 })();

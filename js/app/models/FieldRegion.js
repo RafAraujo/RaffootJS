@@ -33,6 +33,10 @@ let FieldRegion = (function () {
             return _fieldRegions;
         }
 
+        static find(name) {
+            return _fieldRegions.find(fr => fr.name ===  name);
+        }
+
         get positions() {
             return Position.all().filterById(this._positionIds);
         }

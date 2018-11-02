@@ -65,9 +65,9 @@ class _PlayView {
 
         let optionGroups = [];
 
-        FieldRegion.all().forEach(fieldRegion => {
+        FieldRegion.all().forEach(fr => {
             let optionGroup = document.createElement('optgroup');
-            optionGroup.label = fieldRegion.name.toTitleCase();
+            optionGroup.label = fr.name.toTitleCase();
             optionGroups.push(optionGroup);
             select.appendChild(optionGroup);
         });
