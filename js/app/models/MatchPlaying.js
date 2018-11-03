@@ -1,19 +1,12 @@
 let MatchPlaying = (function () {
-    let _defenderActions = [];
-
     return class MatchPlaying {
         constructor(match) {
             this._match = match;
             this._time = 0;
             this._stoppageTime = 0;
             
-            this._attacker = this._match.matchClubHome.matchPlayers[0];
-            this._defender = this._match.matchClubHome.matchPlayers.last();
+            this._ballPossessor = this._match.matchClubHome.matchPlayers[0];
             this._highBall = false;
-        }
-
-        get _distanceToGoal() {
-            return this._ballPossessor.fieldLocalization.distanceToOpponent(FieldLocalization.goalkeeper());
         }
 
         get _finished() {
@@ -28,9 +21,20 @@ let MatchPlaying = (function () {
         }
 
         _nextMove() {
-            let action = this._attacker.fieldLocalization.position.attackingActions.filter(mpa => mpa.highBall = this._highBall);
+            let action = this._ballPossessor.fieldLocalization.position.attackingActions.filter(mpa => mpa.highBall = this._highBall);
+            let target = null;
+            let distance = null;
 
-            let success = Random.number(this._attacker.overallFor(action))
+            if (action.name === 'Crossing' || action.name === 'Passing') {
+                target = this._ballPossessor.matchPlayersAhead.getRandomItem();
+                distance = this.fieldLocalization.distanceTo(target.fieldLocalization);
+            }
+            else if (action.name === 'Heading' || action.name === 'Finishing') {
+                target = 'goal';
+                distance = this.fieldLocalization.distanceToOpponent(FieldLocalization.goalkeeper());
+            }
+
+            let success = Random.number(this._ballPossessor.overallFor(action, distance) + this._ballPossessor.marker.overallForMarking()) <= this._ballPossessor.overall;
         }
     }
 })();

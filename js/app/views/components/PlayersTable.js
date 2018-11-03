@@ -42,10 +42,6 @@ let PlayersTable = (function () {
                 orderProperties: ['marketValue']
             },
             {
-                title: 'Skills',
-                orderProperties: ['skillsDescription']
-            },
-            {
                 title: 'Age',
                 orderProperties: ['age']
             },
@@ -183,7 +179,6 @@ let PlayersTable = (function () {
                 Html.insertCell(tr, player.club.name);
                 Html.insertCell(tr, player.wage.toLocaleString(), 'text-right');
                 Html.insertCell(tr, player.marketValue.toLocaleString(), 'text-right');
-                Html.insertCell(tr, player.skillsAbbreviatedDescription, 'text-center');
                 Html.insertCell(tr, player.age, 'text-center');
                 Html.insertCell(tr, player.currentContract.endDate.toLocaleDateString(), 'text-center');
                 Html.insertCell(tr, player.condition, 'text-center');
@@ -196,12 +191,11 @@ let PlayersTable = (function () {
                 this._formatOverall(tr.children[3], player);
                 this._formatSide(tr.children[4], player);
                 this._formatEnergy(tr.children[5], player.energy);
-                this._formatSkills(tr.children[9], player);
-                this._formatAge(tr.children[10], player.age);
-                this._formatContract(tr.children[11], player.currentContract);
-                this._formatCondition(tr.children[12], player.condition);
-                this._formatForSale(tr.children[13], player.forSale);
-                this._formatForLoan(tr.children[14], player.forLoan);
+                this._formatAge(tr.children[9], player.age);
+                this._formatContract(tr.children[10], player.currentContract);
+                this._formatCondition(tr.children[11], player.condition);
+                this._formatForSale(tr.children[12], player.forSale);
+                this._formatForLoan(tr.children[13], player.forLoan);
             });
 
             this._optimizeTableForMobile();
@@ -251,10 +245,6 @@ let PlayersTable = (function () {
             td.innerText = '';
             let divProgress = Html.createProgressBar(energy.value, `bg-${energy.color.class}`);
             td.appendChild(divProgress);
-        }
-
-        _formatSkills(td, player) {
-            td.setAttribute('title', player.skillsDescription);
         }
 
         _formatAge(td, age) {

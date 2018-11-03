@@ -2,17 +2,17 @@ let MatchPlayer = (function () {
     let _matchPlayers = [];
 
     return class MatchPlayer extends Entity {
-        constructor(matchId, squadPlayerId, fieldLocalizationId) {
+        constructor(matchClubId, squadPlayerId, fieldLocalizationId) {
             super();
 
-            this._matchId = matchId;
+            this._matchClubId = matchClubId;
             this._squadPlayerId = squadPlayerId;
             this._fieldLocalizationId = fieldLocalizationId;
             this._matchPlayerStatsIds = [];
         }
 
-        static create(match, squadPlayer) {
-            let matchPlayer = new MatchPlayer(match.id, squadPlayer.id, squadPlayer.fieldLocalization.id);
+        static create(matchClub, squadPlayer) {
+            let matchPlayer = new MatchPlayer(matchClub.id, squadPlayer.id, squadPlayer.fieldLocalization.id);
             matchPlayer.id = _matchPlayers.push(matchPlayer);
             return matchPlayer;
         }
@@ -25,8 +25,8 @@ let MatchPlayer = (function () {
             return _matchPlayers;
         }
 
-        get match() {
-            return Match.all()[this._matchId - 1];
+        get matchClub() {
+            return Match.all()[this._matchClubId - 1];
         }
 
         get squadPlayer() {
@@ -41,8 +41,33 @@ let MatchPlayer = (function () {
             return this.squadPlayer.overall;
         }
         
-        get matchPlayerStats() {
-            return MatchPlayerStats.all().filterById(this._matchPlayerStatsIds);
+        defineMarker() {
+            let results = [];
+
+            this.matchClub.opponent.outfieldPlayers.forEach(mp => {
+                results.push({
+                    matchPlayer: mp,
+                    distance: mp.fieldLocalization.distanceToOpponent(this.fieldLocalization)
+                });
+            });
+
+            this.marker = results.orderBy('-distance')[0].matchPlayer;
+        }
+
+        get matchPlayersAhead() {
+            return this.matchClub.matchPlayers.filter(mp => mp.fieldLocalization.line > this.fieldLocalization.line);
+        }
+
+        overallFor(matchPlayerAction, distanceToTarget) {
+            let overall = this.overall;
+            
+            overall -= distanceToTarget;
+            
+            return overall;
+        }
+
+        overallForMarking() {
+            return this.overall -= this.overall * 0.1 * (this.fieldLocalization.line - 2);
         }
     }
 })();

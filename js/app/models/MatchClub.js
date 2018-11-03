@@ -43,12 +43,20 @@ let MatchClub = (function () {
             return MatchPlayer.all().filterById(this._matchPlayersIds);
         }
 
+        get outfieldPlayers() {
+            return this.matchPlayers.filter(mp => mp.fieldLocalization !== FieldLocalization.goalkeeper());
+        }
+
+        get opponent() {
+            return this.match.matchClubs.find(mc !== this);
+        }
+
         get goals() {
             return this.match.finished ? this._goals : null;
         }
 
         addMatchPlayer(squadPlayer) {
-            this._matchPlayersIds.push(MatchPlayer.create(this.match, squadPlayer));
+            this._matchPlayersIds.push(MatchPlayer.create(this, squadPlayer));
         }
 
         addGoal() {

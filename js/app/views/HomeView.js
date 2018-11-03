@@ -95,10 +95,6 @@ class HomeView extends View {
         Html.insertCell(tr, this._divOverall(player).outerHTML);
 
         tr = tbody.insertRow();
-        Html.insertCell(tr, 'Skills', 'font-weight-bold', 'text-right');
-        Html.insertCell(tr, player.skillsDescription);
-
-        tr = tbody.insertRow();
         Html.insertCell(tr, 'Country', 'font-weight-bold', 'text-right');
         Html.insertCell(tr, this._divCountry(player.country).outerHTML);
         

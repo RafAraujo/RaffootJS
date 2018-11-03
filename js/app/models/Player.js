@@ -5,7 +5,7 @@ let Player = (function () {
     const _SIDES = Object.freeze(['Left', 'Center', 'Right']);
 
     return class Player extends Entity {
-        constructor(name, surname, countryId, birthYear, positionId, side, overall, star, skillIds, condition, injuryProneness) {
+        constructor(name, surname, countryId, birthYear, positionId, side, overall, star, condition, injuryProneness) {
             super();
 
             this._name = name;
@@ -16,7 +16,6 @@ let Player = (function () {
             this.side = side;
             this.overall = overall;
             this.star = star;
-            this._skillIds = skillIds;
             this.condition = condition;
             this.injuryProneness = injuryProneness;
             this._playerInjuryIds = [];
@@ -35,11 +34,10 @@ let Player = (function () {
                 let surname = names.getRandomItem();
                 let overall = Player.randomOverall(clubDivision);
                 let star = overall > 90 ? Random.number(2) === 2 : false;
-                let skillIds = position.skills.getRandomItems(star ? 2 : 1).map(s => s.id);
                 let condition = Random.numberBetween(1, 5);
                 let injuryProneness = Random.numberBetween(1, 3);
 
-                let player = new Player(name, surname, country.id, birthYear, position.id, side, overall, star, skillIds, condition, injuryProneness);
+                let player = new Player(name, surname, country.id, birthYear, position.id, side, overall, star, condition, injuryProneness);
                 player.id = _players.push(player);
 
                 return player;
@@ -126,18 +124,6 @@ let Player = (function () {
             return Player.getCategory(this.overall);
         }
 
-        get skills() {
-            return Skill.all().filterById(this._skillIds);
-        }
-
-        get skillsDescription() {
-            return this.skills.map(s => s.name).join('/');
-        }
-
-        get skillsAbbreviatedDescription() {
-            return this.skills.map(s => s.abbreviation).join('/');
-        }
-
         get idealFieldLocalization() {
             return this.position.fieldLocalizations.find(fl => fl.side === this.side);
         }
@@ -188,10 +174,6 @@ let Player = (function () {
 
         get injuried() {
             return this.playerInjuries.length > 0 && this.playerInjuries.last().isActive();
-        }
-
-        hasSkill(skillName) {
-            return this.skillsDescription.includes(skillName);
         }
 
         addContract(contract) {

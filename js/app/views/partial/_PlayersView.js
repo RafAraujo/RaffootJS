@@ -10,7 +10,6 @@ class _PlayersView {
 
         this._selectPosition = document.getElementById('players-position');
         this._selectSide = document.getElementById('players-side');
-        this._selectSkill = document.getElementById('players-skill');
 
         this._selectCategory = document.getElementById('players-category');
         this._selectOverall = document.getElementById('players-overall');
@@ -46,8 +45,6 @@ class _PlayersView {
         this._selectOverall.appendChild(new Option());
         for (let overall = 1; overall <= 100; overall += 10)
             this._selectOverall.appendChild(new Option(`${overall} .. ${overall + 9}`, overall));
-
-        Skill.all().forEach(s => this._selectSkill.appendChild(new Option(s.name, s.id)));
     }
 
     _fillTable() {
@@ -74,11 +71,6 @@ class _PlayersView {
 
         if (this._selectSide.value)
             players = players.filter(p => Html.selectedOptions(this._selectSide).includes(p.side));
-
-        if (this._selectSkill.value) {
-            let skillIds = Html.selectedOptions(this._selectSkill).map(id => parseInt(id));
-            players = players.filter(p => skillIds.some(id => p.skills.map(ps => ps.id).includes(id)));
-        }
 
         if (this._selectCategory.value)
             players = players.filter(p => p.category === this._selectCategory.value);
