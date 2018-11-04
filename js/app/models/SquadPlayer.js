@@ -58,8 +58,7 @@ let SquadPlayer = (function () {
         }
 
         calculateOverallAt(fieldLocalization) {
-            let factor = this.baseOverall * 0.1;
-            let overall = this.baseOverall - (this.baseOverall * factor * this.player.idealFieldLocalization.distanceTo(fieldLocalization));
+            let overall = this.baseOverall - (this.player.idealFieldLocalization.distanceTo(fieldLocalization) * 2);
 
             return Math.round(overall);
         }

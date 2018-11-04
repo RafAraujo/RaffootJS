@@ -21,7 +21,7 @@ let MatchPlaying = (function () {
         }
 
         _nextMove() {
-            let action = this._ballPossessor.fieldLocalization.position.attackingActions.filter(mpa => mpa.highBall = this._highBall);
+            let action = this._highBall ?
             let target = null;
             let distance = null;
 
