@@ -35,19 +35,11 @@ let MatchClub = (function () {
             return Club.all()[this._clubId - 1];
         }
 
-        get matchClubStats() {
-            return MatchClubStats.all()[this._matchClubStatsId - 1];
-        }
-
         get matchPlayers() {
             return MatchPlayer.all().filterById(this._matchPlayersIds);
         }
 
-        get outfieldPlayers() {
-            return this.matchPlayers.filter(mp => mp.fieldLocalization !== FieldLocalization.goalkeeper());
-        }
-
-        get opponent() {
+        get matchClubOpponent() {
             return this.match.matchClubs.find(mc !== this);
         }
 

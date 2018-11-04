@@ -205,7 +205,7 @@ let Club = (function () {
             Club.create('Leeds', england, ['White', 'Blue'], 'Elland Road', 1);
             Club.create('Leicester', england, ['Blue', 'White'], 'King Power Stadium', 1);
             Club.create('Liverpool', england, ['Red', 'White'], 'Anfield', 1);
-            Club.create('Manchester City', england, ['SkyBlue', 'White'], 'Etihad Stadium', 1);
+            Club.create('Manchester City', england, ['SkyBlue', 'Blue'], 'Etihad Stadium', 1);
             Club.create('Manchester United', england, ['Red', 'White'], 'Old Trafford', 1);
             Club.create('Newcastle', england, ['Black', 'White'], "St James' Park", 1);
             Club.create('Nottingham Forest', england, ['White', 'Red'], "The City Ground", 1);

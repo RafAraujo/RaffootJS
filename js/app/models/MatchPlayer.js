@@ -8,7 +8,8 @@ let MatchPlayer = (function () {
             this._matchClubId = matchClubId;
             this._squadPlayerId = squadPlayerId;
             this._fieldLocalizationId = fieldLocalizationId;
-            this._matchPlayerStatsIds = [];
+            this.marker = null;
+            this.rating = 5;
         }
 
         static create(matchClub, squadPlayer) {
@@ -58,16 +59,12 @@ let MatchPlayer = (function () {
             return this.matchClub.matchPlayers.filter(mp => mp.fieldLocalization.line > this.fieldLocalization.line);
         }
 
-        overallFor(matchPlayerAction, distanceToTarget) {
-            let overall = this.overall;
-            
-            overall -= distanceToTarget;
-            
-            return overall;
-        }
-
         overallForMarking() {
             return this.overall -= this.overall * 0.1 * (this.fieldLocalization.line - 2);
+        }
+
+        updateRating(success) {
+
         }
     }
 })();

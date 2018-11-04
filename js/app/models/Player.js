@@ -23,6 +23,7 @@ let Player = (function () {
             this._contractIds = [];
             this.forSale = false;
             this.forLoan = false;
+            this.ratings = [];
         }
 
         static async createAsync(country, birthYear, position, clubDivision) {

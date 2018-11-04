@@ -6,7 +6,7 @@ let MatchPlaying = (function () {
             this._stoppageTime = 0;
             
             this._ballPossessor = this._match.matchClubHome.matchPlayers[0];
-            this._highBall = false;
+            this._moves = [];
         }
 
         get _finished() {
@@ -15,26 +15,50 @@ let MatchPlaying = (function () {
 
         play() {
             while (!this._finished) {
-                this._nextMove();
+                this._moves.push(this._nextMove());
+                this._time += 0.5;
             }
             this._match.finished = true;
         }
 
         _nextMove() {
-            let action = this._highBall ?
-            let target = null;
-            let distance = null;
+            let move = {
+                ballPossessor: this._ballPossessor,
+                action: this._chooseAction(),
+                success: Random.number(this._ballPossessor.overall + this._ballPossessor.marker.overall) <= this._ballPossessor.overall
+            };
 
-            if (action.name === 'Crossing' || action.name === 'Passing') {
-                target = this._ballPossessor.matchPlayersAhead.getRandomItem();
-                distance = this.fieldLocalization.distanceTo(target.fieldLocalization);
+            if (success) {
+                switch (action) {
+                    case 'passing':
+                        this._ballPossessor = this._ballPossessor.matchPlayersAhead.getRandomItem();
+                        break;
+                    case 'finishing':
+                        this._ballPossessor = this._ballPossessor.matchClub.matchClubOpponent.matchPlayers[0];
+                        break;
+                }
             }
-            else if (action.name === 'Heading' || action.name === 'Finishing') {
-                target = 'goal';
-                distance = this.fieldLocalization.distanceToOpponent(FieldLocalization.goalkeeper());
+            else {
+                switch (action) {
+                    case 'passing':
+                        this._ballPossessor = this._ballPossessor.matchPlayerMarker;
+                        break;
+                    case 'finishing':
+                        this._ballPossessor = this._ballPossessor.matchClub.matchClubOpponent.matchPlayers[0];
+                        break;
+                }
             }
 
-            let success = Random.number(this._ballPossessor.overallFor(action, distance) + this._ballPossessor.marker.overallForMarking()) <= this._ballPossessor.overall;
+            return move;
+        }
+
+        _chooseAction() {
+            let actions = [];
+
+            for (let i = 0; i < 11; i++)
+                actions.push(this._ballPossessor.fieldLocalization.line < 11 ? 'passing' : 'finishing');
+            
+            return actions.getRandomItem();
         }
     }
 })();
