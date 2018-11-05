@@ -5,7 +5,7 @@ let MatchPlaying = (function () {
             this._time = 0;
             this._stoppageTime = 0;
             
-            this._ballPossessor = this._match.matchClubHome.matchPlayers[0];
+            this._ballPossessor = this._match.matchClubHome.goalkeeper;
             this._moves = [];
         }
 
@@ -22,22 +22,32 @@ let MatchPlaying = (function () {
         }
 
         _nextMove() {
+            let action = this._chooseAction();
+            let result = Random.number(this._ballPossessor.overall + this._ballPossessor.marker.overall);
+            let foul = action === 'passing' && result <= this._ballPossessor.overall * 0.5;
+
             let move = {
                 ballPossessor: this._ballPossessor,
-                action: this._chooseAction(),
-                success: Random.number(this._ballPossessor.overall + this._ballPossessor.marker.overall) <= this._ballPossessor.overall
+                action: action,
+                result: result,
+                success: result <= this._ballPossessor.overall,
+                foul: foul,
+                yellowCard: foul && !Random.number(3)
             };
 
             if (success)
                 if (action === 'passing')
                     this._ballPossessor = this._ballPossessor.playersAhead.getRandomItem();
                 else if (action === 'finishing')
-                    this._ballPossessor = this._ballPossessor.matchClub.opponent.matchPlayers[0];
+                    this._ballPossessor = this._ballPossessor.matchClub.opponent.goalkeeper;
             else
                 if (action === 'passing')
                     this._ballPossessor = this._ballPossessor.marker;
                 else if (action === 'finishing')
-                    this._ballPossessor = this._ballPossessor.matchClub.opponent.matchPlayers[0];
+                    this._ballPossessor = this._ballPossessor.matchClub.opponent.goalkeeper;
+            
+            if (move.yellowCard)
+                this._ballPossessor.marker.addYellowCard();
 
             return move;
         }

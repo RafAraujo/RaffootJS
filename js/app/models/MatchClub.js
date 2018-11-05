@@ -39,6 +39,10 @@ let MatchClub = (function () {
             return MatchPlayer.all().filterById(this._matchPlayersIds);
         }
 
+        get goalkeeper() {
+            return this.matchPlayers.find(mp => mp.fieldLocalization.position.isGoalkeeper);
+        }
+
         get opponent() {
             return this.match.matchClubs.find(mc !== this);
         }

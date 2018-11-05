@@ -9,6 +9,8 @@ let MatchPlayer = (function () {
             this._squadPlayerId = squadPlayerId;
             this._fieldLocalizationId = fieldLocalizationId;
             this.marker = null;
+            this.yellowCard = false;
+            this.redCard = false;
             this.rating = 5;
         }
 
@@ -39,7 +41,7 @@ let MatchPlayer = (function () {
         }
 
         get overall() {
-            return this.squadPlayer.overall;
+            return this.redCard ? 0 : this.squadPlayer.overall;
         }
         
         defineMarker() {
@@ -63,8 +65,10 @@ let MatchPlayer = (function () {
             return this.overall -= this.overall * 0.1 * (this.fieldLocalization.line - 2);
         }
 
-        updateRating(success) {
-
+        addYelowCard() {
+            if (this.yellowCard)
+                this.redCard = true;
+            this.yellowCard = true;
         }
     }
 })();
