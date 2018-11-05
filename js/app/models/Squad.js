@@ -7,9 +7,6 @@ let Squad = (function () {
 
             this._formationId = formationId;
             this._squadPlayerIds = [];
-            this.starting = false;
-            this._freeKickTakerId = null;
-            this._penaltyTakerId = null;
         }
 
         static create(formation) {
@@ -49,22 +46,6 @@ let Squad = (function () {
 
         get substitutes() {
             return this.squadPlayers.filter(sp => !sp.fieldLocalization);
-        }
-
-        get freeKickTaker() {
-            return this.squadPlayers.find(sp => sp.id === this._freeKickTakerId);
-        }
-
-        set freeKickTaker(squadPlayer) {
-            this._freeKickTakerId = squadPlayer.id;
-        }
-
-        get penaltyTaker() {
-            return this.squadPlayers.find(sp => sp.id === this._penaltyTakerId);
-        }
-
-        set penaltyTaker(squadPlayer) {
-            this._penaltyTakerId = squadPlayer.id;
         }
 
         setSquadPlayerFieldLocalization(squadPlayer, fieldLocalization) {
@@ -122,14 +103,6 @@ let Squad = (function () {
             let aux = squadPlayer1.fieldLocalization;
             squadPlayer1.fieldLocalization = squadPlayer2.fieldLocalization;
             squadPlayer2.fieldLocalization = aux;
-        }
-
-        getSquadPlayerByName(name) {
-            return this.squadPlayers.find(sp => sp.player.name === name);
-        }
-
-        rest(time) {
-            this.squadPlayers.forEach(sp => sp.player.rest(time));
         }
     }
 })();
