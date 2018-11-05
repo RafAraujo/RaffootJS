@@ -68,11 +68,11 @@ let Position = (function () {
         }
 
         get line() {
-            return this.fieldLocalizations.map(fl => fl.line)[0];
+            return this.fieldLocalizations[0].line;
         }
 
         get hasMultipleSides() {
-            return this.fieldLocalizations.map(fl => fl.column).length > 1;
+            return this.fieldLocalizations.length > 1;
         }
 
         get isGoalkeeper() {
