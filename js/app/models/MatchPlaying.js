@@ -30,14 +30,14 @@ let MatchPlaying = (function () {
 
             if (success)
                 if (action === 'passing')
-                    this._ballPossessor = this._ballPossessor.matchPlayersAhead.getRandomItem();
+                    this._ballPossessor = this._ballPossessor.playersAhead.getRandomItem();
                 else if (action === 'finishing')
-                    this._ballPossessor = this._ballPossessor.matchClub.matchClubOpponent.matchPlayers[0];
+                    this._ballPossessor = this._ballPossessor.matchClub.opponent.matchPlayers[0];
             else
                 if (action === 'passing')
-                    this._ballPossessor = this._ballPossessor.matchPlayerMarker;
-                else
-                    this._ballPossessor = this._ballPossessor.matchClub.matchClubOpponent.matchPlayers[0];
+                    this._ballPossessor = this._ballPossessor.marker;
+                else if (action === 'finishing')
+                    this._ballPossessor = this._ballPossessor.matchClub.opponent.matchPlayers[0];
 
             return move;
         }

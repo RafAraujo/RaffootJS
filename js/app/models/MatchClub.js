@@ -39,7 +39,7 @@ let MatchClub = (function () {
             return MatchPlayer.all().filterById(this._matchPlayersIds);
         }
 
-        get matchClubOpponent() {
+        get opponent() {
             return this.match.matchClubs.find(mc !== this);
         }
 

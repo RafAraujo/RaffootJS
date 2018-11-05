@@ -55,7 +55,7 @@ let MatchPlayer = (function () {
             this.marker = results.orderBy('-distance')[0].matchPlayer;
         }
 
-        get matchPlayersAhead() {
+        get playersAhead() {
             return this.matchClub.matchPlayers.filter(mp => mp.fieldLocalization.line > this.fieldLocalization.line);
         }
 
