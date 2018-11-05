@@ -43,8 +43,12 @@ let MatchClub = (function () {
             return this.matchPlayers.find(mp => mp.fieldLocalization.position.isGoalkeeper);
         }
 
+        get outfieldPlayers() {
+            return this.matchPlayers.filter(mp => !mp.fieldLocalization.position.isGoalkeeper);
+        }
+
         get opponent() {
-            return this.match.matchClubs.find(mc !== this);
+            return this.match.matchClubs.find(mc => mc !== this);
         }
 
         get goals() {
@@ -52,7 +56,7 @@ let MatchClub = (function () {
         }
 
         addMatchPlayer(squadPlayer) {
-            this._matchPlayersIds.push(MatchPlayer.create(this, squadPlayer));
+            this._matchPlayersIds.push(MatchPlayer.create(this, squadPlayer).id);
         }
 
         addGoal() {

@@ -72,6 +72,10 @@ let Formation = (function () {
             return this.fieldLocalizations.map(fl => fl.position);
         }
 
+        get maxLine() {
+            return this.fieldLocalizations.map(fl => fl.line).max();
+        }
+
         randomPlayersCount(fieldRegion) {
             return fieldRegion.name === 'goal' ?
                 Random.numberBetween(2, 3) :

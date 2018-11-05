@@ -35,7 +35,7 @@ let MatchPlaying = (function () {
                 yellowCard: foul && !Random.number(3)
             };
 
-            if (success)
+            if (move.success)
                 if (action === 'passing')
                     this._ballPossessor = this._ballPossessor.playersAhead.getRandomItem();
                 else if (action === 'finishing')
@@ -55,8 +55,14 @@ let MatchPlaying = (function () {
         _chooseAction() {
             let actions = [];
 
-            for (let i = 0; i < 11; i++)
-                actions.push(this._ballPossessor.fieldLocalization.line < 11 ? 'passing' : 'finishing');
+            let currentLine = this._ballPossessor.fieldLocalization.line;
+            let maxLine = this._ballPossessor.squadPlayer.squad.formation.maxLine;
+
+            for (let i = 0; i < maxLine - currentLine; i++)
+                actions.push('passing');
+            
+            while (actions.length < maxLine)
+                actions.push('finishing');
             
             return actions.getRandomItem();
         }

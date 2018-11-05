@@ -29,7 +29,7 @@ let MatchPlayer = (function () {
         }
 
         get matchClub() {
-            return Match.all()[this._matchClubId - 1];
+            return MatchClub.all()[this._matchClubId - 1];
         }
 
         get squadPlayer() {
@@ -43,11 +43,15 @@ let MatchPlayer = (function () {
         get overall() {
             return this.redCard ? 0 : this.squadPlayer.overall;
         }
-        
+
+        get playersAhead() {
+            return this.matchClub.matchPlayers.filter(mp => mp.fieldLocalization.line > this.fieldLocalization.line);
+        }
+
         defineMarker() {
             let results = [];
 
-            this.matchClub.opponent.outfieldPlayers.forEach(mp => {
+            this.matchClub.opponent.matchPlayers.forEach(mp => {
                 results.push({
                     matchPlayer: mp,
                     distance: mp.fieldLocalization.distanceToOpponent(this.fieldLocalization)
@@ -55,10 +59,6 @@ let MatchPlayer = (function () {
             });
 
             this.marker = results.orderBy('-distance')[0].matchPlayer;
-        }
-
-        get playersAhead() {
-            return this.matchClub.matchPlayers.filter(mp => mp.fieldLocalization.line > this.fieldLocalization.line);
         }
 
         overallForMarking() {
