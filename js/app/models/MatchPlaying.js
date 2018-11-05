@@ -28,26 +28,16 @@ let MatchPlaying = (function () {
                 success: Random.number(this._ballPossessor.overall + this._ballPossessor.marker.overall) <= this._ballPossessor.overall
             };
 
-            if (success) {
-                switch (action) {
-                    case 'passing':
-                        this._ballPossessor = this._ballPossessor.matchPlayersAhead.getRandomItem();
-                        break;
-                    case 'finishing':
-                        this._ballPossessor = this._ballPossessor.matchClub.matchClubOpponent.matchPlayers[0];
-                        break;
-                }
-            }
-            else {
-                switch (action) {
-                    case 'passing':
-                        this._ballPossessor = this._ballPossessor.matchPlayerMarker;
-                        break;
-                    case 'finishing':
-                        this._ballPossessor = this._ballPossessor.matchClub.matchClubOpponent.matchPlayers[0];
-                        break;
-                }
-            }
+            if (success)
+                if (action === 'passing')
+                    this._ballPossessor = this._ballPossessor.matchPlayersAhead.getRandomItem();
+                else if (action === 'finishing')
+                    this._ballPossessor = this._ballPossessor.matchClub.matchClubOpponent.matchPlayers[0];
+            else
+                if (action === 'passing')
+                    this._ballPossessor = this._ballPossessor.matchPlayerMarker;
+                else
+                    this._ballPossessor = this._ballPossessor.matchClub.matchClubOpponent.matchPlayers[0];
 
             return move;
         }
