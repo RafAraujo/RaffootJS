@@ -47,6 +47,14 @@ let MatchClub = (function () {
             return this.matchPlayers.filter(mp => !mp.fieldLocalization.position.isGoalkeeper);
         }
 
+        get defense() {
+            return this.matchPlayers.filter(mp => mp.fieldLocalization.line <= 6);
+        }
+
+        get attack() {
+            return this.matchPlayers.filter(mp => mp.fieldLocalization.line > 6);
+        }
+
         get opponent() {
             return this.match.matchClubs.find(mc => mc !== this);
         }

@@ -48,24 +48,22 @@ let MatchPlayer = (function () {
             return this.matchClub.matchPlayers.filter(mp => mp.fieldLocalization.line > this.fieldLocalization.line);
         }
 
-        defineMarker() {
-            let results = [];
+        chooseAction() {
+            let result = Random.number(100);
 
-            this.matchClub.opponent.matchPlayers.forEach(mp => {
-                results.push({
-                    matchPlayer: mp,
-                    distance: mp.fieldLocalization.distanceToOpponent(this.fieldLocalization)
-                });
-            });
-
-            this.marker = results.orderBy('-distance')[0].matchPlayer;
+            switch (this.fieldLocalization.position.fieldRegion.name) {
+                case 'goal':
+                    return 'passing';
+                case 'defense':
+                    return result > this.fieldLocalization.line * 1 ? 'passing' : 'finishing';
+                case 'midfield':
+                    return result > this.fieldLocalization.line * 2 ? 'passing' : 'finishing';
+                case 'attack':
+                    return result > this.fieldLocalization.line * 3 ? 'passing' : 'finishing';
+            }
         }
 
-        overallForMarking() {
-            return this.overall -= this.overall * 0.1 * (this.fieldLocalization.line - 2);
-        }
-
-        addYelowCard() {
+        addYellowCard() {
             if (this.yellowCard)
                 this.redCard = true;
             this.yellowCard = true;

@@ -105,7 +105,7 @@ let Match = (function () {
         play() {
             this.audience = Random.number(this.stadium.capacity);
             this.matchClubs.forEach(mc => mc.club.squad.starting11.forEach(sp => mc.addMatchPlayer(sp)));
-            this.matchClubs.forEach(mc => mc.matchPlayers.forEach(mp => mp.defineMarker()));
+            this.matchClubs.forEach(mc => mc._goals = 0);
             this.matchPlaying = new MatchPlaying(this);
             this.matchPlaying.play();
         }
