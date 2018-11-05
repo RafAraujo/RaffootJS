@@ -24,32 +24,17 @@ let MatchPlaying = (function () {
         _nextMove() {
             let action = this._ballPossessor.chooseAction();
 
-            let result = 0;
-            let success = false;
-
-            if (action === 'passing') {
-                result = Random.number(this._ballPossessor.overall + this._ballPossessor.matchClub.attack.getRandomItem().overall + this._ballPossessor.marker.overall);
-                success = result >= this._ballPossessor.marker.overall;
-            }
-            else if (action === 'finishing') {
-                result = Random.number(this._ballPossessor.overall + this._ballPossessor.marker.overall + this._ballPossessor.matchClub.opponent.defense.getRandomItem().overall + this._ballPossessor.matchClub.opponent.goalkeeper.overall);
-                success = result < this._ballPossessor.overall;
-            }
-            
-            let foul = action === 'passing' && result <= this._ballPossessor.overall * 0.5;
+            let success = this._performAction(action);
 
             let move = {
                 ballPossessor: this._ballPossessor,
                 action: action,
-                result: result,
-                success: success,
-                foul: foul,
-                yellowCard: foul && !Random.number(3)
+                success: success
             };
 
             this._ballPossessor = move.success ?
                 this._ballPossessor.matchClub.matchPlayers.getRandomItem() : 
-                this._ballPossessor.matchClub.opponent.matchPlayers.getRandomItem();
+                this._ballPossessor.matchClub.opponent.goalkeeper;
 
             if (move.action === 'finishing' && move.success)
                 this._ballPossessor.matchClub.addGoal();
@@ -58,6 +43,26 @@ let MatchPlaying = (function () {
                 this._ballPossessor.marker.addYellowCard();
 
             return move;
+        }
+
+        _performAction(action) {            
+            let pro = 0;
+            let con = 0;
+
+            let fieldRegion = this._ballPossessor.fieldLocalization.position.fieldRegion;
+
+            if (action === 'passing') {
+                pro = this._ballPossessor.overall + this._ballPossessor.matchClub.playersAt(fieldRegion).map(mp => mp.overall).sum();
+                con = this._ballPossessor.matchClub.opponent.playersAt(fieldRegion).getRandomItem().overall;
+            }
+            else if (action === 'finishing') {
+                pro = this._ballPossessor.overall;
+                con = this._ballPossessor.matchClub.opponent.goalkeeper.overall + this._ballPossessor.matchClub.opponent.playersAt(FieldRegion.find('defense')).getRandomItems(2).map(mp => mp.overall).sum();
+            }
+
+            let success = Random.number(pro + con) <= pro;
+
+            return success;
         }
     }
 })();

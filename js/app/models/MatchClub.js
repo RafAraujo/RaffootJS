@@ -47,20 +47,16 @@ let MatchClub = (function () {
             return this.matchPlayers.filter(mp => !mp.fieldLocalization.position.isGoalkeeper);
         }
 
-        get defense() {
-            return this.matchPlayers.filter(mp => mp.fieldLocalization.line <= 6);
-        }
-
-        get attack() {
-            return this.matchPlayers.filter(mp => mp.fieldLocalization.line > 6);
-        }
-
         get opponent() {
             return this.match.matchClubs.find(mc => mc !== this);
         }
 
         get goals() {
             return this.match.finished ? this._goals : null;
+        }
+
+        playersAt(fieldRegion) {
+            return this.matchPlayers.filter(mp => mp.fieldLocalization.position.fieldRegion === fieldRegion);
         }
 
         addMatchPlayer(squadPlayer) {
