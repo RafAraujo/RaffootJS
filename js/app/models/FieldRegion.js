@@ -41,6 +41,18 @@ let FieldRegion = (function () {
             return Position.all().filterById(this._positionIds);
         }
 
+        get inverse() {
+            switch (this.name) {
+                case 'goal':
+                case 'defense':
+                    return FieldRegion.find('attack');
+                case 'midfield':
+                    return this;
+                case 'attack':
+                    return FieldRegion.find('defense');
+            }
+        }
+
         addPosition(value) {
             this._positionIds.push(value.id);
         }

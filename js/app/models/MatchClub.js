@@ -43,20 +43,37 @@ let MatchClub = (function () {
             return this.matchPlayers.find(mp => mp.fieldLocalization.position.isGoalkeeper);
         }
 
-        get outfieldPlayers() {
-            return this.matchPlayers.filter(mp => !mp.fieldLocalization.position.isGoalkeeper);
-        }
-
         get opponent() {
             return this.match.matchClubs.find(mc => mc !== this);
+        }
+
+        get overallDefense() {
+            return this.fieldRegionOverall(FieldRegion.find('defense'));
+        }
+
+        get overallMidfield() {
+            return this.fieldRegionOverall(FieldRegion.find('midfield'));
+        }
+
+        get overallAttack() {
+            return this.fieldRegionOverall(FieldRegion.find('attack'));
         }
 
         get goals() {
             return this.match.finished ? this._goals : null;
         }
 
+        arrangeTeam() {
+            this._matchPlayersIds = [];
+            this.club.squad.starting11.forEach(sp => this.addMatchPlayer(sp));
+        }
+
         playersAt(fieldRegion) {
-            return this.matchPlayers.filter(mp => mp.fieldLocalization.position.fieldRegion === fieldRegion);
+            return this.matchPlayers.filter(mp => mp.fieldLocalization.position.fieldRegion === fieldRegion && !mp.redCard);
+        }
+
+        fieldRegionOverall(fieldRegion) {
+            return this.playersAt(fieldRegion).map(mp => mp.overall).sum();
         }
 
         addMatchPlayer(squadPlayer) {

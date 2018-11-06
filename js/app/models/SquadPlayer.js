@@ -45,12 +45,8 @@ let SquadPlayer = (function () {
             return this._fieldLocalizationId !== this.player.idealFieldLocalization.id;
         }
 
-        get baseOverall() {
-            return this.player.overall;
-        }
-
         get overall() {
-            return this.fieldLocalization ? this.calculateOverallAt(this.fieldLocalization) : this.baseOverall;
+            return this.fieldLocalization ? this.calculateOverallAt(this.fieldLocalization) : this.player.overall;
         }
 
         get category() {
@@ -58,7 +54,7 @@ let SquadPlayer = (function () {
         }
 
         calculateOverallAt(fieldLocalization) {
-            let overall = this.baseOverall - (this.player.idealFieldLocalization.distanceTo(fieldLocalization) * 2);
+            let overall = this.player.overall - (this.player.idealFieldLocalization.distanceTo(fieldLocalization) * 2);
 
             return Math.round(overall);
         }

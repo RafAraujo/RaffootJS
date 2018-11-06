@@ -63,6 +63,10 @@ let MatchPlayer = (function () {
             }
         }
 
+        score() {
+            this.matchClub.addGoal();
+        }
+
         addYellowCard() {
             if (this.yellowCard)
                 this.redCard = true;
