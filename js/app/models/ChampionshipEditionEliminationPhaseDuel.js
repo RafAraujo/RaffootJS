@@ -42,11 +42,8 @@ let ChampionshipEditionEliminationPhaseDuel = (function () {
 
         get aggregate() {
             if (this.finished) {
-                let club1 = this.clubs[0];
-                let club2 = this.clubs[1];
-    
-                let club1Goals = this.matches.map(m => m.getGoalsByClub(club1)).sum();
-                let club2Goals = this.matches.map(m => m.getGoalsByClub(club2)).sum();
+                let club1Goals = this.matches.map(m => m.getGoalsByClub(this.clubs[0])).sum();
+                let club2Goals = this.matches.map(m => m.getGoalsByClub(this.clubs[1])).sum();
     
                 return `${club1Goals} x ${club2Goals}`;
             }

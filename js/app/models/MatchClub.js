@@ -63,6 +63,10 @@ let MatchClub = (function () {
             return this.match.finished ? this._goals : null;
         }
 
+        set goals(value) {
+            this._goals = value;
+        }
+
         arrangeTeam() {
             this._matchPlayersIds = [];
             this.club.squad.starting11.forEach(sp => this.addMatchPlayer(sp));

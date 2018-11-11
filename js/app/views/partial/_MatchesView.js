@@ -1,9 +1,7 @@
 class _MatchesView {
     constructor(game) {
         this._game = game;
-
         this._matches = this._game.matchesOfTheDay;
-
         this._divContent = document.getElementById('matches-content');
     }
 
@@ -14,7 +12,7 @@ class _MatchesView {
 
     _createTables() {
         let championshipEditions = this._matches.map(m => m.championshipEdition).distinct().filter(ce => ce.championship.country === this._game.club.country);
-
+        
         championshipEditions.forEach(ce => {
             let table = Html.createTable(ce.name, ['', '', '', '', '', '', ''], 'borderless');
             let thead = table.querySelector('thead');
@@ -39,6 +37,5 @@ class _MatchesView {
 
             this._divContent.appendChild(table);
         });
-
     }
 }
