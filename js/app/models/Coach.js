@@ -11,7 +11,7 @@ let Coach = (function () {
 
         static create(country = null, name = null) {
             if (country != null)
-                name = country.names.getRandomItem();
+                name = country.names.getRandom();
 
             let coach = new Coach(name);
             coach.id = _coaches.push(coach);

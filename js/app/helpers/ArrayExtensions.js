@@ -12,7 +12,7 @@ Array.prototype.firstItems = function (count) {
     return this.slice(0, count);
 }
 
-Array.prototype.getRandomItem = function () {
+Array.prototype.getRandom = function () {
     return this[Random.number(this.length - 1)];
 }
 

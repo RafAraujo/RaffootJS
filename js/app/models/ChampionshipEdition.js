@@ -184,7 +184,7 @@ let ChampionshipEdition = (function () {
                 let group = ChampionshipEditionGroup.create(this, i + 1);
 
                 for (let j = 0; j < this.championship.groupClubCount; j++) {
-                    let championshipEditionClub = championshipEditionClubs.getRandomItem();
+                    let championshipEditionClub = championshipEditionClubs.getRandom();
                     group.addChampionshipEditionClub(championshipEditionClub);
                     championshipEditionClubs.remove(championshipEditionClub);
                 }

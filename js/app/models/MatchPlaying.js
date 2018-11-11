@@ -41,9 +41,9 @@ let MatchPlaying = (function () {
                 con = this._ballPossessor.matchClub.opponent.fieldRegionOverall(this._ballLocation.inverse);
                 
                 if (move.success = Random.number(pro + con) <= pro)
-                    this._ballPossessor = this._ballPossessor.playersAhead.length > 0 ? this._ballPossessor.playersAhead.getRandomItem() : this._ballPossessor.matchClub.matchPlayers.getRandomItem();
+                    this._ballPossessor = this._ballPossessor.playersAhead.length > 0 ? this._ballPossessor.playersAhead.getRandom() : this._ballPossessor.matchClub.playersAt(FieldRegion.find('midfield')).getRandom();
                 else
-                    this._ballPossessor = this._ballPossessor.matchClub.opponent.playersAt(this._ballLocation.inverse).getRandomItem();
+                    this._ballPossessor = this._ballPossessor.matchClub.opponent.playersAt(this._ballLocation.inverse).getRandom();
             }
             else if (action === 'finishing') {
                 pro = this._ballPossessor.overall;

@@ -30,9 +30,9 @@ let Player = (function () {
             try {
                 let names = await country.getPlayerNamesAsync();
 
-                let side = position.fieldLocalizations.getRandomItem().side;
-                let name = names.getRandomItem();
-                let surname = names.getRandomItem();
+                let side = position.fieldLocalizations.getRandom().side;
+                let name = names.getRandom();
+                let surname = names.getRandom();
                 let overall = Player.randomOverall(clubDivision);
                 let star = overall > 90 ? Random.number(2) === 2 : false;
                 let condition = Random.numberBetween(1, 5);
@@ -66,7 +66,11 @@ let Player = (function () {
 
         static randomOverall(clubDivision) {
             let min = (NATIONAL_MAX_DIVISION_COUNT - clubDivision) * 10;
-            let max = Random.numberBetween(1, 5) === 5 ? 99 : 89 - (clubDivision - 1) * 10
+            let max = Random.numberBetween(1, 5) === 5 ? 99 : 89 - (clubDivision - 1) * 10;
+
+            if (isNaN(min) || isNaN(max))
+                throw new Error('Player.randomOverall(clubDivision)');
+
             return Random.numberBetween(min, max);
         }
 

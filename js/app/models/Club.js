@@ -255,7 +255,7 @@ let Club = (function () {
             Club.create('Bayern', germany, ['Red', 'White'], 'Allianz Arena', 1);
             Club.create('Borussia Dortmund', germany, ['Gold', 'Black'], 'Signal Iduna Park', 1);
             Club.create('B. Mönchengladbach', germany, ['Black', 'White'], 'Borussia-Park', 1);
-            Club.create('Eintracht Frankfurt', germany, 'Red', ['White'], 'Commerzbank-Arena', 1)
+            Club.create('Eintracht Frankfurt', germany, ['Red', 'White'], 'Commerzbank-Arena', 1)
             Club.create('Hamburger', germany, ['White', 'Blue'], 'Imtech Arena', 1);
             Club.create('Hannover 96', germany, ['Red', 'White'], 'AWD Arena', 1);
             Club.create('Hertha', germany, ['Blue', 'White'], 'Olympiastadion', 1);
@@ -384,35 +384,6 @@ let Club = (function () {
             }
         }
 
-        static async seedAsyncFromWeb() {
-            try {
-                for (let country of Country.playable()) {
-                    let names = await country.getClubNamesAsync();
-                    names.forEach(n => Club.create(n, country, ClubColors.all().getRandomItem()));
-
-                    let clubs = country.clubs.slice().shuffle();
-                    let divisionCount = country.divisionCount;
-
-                    for (let i = 0; i < divisionCount; i++) {
-                        for (let j = 0; j < country.leagueClubCount; j++) {
-                            let club = clubs[i * country.leagueClubCount + j];
-
-                            club.playable = true;
-                            club.initialDivision = i + 1;
-                            club._stadiumId = Stadium.create(`${club.name} Stadium`, Stadium.baseTicketPrice(club.initialDivision)).id;
-                            await club._generateSquadAsync();
-                            club.receive(club.squad.wage * Random.numberBetween(6, 9));
-                        }
-                    }
-                }
-                
-                Object.freeze(_clubs);
-            }
-            catch (error) {
-                throw error;
-            }
-        }
-
         static playable() {
             return _clubs.filter(c => c.playable);
         }
@@ -451,7 +422,7 @@ let Club = (function () {
 
         async _generateSquadAsync() {
             try {
-                let formation = Formation.all().getRandomItem();
+                let formation = Formation.all().getRandom();
                 this._squadId = Squad.create(formation).id;
                 let positions = Position.allProportional();
 
@@ -462,8 +433,8 @@ let Club = (function () {
                     let count = formation.randomPlayersCount(fieldRegion);
 
                     for (let i = 0; i < count; i++) {
-                        let country = Random.number(10) < 9 ? this.country : Country.all().getRandomItem();
-                        let position = positions.filter(p => p.fieldRegion === fieldRegion).getRandomItem();
+                        let country = Random.number(10) < 9 ? this.country : Country.all().getRandom();
+                        let position = positions.filter(p => p.fieldRegion === fieldRegion).getRandom();
                         let player = await Player.createAsync(country, year - Random.numberBetween(16, 38), position, this.initialDivision);
                         let contract = Contract.create(this, player, 'definitive', 0, player.baseWage, date, date.addMonths(Random.numberBetween(6, 24)));
                         contract.sign();

@@ -16,7 +16,7 @@ let Match = (function () {
         }
 
         static create(championshipEdition, date) {
-            let referee = Referee.all().getRandomItem();
+            let referee = Referee.all().getRandom();
 
             let match = new Match(championshipEdition.id, date, referee.id);
             match.id = _matches.push(match);
