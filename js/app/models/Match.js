@@ -102,11 +102,20 @@ let Match = (function () {
             return this.matchClubs.find(mc => mc.club === club).goals;
         }
 
-        play() {
+        prepare() {
             this.audience = Random.number(this.stadium.capacity);
             this.matchClubs.forEach(mc => mc.arrangeTeam());
             this.matchClubs.forEach(mc => mc._goals = 0);
+            this.finished = false;
             this.matchPlaying = new MatchPlaying(this);
+        }
+
+        playHalf(number) {
+            this.matchPlaying.playHalf(number);
+        }
+
+        play() {
+            this.prepare();
             this.matchPlaying.play();
 
             console.log(this.matchPlaying.clubsAnalysis());

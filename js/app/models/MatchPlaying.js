@@ -26,6 +26,14 @@ let MatchPlaying = (function () {
             this._match.finished = true;
         }
 
+        playHalf(number) {
+            while (this._time <= number * 45) {
+                this._moves.push(this._nextMove());
+                this._time++;
+            }
+            this._match.finished = this._finished;
+        }
+
         _nextMove() {
             let action = this._ballPossessor.chooseAction();
 

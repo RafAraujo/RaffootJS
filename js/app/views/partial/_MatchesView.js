@@ -5,12 +5,11 @@ class _MatchesView {
         this._matches = this._game.matchesOfTheDay;
 
         this._divContent = document.getElementById('matches-content');
-
-        this._createTables();
     }
 
     update() {
-
+        Html.clearElement(this._divContent);
+        this._createTables();
     }
 
     _createTables() {

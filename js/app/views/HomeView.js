@@ -44,11 +44,13 @@ class HomeView extends View {
 
         this.setActiveSection(this._currentSection);
 
+        this.partialMatches.update();
         this.partialPlay.update();
         this.partialSquad.update();
         this.partialCalendar.update();
         this.partialTables.update();
         this.partialStadium.update();
+        this.partialClubs.update();
         this.partialPlayers.update();
 
         console.log("Interface took " + (performance.now() - t0) + " milliseconds.");

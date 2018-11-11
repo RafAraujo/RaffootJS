@@ -6,12 +6,14 @@ class _ClubsView {
         this._selectClub = document.getElementById('clubs-club');
         this._divSquad = document.getElementById('clubs-squad');
 
-        this._fillCountries();
-
         this._component = new PlayersTable([], this._divSquad);
 
         this._selectCountry.addEventListener('change', this._changeCountry.bind(this));
         this._selectClub.addEventListener('change', this._fillSquad.bind(this));
+    }
+
+    update() {
+        this._fillCountries();
     }
 
     _fillCountries() {

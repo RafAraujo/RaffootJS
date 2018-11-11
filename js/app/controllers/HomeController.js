@@ -38,15 +38,6 @@ class HomeController {
         }
     }
 
-    _play() {
-        this._game.matchesOfTheDay.forEach(m => {
-            m.start();
-        });
-
-        this._view.setActiveSection('matches');
-        this._view.partialMatches.update();
-    }
-
     _setFormation() {
         this._game.club.squad.formation = Formation.all()[this._selectFormations.value - 1];
         this._view.partialPlay.update();
@@ -58,5 +49,20 @@ class HomeController {
 
         this._game.club.squad.setSquadPlayerFieldLocalization(squadPlayer, fieldLocalization);
         this._view.partialPlay.update();
+    }
+
+    _playFirstHalf() {
+        this._game.matchesOfTheDay.forEach(m => {
+            m.prepare();
+            m.playHalf(1);
+        });
+
+        this._view.setActiveSection('matches');
+        this._view.partialPlay.matchesAnimation(1);
+    }
+
+    _play() {
+
+        this._view.partialMatches.update();
     }
 }
