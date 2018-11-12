@@ -47,10 +47,10 @@ let MatchPlaying = (function () {
             if (action === 'passing') {                
                 let target = this._ballPossessor.playersAhead.length > 0 ? this._ballPossessor.playersAhead.getRandom() : this._ballPossessor.matchClub.playersAt(FieldRegion.find('midfield')).getRandom();
                 let marker = this._ballPossessor.matchClub.opponent.playersAt(this._ballLocation.inverse).getRandom();
-                let result = Random.number(pro + con);
 
                 pro = this._ballPossessor.overall + this._ballPossessor.matchClub.fieldRegionOverall(this._ballLocation);
-                con = this._ballPossessor.matchClub.opponent.fieldRegionOverall(marker.fieldRegion);
+                con = this._ballPossessor.matchClub.opponent.fieldRegionOverall(marker.fieldLocalization.position.fieldRegion);
+                let result = Random.number(pro + con);
 
                 if (move.success = result <= pro) {
                     if (result <= this._ballPossessor.overall * 0.1) {

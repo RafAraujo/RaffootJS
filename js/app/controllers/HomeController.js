@@ -52,7 +52,7 @@ class HomeController {
     }
 
     _playFirstHalf() {
-        this._game.matchesOfTheDay.forEach(m => {
+        this._game.currentMatches.forEach(m => {
             m.prepare();
             m.playHalf(1);
         });
