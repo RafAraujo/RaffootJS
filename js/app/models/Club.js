@@ -373,7 +373,7 @@ let Club = (function () {
             Club.create('Mallorca', spain, ['Red', 'Black'], 'Iberostar Estadio', 2);
             Club.create('Numancia', spain, ['Red', 'White'], 'Nuevo Los Pajaritos', 2);
             Club.create('Rayo Vallecano', spain, ['White', 'Red'], 'Campo de Fútbol de Vallecas', 2);
-            Club.create('Valladolid', spain, ['White', 'Purple'], 'Nuevo José Zorrilla', 2);
+            Club.create('Valladolid', spain, ['Purple', 'White'], 'Nuevo José Zorrilla', 2);
 
             let clubs = Club.all();
             for (let i = 0; i < clubs.length; i++) {

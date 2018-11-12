@@ -58,7 +58,10 @@ class _MatchesView {
         let progressBar = this._divTime.querySelector('.progress-bar');
         let span = this._divTime.querySelector('span');
 
-        progressBar.style.width = `${(time / 90) * 100}%`;
+        let value = time / 90 * 100
+
+        progressBar.style.width = `${value}%`;
+        progressBar.setAttribute('aria-valuenow', value);
         span.innerText = `${Math.round(time)}'`;
     }
 
