@@ -3,10 +3,9 @@ let MatchPlaying = (function () {
         constructor(match) {
             this._match = match;
             this._time = 0;
-            this._stoppageTime = 0;
             
             this._ballPossessor = this._match.matchClubHome.goalkeeper;
-            this._moves = [];
+            this.moves = [];
         }
 
         get _ballLocation() {
@@ -15,12 +14,12 @@ let MatchPlaying = (function () {
         }
 
         get _finished() {
-            return this._time > 90 + this._stoppageTime;
+            return this._time > 90;
         }
 
         play() {
             while (!this._finished) {
-                this._moves.push(this._nextMove());
+                this.moves.push(this._nextMove());
                 this._time += 0.5;
             }
             this._match.finished = true;
@@ -28,7 +27,7 @@ let MatchPlaying = (function () {
 
         playHalf(number) {
             while (this._time <= number * 45) {
-                this._moves.push(this._nextMove());
+                this.moves.push(this._nextMove());
                 this._time++;
             }
             this._match.finished = this._finished;
@@ -38,27 +37,40 @@ let MatchPlaying = (function () {
             let action = this._ballPossessor.chooseAction();
 
             let move = {
+                time: this._time,
                 ballPossessor: this._ballPossessor,
                 action: action
             };
 
             let pro = 0, con = 0;
 
-            if (action === 'passing') {
+            if (action === 'passing') {                
+                let target = this._ballPossessor.playersAhead.length > 0 ? this._ballPossessor.playersAhead.getRandom() : this._ballPossessor.matchClub.playersAt(FieldRegion.find('midfield')).getRandom();
+                let marker = this._ballPossessor.matchClub.opponent.playersAt(this._ballLocation.inverse).getRandom();
+                let result = Random.number(pro + con);
+
                 pro = this._ballPossessor.overall + this._ballPossessor.matchClub.fieldRegionOverall(this._ballLocation);
-                con = this._ballPossessor.matchClub.opponent.fieldRegionOverall(this._ballLocation.inverse);
-                
-                if (move.success = Random.number(pro + con) <= pro)
-                    this._ballPossessor = this._ballPossessor.playersAhead.length > 0 ? this._ballPossessor.playersAhead.getRandom() : this._ballPossessor.matchClub.playersAt(FieldRegion.find('midfield')).getRandom();
-                else
+                con = this._ballPossessor.matchClub.opponent.fieldRegionOverall(marker.fieldRegion);
+
+                if (move.success = result <= pro) {
+                    if (result <= this._ballPossessor.overall * 0.1) {
+                        marker.addYellowCard();
+                        move.event = new MatchPlayingEvent('yellow card', marker.player);
+                    }
+                    this._ballPossessor = target;
+                }
+                else {
                     this._ballPossessor = this._ballPossessor.matchClub.opponent.playersAt(this._ballLocation.inverse).getRandom();
+                }
             }
             else if (action === 'finishing') {
                 pro = this._ballPossessor.overall;
                 con = this._ballPossessor.matchClub.opponent.goalkeeper.overall + this._ballPossessor.matchClub.opponent.overallDefense;
                 
-                if (move.success = Random.number(pro + con) <= pro)
+                if (move.success = Random.number(pro + con) <= pro) {
                     this._ballPossessor.score();
+                    move.event = new MatchPlayingEvent('goal', this._ballPossessor.player);
+                }
 
                 this._ballPossessor = this._ballPossessor.matchClub.opponent.goalkeeper;
             }
@@ -76,7 +88,7 @@ let MatchPlaying = (function () {
         }
 
         _getMoves(action, matchClub, onlySuccessful) {
-            let moves = this._moves.filter(m => m.action === action && m.ballPossessor.matchClub === matchClub);
+            let moves = this.moves.filter(m => m.action === action && m.ballPossessor.matchClub === matchClub);
             return onlySuccessful ? moves.filter(m => m.success) : moves;
         }
 

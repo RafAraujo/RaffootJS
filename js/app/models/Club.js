@@ -251,16 +251,16 @@ let Club = (function () {
             Club.create('Toulouse', france, ['Purple', 'White'], 'Municipal', 1);
             
             let germany = countries[10];
-            Club.create('Bayer Leverkusen', germany, ['Black', 'Red'], 'BayArena', 1);
+            Club.create('Bayer Leverkusen', germany, ['Red', 'Black'], 'BayArena', 1);
             Club.create('Bayern', germany, ['Red', 'White'], 'Allianz Arena', 1);
             Club.create('Borussia Dortmund', germany, ['Gold', 'Black'], 'Signal Iduna Park', 1);
-            Club.create('B. Mönchengladbach', germany, ['Black', 'White'], 'Borussia-Park', 1);
+            Club.create('Mönchengladbach', germany, ['Black', 'White'], 'Borussia-Park', 1);
             Club.create('Eintracht Frankfurt', germany, ['Red', 'White'], 'Commerzbank-Arena', 1)
             Club.create('Hamburger', germany, ['White', 'Blue'], 'Imtech Arena', 1);
             Club.create('Hannover 96', germany, ['Red', 'White'], 'AWD Arena', 1);
             Club.create('Hertha', germany, ['Blue', 'White'], 'Olympiastadion', 1);
             Club.create('Hoffenhein', germany, ['White', 'Blue'], 'Rhein-Neckar-Arena', 1);
-            Club.create('Kaiserslautern', germany, ['Red', 'White'], 'Fritz-Walter-Stadion', 1);
+            Club.create('Kaiserslautern', germany, ['DarkRed', 'White'], 'Fritz-Walter-Stadion', 1);
             Club.create('Köln', germany, ['Red', 'White'], 'RheinEnergie', 1);
             Club.create('Nürnberg', germany, ['DarkRed', 'White'], 'Grundig-Stadion', 1);
             Club.create('Schalke 04', germany, ['Blue', 'White'], 'Veltins Arena', 1);

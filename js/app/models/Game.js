@@ -107,17 +107,12 @@ let Game = (function () {
             return this.seasons.last();
         }
 
-        get currentChampionshipEdition() {
-            let season = this.currentSeason;
-            return season.championshipEditions.find(ce => ce.championship.championshipType === season.currentSeasonDate.championshipType);
+        get currentMatches() {
+            return this.currentSeason.getMatchesByDate(this.currentSeason.currentDate);
         }
 
         get nextMatch() {
             return this.currentSeason.nextMatch(this.club);
-        }
-
-        get matchesOfTheDay() {
-            return this.currentSeason.getMatchesByDate(this.currentSeason.currentDate);
         }
 
         advanceDate() {

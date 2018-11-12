@@ -58,7 +58,7 @@ class HomeController {
         });
 
         this._view.setActiveSection('matches');
-        this._view.partialMatches.animation(1);
+        this._view.partialMatches.firstHalfAnimation();
     }
 
     _play() {
