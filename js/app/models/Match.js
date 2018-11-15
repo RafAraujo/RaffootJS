@@ -2,23 +2,19 @@ let Match = (function () {
     let _matches = [];
 
     return class Match extends Entity {
-        constructor(championshipEditionId, date, refereeId) {
+        constructor(championshipEditionId, date) {
             super();
 
             this._championshipEditionId = championshipEditionId;
             this.date = date;
             this._stadiumId = null;
             this._matchClubIds = [];
-            this._refereeId = refereeId;
             this.audience = null;
-            this.income = null;
             this.finished = false;
         }
 
         static create(championshipEdition, date) {
-            let referee = Referee.all().getRandom();
-
-            let match = new Match(championshipEdition.id, date, referee.id);
+            let match = new Match(championshipEdition.id, date);
             match.id = _matches.push(match);
 
             championshipEdition.addMatch(match);
@@ -62,15 +58,15 @@ let Match = (function () {
             return this.matchClubs.map(mc => mc.club);
         }
 
-        get referee() {
-            return Referee.all()[this._refereeId - 1];
-        }
-
         get description() {
             let club1 = this.matchClubHome ? this.matchClubHome.club : this.matchClubs[0].club;
             let club2 = this.matchClubAway ? this.matchClubAway.club : this.matchClubs[1].club;
 
             return `${club1.name} x ${club2.name}`;
+        }
+
+        get income() {
+            return this.audience * this.stadium.ticketPrice;
         }
 
         get score() {

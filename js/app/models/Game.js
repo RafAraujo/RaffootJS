@@ -54,9 +54,6 @@ let Game = (function () {
                 await Club.seedAsync();
                 console.log('Call took ' + (performance.now() - t0) + ' milliseconds.');
 
-                await Referee.seedAsync();
-                console.log('Call took ' + (performance.now() - t0) + ' milliseconds.');
-
                 ChampionshipType.seed();
                 console.log('Call took ' + (performance.now() - t0) + ' milliseconds.');
 

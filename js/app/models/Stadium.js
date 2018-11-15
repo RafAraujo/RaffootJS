@@ -11,7 +11,7 @@ let Stadium = (function () {
         }
 
         static create(name, ticketPrice) {
-            let stadium = new Stadium(name,  Random.numberBetween(10000, 50000), ticketPrice);
+            let stadium = new Stadium(name,  Random.numberBetween(20000, 60000), ticketPrice);
             stadium.id = _stadiums.push(stadium);
             return stadium;
         }
