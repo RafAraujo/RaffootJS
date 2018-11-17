@@ -13,16 +13,22 @@ class _MatchesView {
     }
 
     firstHalfAnimation() {
-        let time = 0;
+        this._animate(0, 45);
+    }
 
+    secondHalfAnimation() {
+        this._animate(46, 90);
+    }
+
+    _animate(currentTime, endTime) {
         let interval = setInterval(() => {
-            this._changeTime(time);
+            this._changeTime(currentTime);
             this._matches.forEach(m => {
-                let move = m.matchPlaying.moves[time];
+                let move = m.matchPlaying.moves[currentTime];
                 if (move.event)
                     this._showEvent(m, move.event);
             });
-            if (++time > 45)
+            if (++currentTime > endTime)
                 clearInterval(interval);
         }, 200);
     }
@@ -39,7 +45,7 @@ class _MatchesView {
             let tr = tbody.insertRow();
             tr.id = `match-${m.id}`;
             
-            Html.insertCell(tr, `${m.stadium.name} (${m.audience})`, 'text-center', 'd-none', 'd-sm-table-cell').style.width = '25%';
+            Html.insertCell(tr, `${m.stadium.name} (${m.audience})`, 'text-center', 'd-none', 'd-sm-table-cell').style.width = '23%';
             
             let div = Html.createElement('div', m.matchClubHome.club.name, 'text-center');
             div.style.cssText = `max-height: 1.5rem; overflow: hidden;`;
@@ -52,7 +58,7 @@ class _MatchesView {
             div.style.cssText = `max-height: 1.5rem; overflow: hidden;`;
             Html.insertCell(tr, div.outerHTML, 'text-center', 'border').style.cssText = `min-width: 8rem; background-color: ${m.matchClubAway.club.colors.background}; color: ${m.matchClubAway.club.colors.foreground}; padding: 0`;
             
-            Html.insertCell(tr, '', 'match-event', 'd-none', 'd-sm-table-cell').style.width = '25%';
+            Html.insertCell(tr, '', 'match-event', 'pl-3', 'd-none', 'd-sm-table-cell').style.width = '27%';
 
             tbody.appendChild(tr);
         });
@@ -79,10 +85,12 @@ class _MatchesView {
 
         if (event.type === 'goal') {
             if (event.matchClub === match.matchClubHome) {
+                td.classList.add('font-weight-bold');
                 td = tr.querySelector('.home-goals');
                 td.innerText = parseInt(td.innerText) + 1;
             }
             else {
+                td.classList.remove('font-weight-bold');
                 td = tr.querySelector('.away-goals');
                 td.innerText = parseInt(td.innerText) + 1;
             }
