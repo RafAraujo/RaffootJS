@@ -57,6 +57,7 @@ class HomeController {
             m.playHalf(1);
         });
 
+        this._view.partialMatches.update();
         this._view.setActiveSection('matches');
         this._view.partialMatches.firstHalfAnimation();
     }

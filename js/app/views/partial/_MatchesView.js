@@ -5,11 +5,11 @@ class _MatchesView {
         
         this._divTime = document.getElementById('matches-time');
         this._divContent = document.getElementById('matches-content');
+        this._table = this._divContent.querySelector('table');
     }
 
     update() {
-        Html.clearElement(this._divContent);
-        this._createTable();
+        this._fillTable();
     }
 
     firstHalfAnimation() {
@@ -27,29 +27,35 @@ class _MatchesView {
         }, 200);
     }
 
-    _createTable() {
-        let table = Html.createTable(this._matches[0].championshipEdition.name, ['', '', '', '', '', '', ''], 'borderless');
-        let thead = table.querySelector('thead');
-        let tbody = table.querySelector('tbody');
+    _fillTable() {
+        let thead = this._table.querySelector('thead');
+        let tbody = this._table.querySelector('tbody');
 
-        thead.querySelector('th').classList.remove('text-center');
-        thead.removeChild(thead.children[1]);
+        Html.clearElement(tbody);
+
+        thead.querySelector('th').innerText = this._matches[0].championshipEdition.name;
 
         this._matches.forEach(m => {
             let tr = tbody.insertRow();
             tr.id = `match-${m.id}`;
             
             Html.insertCell(tr, `${m.stadium.name} (${m.audience})`, 'text-center', 'd-none', 'd-sm-table-cell').style.width = '25%';
-            Html.insertCell(tr, m.matchClubHome.club.name, 'text-center', 'border').style.cssText = `width: 20%; background-color: ${m.matchClubHome.club.colors.background}; color: ${m.matchClubHome.club.colors.foreground}`;
-            Html.insertCell(tr, 0, 'text-center', 'home-goals').style.width = '4%';
-            Html.insertCell(tr, 0, 'text-center', 'away-goals').style.width = '4%';
-            Html.insertCell(tr, m.matchClubAway.club.name, 'text-center', 'border').style.cssText = `width: 20%; background-color: ${m.matchClubAway.club.colors.background}; color: ${m.matchClubAway.club.colors.foreground}`;
-            Html.insertCell(tr, '', 'text-center', 'match-event').style.width = '24%';
+            
+            let div = Html.createElement('div', m.matchClubHome.club.name, 'text-center');
+            div.style.cssText = `max-height: 1.5rem; overflow: hidden;`;
+            Html.insertCell(tr, div.outerHTML, 'text-center', 'border').style.cssText = `min-width: 8rem; background-color: ${m.matchClubHome.club.colors.background}; color: ${m.matchClubHome.club.colors.foreground}; padding: 0`;
+            
+            Html.insertCell(tr, 0, 'home-goals', 'text-center', 'border').style.minWidth = '2rem';
+            Html.insertCell(tr, 0, 'away-goals', 'text-center', 'border').style.minWidth = '2rem';
+
+            div = Html.createElement('div', m.matchClubAway.club.name, 'text-center');
+            div.style.cssText = `max-height: 1.5rem; overflow: hidden;`;
+            Html.insertCell(tr, div.outerHTML, 'text-center', 'border').style.cssText = `min-width: 8rem; background-color: ${m.matchClubAway.club.colors.background}; color: ${m.matchClubAway.club.colors.foreground}; padding: 0`;
+            
+            Html.insertCell(tr, '', 'match-event', 'd-none', 'd-sm-table-cell').style.width = '25%';
 
             tbody.appendChild(tr);
         });
-
-        this._divContent.appendChild(table);
     }
 
     _changeTime(time) {
@@ -59,7 +65,7 @@ class _MatchesView {
         let value = time / 90 * 100
 
         progressBar.style.width = `${value}%`;
-        progressBar.setAttribute('aria-valuenow', value);
+        progressBar.setAttribute('aria-valuenow', time);
         span.innerText = `${Math.round(time)}'`;
     }
 
