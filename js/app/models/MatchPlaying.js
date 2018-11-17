@@ -54,7 +54,7 @@ let MatchPlaying = (function () {
                 if (move.success = result <= pro) {
                     if (!marker.redCard && result <= this._ballPossessor.overall * 0.1) {
                         marker.addYellowCard();
-                        move.event = new MatchPlayingEvent('yellow card', marker, move.time);
+                        move.event = new MatchPlayingEvent(marker.redCard ? 'red card' : 'yellow card', marker, move.time);
                     }
                     this._ballPossessor = target;
                 }
