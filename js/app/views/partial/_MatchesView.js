@@ -80,7 +80,7 @@ class _MatchesView {
 
         let td = tr.querySelector('.match-event');
         Html.clearElement(td);
-        td.appendChild(this._getIcon(event.type));
+        td.appendChild(this._getIcon(event));
         td.appendChild(Html.createElement('span', `${event.matchPlayer.player.name} - ${event.time}'`, 'pl-2'));
 
         if (event.type === 'goal') {
@@ -97,8 +97,8 @@ class _MatchesView {
         }
     }
 
-    _getIcon(eventType) {
-        switch (eventType) {
+    _getIcon(event) {
+        switch (event.type) {
             case 'goal':
                 return Html.createIcon('futbol', 'black', 'fa-lg');
             case 'yellow card':

@@ -82,7 +82,7 @@ class _TablesView {
 
             Html.insertCell(tr, position, 'text-center');
             Html.insertCell(tr, championshipEditionClub.club.name, 'text-left');
-            Html.insertCell(tr, championshipEditionClub.points, 'text-center');
+            Html.insertCell(tr, championshipEditionClub.points, 'text-center', 'font-weight-bold');
             Html.insertCell(tr, this._championshipEdition.championshipEditionFixturesPlayed, 'text-center');
             Html.insertCell(tr, championshipEditionClub.won, 'text-center');
             Html.insertCell(tr, championshipEditionClub.drawn, 'text-center');
@@ -94,7 +94,7 @@ class _TablesView {
             this._formatPosition(tr.children[0], position);
 
             if (championshipEditionClub.club === this._game.club)
-                Array.from(tr.children).forEach(td => td.classList.add('font-weight-bold'));
+                tr.classList.add('border-my-club');
         });
     }
 
