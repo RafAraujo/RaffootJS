@@ -1,14 +1,11 @@
 class MatchPlayingEvent {
-    constructor(type, matchPlayer) {
+    constructor(type, matchPlayer, time) {
         this.type = type;
         this.matchPlayer = matchPlayer;
+        this.time = time;
     }
 
     get matchClub() {
         return this.matchPlayer.matchClub;
-    }
-
-    get description() {
-        return `${this.type} of ${this.matchPlayer.player.name}`;
     }
 }

@@ -54,7 +54,7 @@ let MatchPlaying = (function () {
                 if (move.success = result <= pro) {
                     if (!marker.redCard && result <= this._ballPossessor.overall * 0.1) {
                         marker.addYellowCard();
-                        move.event = new MatchPlayingEvent('yellow card', marker);
+                        move.event = new MatchPlayingEvent('yellow card', marker, move.time);
                     }
                     this._ballPossessor = target;
                 }
@@ -68,7 +68,7 @@ let MatchPlaying = (function () {
                 
                 if (move.success = Random.number(pro + con) <= pro) {
                     this._ballPossessor.score();
-                    move.event = new MatchPlayingEvent('goal', this._ballPossessor);
+                    move.event = new MatchPlayingEvent('goal', this._ballPossessor, move.time);
                 }
 
                 this._ballPossessor = this._defendingClub.goalkeeper;

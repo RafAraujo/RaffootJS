@@ -73,7 +73,9 @@ class _MatchesView {
         let tr = document.getElementById(`match-${match.id}`);
 
         let td = tr.querySelector('.match-event');
-        td.innerText = event.description;
+        Html.clearElement(td);
+        td.appendChild(this._getIcon(event.type));
+        td.appendChild(Html.createElement('span', `${event.matchPlayer.player.name} - ${event.time}'`, 'pl-2'));
 
         if (event.type === 'goal') {
             if (event.matchClub === match.matchClubHome) {
@@ -84,6 +86,15 @@ class _MatchesView {
                 td = tr.querySelector('.away-goals');
                 td.innerText = parseInt(td.innerText) + 1;
             }
+        }
+    }
+
+    _getIcon(eventType) {
+        switch (eventType) {
+            case 'goal':
+                return Html.createIcon('futbol', 'black', 'fa-lg');
+            case 'yellow card':
+                return Html.createIcon('square', YELLOW, 'fa-lg');
         }
     }
 }
