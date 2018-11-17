@@ -274,15 +274,15 @@ let Club = (function () {
             Club.create('Fiorentina', italy, ['Purple', 'White'], 'Artemio Franchi', 1);
             Club.create('Cagliari', italy, ['DarkBlue', 'Red'], 'Sardegna Arena', 1);
             Club.create('Genoa', italy, ['Red', 'DarkBlue'], 'Nereo Rocco', 1);
-            Club.create('Internazionale', italy, ['Black', 'DodgerBlue'], 'Giuseppe Meazza', 1);
+            Club.create('Internazionale', italy, ['DarkBlue', 'White'], 'Giuseppe Meazza', 1);
             Club.create('Juventus', italy, ['White', 'Black'], 'Juventus Stadium', 1);
             Club.create('Lazio', italy, ['SkyBlue', 'White'], 'Olimpico', 1);
-            Club.create('Milan', italy, ['Black', 'Red'], 'San Siro', 1);
+            Club.create('Milan', italy, ['Red', 'Black'], 'San Siro', 1);
             Club.create('Napoli', italy, ['DodgerBlue', 'White'], 'San Paolo', 1);
             Club.create('Palermo', italy, ['Pink', 'Black'], 'Renzo Barbera', 1);
             Club.create('Parma', italy, ['White', 'Black'], 'Ennio Tardini', 1);
             Club.create('Roma', italy, ['DarkRed', 'Orange'], 'Olimpico', 1);
-            Club.create('Sampdoria', italy, ['DarkBlue', 'White'], 'Luigi Ferraris', 1);
+            Club.create('Sampdoria', italy, ['Blue', 'White'], 'Luigi Ferraris', 1);
             Club.create('Torino', italy, ['DarkRed', 'White'], 'Olimpico di Torino', 1);
             Club.create('Udinese', italy, ['Black', 'White'], 'Friuli', 1);
 

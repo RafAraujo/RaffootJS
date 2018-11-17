@@ -36,6 +36,10 @@ let MatchPlayer = (function () {
             return SquadPlayer.all()[this._squadPlayerId - 1];
         }
 
+        get player() {
+            return this.squadPlayer.player;
+        }
+
         get fieldLocalization() {
             return FieldLocalization.all()[this._fieldLocalizationId - 1];
         }

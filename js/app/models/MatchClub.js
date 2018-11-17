@@ -8,7 +8,7 @@ let MatchClub = (function () {
             this._matchId = matchId;
             this._clubId = clubId;
             this.situation = situation;
-            this._goals = 0;
+            this._goals = null;
             this._matchPlayersIds = [];
         }
 
@@ -48,19 +48,19 @@ let MatchClub = (function () {
         }
 
         get overallDefense() {
-            return this.fieldRegionOverall(FieldRegion.find('defense'));
+            return this.regionOverall(FieldRegion.find('defense'));
         }
 
         get overallMidfield() {
-            return this.fieldRegionOverall(FieldRegion.find('midfield'));
+            return this.regionOverall(FieldRegion.find('midfield'));
         }
 
         get overallAttack() {
-            return this.fieldRegionOverall(FieldRegion.find('attack'));
+            return this.regionOverall(FieldRegion.find('attack'));
         }
 
         get goals() {
-            return this.match.finished ? this._goals : null;
+            return this._goals;
         }
 
         set goals(value) {
@@ -73,15 +73,15 @@ let MatchClub = (function () {
         }
 
         playersAt(fieldRegion) {
-            return this.matchPlayers.filter(mp => mp.fieldLocalization.position.fieldRegion === fieldRegion && !mp.redCard);
-        }
-
-        fieldRegionOverall(fieldRegion) {
-            return this.playersAt(fieldRegion).map(mp => mp.overall).sum();
+            return this.matchPlayers.filter(mp => mp.fieldLocalization.position.fieldRegion === fieldRegion);
         }
 
         addMatchPlayer(squadPlayer) {
             this._matchPlayersIds.push(MatchPlayer.create(this, squadPlayer).id);
+        }
+
+        regionOverall(fieldRegion) {
+            return this.playersAt(fieldRegion).map(mp => mp.overall).sum();
         }
 
         addGoal() {

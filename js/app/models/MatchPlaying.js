@@ -9,20 +9,19 @@ let MatchPlaying = (function () {
         }
 
         get _ballLocation() {
-            let fieldRegion = this._ballPossessor.fieldLocalization.position.fieldRegion;
-            return fieldRegion.name === 'goal' ? FieldRegion.find('defense') : fieldRegion;
+            return this._ballPossessor.fieldLocalization.position.fieldRegion;
+        }
+
+        get _attackingClub() {
+            return this._ballPossessor.matchClub;
+        }
+
+        get _defendingClub() {
+            return this._attackingClub.opponent;
         }
 
         get _finished() {
             return this._time > 90;
-        }
-
-        play() {
-            while (!this._finished) {
-                this.moves.push(this._nextMove());
-                this._time += 0.5;
-            }
-            this._match.finished = true;
         }
 
         playHalf(number) {
@@ -45,17 +44,17 @@ let MatchPlaying = (function () {
             let pro = 0, con = 0;
 
             if (action === 'passing') {                
-                let target = this._ballPossessor.playersAhead.length > 0 ? this._ballPossessor.playersAhead.getRandom() : this._ballPossessor.matchClub.playersAt(FieldRegion.find('midfield')).getRandom();
-                let marker = this._ballPossessor.matchClub.opponent.playersAt(this._ballLocation.inverse).getRandom();
+                let target = this._ballPossessor.playersAhead.length > 0 ? this._ballPossessor.playersAhead.getRandom() : this._attackingClub.playersAt(FieldRegion.find('midfield')).getRandom();
+                let marker = this._defendingClub.playersAt(this._ballLocation.inverse).getRandom();
 
-                pro = this._ballPossessor.overall + this._ballPossessor.matchClub.fieldRegionOverall(this._ballLocation);
-                con = this._ballPossessor.matchClub.opponent.fieldRegionOverall(marker.fieldLocalization.position.fieldRegion);
+                pro = this._ballPossessor.overall + this._attackingClub.regionOverall(this._ballLocation) + this._ballLocation.name === 'goal' ? this._attackingClub.regionOverall('defense') : 0;
+                con = this._defendingClub.regionOverall(marker.fieldLocalization.position.fieldRegion);
                 let result = Random.number(pro + con);
 
                 if (move.success = result <= pro) {
-                    if (result <= this._ballPossessor.overall * 0.1) {
+                    if (!marker.redCard && result <= this._ballPossessor.overall * 0.1) {
                         marker.addYellowCard();
-                        move.event = new MatchPlayingEvent('yellow card', marker.player);
+                        move.event = new MatchPlayingEvent('yellow card', marker);
                     }
                     this._ballPossessor = target;
                 }
@@ -65,14 +64,14 @@ let MatchPlaying = (function () {
             }
             else if (action === 'finishing') {
                 pro = this._ballPossessor.overall;
-                con = this._ballPossessor.matchClub.opponent.goalkeeper.overall + this._ballPossessor.matchClub.opponent.overallDefense;
+                con = this._defendingClub.goalkeeper.overall + this._defendingClub.overallDefense;
                 
                 if (move.success = Random.number(pro + con) <= pro) {
                     this._ballPossessor.score();
-                    move.event = new MatchPlayingEvent('goal', this._ballPossessor.player);
+                    move.event = new MatchPlayingEvent('goal', this._ballPossessor);
                 }
 
-                this._ballPossessor = this._ballPossessor.matchClub.opponent.goalkeeper;
+                this._ballPossessor = this._defendingClub.goalkeeper;
             }
 
             return move;
