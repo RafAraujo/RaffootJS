@@ -22,7 +22,6 @@ let Player = (function () {
             this._energy = 100;
             this._contractIds = [];
             this.forSale = false;
-            this.forLoan = false;
             this.ratings = [];
         }
 

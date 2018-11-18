@@ -16,7 +16,6 @@ class _PlayersView {
 
         this._inputStar = document.getElementById('players-star');
         this._inputForSale = document.getElementById('players-for-sale');
-        this._inputForLoan = document.getElementById('players-for-loan');
 
         this._fillFields();
         this._component = new PlayersTable([], this._divContent, 'mt-3');
@@ -85,9 +84,6 @@ class _PlayersView {
 
         if (this._inputForSale.checked)
             players = players.filter(p => p.forSale);
-
-        if (this._inputForLoan.checked)
-            players = players.filter(p => p.forLoan);
 
         return players;
     }

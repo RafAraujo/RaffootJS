@@ -58,11 +58,6 @@ let PlayersTable = (function () {
                 title: 'S',
                 description: 'For Sale',
                 orderProperties: ['forSale']
-            },
-            {
-                title: 'L',
-                description: 'For Loan',
-                orderProperties: ['forLoan']
             }
         ]
     };
@@ -183,7 +178,6 @@ let PlayersTable = (function () {
                 Html.insertCell(tr, player.currentContract.endDate.toLocaleDateString(), 'text-center');
                 Html.insertCell(tr, player.condition, 'text-center');
                 Html.insertCell(tr, player.forSale, 'text-center');
-                Html.insertCell(tr, player.forLoan, 'text-center');
 
                 this._formatPosition(tr.children[0], player.position);
                 this._formatCountry(tr.children[1], player.country);
@@ -195,7 +189,6 @@ let PlayersTable = (function () {
                 this._formatContract(tr.children[10], player.currentContract);
                 this._formatCondition(tr.children[11], player.condition);
                 this._formatForSale(tr.children[12], player.forSale);
-                this._formatForLoan(tr.children[13], player.forLoan);
             });
 
             this._optimizeTableForMobile();
@@ -263,14 +256,6 @@ let PlayersTable = (function () {
         _formatForSale(td, forSale) {
             td.innerText = '';
             if (forSale) {
-                let icon = Html.createIcon('check-circle', BLUE, 'fa-lg');
-                td.appendChild(icon);
-            }
-        }
-
-        _formatForLoan(td, forLoan) {
-            td.innerText = '';
-            if (forLoan) {
                 let icon = Html.createIcon('check-circle', BLUE, 'fa-lg');
                 td.appendChild(icon);
             }
