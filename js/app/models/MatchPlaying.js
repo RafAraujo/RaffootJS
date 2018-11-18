@@ -55,7 +55,7 @@ let MatchPlaying = (function () {
                     this._ballPossessor = target;
                 }
                 else {
-                    this._ballPossessor = this._ballPossessor.matchClub.opponent.playersAt(this._ballLocation.inverse).getRandom();
+                    this._ballPossessor = this._defendingClub.playersAt(this._ballLocation.inverse).getRandom();
                 }
             }
             else if (action === 'finishing') {
