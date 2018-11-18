@@ -47,11 +47,13 @@ let Match = (function () {
         }
 
         get matchClubHome() {
-            return this.matchClubs.find(mc => mc.situation === 'home');
+            let matchClub = this.matchClubs.find(mc => mc.situation === 'home');
+            return matchClub ? matchClub : this.matchClubs[0];
         }
 
         get matchClubAway() {
-            return this.matchClubs.find(mc => mc.situation === 'away');
+            let matchClub = this.matchClubs.find(mc => mc.situation === 'away');
+            return matchClub ? matchClub : this.matchClubs[1];
         }
 
         get clubs() {
