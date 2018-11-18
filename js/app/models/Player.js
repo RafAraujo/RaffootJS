@@ -18,7 +18,7 @@ let Player = (function () {
             this.star = star;
             this.condition = condition;
             this.injuryProneness = injuryProneness;
-            this._playerInjuryIds = [];
+            this.injuryTreatmentEnd = null;
             this._energy = 100;
             this._contractIds = [];
             this.forSale = false;
@@ -172,12 +172,8 @@ let Player = (function () {
             return this.inForceContracts.last().wage;
         }
 
-        get playerInjuries() {
-            return PlayerInjury.all().filterById(this._playerInjuryIds);
-        }
-
         get injuried() {
-            return this.playerInjuries.length > 0 && this.playerInjuries.last().isActive();
+            return this.injuryTreatmentEnd > Season.current().currentDate;
         }
 
         addContract(contract) {
