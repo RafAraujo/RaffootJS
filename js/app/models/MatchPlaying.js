@@ -20,16 +20,12 @@ let MatchPlaying = (function () {
             return this._attackingClub.opponent;
         }
 
-        get _finished() {
-            return this._time > 90;
-        }
-
-        playHalf(number) {
-            while (this._time <= number * 45) {
+        play() {
+            while (this._time <= 90) {
                 this.moves.push(this._nextMove());
                 this._time++;
             }
-            this._match.finished = this._finished;
+            this._match.finished = true;
         }
 
         _nextMove() {

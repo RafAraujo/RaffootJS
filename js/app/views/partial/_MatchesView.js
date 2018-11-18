@@ -12,12 +12,8 @@ class _MatchesView {
         this._fillTable();
     }
 
-    firstHalfAnimation() {
-        this._animate(0, 45);
-    }
-
-    secondHalfAnimation() {
-        this._animate(46, 90);
+    animation() {
+        this._animate(0, 90);
     }
 
     _animate(currentTime, endTime) {

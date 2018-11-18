@@ -7,7 +7,7 @@ class HomeController {
         this._service = new GameService();
         this._view = new View();
 
-        this._buttonPlay.addEventListener('click', this._playFirstHalf.bind(this));
+        this._buttonPlay.addEventListener('click', this._play.bind(this));
         this._selectFormations.addEventListener('change', this._setFormation.bind(this));
         Array.from(this._selectsPlayers).forEach((select, index) => select.addEventListener('change', this._changeStarting11.bind(this, select, index)));
     }
@@ -51,14 +51,14 @@ class HomeController {
         this._view.partialPlay.update();
     }
 
-    _playFirstHalf() {
+    _play() {
         this._game.currentMatches.forEach(m => {
             m.prepare();
-            m.playHalf(1);
+            m.play();
         });
 
         this._view.partialMatches.update();
         this._view.setActiveSection('matches');
-        this._view.partialMatches.firstHalfAnimation();
+        this._view.partialMatches.animation();
     }
 }

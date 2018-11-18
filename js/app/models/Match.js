@@ -100,17 +100,8 @@ let Match = (function () {
             this.matchPlaying = new MatchPlaying(this);
         }
 
-        playHalf(number) {
-            this.matchPlaying.playHalf(number);
-        }
-
         play() {
-            this.prepare();
             this.matchPlaying.play();
-
-            console.log(this.matchPlaying.clubsAnalysis());
-            console.log(this.matchPlaying.stats());
-            return this.score;
         }
     }
 })();
