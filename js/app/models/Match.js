@@ -61,10 +61,7 @@ let Match = (function () {
         }
 
         get description() {
-            let club1 = this.matchClubHome ? this.matchClubHome.club : this.matchClubs[0].club;
-            let club2 = this.matchClubAway ? this.matchClubAway.club : this.matchClubs[1].club;
-
-            return `${club1.name} x ${club2.name}`;
+            return `${this.matchClubHome.name} x ${this.matchClubAway.name}`;
         }
 
         get income() {
