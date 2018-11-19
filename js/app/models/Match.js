@@ -61,7 +61,7 @@ let Match = (function () {
         }
 
         get description() {
-            return `${this.matchClubHome.name} x ${this.matchClubAway.name}`;
+            return `${this.matchClubHome.club.name} x ${this.matchClubAway.club.name}`;
         }
 
         get income() {
@@ -77,9 +77,6 @@ let Match = (function () {
         }
 
         addClub(club, situation) {
-            if (club == null || this._matchClubIds.length === 2)
-                throw new Error('Match.addClub(club, situation)')
-
             let matchClub = MatchClub.create(this, club, situation);
             this._matchClubIds.push(matchClub.id);
 

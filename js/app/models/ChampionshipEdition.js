@@ -155,9 +155,6 @@ let ChampionshipEdition = (function () {
         scheduleMatches(dates) {
             this.dates = dates;
 
-            if (this._championshipEditionClubIds.length === 0 || this.dates == null)
-                throw new Error('ChampionshipEdition.scheduleMatches(dates)')
-
             switch (this.championship.championshipType.regulation) {
                 case 'elimination':
                     this._defineChampionshipEditionEliminationPhases();
@@ -172,8 +169,6 @@ let ChampionshipEdition = (function () {
                     this._defineChampionshipEditionFixtures();
                     this._scheduleMatchesRoundRobin();
                     break;
-                default:
-                    throw new Error('ChampionshipEdition.scheduleMatches(dates)');
             }
         }
 

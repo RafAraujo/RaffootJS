@@ -25,10 +25,6 @@ let Entity = (function () {
 
         selectMany(array) {
             let properties = array.split('.');
-
-            if (properties.length !== 2)
-                throw new RangeError('Entity.selectMany(array)');
-
             return this[properties[0]].map(c => c[properties[1]]).reduce((a, b) => a.concat(b));
         }
     }

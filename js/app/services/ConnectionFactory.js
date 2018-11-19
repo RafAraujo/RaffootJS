@@ -5,9 +5,6 @@ let ConnectionFactory = (function () {
     let close = null;
 
     return class ConnectionFactory {
-        constructor() {
-            throw new Error('ConnectionFactory.constructor');
-        }
 
         static _addDatabaseName(dbName) {
             let databases = ConnectionFactory.getDatabases();

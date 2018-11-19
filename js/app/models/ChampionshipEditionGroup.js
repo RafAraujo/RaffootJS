@@ -43,9 +43,6 @@ let ChampionshipEditionGroup = (function () {
         }
 
         addChampionshipEditionClub(championshipEditionClub) {
-            if (this._championshipEditionClubIds.length === GROUP_CLUB_COUNT)
-                throw new Error('ChampionshipEditionGroup.addClub(championshipEditionClub)');
-
             this._championshipEditionClubIds.push(championshipEditionClub.id);
         }
 

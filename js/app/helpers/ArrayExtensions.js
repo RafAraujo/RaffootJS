@@ -7,8 +7,6 @@ Array.prototype.distinct = function () {
 }
 
 Array.prototype.firstItems = function (count) {
-    if (count > this.length)
-        throw new RangeError('ArrayExtensions.firstItems(count)');
     return this.slice(0, count);
 }
 
@@ -17,9 +15,6 @@ Array.prototype.getRandom = function () {
 }
 
 Array.prototype.getRandomItems = function (count) {
-    if (count > this.length)
-        throw new RangeError('ArrayExtensions.getRandomItems(count)');
-
     return this.slice().shuffle().firstItems(count);
 }
 
@@ -28,8 +23,6 @@ Array.prototype.last = function () {
 }
 
 Array.prototype.lastItems = function (count) {
-    if (count > this.length)
-        throw new RangeError('ArrayExtensions.lastItems(count)');
     return this.slice(this.length - count);
 }
 

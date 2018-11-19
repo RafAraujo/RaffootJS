@@ -67,9 +67,6 @@ let Player = (function () {
             let min = (NATIONAL_MAX_DIVISION_COUNT - clubDivision) * 10;
             let max = Random.numberBetween(1, 5) === 5 ? 99 : 89 - (clubDivision - 1) * 10;
 
-            if (isNaN(min) || isNaN(max))
-                throw new Error('Player.randomOverall(clubDivision)');
-
             return Random.numberBetween(min, max);
         }
 
@@ -178,10 +175,6 @@ let Player = (function () {
 
         addContract(contract) {
             this._contractIds.push(contract.id);
-        }
-
-        addPlayerInjury(playerInjury) {
-            this._playerInjuries.push(playerInjury.id);
         }
 
         ableToPlay(championshipEdition) {

@@ -10,9 +10,6 @@ let Formation = (function () {
         }
 
         static create(name, fieldLocalizations) {
-            if (fieldLocalizations.length !== 11)
-                throw new RangeError('Formation.create(name, fieldLocalizations)');
-
             let formation = new Formation(name, fieldLocalizations.map(fl => fl.id));
             formation.id = _formations.push(formation);
             return formation;

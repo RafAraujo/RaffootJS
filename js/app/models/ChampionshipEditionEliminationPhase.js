@@ -72,9 +72,6 @@ let ChampionshipEditionEliminationPhase = (function() {
         }
 
         qualify(championshipEditionClubs) {
-            if (championshipEditionClubs.length !== this.clubCount)
-                throw new Error('ChampionshipEditionGroup.addClub(championshipEditionClubs)');
-
             this._championshipEditionClubIds = championshipEditionClubs.map(cec => cec.id);
             this._defineDuels();
         }
