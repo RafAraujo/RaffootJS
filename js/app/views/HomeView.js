@@ -28,13 +28,12 @@ class HomeView extends View {
     }
 
     _configLinks() {
-        document.querySelectorAll('header a:not(.dropdown-toggle)')
+        document.querySelectorAll('header a:not(.dropdown-toggle):not(.navbar-brand)')
             .forEach(link => link.addEventListener('click', event => {
                 event.preventDefault();
                 this.setActiveSection.call(this, link.getAttribute('href').substr(1));
                 $('.navbar-collapse').collapse('hide');
-            })
-            );
+            }));
     }
 
     update() {
