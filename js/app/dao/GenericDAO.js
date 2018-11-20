@@ -17,6 +17,18 @@ class GenericDAO {
         });
     }
 
+    addMany(entities) {
+        return new Promise((resolve, reject) => {
+
+            let transaction = this._connection.transaction(entities.map(e => e.store).distinct(), 'readwrite')
+            
+            transaction.oncomplete = () => resolve(entities);
+            transaction.onerror = error => reject(error);
+
+            entities.forEach(e => transaction.objectStore(e.store).add(e));
+        });
+    }
+
     update(entity) {
         return new Promise((resolve, reject) => {
 
@@ -31,29 +43,16 @@ class GenericDAO {
         });
     }
 
-    addMany(entities) {
+    
+    updateMany(entities) {
         return new Promise((resolve, reject) => {
 
-            let transaction = this._connection.transaction([entities[0].store], 'readwrite')
+            let transaction = this._connection.transaction(entities.map(e => e.store).distinct(), 'readwrite')
             
             transaction.oncomplete = () => resolve(entities);
             transaction.onerror = error => reject(error);
 
-            let store = entities[0].store;
-
-            entities.forEach(e => transaction.objectStore(store).add(e));
-        });
-    }
-
-    addAll(stores, entities) {
-        return new Promise((resolve, reject) => {
-
-            let transaction = this._connection.transaction(stores, 'readwrite')
-            
-            transaction.oncomplete = () => resolve(entities);
-            transaction.onerror = error => reject(error);
-
-            entities.forEach(e => transaction.objectStore(e.store).add(e));
+            entities.forEach(e => transaction.objectStore(e.store).put(e, e.id));
         });
     }
 

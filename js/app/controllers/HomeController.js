@@ -57,6 +57,8 @@ class HomeController {
             m.play();
         });
 
+        this._service.saveAsync(this._game);
+
         this._view.partialMatches.update();
         this._view.setActiveSection('matches');
         this._view.partialMatches.animation();

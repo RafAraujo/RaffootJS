@@ -9,7 +9,7 @@ let MatchClub = (function () {
             this._clubId = clubId;
             this.situation = situation;
             this._goals = null;
-            this._matchPlayersIds = [];
+            this.matchPlayers = [];
         }
 
         static create(match, club, situation) {
@@ -33,10 +33,6 @@ let MatchClub = (function () {
 
         get club() {
             return Club.all()[this._clubId - 1];
-        }
-
-        get matchPlayers() {
-            return MatchPlayer.all().filterById(this._matchPlayersIds);
         }
 
         get goalkeeper() {
@@ -68,7 +64,7 @@ let MatchClub = (function () {
         }
 
         arrangeTeam() {
-            this._matchPlayersIds = [];
+            this.matchPlayers = [];
             this.club.squad.starting11.forEach(sp => this.addMatchPlayer(sp));
         }
 
@@ -77,7 +73,7 @@ let MatchClub = (function () {
         }
 
         addMatchPlayer(squadPlayer) {
-            this._matchPlayersIds.push(MatchPlayer.create(this, squadPlayer).id);
+            this.matchPlayers.push(new MatchPlayer(this, squadPlayer));
         }
 
         regionOverall(fieldRegion) {

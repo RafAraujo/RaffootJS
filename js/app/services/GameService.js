@@ -5,7 +5,30 @@ class GameService {
         try {
             let connection = await ConnectionFactory.getConnection(gameName, true);
             let dao = new GenericDAO(connection);
-            await dao.addAll(Entity.stores(), Entity.all());
+            await dao.addMany(Entity.all());
+            ConnectionFactory.closeConnection();
+        }
+        catch (error) {
+            throw error;
+        }
+    }
+
+    async saveAsync(game) {
+        try {
+            let connection = await ConnectionFactory.getConnection(game.name, true);
+            let dao = new GenericDAO(connection);
+
+            let entities = [];
+            
+            entities = entities.concat(game.currentMatches);
+            entities = entities.concat(game.currentMatches.map(m => m.matchClubs).reduce((result, array) => result.concat(array)));
+            entities = entities.concat(game.currentMatches.map(m => m.championshipEdition).distinct().map(ce => ce.championshipEditionClubs).reduce((result, array) => result.concat(array)));
+            let clubs = game.currentMatches.map(m => m.clubs).reduce((result, array) => result.concat(array));
+            entities = entities.concat(clubs);
+            entities = entities.concat(clubs.map(c => c.squad));
+            entities = entities.concat(clubs.map(c => c.squad.squadPlayers).reduce((result, array) => result.concat(array)));
+
+            await dao.updateMany(entities);
             ConnectionFactory.closeConnection();
         }
         catch (error) {
