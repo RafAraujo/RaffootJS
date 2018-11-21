@@ -13,6 +13,7 @@ let Club = (function () {
             this.playable = false;
             this.initialDivision = initialDivision;
             this.money = 0;
+            this._trophies = [];
         }
 
         static create(name, country, clubColorsArray, stadiumName, initialDivision) {
@@ -411,6 +412,10 @@ let Club = (function () {
             return this.league.championship.division;
         }
 
+        get trophies() {
+            return ChampionshipEdition.all().filterById(this._trophies);
+        }
+
         async _generateSquadAsync() {
             try {
                 let formation = Formation.all().getRandom();
@@ -451,8 +456,8 @@ let Club = (function () {
             this.pay(this.squad.wage);
         }
 
-        addTrophie(championshipEdition) {
-            this.trophies.push(championshipEdition);
+        addTrophy(championshipEdition) {
+            this._trophies.push(championshipEdition.id);
         }
     }
 })();

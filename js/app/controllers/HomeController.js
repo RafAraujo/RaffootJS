@@ -52,10 +52,14 @@ class HomeController {
     }
 
     _play() {
+        let t0 = performance.now();
+
         this._game.currentMatches.forEach(m => {
             m.prepare();
             m.play();
         });
+
+        console.log('Call took ' + (performance.now() - t0) + ' milliseconds.');
 
         this._service.saveAsync(this._game);
 
