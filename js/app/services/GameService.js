@@ -21,12 +21,21 @@ class GameService {
             let entities = [];
             
             entities = entities.concat(game.currentMatches);
-            entities = entities.concat(game.currentMatches.map(m => m.matchClubs).reduce((result, array) => result.concat(array)));
-            entities = entities.concat(game.currentMatches.map(m => m.championshipEdition).distinct().map(ce => ce.championshipEditionClubs).reduce((result, array) => result.concat(array)));
+
+            let matchClubs = game.currentMatches.map(m => m.matchClubs).reduce((result, array) => result.concat(array));
+            entities = entities.concat(matchClubs);
+
+            let championshipEditionClubs = game.currentMatches.map(m => m.championshipEdition).distinct().map(ce => ce.championshipEditionClubs).reduce((result, array) => result.concat(array));
+            entities = entities.concat(championshipEditionClubs);
+            
             let clubs = game.currentMatches.map(m => m.clubs).reduce((result, array) => result.concat(array));
             entities = entities.concat(clubs);
             entities = entities.concat(clubs.map(c => c.squad));
-            entities = entities.concat(clubs.map(c => c.squad.squadPlayers).reduce((result, array) => result.concat(array)));
+            
+            let squadPlayers = clubs.map(c => c.squad.squadPlayers).reduce((result, array) => result.concat(array));
+            entities = entities.concat(squadPlayers);
+            entities = entities.concat(squadPlayers.map(sp => sp.player));
+            entities = entities.concat(squadPlayers.map(sp => sp.player.contract));
 
             await dao.updateMany(entities);
             ConnectionFactory.closeConnection();

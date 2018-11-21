@@ -47,7 +47,7 @@ let PlayersTable = (function () {
             },
             {
                 title: 'Contract End',
-                orderProperties: ['currentContract.endDate']
+                orderProperties: ['contract.endDate']
             },
             {
                 title: 'CON',
@@ -175,7 +175,7 @@ let PlayersTable = (function () {
                 Html.insertCell(tr, player.wage.toLocaleString(), 'text-right');
                 Html.insertCell(tr, player.marketValue.toLocaleString(), 'text-right');
                 Html.insertCell(tr, player.age, 'text-center');
-                Html.insertCell(tr, player.currentContract.endDate.toLocaleDateString(), 'text-center');
+                Html.insertCell(tr, player.contract.endDate.toLocaleDateString(), 'text-center');
                 Html.insertCell(tr, player.condition, 'text-center');
                 Html.insertCell(tr, player.forSale, 'text-center');
 
@@ -186,7 +186,7 @@ let PlayersTable = (function () {
                 this._formatSide(tr.children[4], player);
                 this._formatEnergy(tr.children[5], player.energy);
                 this._formatAge(tr.children[9], player.age);
-                this._formatContract(tr.children[10], player.currentContract);
+                this._formatContract(tr.children[10], player.contract);
                 this._formatCondition(tr.children[11], player.condition);
                 this._formatForSale(tr.children[12], player.forSale);
             });

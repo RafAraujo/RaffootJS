@@ -20,7 +20,7 @@ let Player = (function () {
             this.injuryProneness = injuryProneness;
             this.injuryTreatmentEnd = null;
             this._energy = 100;
-            this._contractIds = [];
+            this._contractId = null;
             this.forSale = false;
             this.ratings = [];
         }
@@ -141,24 +141,16 @@ let Player = (function () {
             return Player._calculateMarketValue(this.overall, this.star, this.age);
         }
 
-        get contracts() {
-            return Contract.all().filterById(this._contractIds);
+        get contract() {
+            return Contract.all()[this._contractId - 1];
         }
 
-        get inForceContracts() {
-            return this.contracts.filter(c => c.inForce);
-        }
-
-        get currentContract() {
-            return this.inForceContracts.last();
+        set contract(value) {
+            this._contractId = value.id;
         }
 
         get club() {
-            return this.currentContract.club;
-        }
-
-        get owner() {
-            return this.contracts.filter(c => c.inForce && c.type === 'definitive').last().destinationClub;
+            return this.contract.club;
         }
 
         get remainingMonthsOfContract() {
@@ -166,15 +158,11 @@ let Player = (function () {
         }
 
         get wage() {
-            return this.inForceContracts.last().wage;
+            return this.contract.wage;
         }
 
         get injuried() {
             return this.injuryTreatmentEnd > Season.current().currentDate;
-        }
-
-        addContract(contract) {
-            this._contractIds.push(contract.id);
         }
 
         ableToPlay(championshipEdition) {

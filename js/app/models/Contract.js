@@ -42,20 +42,9 @@ let Contract = (function () {
 
         sign() {
             this.club.pay(this.fee);
-
-            let previousContract = this.player.contracts.filter(c => c.inForce && c.type === 'definitive').last();
-            if (previousContract != null)
-                previousContract.revoke();
-
             this.club.squad.add(this.player);
-            this.player.addContract(this);
+            this.player.contract = this;
             this.inForce = true;
-        }
-
-        revoke() {
-            this.club.receive(this.fee);
-            this.club.squad.remove(this.player);
-            this.inForce = false;
         }
     }
 })();
