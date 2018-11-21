@@ -8,7 +8,7 @@ let Game = (function () {
             this.name = '';
             this._countryId = null;
             this._clubId = null;
-            this._coachId = null;
+            this.coach = '';
             this._seasonIds = [];
         }
 
@@ -82,14 +82,6 @@ let Game = (function () {
 
         set club(value) {
             this._clubId = value.id;
-        }
-
-        get coach() {
-            return Coach.all()[this._coachId - 1];
-        }
-
-        set coach(value) {
-            this._coachId = value.id;
         }
 
         get countries() {

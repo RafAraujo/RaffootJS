@@ -2,20 +2,19 @@ let Contract = (function () {
     let _contracts = [];
 
     return class Contract extends Entity {
-        constructor(clubId, playerId, type, fee, wage, beginDate, endDate) {
+        constructor(clubId, playerId, fee, wage, beginDate, endDate) {
             super();
 
             this._clubId = clubId;
             this._playerId = playerId;
-            this.type = type;
             this.fee = fee;
             this.wage = wage;
             this.beginDate = beginDate;
             this.endDate = endDate;
         }
 
-        static create(club, player, type, fee, wage, beginDate, endDate) {
-            let contract = new Contract(club.id, player.id, type, fee, wage, beginDate, endDate);
+        static create(club, player, fee, wage, beginDate, endDate) {
+            let contract = new Contract(club.id, player.id, fee, wage, beginDate, endDate);
             contract.id = _contracts.push(contract);
             return contract;
         }

@@ -9,7 +9,6 @@ let Club = (function () {
             this._countryId = countryId;
             this._clubColorsId = clubColorsId;
             this._stadiumId = stadiumId;
-            this._coachId = null;
             this._squadId = null;
             this.playable = false;
             this.initialDivision = initialDivision;
@@ -400,14 +399,6 @@ let Club = (function () {
             return Stadium.all()[this._stadiumId - 1];
         }
 
-        get coach() {
-            return Coach.all()[this._coachId - 1];
-        }
-
-        set coach(value) {
-            this._coachId = value.id;
-        }
-
         get squad() {
             return Squad.all()[this._squadId - 1];
         }
@@ -436,7 +427,7 @@ let Club = (function () {
                         let country = Random.number(10) < 9 ? this.country : Country.all().getRandom();
                         let position = positions.filter(p => p.fieldRegion === fieldRegion).getRandom();
                         let player = await Player.createAsync(country, year - Random.numberBetween(16, 38), position, this.initialDivision);
-                        let contract = Contract.create(this, player, 'definitive', 0, player.baseWage, date, date.addMonths(Random.numberBetween(6, 24)));
+                        let contract = Contract.create(this, player, 0, player.baseWage, date, date.addMonths(Random.numberBetween(6, 24)));
                         contract.sign();
                     }
                 }

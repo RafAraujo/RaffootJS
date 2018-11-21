@@ -37,7 +37,7 @@ class NewGameController {
     }
 
     _setCoach() {
-        this._game.coach = Coach.create(null, this._inputName.value);
+        this._game.coach = this._inputName.value;
     }
 
     _setName() {

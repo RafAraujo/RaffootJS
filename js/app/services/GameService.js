@@ -18,7 +18,7 @@ class GameService {
             let connection = await ConnectionFactory.getConnection(game.name, true);
             let dao = new GenericDAO(connection);
 
-            let entities = [];
+            let entities = [Season.current()];
             
             entities = entities.concat(game.currentMatches);
 
