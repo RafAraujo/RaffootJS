@@ -81,11 +81,7 @@ let MatchPlaying = (function () {
         }
 
         _energyDrain() {
-            this._players.forEach(p => {
-                p.energy -= p.age * 0.1;
-                if (p.energy < 0)
-                    p.energy = 0;
-            });
+            this._players.forEach(p => p.energy = Math.max(p.energy - p.age * 0.1, 0));
         }
 
         clubsAnalysis() {
