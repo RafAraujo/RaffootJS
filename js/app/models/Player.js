@@ -158,7 +158,7 @@ let Player = (function () {
         }
 
         rest(days) {
-            this.energy = Math.min(p.energy + days * 3, 100);
+            this.energy = Math.min(this.energy + days * 3, 100);
         }
 
         ableToPlay(championshipEdition) {
