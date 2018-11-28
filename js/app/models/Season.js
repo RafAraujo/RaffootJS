@@ -127,7 +127,7 @@ let Season = (function () {
         advanceDate() {
             let previousDate = this.currentDate;
             this._currentSeasonDateIndex++;
-            let days = Date.daysDiff(this.currentDate, previousDate);
+            let days = Date.daysDiff(previousDate, this.currentDate);
 
             Club.playable().forEach(club => {
                 club.squad.players.forEach(p => p.rest(days));

@@ -83,7 +83,7 @@ let ChampionshipEditionEliminationPhase = (function() {
         _defineDuels() {
             let championshipEditionClubs = this.championshipEditionClubs.slice().shuffle();
             
-            for (let i = 0; i < championshipEditionClubs.length; i = i + 2) {
+            for (let i = 0; i < championshipEditionClubs.length; i += 2) {
                 let clubs = championshipEditionClubs.slice(i, i + 2).map(cec => cec.club);
                 let matches = this.matches.slice(i, i + 2);
 

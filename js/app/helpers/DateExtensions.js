@@ -32,7 +32,7 @@ Date.calculateAge = (birth, currentDate) => {
 };
 
 Date.daysDiff = (d1, d2) => {
-    return Math.round((d2 - d1)/(1000 * 60 * 60 * 24));
+    return Math.round((d2 - d1) / (1000 * 60 * 60 * 24));
 };
 
 Date.monthsDiff = (d1, d2) => {
