@@ -221,9 +221,9 @@ let ChampionshipEdition = (function () {
             for (let i = 0; i < eliminationPhases.length; i++) {
                 let eliminationPhase = eliminationPhases[i];
 
-                for (let j = 0; j < eliminationPhase.clubCount; j = j + 2) {
+                for (let j = 0; j < eliminationPhase.clubCount; j += 2) {
                     for (let k = 0; k < (this.championship.twoLeggedTie ? 2 : 1); k++) {
-                        let date = this.eliminationPhaseDates[i + k];
+                        let date = this.eliminationPhaseDates[i * 2 + k];
 
                         let match = Match.create(this, date);
                         eliminationPhase.addMatch(match);

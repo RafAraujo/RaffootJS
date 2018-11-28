@@ -36,7 +36,7 @@ let Contract = (function () {
         }
 
         get remainingMonths() {
-            return Date.monthDiff(Season.current().currentDate, this.endDate);
+            return Date.monthsDiff(Season.current().currentDate, this.endDate);
         }
 
         sign() {

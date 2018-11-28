@@ -90,8 +90,8 @@ let ChampionshipEditionEliminationPhase = (function() {
                 for (let j = 0; j < 2; j++) {
                     let match = matches[j];
 
-                    match.addClub(clubs[0], j === 0 ? 'home' : 'away');
-                    match.addClub(clubs[1], j === 0 ? 'away' : 'home');
+                    match.addClub(clubs[0], j ? 'home' : 'away');
+                    match.addClub(clubs[1], j ? 'away' : 'home');
                 }
 
                 ChampionshipEditionEliminationPhaseDuel.create(this, matches);

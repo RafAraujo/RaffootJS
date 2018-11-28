@@ -23,8 +23,6 @@ class HomeView extends View {
         this.partialStadium = new _StadiumView(this._game);
         this.partialClubs = new _ClubsView(this._game);
         this.partialPlayers = new _PlayersView(this._game);
-
-        $(`#${this._modalPlayer.id}`).on('show.bs.modal', event => this._showPlayer($(event.relatedTarget).data('player-id')));
     }
 
     _configLinks() {
@@ -77,7 +75,7 @@ class HomeView extends View {
         scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     }
 
-    _showPlayer(id) {
+    showPlayer(id) {
         let player = Player.all()[id - 1];
 
         let title = this._modalPlayer.querySelector('.modal-title');

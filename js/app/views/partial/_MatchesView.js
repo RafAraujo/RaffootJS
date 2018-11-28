@@ -1,11 +1,14 @@
 class _MatchesView {
     constructor(game) {
         this._game = game;
-        this._matches = this._game.currentMatches.filter(m => m.championshipEdition.championship.country === this._game.club.country);
 
         this._divTime = document.getElementById('matches-time');
         this._divContent = document.getElementById('matches-content');
         this._table = this._divContent.querySelector('table');
+    }
+
+    get _matches() {
+        return this._game.currentMatches.filter(m => m.championshipEdition.championship.country === this._game.club.country);
     }
 
     update() {
@@ -24,8 +27,10 @@ class _MatchesView {
                 if (move.event)
                     this._showEvent(m, move.event);
             });
-            if (++currentTime > endTime)
+            if (++currentTime > endTime) {
                 clearInterval(interval);
+                $('#match-modal').modal();
+            }
         }, 200);
     }
 

@@ -3,13 +3,19 @@ class HomeController {
         this._buttonPlay = document.getElementById('play-matches');
         this._selectFormations = document.getElementById('play-formations');
         this._selectsPlayers = document.querySelectorAll('#play-starting11 tbody select');
+        this._modalMatch = document.getElementById('match-modal');
+        this._modalPlayer = document.getElementById('player-modal');
 
+        this._game = null;
         this._service = new GameService();
         this._view = new View();
 
         this._buttonPlay.addEventListener('click', this._play.bind(this));
         this._selectFormations.addEventListener('change', this._setFormation.bind(this));
         Array.from(this._selectsPlayers).forEach((select, index) => select.addEventListener('change', this._changeStarting11.bind(this, select, index)));
+        
+        $(`#${this._modalMatch.id}`).on('hidden.bs.modal', () => this._advanceDate());
+        $(`#${this._modalPlayer.id}`).on('show.bs.modal', event => this._view.showPlayer($(event.relatedTarget).data('player-id')));
     }
 
     get _gameName() {
@@ -66,5 +72,11 @@ class HomeController {
         this._view.partialMatches.update();
         this._view.setActiveSection('matches');
         this._view.partialMatches.animation();
+    }
+
+    _advanceDate() {
+        this._game.advanceDate();
+        this._view.update();
+        this._view.setActiveSection('squad');
     }
 }

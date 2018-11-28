@@ -184,7 +184,7 @@ let PlayersTable = (function () {
                 this._formatName(tr.children[2], player);
                 this._formatOverall(tr.children[3], player);
                 this._formatSide(tr.children[4], player);
-                this._formatEnergy(tr.children[5], player.energy);
+                this._formatEnergy(tr.children[5], new PlayerEnergy(player.energy));
                 this._formatAge(tr.children[9], player.age);
                 this._formatContract(tr.children[10], player.contract);
                 this._formatCondition(tr.children[11], player.condition);

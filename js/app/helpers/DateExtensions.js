@@ -31,7 +31,11 @@ Date.calculateAge = (birth, currentDate) => {
     return age;
 };
 
-Date.monthDiff = (d1, d2) => {
+Date.daysDiff = (d1, d2) => {
+    return Math.round((d2 - d1)/(1000 * 60 * 60 * 24));
+};
+
+Date.monthsDiff = (d1, d2) => {
     let months = (d2.getFullYear() - d1.getFullYear()) * 12;
     months -= d1.getMonth() + 1;
     months += d2.getMonth();

@@ -80,7 +80,7 @@ let Match = (function () {
             let matchClub = MatchClub.create(this, club, situation);
             this._matchClubIds.push(matchClub.id);
 
-            if (!this._stadiumId && matchClub.situation === 'home')
+            if (this._stadiumId == null && matchClub.situation === 'home')
                 this._stadiumId = matchClub.club.stadium.id;
         }
 

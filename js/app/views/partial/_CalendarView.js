@@ -8,7 +8,7 @@ class _CalendarView {
     update() {
         let tbody = this._table.querySelector('tbody');
 
-        for (let match of this._game.currentSeason.getMatchesByClub(this._game.club)) {
+        for (let match of this._game.matches) {
             let tr = tbody.insertRow();
 
             Html.insertCell(tr, match.date.toLocaleDateString(), 'text-center');

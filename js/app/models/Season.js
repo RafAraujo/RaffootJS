@@ -75,7 +75,7 @@ let Season = (function () {
             this.championshipEditions.forEach(ce => {
                 ce.defineClubs();
                 let dates = this._getSeasonDatesByChampionshipType(ce.championship.championshipType).map(sd => sd.date);
-                ce.scheduleMatches(dates);
+                ce.scheduleMatches(dates.lastItems(ce.championship.dateCount));
             });
         }
 
@@ -125,10 +125,12 @@ let Season = (function () {
         }
 
         advanceDate() {
+            let previousDate = this.currentDate;
             this._currentSeasonDateIndex++;
+            let days = Date.daysDiff(this.currentDate, previousDate);
 
             Club.playable().forEach(club => {
-                club.squad.rest();
+                club.squad.players.forEach(p => p.rest(days));
                 if (this._currentSeasonDateIndex > 0 && this.currentDate.getMonth() > this.previousSeasonDate.date.getMonth())
                     club.payWages();
             });
@@ -141,7 +143,7 @@ let Season = (function () {
         }
 
         getMatchesByClub(club) {
-            return this.matches.filter(m => m.matchClubs.map(mc => mc.club).includes(club));
+            return this.matches.filter(m => m.matchClubs.map(mc => mc.club).includes(club)).orderBy('date');;
         }
 
         nextMatch(club) {

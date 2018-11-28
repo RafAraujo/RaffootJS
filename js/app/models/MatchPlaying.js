@@ -20,11 +20,18 @@ let MatchPlaying = (function () {
             return this._attackingClub.opponent;
         }
 
+        get _players() {
+            return this._attackingClub.matchPlayers.concat(this._defendingClub.matchPlayers).map(mp => mp.player);
+        }
+
         play() {
             while (this._time <= 90) {
                 this.moves.push(this._nextMove());
                 this._time++;
+                if (this._time % 10 === 0)
+                    this._energyDrain();
             }
+            this._players.forEach(p => p.energy = Math.round(p.energy));
             this._match.finished = true;
         }
 
@@ -71,6 +78,14 @@ let MatchPlaying = (function () {
             }
 
             return move;
+        }
+
+        _energyDrain() {
+            this._players.forEach(p => {
+                p.energy -= p.age * 0.1;
+                if (p.energy < 0)
+                    p.energy = 0;
+            });
         }
 
         clubsAnalysis() {

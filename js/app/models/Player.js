@@ -19,7 +19,7 @@ let Player = (function () {
             this.condition = condition;
             this.injuryProneness = injuryProneness;
             this.injuryTreatmentEnd = null;
-            this._energy = 100;
+            this.energy = 100;
             this._contractId = null;
             this.forSale = false;
             this.ratings = [];
@@ -133,10 +133,6 @@ let Player = (function () {
             return Math.max(Player._calculateBaseWage(this.overall, this.star), Player.minimumWage());
         }
 
-        get energy() {
-            return new PlayerEnergy(this._energy);
-        }
-
         get marketValue() {
             return Player._calculateMarketValue(this.overall, this.star, this.age);
         }
@@ -153,16 +149,19 @@ let Player = (function () {
             return this.contract.club;
         }
 
-        get remainingMonthsOfContract() {
-            return Date.monthDiff(Season.current().currentDate, this.currentContract.endDate);
-        }
-
         get wage() {
             return this.contract.wage;
         }
 
         get injuried() {
             return this.injuryTreatmentEnd > Season.current().currentDate;
+        }
+
+        rest(days) {
+            this.energy += days * 3;
+
+            if (this.energy > 100)
+                this.energy = 100;
         }
 
         ableToPlay(championshipEdition) {

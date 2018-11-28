@@ -96,6 +96,10 @@ let Game = (function () {
             return this.seasons.last();
         }
 
+        get matches() {
+            return this.currentSeason.getMatchesByClub(this.club);
+        }
+
         get currentMatches() {
             return this.currentSeason.getMatchesByDate(this.currentSeason.currentDate);
         }

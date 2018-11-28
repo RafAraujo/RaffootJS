@@ -44,7 +44,7 @@ class _PlayView {
             this._formatFieldLocalization(tr.children[0], sp.fieldLocalization);
             this._formatSquadPlayer(tr.children[1], fieldLocalization);
             this._formatOverall(tr.children[2], sp);
-            this._formatEnergy(tr.children[1], sp.player.energy);
+            this._formatEnergy(tr.children[1], new PlayerEnergy(sp.player.energy));
             this._formatCondition(tr.children[3], sp.player.condition);
             this._formatStatus(tr.children[4], sp.player);
         });
