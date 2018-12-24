@@ -163,6 +163,7 @@ let Player = (function () {
 
         ableToPlay(championshipEdition) {
             // TO-DO
+            // Test
         }
     }
 })();
