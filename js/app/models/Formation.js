@@ -31,6 +31,7 @@ let Formation = (function () {
             Formation.create('4-2-2-2',        fl(['LCB ', 'RCB ', 'LB  ', 'RB  ', 'LCDM', 'RCDM', 'LCAM', 'RCAM', 'LST ', 'RST ']));
             Formation.create('4-2-3-1',        fl(['LCB ', 'RCB ', 'LB  ', 'RB  ', 'LCDM', 'RCDM', 'LCAM', 'CAM ', 'RCAM', 'CF  ']));
             Formation.create('4-2-3-1 (2)',    fl(['LCB ', 'RCB ', 'LB  ', 'RB  ', 'LCDM', 'RCDM', 'CM  ', 'LM  ', 'RM  ', 'CF  ']));
+            Formation.create('4-2-4',          fl(['LCB ', 'RCB ', 'LB  ', 'RB  ', 'LCM ', 'RCM ', 'LW  ', 'RW  ', 'LST ', 'RST ']));            
             Formation.create('4-3-1-2',        fl(['LCB ', 'RCB ', 'LB  ', 'RB  ', 'LCM ', 'CM  ', 'RCM ', 'CAM ', 'LST ', 'RST ']));
             Formation.create('4-3-2-1',        fl(['LCB ', 'RCB ', 'LB  ', 'RB  ', 'LCM ', 'CM  ', 'RCM ', 'LM  ', 'RM  ', 'CF  ']));
             
