@@ -69,11 +69,15 @@ let Match = (function () {
         }
 
         get score() {
-            return `${this.matchClubHome.goals} x ${this.matchClubAway.goals}`;
+            return this._formattedScore(this.matchClubHome, this.matchClubAway);
         }
 
         get scoreReverse() {
-            return `${this.matchClubAway.goals} x ${this.matchClubHome.goals}`;
+            return this._formattedScore(this.matchClubAway, this.matchClubHome);
+        }
+
+        _formattedScore(matchClub1, matchClub2) {
+            return this.finished ? `${matchClub1.goals} x ${matchClub2.goals}` : '';
         }
 
         addClub(club, situation) {

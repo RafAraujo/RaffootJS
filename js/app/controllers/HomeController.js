@@ -36,12 +36,23 @@ class HomeController {
             console.log('Call took ' + (performance.now() - t0) + ' milliseconds.');
             this._game = game;
             this._view = new HomeView(this._game);
-            this._view.update();
+            this.advanceToNextPlayingDate();
         }
         catch (error) {
             console.log(error);
             this._view.showMessage('Error on loading game', 'danger');
         }
+    }
+
+    advanceToNextPlayingDate() {
+        while (!this._game.currentClubs.includes(this._game.club)) {
+            this._playCurrentMatches();    
+            this._game.advanceDate();
+            this._service.saveAsync(this._game);
+        }
+
+        this._view.update();
+        this._view.setActiveSection('play');
     }
 
     _setFormation() {
@@ -57,7 +68,7 @@ class HomeController {
         this._view.partialPlay.update();
     }
 
-    _play() {
+    _playCurrentMatches() {
         let t0 = performance.now();
 
         this._game.currentMatches.forEach(m => {
@@ -66,9 +77,10 @@ class HomeController {
         });
 
         console.log('Call took ' + (performance.now() - t0) + ' milliseconds.');
+    }
 
-        this._service.saveAsync(this._game);
-
+    _play() {
+        this._playCurrentMatches();
         this._view.partialMatches.update();
         this._view.setActiveSection('matches');
         this._view.partialMatches.animation();
@@ -76,7 +88,8 @@ class HomeController {
 
     _advanceDate() {
         this._game.advanceDate();
-        this._view.update();
-        this._view.setActiveSection('squad');
+        this._service.saveAsync(this._game);
+        
+        this.advanceToNextPlayingDate();
     }
 }
